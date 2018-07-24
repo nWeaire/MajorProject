@@ -19,9 +19,17 @@ public class Movement : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        Vector2 stickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Move();
+
+        Dash();
+    }
+    void Move()
+    {
+        Vector2 stickInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         transform.Translate(stickInput * (Time.deltaTime * m_fSpeed));
     }
+    void Dash()
+    {
 
-
+    }
 }

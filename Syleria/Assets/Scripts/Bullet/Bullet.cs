@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour {
-
-    private float LifeSpan = 0.5f;
-    public float timer = 0.0f;
+    [SerializeField]
+    private float m_fLifeSpan = 0.5f;
+    private float m_fTimer = 0.0f;
 	// Use this for initialization
 	void Start () {
 		
@@ -14,9 +14,8 @@ public class Bullet : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        timer += Time.deltaTime;
-        if (LifeSpan <= timer)
+        m_fTimer += Time.deltaTime;
+        if (m_fLifeSpan <= m_fTimer)
             DestroyObject(this.gameObject);
-        transform.Translate(Vector2.up);
 	}
 }
