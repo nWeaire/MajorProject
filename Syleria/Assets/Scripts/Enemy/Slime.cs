@@ -23,6 +23,8 @@ public class Slime : Enemy
 
     public Vector2 m_v2Velocity;
 
+    public float m_fSpeed;
+
     private Vector2 Force;
 
     private bool m_bLeftHit;
@@ -36,15 +38,23 @@ public class Slime : Enemy
     {
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         // sets the layermask to 8 ("Terrain")
+
+
     }
-	
-	// Update is called once per frame
-	void Update()
+
+    // Update is called once per frame
+    void Update()
     {
+        Vector3 v3right = transform.right;
+        transform.right = transform.up;
+        transform.up = v3right;
+
         Vector3 v3LastPos;
         if (!m_bCannotMove)
         {
-            Seek();
+            
+            transform.position += transform.up * m_fSpeed * Time.deltaTime;
+
             v3LastPos = transform.position;
         }
         else
@@ -62,33 +72,30 @@ public class Slime : Enemy
         }
         AvoidObstacles();
 
-        transform.up = m_v2Velocity;
-
-        //Vector3 moveDirection = gameObject.transform.position - new Vector3;
-        //if (moveDirection != Vector3.zero)
-        //{
-        //    float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
-        //    transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        //}
-
-    }
-
-    private void FixedUpdate()
-    {
+        //float fDot = m_gPlayer.transform.position.x * transform.position.x + m_gPlayer.transform.position.y * transform.position.y;
     }
 
     // Seek Towards the Player
-    void Seek()
+    void Seek(Vector3 v3Target)
     {
-        // Move to the target
-        // Calculate Veloctity
-        m_v2Velocity = ((Vector2)m_gPlayer.transform.position - (Vector2)transform.position).normalized * m_fMaxVelocity;
-        Force = m_v2Velocity;
-        m_v2Velocity += Force * Time.deltaTime;
-        Vector2 pos = transform.position;
-        // move the AI to position + velocity
-        pos += m_v2Velocity * Time.deltaTime;
-        transform.position = pos;
+
+        Vector3 objectPos = transform.position;
+        v3Target.x = v3Target.x - objectPos.x;
+        v3Target.y = v3Target.y - objectPos.y;
+
+        float angle = Mathf.Atan2(v3Target.y, v3Target.x) * Mathf.Rad2Deg;
+        //Kinda works, however rotating instantly is not the wanted behaviour
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+        // Rotates on spot very fast, never seeks
+        //Vector3.RotateTowards(transform.position, new Vector3(0, 0, angle),5f,5f);
+
+        // Goes diagonally downwards whilst rotating back and forth
+        //Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, angle), 2f * Time.deltaTime);
+
+        // Goes diagonally downwards whilst rotating back and forth
+       // transform.Rotate(new Vector3(0, 0, angle * Time.deltaTime * 0.00001f));
+
     }
 
     public void AvoidObstacles()
@@ -98,7 +105,7 @@ public class Slime : Enemy
 
         int count = 0;
 
-        count = Physics2D.Raycast((Vector2)transform.position, m_v2Velocity, m_cfFilter, aHit, 2.0f);
+        count = Physics2D.Raycast((Vector2)transform.position, m_v2Velocity, m_cfFilter, aHit, 5.0f);
         
 
         if (count > 0)
@@ -111,7 +118,7 @@ public class Slime : Enemy
         }
 
         Vector2 leftR = (Vector2)transform.position;
-        count = Physics2D.Raycast((Vector2)m_gLeftFeeler.transform.position, m_v2Velocity, m_cfFilter, aHit, 2.0f);
+        count = Physics2D.Raycast((Vector2)m_gLeftFeeler.transform.position, m_v2Velocity, m_cfFilter, aHit, 5.0f);
 
         if (count > 0)
         {
@@ -123,7 +130,7 @@ public class Slime : Enemy
         }
 
         Vector2 rightR = (Vector2)transform.position;
-        count = Physics2D.Raycast((Vector2)m_gRightFeeler.transform.position,m_v2Velocity, m_cfFilter, aHit, 2.0f);
+        count = Physics2D.Raycast((Vector2)m_gRightFeeler.transform.position,m_v2Velocity, m_cfFilter, aHit, 5.0f);
 
         if (count > 0)
         {
@@ -143,17 +150,24 @@ public class Slime : Enemy
             }
         }
 
-        if(m_bLeftHit && m_bMiddleHit && !m_bRightHit)
+        // If the left feeler has been hit
+        if(m_bLeftHit)
         {
-            Debug.Log("go Right");
+            // Rotate towards the right feeler
+            Seek(m_gRightFeeler.transform.position);
+
         }
-        if(m_bRightHit && m_bMiddleHit && !m_bLeftHit)
+        // If the right feeler has been hit
+        if(m_bRightHit)
         {
-            Debug.Log("go left");
+            // Rotate towards the left feeler
+            Seek(m_gLeftFeeler.transform.position);
         }
-        if(m_bRightHit && m_bMiddleHit && m_bLeftHit)
+        // If all feelers are not hit
+        if(!m_bRightHit && !m_bMiddleHit && !m_bLeftHit)
         {
-            Debug.Log("Move Towards longest point");
+            // Rotate towards player
+            Seek(m_gPlayer.transform.position);
         }
 
     }
