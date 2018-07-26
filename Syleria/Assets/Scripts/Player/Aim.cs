@@ -17,9 +17,9 @@ public class Aim : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        stickInput = new Vector2(Input.GetAxisRaw("RightStickX"), Input.GetAxisRaw("RightStickY"));
+        stickInput = new Vector2(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY"));
 
-        if (stickInput.x != 0 || stickInput.y != 0)
+        if (stickInput.x >= 0.2f || stickInput.x <= -0.2f || stickInput.y >= 0.2f || stickInput.y <= -0.2f)
         {
             float angle = Mathf.Atan2(stickInput.x, stickInput.y) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, -angle));
