@@ -150,8 +150,8 @@ GameObject:
   - component: {fileID: 994923038}
   - component: {fileID: 994923037}
   - component: {fileID: 994923036}
-  - component: {fileID: 994923041}
   - component: {fileID: 994923042}
+  - component: {fileID: 994923041}
   m_Layer: 0
   m_Name: character
   m_TagString: Untagged
@@ -285,9 +285,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.010161161}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5079056
+  m_Radius: 0.5
 --- !u!50 &994923042
 Rigidbody2D:
   serializedVersion: 4
@@ -307,7 +307,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1001 &1188806206
 Prefab:
   m_ObjectHideFlags: 0

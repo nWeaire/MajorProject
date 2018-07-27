@@ -13,7 +13,8 @@ public class Movement : MonoBehaviour {
     [SerializeField]
     private float m_fDashDistance = 3;
 
-    public ContactFilter2D m_cfFilter;
+    [SerializeField]
+    private ContactFilter2D m_cfFilter;
 
     [SerializeField]
     private float m_fDashSpeed = 8;
@@ -30,7 +31,7 @@ public class Movement : MonoBehaviour {
 
     private Vector2 m_v2EndDashPos;
     private Vector2 m_v2StartDashPos;
-    // Use this for initialization
+    private Vector2 m_v2TempPos;
     void Start ()
     {
     }
@@ -38,6 +39,7 @@ public class Movement : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        m_v2TempPos = this.transform.position;
         m_v2StickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // Gets input of the left analog stick
         Move();
         Dash();
@@ -47,7 +49,8 @@ public class Movement : MonoBehaviour {
     {
         if (m_v2StickInput.x >= 0.1f || m_v2StickInput.x <= -0.1f || m_v2StickInput.y >= 0.1f || m_v2StickInput.y <= -0.1f) // Check if left analog stick is being used
         {
-            transform.Translate(m_v2StickInput * (Time.deltaTime * m_fSpeed));
+                //transform.Translate(m_v2StickInput * (Time.deltaTime * m_fSpeed));
+            GetComponent<Rigidbody2D>().MovePosition((Vector2)this.transform.position + (m_v2StickInput * (Time.deltaTime * m_fSpeed)));
         }
     }
 
@@ -58,7 +61,18 @@ public class Movement : MonoBehaviour {
         if (Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash)
         {
             m_bIsDashing = true;
-            m_v2EndDashPos = (Vector2)this.transform.position + (m_v2DashInput * m_fDashDistance);
+            int count = 0;
+            RaycastHit2D[] Hit = new RaycastHit2D[1];
+            count = Physics2D.Raycast(this.transform.position, m_v2DashInput, m_cfFilter, Hit, m_fDashDistance);
+            if (count > 0)
+            {
+                m_v2EndDashPos.x = Hit[0].point.x - (m_v2DashInput.x * 0.5f);
+                m_v2EndDashPos.y = Hit[0].point.y - (m_v2DashInput.y * 0.5f);
+            }
+            else
+            {
+              m_v2EndDashPos = (Vector2)this.transform.position + (m_v2DashInput * m_fDashDistance);
+            }
             m_v2StartDashPos = this.transform.position;
         }
         if (m_bIsDashing)
