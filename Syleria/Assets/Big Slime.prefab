@@ -53,6 +53,7 @@ GameObject:
   - component: {fileID: 114429565716678994}
   - component: {fileID: 50386434318302942}
   - component: {fileID: 58125035560186378}
+  - component: {fileID: 58962745061489736}
   m_Layer: 0
   m_Name: Big Slime
   m_TagString: Untagged
@@ -79,15 +80,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1884396772128378}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.74, y: 1.1, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.32490626, w: 0.94574624}
+  m_LocalPosition: {x: -5.59, y: -3.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4428024645836538}
   - {fileID: 4196067136112998}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 37.920002}
 --- !u!4 &4428024645836538
 Transform:
   m_ObjectHideFlags: 1
@@ -136,6 +137,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.64
+--- !u!58 &58962745061489736
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1884396772128378}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.64
 --- !u!114 &114429565716678994
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -149,7 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_nHealth: 0
   m_nDamage: 0
-  m_fSpeed: 1
+  m_fMaxVelocity: 0
   m_gPlayer: {fileID: 0}
   m_bBigSlime: 1
   m_goSmallSlime: {fileID: 1986857641011166, guid: f7b0b487ad13d2542a34307a7099a986,
@@ -171,6 +187,8 @@ MonoBehaviour:
     maxNormalAngle: 0
   m_gLeftFeeler: {fileID: 1042625438132998}
   m_gRightFeeler: {fileID: 1250307917451270}
+  m_v2Velocity: {x: 0, y: 0}
+  m_fSpeed: 3.89
 --- !u!212 &212210747989599620
 SpriteRenderer:
   m_ObjectHideFlags: 1
