@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour {
 
+    enum MoveDirection{UP, DOWN, LEFT, RIGHT };
+
+
     [SerializeField]
     private float m_fSpeed = 5;
 
@@ -31,7 +34,11 @@ public class Movement : MonoBehaviour {
 
     private Vector2 m_v2EndDashPos;
     private Vector2 m_v2StartDashPos;
-    private Vector2 m_v2TempPos;
+
+    private MoveDirection dir = MoveDirection.LEFT;
+
+    RaycastHit2D[] m_rHit = new RaycastHit2D[1];
+    private int m_nCount = 0;
     void Start ()
     {
     }
@@ -39,18 +46,41 @@ public class Movement : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        m_v2TempPos = this.transform.position;
-        m_v2StickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // Gets input of the left analog stick
         Move();
+        Direction();
         Dash();
     }
 
+    void Direction()
+    {
+        if(m_v2StickInput.x > 0.1f && m_v2StickInput.y > -0.5f && m_v2StickInput.y < 0.5f)
+        {
+            dir = MoveDirection.RIGHT;
+        }
+        else if(m_v2StickInput.x < -0.1f && m_v2StickInput.y > -0.5f && m_v2StickInput.y < 0.5f)
+        {
+            dir = MoveDirection.LEFT;
+        }
+        else if(m_v2StickInput.y > 0.1f && m_v2StickInput.x > -0.5f && m_v2StickInput.x < 0.5f)
+        {
+            dir = MoveDirection.UP;
+        }
+        else if (m_v2StickInput.y < -0.1f && m_v2StickInput.x > -0.5f && m_v2StickInput.x < 0.5f)
+        {
+            dir = MoveDirection.DOWN;
+        }
+        else
+        {
+            Debug.Log(dir);
+        }
+    }
     void Move()
     {
+        m_v2StickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // Gets input of the left analog stick
         if (m_v2StickInput.x >= 0.1f || m_v2StickInput.x <= -0.1f || m_v2StickInput.y >= 0.1f || m_v2StickInput.y <= -0.1f) // Check if left analog stick is being used
         {
                 //transform.Translate(m_v2StickInput * (Time.deltaTime * m_fSpeed));
-            GetComponent<Rigidbody2D>().MovePosition((Vector2)this.transform.position + (m_v2StickInput * (Time.deltaTime * m_fSpeed)));
+            GetComponent<Rigidbody2D>().MovePosition((Vector2)this.transform.position + (m_v2StickInput.normalized * (Time.deltaTime * m_fSpeed)));
         }
     }
 
@@ -58,7 +88,10 @@ public class Movement : MonoBehaviour {
     {
         m_v2DashInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); // Gets input of the left analog stick
         m_v2DashInput.Normalize();
-        if (Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash)
+        if (Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.x > 0.1f ||
+            Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.x < -0.1f ||
+            Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.y > 0.1f ||
+            Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.y < -0.1f)
         {
             m_bIsDashing = true;
             int count = 0;
@@ -74,6 +107,78 @@ public class Movement : MonoBehaviour {
               m_v2EndDashPos = (Vector2)this.transform.position + (m_v2DashInput * m_fDashDistance);
             }
             m_v2StartDashPos = this.transform.position;
+        }
+        else if
+           (Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.x < 0.1f ||
+            Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.x > -0.1f ||
+            Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.y < 0.1f ||
+            Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.y > -0.1f)
+        {
+            switch (dir)
+            {
+                case MoveDirection.UP:
+                    m_bIsDashing = true;
+                    m_nCount = 0;
+                    m_nCount = Physics2D.Raycast(this.transform.position, Vector2.up , m_cfFilter, m_rHit, m_fDashDistance);
+                    if (m_nCount > 0)
+                    {
+                        m_v2EndDashPos.x = m_rHit[0].point.x - (Vector2.up.x * 0.5f);
+                        m_v2EndDashPos.y = m_rHit[0].point.y - (Vector2.up.y * 0.5f);
+                    }
+                    else
+                    {
+                        m_v2EndDashPos = (Vector2)this.transform.position + (Vector2.up * m_fDashDistance);
+                    }
+                    m_v2StartDashPos = this.transform.position;
+                    break;
+                case MoveDirection.DOWN:
+                    m_bIsDashing = true;
+                    m_nCount = 0;
+                    m_nCount = Physics2D.Raycast(this.transform.position, Vector2.down, m_cfFilter, m_rHit, m_fDashDistance);
+                    if (m_nCount > 0)
+                    {
+                        m_v2EndDashPos.x = m_rHit[0].point.x - (Vector2.down.x * 0.5f);
+                        m_v2EndDashPos.y = m_rHit[0].point.y - (Vector2.down.y * 0.5f);
+                    }
+                    else
+                    {
+                        m_v2EndDashPos = (Vector2)this.transform.position + (Vector2.down * m_fDashDistance);
+                    }
+                    m_v2StartDashPos = this.transform.position;
+                    break;
+                case MoveDirection.LEFT:
+                    m_bIsDashing = true;
+                    m_nCount = 0;
+                    m_nCount = Physics2D.Raycast(this.transform.position, Vector2.left, m_cfFilter, m_rHit, m_fDashDistance);
+                    if (m_nCount > 0)
+                    {
+                        m_v2EndDashPos.x = m_rHit[0].point.x - (Vector2.left.x * 0.5f);
+                        m_v2EndDashPos.y = m_rHit[0].point.y - (Vector2.left.y * 0.5f);
+                    }
+                    else
+                    {
+                        m_v2EndDashPos = (Vector2)this.transform.position + (Vector2.left * m_fDashDistance);
+                    }
+                    m_v2StartDashPos = this.transform.position;
+                    break;
+                case MoveDirection.RIGHT:
+                    m_bIsDashing = true;
+                    m_nCount = 0;
+                    m_nCount = Physics2D.Raycast(this.transform.position, Vector2.right, m_cfFilter, m_rHit, m_fDashDistance);
+                    if (m_nCount > 0)
+                    {
+                        m_v2EndDashPos.x = m_rHit[0].point.x - (Vector2.right.x * 0.5f);
+                        m_v2EndDashPos.y = m_rHit[0].point.y - (Vector2.right.y * 0.5f);
+                    }
+                    else
+                    {
+                        m_v2EndDashPos = (Vector2)this.transform.position + (Vector2.right * m_fDashDistance);
+                    }
+                    m_v2StartDashPos = this.transform.position;
+                    break;
+                default:
+                    break;
+            }
         }
         if (m_bIsDashing)
         {

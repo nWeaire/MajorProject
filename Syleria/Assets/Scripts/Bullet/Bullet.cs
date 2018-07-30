@@ -14,8 +14,11 @@ public class Bullet : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+
         m_fTimer += Time.deltaTime;
         if (m_fLifeSpan <= m_fTimer)
             DestroyObject(this.gameObject);
 	}
+
+
 }

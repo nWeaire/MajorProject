@@ -99,12 +99,12 @@ public class Slime : Enemy
         }
         else if (rightDot > 0) // rotate right as D is on the right.
         {
-            transform.Rotate(Vector3.back * (90f * Time.deltaTime));
+            transform.Rotate(Vector3.back * (180f * Time.deltaTime));
             Debug.Log("Right");
         }
         else if(rightDot < 0) // rotate left as D is on the Left
         {
-            transform.Rotate(Vector3.forward * (90f * Time.deltaTime));
+            transform.Rotate(Vector3.forward * (180f * Time.deltaTime));
             Debug.Log("Left");
         }
 

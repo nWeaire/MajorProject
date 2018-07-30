@@ -148,13 +148,12 @@ GameObject:
   - component: {fileID: 994923040}
   - component: {fileID: 994923039}
   - component: {fileID: 994923038}
-  - component: {fileID: 994923037}
   - component: {fileID: 994923036}
   - component: {fileID: 994923042}
   - component: {fileID: 994923041}
   m_Layer: 0
   m_Name: character
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -170,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4850659749eb0247b565176b6863699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fSpeed: 8
+  m_fSpeed: 10
   m_fDashDistance: 4
   m_cfFilter:
     useTriggers: 0
@@ -189,21 +188,6 @@ MonoBehaviour:
   m_fDashSpeed: 10
   m_fDashCDTimer: 0
   m_fDashCD: 0.5
---- !u!114 &994923037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 994923035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca2a9b316642ddb469a40bc976aa7da8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_gBullet: {fileID: 1668811833332258, guid: 2e8e59384786f9944b5f17859551106a, type: 2}
-  m_fBulletSpeed: 1000
-  m_v3Aim: {x: 0, y: 0, z: 0}
-  m_fFireRate: 0.05
 --- !u!114 &994923038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,7 +255,7 @@ Transform:
   m_Children:
   - {fileID: 1669129606}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &994923041
 CircleCollider2D:
@@ -345,7 +329,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4471581571745740, guid: 7bb2a86a5c6c58840a29487eb01f910e, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 61151031589129838, guid: 7bb2a86a5c6c58840a29487eb01f910e,
         type: 2}
@@ -454,6 +438,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784391a383470a048959bf6fe1a94aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_gBullet: {fileID: 1668811833332258, guid: 2e8e59384786f9944b5f17859551106a, type: 2}
+  m_fBulletSpeed: 1000
+  m_v3Aim: {x: 0, y: 0, z: 0}
+  m_fFireRate: 0.2
   stickInput: {x: 0, y: 0}
 --- !u!1 &2092077750
 GameObject:
