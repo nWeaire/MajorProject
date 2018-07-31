@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 994923038}
   - component: {fileID: 994923036}
   - component: {fileID: 994923042}
+  - component: {fileID: 994923037}
   - component: {fileID: 994923041}
   m_Layer: 0
   m_Name: character
@@ -170,6 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fSpeed: 10
+  m_v2StickInput: {x: 0, y: 0}
   m_fDashDistance: 4
   m_cfFilter:
     useTriggers: 0
@@ -188,6 +190,21 @@ MonoBehaviour:
   m_fDashSpeed: 10
   m_fDashCDTimer: 0
   m_fDashCD: 0.5
+--- !u!70 &994923037
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 994923035}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.9218545}
+  m_Size: {x: 1.28, y: 3.1237087}
+  m_Direction: 0
 --- !u!114 &994923038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,7 +288,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.64
 --- !u!50 &994923042
 Rigidbody2D:
   serializedVersion: 4
