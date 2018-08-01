@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-    GameObject m_oPlayer;
+    private GameObject m_oPlayer;
+    private Vector2 m_v2StartPos;
 
 	// Use this for initialization
 	void Start ()
     {
         m_oPlayer = GameObject.FindGameObjectWithTag("Player");
+        m_v2StartPos = this.transform.position;
 	}
 	
 	// Update is called once per frame
@@ -34,7 +36,7 @@ public class Bullet : MonoBehaviour {
 
     void CheckRange()
     {
-        if(Vector2.Distance(this.transform.position, m_oPlayer.transform.position) >= m_oPlayer.GetComponent<Player>().GetRange())
+        if(Vector2.Distance(this.transform.position, m_v2StartPos) >= m_oPlayer.GetComponent<Player>().GetRange())
         {
             Destroy(this.gameObject);
         }
