@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212508175955866226}
   - component: {fileID: 50162346929804998}
   - component: {fileID: 114091276332177978}
+  - component: {fileID: 58765800028144082}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1668811833332258}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -6.3542686, y: -1.4889152, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -62,6 +63,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &58765800028144082
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1668811833332258}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.18
 --- !u!114 &114091276332177978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -73,7 +89,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c09a0e3e28011e4d85ede6d745149f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fLifeSpan: 1
 --- !u!212 &212508175955866226
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -142,7 +142,6 @@ public class Slime : Enemy
             m_bMiddleHit = false;
         }
 
-        Vector2 leftR = (Vector2)transform.position;
         count = Physics2D.Raycast((Vector2)m_gLeftFeeler.transform.position, transform.up, m_cfFilter, aHit, 5.0f);
 
         if (count > 0)
@@ -154,7 +153,6 @@ public class Slime : Enemy
             m_bLeftHit = false;
         }
 
-        Vector2 rightR = (Vector2)transform.position;
         count = Physics2D.Raycast((Vector2)m_gRightFeeler.transform.position, transform.up, m_cfFilter, aHit, 5.0f);
 
         if (count > 0)

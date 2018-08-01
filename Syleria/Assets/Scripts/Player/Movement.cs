@@ -10,7 +10,7 @@ public class Movement : MonoBehaviour {
     [SerializeField]
     private float m_fSpeed = 5;
 
-    public Vector2 m_v2StickInput;
+    private Vector2 m_v2StickInput;
     private Vector2 m_v2DashInput;
 
     [SerializeField]
