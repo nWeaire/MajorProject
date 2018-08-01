@@ -10,33 +10,28 @@ public class Aim : MonoBehaviour
     [SerializeField]
     private float m_fBulletSpeed = 10;
 
-    [SerializeField]
     private Vector3 m_v3Aim;
 
     [SerializeField]
-    private float m_fFireRate = 0.2f;
+    private float m_ShotsPerSecond = 5;
+
+    private float m_fFireRate;
 
     private float m_fTimeBetweenShots = 0;
 
-    public Vector2 stickInput;
+    private Vector2 stickInput;
 
 	// Use this for initialization
 	void Start ()
     {
         m_fTimeBetweenShots = m_fFireRate;
-
     }
 
     // Update is called once per frame
     void Update ()
     {
-        stickInput = new Vector2(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY"));
-
-        if (stickInput.x >= 0.2f || stickInput.x <= -0.2f || stickInput.y >= 0.2f || stickInput.y <= -0.2f)
-        {
-            float angle = Mathf.Atan2(stickInput.x, stickInput.y) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, -angle));
-        }
+        m_fFireRate = 60.0f / (m_ShotsPerSecond * 60.0f);
+        Rotate();
         Shoot();
     }
 
@@ -64,5 +59,15 @@ public class Aim : MonoBehaviour
 
         }
 
+    }
+    void Rotate()
+    {
+        stickInput = new Vector2(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY"));
+
+        if (stickInput.x >= 0.2f || stickInput.x <= -0.2f || stickInput.y >= 0.2f || stickInput.y <= -0.2f)
+        {
+            float angle = Mathf.Atan2(stickInput.x, stickInput.y) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, -angle));
+        }
     }
 }

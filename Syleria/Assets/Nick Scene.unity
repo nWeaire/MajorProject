@@ -457,9 +457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_gBullet: {fileID: 1668811833332258, guid: 2e8e59384786f9944b5f17859551106a, type: 2}
   m_fBulletSpeed: 1000
-  m_v3Aim: {x: 0, y: 0, z: 0}
-  m_fFireRate: 0.2
-  stickInput: {x: 0, y: 0}
+  m_ShotsPerSecond: 2
 --- !u!1 &2092077750
 GameObject:
   m_ObjectHideFlags: 0
