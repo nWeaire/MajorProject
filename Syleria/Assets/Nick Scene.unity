@@ -220,7 +220,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -312,7 +312,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &874978777
 GameObject:
@@ -344,7 +344,7 @@ RectTransform:
   m_Children:
   - {fileID: 1283060106}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -440,7 +440,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4850659749eb0247b565176b6863699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fSpeed: 10
   m_fDashDistance: 4
   m_cfFilter:
     useTriggers: 0
@@ -457,8 +456,8 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   m_fDashSpeed: 10
-  m_fDashCDTimer: 0
   m_fDashCD: 0.5
+  m_fDashCDTimer: 0
 --- !u!70 &994923037
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -489,6 +488,8 @@ MonoBehaviour:
   m_nCurrentHealth: 0
   m_nMaxHealth: 100
   m_nRange: 10
+  m_nFireRate: 2
+  m_fSpeed: 10
 --- !u!212 &994923039
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -544,8 +545,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1669129606}
+  - {fileID: 2092077754}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &994923041
 CircleCollider2D:
@@ -619,7 +621,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4471581571745740, guid: 7bb2a86a5c6c58840a29487eb01f910e, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 61151031589129838, guid: 7bb2a86a5c6c58840a29487eb01f910e,
         type: 2}
@@ -674,9 +676,9 @@ RectTransform:
   m_Father: {fileID: 874978778}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -93.120895, y: 209.62457}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 101, y: -20.375427}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1283060107
@@ -860,7 +862,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9818c464643f1fe439a53bd32e8124c4, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.391}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -882,7 +884,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_gBullet: {fileID: 1668811833332258, guid: 2e8e59384786f9944b5f17859551106a, type: 2}
   m_fBulletSpeed: 1000
-  m_ShotsPerSecond: 2
 --- !u!1 &1785348500
 GameObject:
   m_ObjectHideFlags: 0
@@ -958,7 +959,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 0.8455882, g: 0.8455882, b: 0.8455882, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -969,7 +970,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -991,10 +992,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2092077750}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_Father: {fileID: 994923040}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

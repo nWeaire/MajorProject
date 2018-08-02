@@ -4,35 +4,42 @@ using UnityEngine;
 
 public class Aim : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject m_gBullet;
+    [SerializeField] private GameObject m_gBullet;
+    [SerializeField] private float m_fBulletSpeed = 1000;
 
-    [SerializeField]
-    private float m_fBulletSpeed = 10;
-
+    private GameObject m_oPlayer;
     private Vector3 m_v3Aim;
-
-    [SerializeField]
-    private float m_ShotsPerSecond = 5;
+    private Vector2 stickInput;
 
     private float m_fFireRate;
-
     private float m_fTimeBetweenShots = 0;
-
-    private Vector2 stickInput;
+    private float m_fAngle;
 
 	// Use this for initialization
 	void Start ()
     {
+        m_oPlayer = GameObject.FindGameObjectWithTag("Player");
+        m_fFireRate = 60.0f / (m_oPlayer.GetComponent<Player>().GetFireRate() * 60.0f);
         m_fTimeBetweenShots = m_fFireRate;
     }
 
     // Update is called once per frame
     void Update ()
     {
-        m_fFireRate = 60.0f / (m_ShotsPerSecond * 60.0f);
+        m_fFireRate = 60.0f / (m_oPlayer.GetComponent<Player>().GetFireRate() * 60.0f);
         Rotate();
         Shoot();
+    }
+
+    void Rotate()
+    {
+        stickInput = new Vector2(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY"));
+
+        if (stickInput.x >= 0.2f || stickInput.x <= -0.2f || stickInput.y >= 0.2f || stickInput.y <= -0.2f)
+        {
+            m_fAngle = Mathf.Atan2(stickInput.x, stickInput.y) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, -m_fAngle));
+        }
     }
 
     void Shoot()
@@ -49,7 +56,7 @@ public class Aim : MonoBehaviour
             Debug.DrawRay(this.transform.position, this.transform.up);
             if (m_fTimeBetweenShots >= m_fFireRate)
             {
-                GameObject newBullet = Instantiate(m_gBullet, this.transform.position + this.transform.up, Quaternion.Euler(m_v3Aim)) as GameObject;
+                GameObject newBullet = Instantiate(m_gBullet, this.transform.position + this.transform.up, Quaternion.Euler(0, 0, -m_fAngle)) as GameObject;
                 newBullet.GetComponent<Rigidbody2D>().AddForce(this.transform.up * m_fBulletSpeed);
                 m_fTimeBetweenShots = 0;
             }
@@ -60,14 +67,5 @@ public class Aim : MonoBehaviour
         }
 
     }
-    void Rotate()
-    {
-        stickInput = new Vector2(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY"));
 
-        if (stickInput.x >= 0.2f || stickInput.x <= -0.2f || stickInput.y >= 0.2f || stickInput.y <= -0.2f)
-        {
-            float angle = Mathf.Atan2(stickInput.x, stickInput.y) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, -angle));
-        }
-    }
 }

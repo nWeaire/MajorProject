@@ -22,16 +22,15 @@ public class Bullet : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 8)
-        {
-            Destroy(this.gameObject);
-        }
+     
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-
+        if (collision.gameObject.layer == 8)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     void CheckRange()
