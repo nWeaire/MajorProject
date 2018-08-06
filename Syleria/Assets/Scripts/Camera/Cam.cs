@@ -6,7 +6,9 @@ public class Cam : MonoBehaviour {
 
     private GameObject m_oPlayer;
 
-    [SerializeField] private float m_fVertOffSet = 10.0f;
+    [SerializeField] private float m_fSpeed;
+
+    //[SerializeField] private float m_fVertOffSet = 10.0f;
 
 	// Use this for initialization
 	void Start ()
@@ -15,8 +17,8 @@ public class Cam : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
     {
-        this.transform.position = m_oPlayer.transform.position + new Vector3(0, 0, -m_fVertOffSet);
-	}
+        transform.position = Vector3.Lerp(transform.position, new Vector3(m_oPlayer.transform.position.x, m_oPlayer.transform.position.y, this.transform.position.z), m_fSpeed);
+    }
 }

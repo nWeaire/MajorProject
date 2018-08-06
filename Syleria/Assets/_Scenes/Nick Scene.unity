@@ -383,7 +383,7 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1001 &1190322275
+--- !u!1001 &1077795664
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -422,7 +422,28 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114774459013539560, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+        type: 2}
+      propertyPath: m_gShield
+      value: 
+      objectReference: {fileID: 1524668724}
+    - target: {fileID: 1805646289241786, guid: cb2b31551868fea4b9a649f7dc4bff3d, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212228563579340714, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 58720255899350924, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114774459013539560, guid: cb2b31551868fea4b9a649f7dc4bff3d, type: 2}
+    - {fileID: 114617841102264552, guid: cb2b31551868fea4b9a649f7dc4bff3d, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: cb2b31551868fea4b9a649f7dc4bff3d, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1283060105
@@ -559,6 +580,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &1524668724 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1805646289241786, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1077795664}
+--- !u!114 &1524668728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1524668724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d8495e23bb5edf409f73211dd27c7df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShieldDuration: 2
 --- !u!1001 &1560995060
 Prefab:
   m_ObjectHideFlags: 0
