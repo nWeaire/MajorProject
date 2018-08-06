@@ -10,7 +10,13 @@ public class Movement : MonoBehaviour {
     [SerializeField] private ContactFilter2D m_cfFilter;
     [SerializeField] private float m_fDashSpeed = 8;
     [SerializeField] private float m_fDashCD = 0.5f;
+    [SerializeField] private Sprite m_sprFront;
+    [SerializeField] private Sprite m_sprBack;
+    [SerializeField] private Sprite m_sprSide;
+    [SerializeField] private GameObject m_gSprite;
+
     private GameObject m_gPlayer;
+    
 
     private bool m_bIsDashing = false;
     private float m_fDashTimer = 0;
@@ -22,6 +28,7 @@ public class Movement : MonoBehaviour {
     private Vector2 m_v2DashInput;
     private Vector2 m_v2EndDashPos;
     private Vector2 m_v2StartDashPos;
+    private MoveDirection tempDir;
 
     private float m_fSpeed;
     private MoveDirection dir = MoveDirection.LEFT;
@@ -35,9 +42,15 @@ public class Movement : MonoBehaviour {
 	void Update ()
     {
         m_fSpeed = m_gPlayer.GetComponent<Player>().GetMoveSpeed();
+        tempDir = dir;
         Move();
         Direction();
         Dash();
+        if (dir != tempDir)
+        {
+            UpdateModel();
+        }
+
     }
 
     void Direction()
@@ -194,6 +207,28 @@ public class Movement : MonoBehaviour {
             {
                 m_bDash = true;
             }
+        }
+    }
+    public void UpdateModel()
+    {
+        switch (dir)
+        {
+            case MoveDirection.UP:
+                m_gSprite.GetComponent<SpriteRenderer>().sprite = m_sprBack;
+                break;
+            case MoveDirection.DOWN:
+                m_gSprite.GetComponent<SpriteRenderer>().sprite = m_sprFront;
+                break;
+            case MoveDirection.LEFT:
+                m_gSprite.GetComponent<SpriteRenderer>().sprite = m_sprSide;
+                m_gSprite.GetComponent<SpriteRenderer>().flipX = true;
+                break;
+            case MoveDirection.RIGHT:
+                m_gSprite.GetComponent<SpriteRenderer>().sprite = m_sprSide;
+                m_gSprite.GetComponent<SpriteRenderer>().flipX = false;
+                break;
+            default:
+                break;
         }
     }
 }

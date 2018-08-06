@@ -441,6 +441,44 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114565245224742756, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+        type: 2}
+      propertyPath: m_sprBack
+      value: 
+      objectReference: {fileID: 21300000, guid: 96423c86c4f118e4fb3bb662d330ff11,
+        type: 3}
+    - target: {fileID: 114565245224742756, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+        type: 2}
+      propertyPath: m_sprFront
+      value: 
+      objectReference: {fileID: 21300000, guid: 1ffeb72ad3a41354ab894636b1d907ed,
+        type: 3}
+    - target: {fileID: 114565245224742756, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+        type: 2}
+      propertyPath: m_sprSide
+      value: 
+      objectReference: {fileID: 21300000, guid: 78fbb91aa9ee2394ab54b59a33c5d9c5,
+        type: 3}
+    - target: {fileID: 114565245224742756, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+        type: 2}
+      propertyPath: m_gSprite
+      value: 
+      objectReference: {fileID: 1443973767}
+    - target: {fileID: 20853128465354288, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+        type: 2}
+      propertyPath: m_BackGroundColor.r
+      value: 0.33088237
+      objectReference: {fileID: 0}
+    - target: {fileID: 20853128465354288, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+        type: 2}
+      propertyPath: m_BackGroundColor.g
+      value: 0.17114605
+      objectReference: {fileID: 0}
+    - target: {fileID: 20853128465354288, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+        type: 2}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114774459013539560, guid: cb2b31551868fea4b9a649f7dc4bff3d, type: 2}
     - {fileID: 114617841102264552, guid: cb2b31551868fea4b9a649f7dc4bff3d, type: 2}
@@ -580,6 +618,11 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &1443973767 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1356913713575182, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1077795664}
 --- !u!1 &1524668724 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1805646289241786, guid: cb2b31551868fea4b9a649f7dc4bff3d,
