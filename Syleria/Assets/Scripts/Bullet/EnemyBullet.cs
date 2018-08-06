@@ -34,6 +34,12 @@ public class EnemyBullet : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        if(collision.tag == "Shield")
+        {
+            Debug.Log("Hit Shield");
+            Destroy(this.gameObject);
+        }
+
         if(collision.tag == "Player")
         {
             m_gPlayer.GetComponent<Player>().AddCurrentHealth(-10);
