@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-    private GameObject m_oPlayer;
+    private GameObject m_gPlayer;
     private Vector2 m_v2StartPos;
 
 	// Use this for initialization
 	void Start ()
     {
-        m_oPlayer = GameObject.FindGameObjectWithTag("Player");
+        m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         m_v2StartPos = this.transform.position;
 	}
 	
@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour {
 
     void CheckRange()
     {
-        if(Vector2.Distance(this.transform.position, m_v2StartPos) >= m_oPlayer.GetComponent<Player>().GetRange())
+        if(Vector2.Distance(this.transform.position, m_v2StartPos) >= m_gPlayer.GetComponent<Player>().GetRange())
         {
             Destroy(this.gameObject);
         }

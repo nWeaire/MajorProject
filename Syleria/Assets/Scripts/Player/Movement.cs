@@ -10,7 +10,7 @@ public class Movement : MonoBehaviour {
     [SerializeField] private ContactFilter2D m_cfFilter;
     [SerializeField] private float m_fDashSpeed = 8;
     [SerializeField] private float m_fDashCD = 0.5f;
-    private GameObject m_oPlayer;
+    private GameObject m_gPlayer;
 
     private bool m_bIsDashing = false;
     private float m_fDashTimer = 0;
@@ -28,13 +28,13 @@ public class Movement : MonoBehaviour {
 
     void Start ()
     {
-        m_oPlayer = GameObject.FindGameObjectWithTag("Player");
+        m_gPlayer = GameObject.FindGameObjectWithTag("Player");
     }
 
 	// Update is called once per frame
 	void Update ()
     {
-        m_fSpeed = m_oPlayer.GetComponent<Player>().GetMoveSpeed();
+        m_fSpeed = m_gPlayer.GetComponent<Player>().GetMoveSpeed();
         Move();
         Direction();
         Dash();

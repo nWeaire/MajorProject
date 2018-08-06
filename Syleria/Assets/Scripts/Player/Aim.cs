@@ -7,7 +7,7 @@ public class Aim : MonoBehaviour
     [SerializeField] private GameObject m_gBullet;
     [SerializeField] private float m_fBulletSpeed = 1000;
 
-    private GameObject m_oPlayer;
+    private GameObject m_gPlayer;
     private Vector3 m_v3Aim;
     private Vector2 stickInput;
 
@@ -18,15 +18,15 @@ public class Aim : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        m_oPlayer = GameObject.FindGameObjectWithTag("Player");
-        m_fFireRate = 60.0f / (m_oPlayer.GetComponent<Player>().GetFireRate() * 60.0f);
+        m_gPlayer = GameObject.FindGameObjectWithTag("Player");
+        m_fFireRate = 60.0f / (m_gPlayer.GetComponent<Player>().GetFireRate() * 60.0f);
         m_fTimeBetweenShots = m_fFireRate;
     }
 
     // Update is called once per frame
     void Update ()
     {
-        m_fFireRate = 60.0f / (m_oPlayer.GetComponent<Player>().GetFireRate() * 60.0f);
+        m_fFireRate = 60.0f / (m_gPlayer.GetComponent<Player>().GetFireRate() * 60.0f);
         Rotate();
         Shoot();
     }
