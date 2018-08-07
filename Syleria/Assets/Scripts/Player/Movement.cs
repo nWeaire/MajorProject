@@ -96,7 +96,7 @@ public class Movement : MonoBehaviour {
             int count = 0;
             RaycastHit2D[] Hit = new RaycastHit2D[1];
             count = Physics2D.Raycast(this.transform.position, m_v2DashInput, m_cfFilter, Hit, m_fDashDistance);
-            count = Physics2D.CircleCast(this.transform.position, 0.5f, m_v2DashInput, m_cfFilter, Hit, m_fDashDistance);
+            count = Physics2D.CircleCast(this.transform.position, 0.3f, m_v2DashInput, m_cfFilter, Hit, m_fDashDistance);
             if (count > 0)
             {
                 m_v2EndDashPos.x = Hit[0].point.x - (m_v2DashInput.x * 0.5f);

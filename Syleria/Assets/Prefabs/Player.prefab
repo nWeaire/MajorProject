@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 212228563579340714}
   - component: {fileID: 58720255899350924}
   - component: {fileID: 114814191150548976}
+  - component: {fileID: 114866384363865900}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Shield
@@ -335,7 +336,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f4ba89aca3d554fba1cff14814b8a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fSpeed: 5
+  m_nCamDistance: 2.5
+  m_fSpeed: 0.05
 --- !u!114 &114565245224742756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -370,6 +372,18 @@ MonoBehaviour:
   m_gSprite: {fileID: 1356913713575182}
   m_fDashCDTimer: 0.513567
 --- !u!114 &114814191150548976
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1805646289241786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d8495e23bb5edf409f73211dd27c7df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShieldDuration: 2
+--- !u!114 &114866384363865900
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
