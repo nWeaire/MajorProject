@@ -28,20 +28,19 @@ public class Enemy : MonoBehaviour
     [Tooltip("This is the filter for the enemy to avoid (e.g the terrain layer)")]
     public ContactFilter2D m_cfFilter;
 
+    //If the enemy gets within this distance of the player it will slow
+    [Tooltip("If the enemy gets within this distance of the player it will slow")]
+    public float m_fSlowingRadius;
+
     // Lets the enemy know where the player is
     [HideInInspector]
     public GameObject m_gPlayer;
 
     // Boolean for leftmost raycast
     private bool m_bLeftHit;
-    
-    // Boolean for middle raycast
-    private bool m_bMiddleHit;
 
     // Boolean for rightmost raycast
     private bool m_bRightHit;
-
-
 
 
     public void AvoidObstacles()
@@ -50,20 +49,6 @@ public class Enemy : MonoBehaviour
         RaycastHit2D[] aHit = new RaycastHit2D[1];
 
         int count = 0;
-
-        count = Physics2D.Raycast((Vector2)transform.position, transform.up, m_cfFilter, aHit, 2);
-
-        Debug.DrawRay(transform.position, transform.up, Color.red);
-        if (count > 0)
-        {
-            m_bMiddleHit = true;
-        }
-        else
-        {
-            m_bMiddleHit = false;
-        }
-
-        Vector2 leftR = (Vector2)transform.position;
         count = Physics2D.Raycast(transform.localPosition + (-transform.right * 0.64f), transform.up, m_cfFilter, aHit, 2);
         Debug.DrawRay(transform.localPosition + (-transform.right * 0.64f), transform.up, Color.cyan);
         if (count > 0)
@@ -75,7 +60,6 @@ public class Enemy : MonoBehaviour
             m_bLeftHit = false;
         }
 
-        Vector2 rightR = (Vector2)transform.position;
         count = Physics2D.Raycast(transform.localPosition + (transform.right * 0.64f), transform.up, m_cfFilter, aHit, 2);
         Debug.DrawRay(transform.localPosition + (transform.right * 0.64f), transform.up, Color.cyan);
         if (count > 0)
@@ -100,16 +84,14 @@ public class Enemy : MonoBehaviour
         if (m_bLeftHit)
         {
             // Rotate towards the right feeler
-            transform.Rotate(Vector3.back * (90f * Time.deltaTime));
-            Debug.Log("Right");
+            transform.Rotate(Vector3.back * (180f * Time.deltaTime));
 
         }
         // If the right feeler has been hit
         if (m_bRightHit)
         {
             // Rotate towards the left feeler
-            transform.Rotate(Vector3.forward * (90f * Time.deltaTime));
-            Debug.Log("Left");
+            transform.Rotate(Vector3.forward * (180f * Time.deltaTime));
         }
     }
 
@@ -118,7 +100,6 @@ public class Enemy : MonoBehaviour
     {
         // Find the target that will allow us to get to the target
         Vector3 v3TargetDir = v3Target - transform.position;
-        Vector3 v3Dist = v3Target - transform.position;
         v3TargetDir = v3TargetDir.normalized;
 
         Debug.DrawRay(this.transform.position, v3TargetDir, Color.red);
@@ -129,19 +110,37 @@ public class Enemy : MonoBehaviour
         if (dot > 0.9f)
         {
             // Don't rotate if facing target
-            Debug.Log("Facing");
         }
         else if (rightDot > 0) // rotate right as D is on the right.
         {
-            transform.Rotate(Vector3.back * (90f * Time.deltaTime));
-            Debug.Log("Right");
+            transform.Rotate(Vector3.back * (180f * Time.deltaTime));
         }
         else if (rightDot < 0) // rotate left as D is on the Left
         {
-            transform.Rotate(Vector3.forward * (90f * Time.deltaTime));
-            Debug.Log("Left");
+            transform.Rotate(Vector3.forward * (180f * Time.deltaTime));
+
         }
         
+        Arrive();
+    }
+
+    public void Arrive()
+    {
+        Vector3 v3Direction = m_gPlayer.transform.position - transform.position;
+
+        float distance = v3Direction.magnitude;
+
+
+        float fDeceleratoin = distance / 5f;
+
+        if (distance < m_fSlowingRadius)
+        {
+            m_fSpeed = Mathf.Clamp(m_fSpeed * fDeceleratoin, 0f, m_fMaxSpeed);
+        }
+        else
+        {
+            m_fSpeed = m_fMaxSpeed;
+        }
     }
 
     public void TakeDamage(int nDamage)

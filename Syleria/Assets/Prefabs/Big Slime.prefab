@@ -37,9 +37,10 @@ GameObject:
   - component: {fileID: 4258010781549406}
   - component: {fileID: 114429565716678994}
   - component: {fileID: 58125035560186378}
+  - component: {fileID: 50356895423389062}
   m_Layer: 9
   m_Name: Big Slime
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1884396772128378}
   m_LocalRotation: {x: -0, y: -0, z: -0.016984526, w: 0.99985576}
-  m_LocalPosition: {x: 4.46, y: 1.4, z: 0}
+  m_LocalPosition: {x: 7.4, y: 9.81, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4539837808739424}
@@ -71,6 +72,26 @@ Transform:
   m_Father: {fileID: 4258010781549406}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50356895423389062
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1884396772128378}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 5
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &58125035560186378
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -80,12 +101,12 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.59
+  m_Radius: 0.66
 --- !u!114 &114429565716678994
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,8 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c60c8854e7a924e83abcfb1f75f803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_nHealth: 0
-  m_nDamage: 0
+  m_nHealth: 20
+  m_nDamage: 5
   m_nCurrentHealth: 0
   m_fMaxSpeed: 10
   m_fSpeed: 10
@@ -116,11 +137,15 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  m_fSlowingRadius: 1
   m_gPlayer: {fileID: 0}
   m_bBigSlime: 1
   m_goSmallSlime: {fileID: 1986857641011166, guid: f7b0b487ad13d2542a34307a7099a986,
     type: 2}
   m_bCannotMove: 0
+  m_fSpawnTime: 0
+  m_fStunTime: 1.5
+  m_bSpawning: 0
 --- !u!212 &212446277557226132
 SpriteRenderer:
   m_ObjectHideFlags: 1

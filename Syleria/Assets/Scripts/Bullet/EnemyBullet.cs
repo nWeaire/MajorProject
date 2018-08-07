@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
+    // Range until the bullet despawns
+    [Tooltip("Range until bullet despawns")]
     public float m_fRange;
+
+    [HideInInspector]
+    public int m_nDam;
 
     private GameObject m_gPlayer;
 
@@ -23,9 +28,9 @@ public class EnemyBullet : MonoBehaviour
         CheckRange();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void FixedUpdate()
     {
-
+        GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(0.0f, Mathf.Sin(Time.time) * 0.1f), ForceMode2D.Force);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -42,7 +47,7 @@ public class EnemyBullet : MonoBehaviour
 
         if(collision.tag == "Player")
         {
-            m_gPlayer.GetComponent<Player>().AddCurrentHealth(-10);
+            m_gPlayer.GetComponent<Player>().AddCurrentHealth(-m_nDam);
 
 
             Debug.Log("Enemy Bullet Hit");

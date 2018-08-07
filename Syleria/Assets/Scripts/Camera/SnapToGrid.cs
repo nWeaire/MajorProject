@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SnapToGrid : MonoBehaviour
 {
-    public float PPU = 8.4375f; // pixels per unit (your tile size)
+    public float PPU = 32f; // pixels per unit (your tile size)
 
     private void LateUpdate()
     {

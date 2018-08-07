@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fRange: 15
+  m_nDam: 0
 --- !u!212 &212508175955866226
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -16,8 +16,20 @@ public class Slime : Enemy
     [Tooltip("If this is true, Slime won't move")]
     public bool m_bCannotMove;
 
-    // Timer for the Movement
-    private float m_fMoveTimer = 0;
+    // When the timer reaches this number, it will allow a spawning slime to move
+    [Tooltip("When the timer reaches this number, it will allow a spawning slime to move")]
+    public float m_fSpawnTime;
+
+    // When the timer reaches this number, it will allow a stunned slime to move
+    [Tooltip("When the timer reaches this number, it will allow a stunned slime to move")]
+    public float m_fStunTime;
+
+    // bool that will be set true on small slimes, it will then be false after the slime can move
+    [Tooltip("bool that will be set true on small slimes, it will then be false after the slime can move")]
+    public bool m_bSpawning;
+
+    // This timer is used for all timing in the slime, being reset when its use is complete
+    private float m_fTimer = 0f;
 
     // Use this for initialization
     void Start()
@@ -42,17 +54,35 @@ public class Slime : Enemy
             // Check for Obstacles, this will steer the Slime away from them when required
             AvoidObstacles();
         }
-        // If Slime cannot move
+        // If Slime is spawning
+        else if(!m_bBigSlime && m_bSpawning)
+        {
+          // increment Timer
+          m_fTimer += 1 * Time.deltaTime;
+
+          // When Timer is higher than 1
+          if (m_fTimer > m_fSpawnTime)
+          {
+            m_bCannotMove = false;
+                m_bSpawning = false;
+                m_fTimer = 0f;
+          }
+        }
         else
         {
-            // increment Timer
-            m_fMoveTimer += 1 * Time.deltaTime;
+            if(!m_bSpawning)
+            {
+                m_bCannotMove = true;
+                m_fTimer += 1 * Time.deltaTime;
+
+                if (m_fTimer > m_fStunTime)
+                {
+                    m_bCannotMove = false;
+                    m_fTimer = 0;
+                }
+            }
         }
-        // When Timer is higher than 1
-        if(m_fMoveTimer > 1)
-        {
-            m_bCannotMove = false;
-        }
+      
         // If you have no health, die.
         if (m_nCurrentHealth <= 0)
         {
@@ -66,6 +96,7 @@ public class Slime : Enemy
         if (m_bBigSlime)
         {
             // Spawn Slimes (temp) replace with array spawning x amount of smallSlime 
+            m_goSmallSlime.GetComponent<Slime>().m_bSpawning = true;
             Instantiate(m_goSmallSlime,new Vector2(transform.position.x - 0.5f,transform.position.y), transform.rotation);
             Instantiate(m_goSmallSlime, new Vector2(transform.position.x + 0.5f, transform.position.y), transform.rotation);
             Instantiate(m_goSmallSlime, new Vector2(transform.position.x, transform.position.y - 0.5f), transform.rotation);
@@ -75,6 +106,17 @@ public class Slime : Enemy
         else
         {
             // Normal death stuff here
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            m_bCannotMove = true;
+            m_gPlayer.GetComponent<Player>().AddCurrentHealth(-m_nDamage);
+            m_gPlayer.transform.parent.position = m_gPlayer.transform.parent.position + transform.up;
         }
     }
 }
