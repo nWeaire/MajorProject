@@ -96,7 +96,7 @@ public class Movement : MonoBehaviour {
             int count = 0;
             RaycastHit2D[] Hit = new RaycastHit2D[1];
             count = Physics2D.Raycast(this.transform.position, m_v2DashInput, m_cfFilter, Hit, m_fDashDistance);
-            count = Physics2D.CircleCast(this.transform.position, 0.3f, m_v2DashInput, m_cfFilter, Hit, m_fDashDistance);
+            count = Physics2D.CircleCast(this.transform.position - new Vector3 (0, 0.6f, 0), 0.3f, m_v2DashInput, m_cfFilter, Hit, m_fDashDistance);
             if (count > 0)
             {
                 m_v2EndDashPos.x = Hit[0].point.x - (m_v2DashInput.x * 0.5f);
@@ -120,7 +120,7 @@ public class Movement : MonoBehaviour {
                 int count = 0;
                 RaycastHit2D[] Hit = new RaycastHit2D[1];
                 count = Physics2D.Raycast(this.transform.position, Vector2.up, m_cfFilter, Hit, m_fDashDistance);
-                count = Physics2D.CircleCast(this.transform.position, 0.5f, Vector2.up, m_cfFilter, Hit, m_fDashDistance);
+                count = Physics2D.CircleCast(this.transform.position - new Vector3(0, 0.6f, 0), 0.3f, Vector2.up, m_cfFilter, Hit, m_fDashDistance);
                 if (count > 0)
                 {
                     m_v2EndDashPos.x = Hit[0].point.x - (Vector2.up.x * 0.5f);
@@ -138,7 +138,7 @@ public class Movement : MonoBehaviour {
                 int count = 0;
                 RaycastHit2D[] Hit = new RaycastHit2D[1];
                 count = Physics2D.Raycast(this.transform.position, Vector2.down, m_cfFilter, Hit, m_fDashDistance);
-                count = Physics2D.CircleCast(this.transform.position, 0.5f, Vector2.down, m_cfFilter, Hit, m_fDashDistance);
+                count = Physics2D.CircleCast(this.transform.position - new Vector3(0, 0.6f, 0), 0.3f, Vector2.down, m_cfFilter, Hit, m_fDashDistance);
                 if (count > 0)
                 {
                     m_v2EndDashPos.x = Hit[0].point.x - (Vector2.down.x * 0.5f);
@@ -156,7 +156,7 @@ public class Movement : MonoBehaviour {
                 int count = 0;
                 RaycastHit2D[] Hit = new RaycastHit2D[1];
                 count = Physics2D.Raycast(this.transform.position, Vector2.right, m_cfFilter, Hit, m_fDashDistance);
-                count = Physics2D.CircleCast(this.transform.position, 0.5f, Vector2.right, m_cfFilter, Hit, m_fDashDistance);
+                count = Physics2D.CircleCast(this.transform.position - new Vector3(0, 0.6f, 0), 0.3f, Vector2.right, m_cfFilter, Hit, m_fDashDistance);
                 if (count > 0)
                 {
                     m_v2EndDashPos.x = Hit[0].point.x - (Vector2.right.x * 0.5f);
@@ -174,7 +174,7 @@ public class Movement : MonoBehaviour {
                 int count = 0;
                 RaycastHit2D[] Hit = new RaycastHit2D[1];
                 count = Physics2D.Raycast(this.transform.position, Vector2.left, m_cfFilter, Hit, m_fDashDistance);
-                count = Physics2D.CircleCast(this.transform.position, 0.5f, Vector2.left, m_cfFilter, Hit, m_fDashDistance);
+                count = Physics2D.CircleCast(this.transform.position - new Vector3(0, 0.6f, 0), 0.3f, Vector2.left, m_cfFilter, Hit, m_fDashDistance);
                 if (count > 0)
                 {
                     m_v2EndDashPos.x = Hit[0].point.x - (Vector2.left.x * 0.5f);
