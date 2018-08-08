@@ -116,7 +116,7 @@ public class Slime : Enemy
         {
             m_bCannotMove = true;
             m_gPlayer.GetComponent<Player>().AddCurrentHealth(-m_nDamage);
-            m_gPlayer.transform.parent.position = m_gPlayer.transform.parent.position + transform.up;
+            // Knockback here
         }
     }
 }

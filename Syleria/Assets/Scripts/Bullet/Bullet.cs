@@ -31,6 +31,12 @@ public class Bullet : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
+        if (collision.tag == "Enemy")
+        {
+            collision.GetComponent<Enemy>().TakeDamage(m_gPlayer.GetComponent<Player>().GetDamage());
+            Destroy(this.gameObject);
+        }
+
     }
 
     void CheckRange()

@@ -13,11 +13,11 @@ public class Sentry : Enemy
     public float m_fBulletSpeed;
 
     // Timer between shots
-    [Tooltip("Time between shots")]
+    [Tooltip("Seconds between shots")]
     public float m_fFireRate;
 
     // Time between bursts
-    [Tooltip("Time between bursts")]
+    [Tooltip("Seconds between bursts")]
     public float m_fBurstTimer;
 
     // Amount of shots per burst
@@ -27,6 +27,9 @@ public class Sentry : Enemy
     // a timer for use in timing the shots
     private float m_fTimeBetweenShots = 0;
 
+    // a timer for use in timing between bursts
+    private float m_fTimeBetweenBursts;
+
     // a counter for the shots in a burst
     private int m_nBurstCount;
 
@@ -35,7 +38,6 @@ public class Sentry : Enemy
     void Start ()
     {
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
-        m_fFireRate = 60.0f / (m_fFireRate * 60.0f);
         m_fTimeBetweenShots = m_fFireRate;
     }
 
@@ -44,23 +46,37 @@ public class Sentry : Enemy
     {
         // increase timer
         m_fTimeBetweenShots += Time.deltaTime;
+        m_fTimeBetweenShots = m_fTimeBetweenShots % 60;
 
         // if timer has reached the limit,
         if (m_fTimeBetweenShots >= m_fFireRate)
         {
             // Shoot at player.
-            Fire();
+            if (m_nBurstCount < m_nBurstAmount)
+            {
+                Fire();
+            }
+            else
+            {
+                m_fTimeBetweenBursts += Time.deltaTime;
+                m_fTimeBetweenBursts = m_fTimeBetweenBursts % 60;
+                if(m_fTimeBetweenBursts >= m_fBurstTimer)
+                {
+                    m_fTimeBetweenBursts = 0.0f;
+                    m_nBurstCount = 0;
+                }
+            }
         }
 
         // Boolean setting for the sprite
-        if (transform.position.x - m_gPlayer.transform.position.x >= 1)
+        if (transform.position.x - m_gPlayer.transform.position.x >= 0)
         {
             // Face left if the sprite is facing right by default
             GetComponentInChildren<SpriteRenderer>().flipX = true;
         }
         else
         {
-            // Face right if the sprite is facing left by default
+            // Face right if the sprite is facing right by default
             GetComponentInChildren<SpriteRenderer>().flipX = false;
         }
 
@@ -77,22 +93,18 @@ public class Sentry : Enemy
         v3AimDir.Normalize();
         // Instantiate a bullet
         GameObject newBullet = Instantiate(m_gProjectile, this.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
-        //newBullet.transform.LookAt(transform.position - v3AimDir, Vector3.up);
+        m_nBurstCount++;
 
-        //newBullet.transform.eulerAngles = new Vector3(newBullet.transform.eulerAngles.x, 0, 0);
         // Add force so the bullet will go towards the player's pos * speed
-
         Vector3 v3Target = m_gPlayer.transform.position - transform.position;
         float angle = Mathf.Atan2(v3Target.y, v3Target.x) * Mathf.Rad2Deg;
-
-        //Kinda works, however rotating instantly is not the wanted behaviour
         newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         
         newBullet.GetComponent<EnemyBullet>().m_nDam = m_nDamage;
         newBullet.GetComponent<Rigidbody2D>().AddForce(-v3AimDir * m_fBulletSpeed);
 
         // Reset timer
-        m_fTimeBetweenShots = 0;
+        m_fTimeBetweenShots = 0.0f;
     }
 
     void Die()

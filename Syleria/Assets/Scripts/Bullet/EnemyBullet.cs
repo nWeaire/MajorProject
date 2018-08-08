@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class EnemyBullet : MonoBehaviour
 {
     // Range until the bullet despawns
@@ -30,7 +31,8 @@ public class EnemyBullet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(0.0f, Mathf.Sin(Time.time) * 0.1f), ForceMode2D.Force);
+        // Comment out this line to make bullets go straight
+        GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, Mathf.Sin(Time.time) * 1.5f), ForceMode2D.Force);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
