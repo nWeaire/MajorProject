@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour {
+public class Movement : MonoBehaviour
+{
 
-    enum MoveDirection{UP, DOWN, LEFT, RIGHT };
+    enum MoveDirection { UP, DOWN, LEFT, RIGHT };
 
     [SerializeField] private float m_fDashDistance = 3;
     [SerializeField] private ContactFilter2D m_cfFilter;
@@ -15,8 +16,11 @@ public class Movement : MonoBehaviour {
     [SerializeField] private Sprite m_sprSide;
     [SerializeField] private GameObject m_gSprite;
 
+    public Vector2 m_v2rightPoint;
+    public Vector2 m_v2leftPoint;
+
     private GameObject m_gPlayer;
-    
+
 
     private bool m_bIsDashing = false;
     private float m_fDashTimer = 0;
@@ -29,21 +33,24 @@ public class Movement : MonoBehaviour {
     private Vector2 m_v2EndDashPos;
     private Vector2 m_v2StartDashPos;
     private MoveDirection tempDir;
+    private float m_fRadius;
 
-    private float m_fSpeed;
+    public float m_fSpeed;
     private MoveDirection dir = MoveDirection.LEFT;
 
-    void Start ()
+    void Start()
     {
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
+        m_fRadius = GetComponent<CircleCollider2D>().radius;
     }
 
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+    void Update()
     {
         m_fSpeed = m_gPlayer.GetComponent<Player>().GetMoveSpeed();
+        m_v2StickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         tempDir = dir;
-        Move();
+        CheckCollision();
         Direction();
         Dash();
         if (dir != tempDir)
@@ -55,15 +62,15 @@ public class Movement : MonoBehaviour {
 
     void Direction()
     {
-        if(m_v2StickInput.x > 0.2f && m_v2StickInput.y > -0.5f && m_v2StickInput.y < 0.5f)
+        if (m_v2StickInput.x > 0.2f && m_v2StickInput.y > -0.5f && m_v2StickInput.y < 0.5f)
         {
             dir = MoveDirection.RIGHT;
         }
-        else if(m_v2StickInput.x < -0.2f && m_v2StickInput.y > -0.5f && m_v2StickInput.y < 0.5f)
+        else if (m_v2StickInput.x < -0.2f && m_v2StickInput.y > -0.5f && m_v2StickInput.y < 0.5f)
         {
             dir = MoveDirection.LEFT;
         }
-        else if(m_v2StickInput.y > 0.2f && m_v2StickInput.x > -0.5f && m_v2StickInput.x < 0.5f)
+        else if (m_v2StickInput.y > 0.2f && m_v2StickInput.x > -0.5f && m_v2StickInput.x < 0.5f)
         {
             dir = MoveDirection.UP;
         }
@@ -72,15 +79,6 @@ public class Movement : MonoBehaviour {
             dir = MoveDirection.DOWN;
         }
 
-    }
-    void Move()
-    {
-        m_v2StickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // Gets input of the left analog stick
-        if (m_v2StickInput.x >= 0.2f || m_v2StickInput.x <= -0.2f || m_v2StickInput.y >= 0.2f || m_v2StickInput.y <= -0.2f) // Check if left analog stick is being used
-        {
-                //transform.Translate(m_v2StickInput * (Time.deltaTime * m_fSpeed));
-            GetComponent<Rigidbody2D>().MovePosition((Vector2)this.transform.position + (m_v2StickInput.normalized * (Time.deltaTime * m_fSpeed)));
-        }
     }
 
     void Dash()
@@ -96,7 +94,6 @@ public class Movement : MonoBehaviour {
             int count = 0;
             RaycastHit2D[] Hit = new RaycastHit2D[1];
             count = Physics2D.Raycast(this.transform.position, m_v2DashInput, m_cfFilter, Hit, m_fDashDistance);
-            count = Physics2D.CircleCast(this.transform.position - new Vector3 (0, 0.6f, 0), 0.3f, m_v2DashInput, m_cfFilter, Hit, m_fDashDistance);
             if (count > 0)
             {
                 m_v2EndDashPos.x = Hit[0].point.x - (m_v2DashInput.x * 0.5f);
@@ -104,7 +101,7 @@ public class Movement : MonoBehaviour {
             }
             else
             {
-              m_v2EndDashPos = (Vector2)this.transform.position + (m_v2DashInput * m_fDashDistance);
+                m_v2EndDashPos = (Vector2)this.transform.position + (m_v2DashInput * m_fDashDistance);
             }
             m_v2StartDashPos = this.transform.position;
         }
@@ -114,13 +111,12 @@ public class Movement : MonoBehaviour {
             Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.y > -0.2f ||
             Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.y < 0.2f)
         {
-            if(dir == MoveDirection.UP)
+            if (dir == MoveDirection.UP)
             {
                 m_bIsDashing = true;
                 int count = 0;
                 RaycastHit2D[] Hit = new RaycastHit2D[1];
                 count = Physics2D.Raycast(this.transform.position, Vector2.up, m_cfFilter, Hit, m_fDashDistance);
-                count = Physics2D.CircleCast(this.transform.position - new Vector3(0, 0.6f, 0), 0.3f, Vector2.up, m_cfFilter, Hit, m_fDashDistance);
                 if (count > 0)
                 {
                     m_v2EndDashPos.x = Hit[0].point.x - (Vector2.up.x * 0.5f);
@@ -132,13 +128,12 @@ public class Movement : MonoBehaviour {
                 }
                 m_v2StartDashPos = this.transform.position;
             }
-            else if(dir == MoveDirection.DOWN)
+            else if (dir == MoveDirection.DOWN)
             {
                 m_bIsDashing = true;
                 int count = 0;
                 RaycastHit2D[] Hit = new RaycastHit2D[1];
                 count = Physics2D.Raycast(this.transform.position, Vector2.down, m_cfFilter, Hit, m_fDashDistance);
-                count = Physics2D.CircleCast(this.transform.position - new Vector3(0, 0.6f, 0), 0.3f, Vector2.down, m_cfFilter, Hit, m_fDashDistance);
                 if (count > 0)
                 {
                     m_v2EndDashPos.x = Hit[0].point.x - (Vector2.down.x * 0.5f);
@@ -155,8 +150,7 @@ public class Movement : MonoBehaviour {
                 m_bIsDashing = true;
                 int count = 0;
                 RaycastHit2D[] Hit = new RaycastHit2D[1];
-                count = Physics2D.Raycast(this.transform.position, Vector2.right, m_cfFilter, Hit, m_fDashDistance);
-                count = Physics2D.CircleCast(this.transform.position - new Vector3(0, 0.6f, 0), 0.3f, Vector2.right, m_cfFilter, Hit, m_fDashDistance);
+                count = Physics2D.Raycast(this.transform.position, Vector2.right, m_cfFilter, Hit, m_fDashDistance);              
                 if (count > 0)
                 {
                     m_v2EndDashPos.x = Hit[0].point.x - (Vector2.right.x * 0.5f);
@@ -174,7 +168,6 @@ public class Movement : MonoBehaviour {
                 int count = 0;
                 RaycastHit2D[] Hit = new RaycastHit2D[1];
                 count = Physics2D.Raycast(this.transform.position, Vector2.left, m_cfFilter, Hit, m_fDashDistance);
-                count = Physics2D.CircleCast(this.transform.position - new Vector3(0, 0.6f, 0), 0.3f, Vector2.left, m_cfFilter, Hit, m_fDashDistance);
                 if (count > 0)
                 {
                     m_v2EndDashPos.x = Hit[0].point.x - (Vector2.left.x * 0.5f);
@@ -209,6 +202,7 @@ public class Movement : MonoBehaviour {
             }
         }
     }
+
     public void UpdateModel()
     {
         switch (dir)
@@ -229,6 +223,134 @@ public class Movement : MonoBehaviour {
                 break;
             default:
                 break;
+        }
+    }
+
+    void Rotate()
+    {
+            m_v2StickInput.Normalize();
+            m_v2leftPoint = this.transform.position;
+            m_v2leftPoint += GetComponent<CircleCollider2D>().offset;
+            m_v2leftPoint += new Vector2(-m_v2StickInput.y, m_v2StickInput.x) / Mathf.Sqrt((m_v2StickInput.x * m_v2StickInput.x) + (m_v2StickInput.y * m_v2StickInput.y)) * m_fRadius;
+            m_v2rightPoint = this.transform.position;
+            m_v2rightPoint += GetComponent<CircleCollider2D>().offset;
+            m_v2rightPoint -= new Vector2(-m_v2StickInput.y, m_v2StickInput.x) / Mathf.Sqrt((m_v2StickInput.x * m_v2StickInput.x) + (m_v2StickInput.y * m_v2StickInput.y)) * m_fRadius;
+    }
+    public void CheckCollision()
+    {
+    if (m_v2StickInput.x >= 0.2f || m_v2StickInput.x <= -0.2f || m_v2StickInput.y >= 0.2f || m_v2StickInput.y <= -0.2f)
+    {
+        Rotate();
+        Vector2 rayOrigin = (Vector2)transform.position + new Vector2(GetComponent<CircleCollider2D>().offset.x, GetComponent<CircleCollider2D>().offset.y);
+        RaycastHit2D[] Hit = new RaycastHit2D[1];
+        int mCount = 0;
+        int lCount = 0;
+        int rCount = 0;
+        m_v2StickInput.Normalize();
+        mCount = Physics2D.Raycast(rayOrigin, m_v2StickInput, m_cfFilter, Hit, m_fRadius + 0.1f);
+        lCount += Physics2D.Raycast(m_v2leftPoint, m_v2StickInput, m_cfFilter, Hit, m_fRadius + 0.1f);
+        rCount += Physics2D.Raycast(m_v2rightPoint, m_v2StickInput, m_cfFilter, Hit, m_fRadius + 0.1f);
+        Debug.DrawRay(m_v2leftPoint, m_v2StickInput, Color.cyan);
+        Debug.DrawRay(m_v2rightPoint, m_v2StickInput, Color.cyan);
+        Debug.DrawRay(rayOrigin, m_v2StickInput, Color.cyan);
+
+            if (mCount > 0 && rCount <= 0 && lCount <= 0)
+            {
+                Debug.Log("Just Middle Hit");
+            }
+            else if (lCount > 0 && rCount <= 0 && mCount <= 0)
+            {
+                Debug.Log("Just Left Hit");
+                if (Hit[0].normal.x > 0)
+                {
+                    transform.Translate(Vector2.up * (Time.deltaTime * m_fSpeed));
+                }
+                else if (Hit[0].normal.x < 0)
+                {
+                    transform.Translate(Vector2.down * (Time.deltaTime * m_fSpeed));
+                }
+                else if(Hit[0].normal.y > 0)
+                {
+                    transform.Translate(Vector2.left * (Time.deltaTime * m_fSpeed));
+                }
+                else
+                {
+                    transform.Translate(Vector2.right * (Time.deltaTime * m_fSpeed));
+                }
+            }
+            else if(rCount > 0 && lCount <= 0 && mCount <= 0)
+            {
+                Debug.Log("Just Right Hit");
+                if (Hit[0].normal.x > 0)
+                {
+                    transform.Translate(Vector2.down * (Time.deltaTime * m_fSpeed));
+                }
+                else if (Hit[0].normal.x < 0)
+                {
+                    transform.Translate(Vector2.up * (Time.deltaTime * m_fSpeed));
+                }
+                else if (Hit[0].normal.y > 0)
+                {
+                    transform.Translate(Vector2.right * (Time.deltaTime * m_fSpeed));
+                }
+                else
+                {
+                    transform.Translate(Vector2.left * (Time.deltaTime * m_fSpeed));
+                }
+            }
+            else if(rCount > 0 && lCount <= 0 && mCount > 0)
+            {
+                Debug.Log("Middle Right Hit");
+                if (Hit[0].normal.x > 0)
+                {
+                    transform.Translate(Vector2.down * (Time.deltaTime * m_fSpeed));
+                }
+                else if (Hit[0].normal.x < 0)
+                {
+                    transform.Translate(Vector2.up * (Time.deltaTime * m_fSpeed));
+                }
+                else if (Hit[0].normal.y > 0)
+                {
+                    transform.Translate(Vector2.right * (Time.deltaTime * m_fSpeed));
+                }
+                else
+                {
+                    transform.Translate(Vector2.left * (Time.deltaTime * m_fSpeed));
+                }
+            }
+            else if (rCount <= 0 && lCount > 0 && mCount > 0)
+            {
+                Debug.Log("Middle Left Hit");
+                if (Hit[0].normal.x > 0)
+                {
+                    transform.Translate(Vector2.up * (Time.deltaTime * m_fSpeed));
+                }
+                else if (Hit[0].normal.x < 0)
+                {
+                    transform.Translate(Vector2.down * (Time.deltaTime * m_fSpeed));
+                }
+                else if (Hit[0].normal.y > 0)
+                {
+                    transform.Translate(Vector2.left * (Time.deltaTime * m_fSpeed));
+                }
+                else
+                {
+                    transform.Translate(Vector2.right * (Time.deltaTime * m_fSpeed));
+                }
+            }
+            else if(mCount > 0 && lCount > 0 && rCount > 0)
+            {
+                Debug.Log("Stop");
+            }
+            else if(rCount > 0 && lCount > 0 && mCount <= 0)
+            {
+                Debug.Log("Left and Right Hit");
+            }
+            else
+            {
+                transform.Translate(m_v2StickInput * (Time.deltaTime * m_fSpeed));
+            }
+
         }
     }
 }

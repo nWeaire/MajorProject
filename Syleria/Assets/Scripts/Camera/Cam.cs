@@ -18,7 +18,7 @@ public class Cam : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate ()
+	void Update ()
     {
         m_v2Target = new Vector2(Input.GetAxis("RightStickX"),Input.GetAxis("RightStickY"));
         Vector2 tempTarget = m_v2Target * m_nCamDistance;

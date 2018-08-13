@@ -309,10 +309,6 @@
     <Compile Include="Assets\Scripts\Player\Movement.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\UI\Health.cs" />
-    <Compile Include="Assets\Scripts\World Gen\FloorGenerator.cs" />
-    <Compile Include="Assets\Scripts\World Gen\FloorGeneratorTime.cs" />
-    <Compile Include="Assets\Scripts\World Gen\Room.cs" />
-    <Compile Include="Assets\Scripts\World Gen\WorldGeneration.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

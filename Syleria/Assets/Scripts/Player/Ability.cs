@@ -48,6 +48,5 @@ public class Ability : MonoBehaviour {
             m_ShieldCDTimer = 0;
         }
 
-
 	}
 }
