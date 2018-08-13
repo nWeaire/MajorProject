@@ -12,6 +12,8 @@ public class EnemyBullet : MonoBehaviour
     [HideInInspector]
     public int m_nDam;
 
+    public float m_fSpeed;
+
     private GameObject m_gPlayer;
 
     private Vector2 m_v2StartPos;
@@ -23,16 +25,13 @@ public class EnemyBullet : MonoBehaviour
         m_v2StartPos = this.transform.position;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        CheckRange();
-    }
-
-    private void FixedUpdate()
+    private void Update()
     {
         // Comment out this line to make bullets go straight
-        GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, Mathf.Sin(Time.time) * 1.5f), ForceMode2D.Force);
+        //GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, Mathf.Sin(Time.time) * 1.5f), ForceMode2D.Force);
+        // Move forward by speed * deltaTime
+        transform.position += transform.up * m_fSpeed * Time.deltaTime;
+        CheckRange();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

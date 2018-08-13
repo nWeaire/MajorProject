@@ -57,7 +57,8 @@ public class Aim : MonoBehaviour
             if (m_fTimeBetweenShots >= m_fFireRate)
             {
                 GameObject newBullet = Instantiate(m_gBullet, this.transform.position + this.transform.up, Quaternion.Euler(0, 0, -m_fAngle)) as GameObject;
-                newBullet.GetComponent<Rigidbody2D>().AddForce(this.transform.up * m_fBulletSpeed);
+                //newBullet.GetComponent<Rigidbody2D>().AddForce(this.transform.up * m_fBulletSpeed);
+                newBullet.GetComponent<Bullet>().m_fSpeed = m_fBulletSpeed;
                 m_fTimeBetweenShots = 0;
             }
         }

@@ -97,11 +97,13 @@ public class Sentry : Enemy
 
         // Add force so the bullet will go towards the player's pos * speed
         Vector3 v3Target = m_gPlayer.transform.position - transform.position;
+        v3Target.Normalize();
         float angle = Mathf.Atan2(v3Target.y, v3Target.x) * Mathf.Rad2Deg;
-        newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
         
         newBullet.GetComponent<EnemyBullet>().m_nDam = m_nDamage;
-        newBullet.GetComponent<Rigidbody2D>().AddForce(-v3AimDir * m_fBulletSpeed);
+        newBullet.GetComponent<EnemyBullet>().m_fSpeed = m_fBulletSpeed;
+        //newBullet.GetComponent<Rigidbody2D>().AddForce(-v3AimDir * m_fBulletSpeed);
 
         // Reset timer
         m_fTimeBetweenShots = 0.0f;

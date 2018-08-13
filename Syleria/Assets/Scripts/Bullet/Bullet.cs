@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
+    public float m_fSpeed;
+
     private GameObject m_gPlayer;
     private Vector2 m_v2StartPos;
 
@@ -17,6 +19,9 @@ public class Bullet : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        // Move forward by speed * deltaTime
+        transform.position += transform.up * m_fSpeed * Time.deltaTime;
+        // Check Range for deletion
         CheckRange();
 	}
 
