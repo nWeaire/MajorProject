@@ -32,9 +32,12 @@ public class Enemy : MonoBehaviour
     [Tooltip("If the enemy gets within this distance of the player it will slow")]
     public float m_fSlowingRadius;
 
+    public float m_fKnockBack;
+
     // Lets the enemy know where the player is
     [HideInInspector]
     public GameObject m_gPlayer;
+
 
     // Boolean for leftmost raycast
     private bool m_bLeftHit;
@@ -42,15 +45,14 @@ public class Enemy : MonoBehaviour
     // Boolean for rightmost raycast
     private bool m_bRightHit;
 
-
     public void AvoidObstacles()
     {
 
-        RaycastHit2D[] aHit = new RaycastHit2D[1];
+        RaycastHit2D[] aHit = new RaycastHit2D[2];
 
         int count = 0;
-        count = Physics2D.Raycast(transform.localPosition + (-transform.right * 0.64f), transform.up, m_cfFilter, aHit, 2);
-        Debug.DrawRay(transform.localPosition + (-transform.right * 0.64f), transform.up, Color.cyan);
+        count = Physics2D.Raycast(transform.localPosition, transform.up - transform.right, m_cfFilter, aHit, 1.5f);
+        Debug.DrawRay(transform.localPosition, transform.up - transform.right, Color.cyan);
         if (count > 0)
         {
             m_bLeftHit = true;
@@ -60,8 +62,8 @@ public class Enemy : MonoBehaviour
             m_bLeftHit = false;
         }
 
-        count = Physics2D.Raycast(transform.localPosition + (transform.right * 0.64f), transform.up, m_cfFilter, aHit, 2);
-        Debug.DrawRay(transform.localPosition + (transform.right * 0.64f), transform.up, Color.cyan);
+        count = Physics2D.Raycast(transform.localPosition, transform.up + transform.right, m_cfFilter, aHit, 1.5f);
+        Debug.DrawRay(transform.localPosition, transform.up + transform.right, Color.cyan);
         if (count > 0)
         {
             m_bRightHit = true;
@@ -78,20 +80,19 @@ public class Enemy : MonoBehaviour
             {
                 Debug.DrawLine(transform.position, element.point, Color.red);
             }
-        }
+        }     
 
-        // If the left feeler has been hit
         if (m_bLeftHit)
         {
-            // Rotate towards the right feeler
-            transform.Rotate(Vector3.back * (180f * Time.deltaTime));
+            // Rotate towards the right 
+            transform.Rotate(Vector3.back * (180f * ( 1.5f/aHit[0].distance) * Time.deltaTime));
 
         }
         // If the right feeler has been hit
-        if (m_bRightHit)
+        else if (m_bRightHit)
         {
-            // Rotate towards the left feeler
-            transform.Rotate(Vector3.forward * (180f * Time.deltaTime));
+            // Rotate towards the left 
+            transform.Rotate(Vector3.forward * (180f * ( 1.5f/aHit[0].distance) * Time.deltaTime));
         }
     }
 
@@ -100,6 +101,7 @@ public class Enemy : MonoBehaviour
     {
         // Find the target that will allow us to get to the target
         Vector3 v3TargetDir = v3Target - transform.position;
+        float fDistance = v3TargetDir.magnitude;
         v3TargetDir = v3TargetDir.normalized;
 
         Debug.DrawRay(this.transform.position, v3TargetDir, Color.red);
@@ -126,16 +128,15 @@ public class Enemy : MonoBehaviour
 
     public void Arrive()
     {
-        Vector3 v3Direction = m_gPlayer.transform.position - transform.position;
+        Vector3 v3DesiredVelocity = m_gPlayer.transform.position - transform.position;
 
-        float distance = v3Direction.magnitude;
-
-
-        float fDeceleratoin = distance / 5f;
+        float distance = v3DesiredVelocity.magnitude;
 
         if (distance < m_fSlowingRadius)
         {
-            m_fSpeed = Mathf.Clamp(m_fSpeed * fDeceleratoin, 0f, m_fMaxSpeed);
+            Debug.Log("SLOW");
+            m_fSpeed = distance * 2;
+            Mathf.Clamp(m_fSpeed, 1, m_fMaxSpeed);
         }
         else
         {

@@ -47,12 +47,12 @@ public class Slime : Enemy
         {
             // Move forward by speed * deltaTime
             transform.position += transform.up * m_fSpeed * Time.deltaTime;
-
             // Rotate towards the players position
             Seek(m_gPlayer.transform.position);
 
             // Check for Obstacles, this will steer the Slime away from them when required
             AvoidObstacles();
+            
         }
         // If Slime is spawning
         else if(!m_bBigSlime && m_bSpawning)
@@ -116,7 +116,9 @@ public class Slime : Enemy
         {
             m_bCannotMove = true;
             m_gPlayer.GetComponent<Player>().AddCurrentHealth(-m_nDamage);
+
             // Knockback here
+            m_gPlayer.transform.parent.position = m_gPlayer.transform.parent.position + (m_gPlayer.transform.parent.position - transform.position);
         }
     }
 }
