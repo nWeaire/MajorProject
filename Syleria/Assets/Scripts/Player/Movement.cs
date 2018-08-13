@@ -184,9 +184,10 @@ public class Movement : MonoBehaviour
         {
             m_fDashTimer += Time.deltaTime * m_fDashSpeed;
             transform.position = Vector2.Lerp(m_v2StartDashPos, m_v2EndDashPos, m_fDashTimer);
-
+            GetComponentInChildren<CapsuleCollider2D>().enabled = false;
             if (Vector2.Distance(this.transform.position, m_v2EndDashPos) <= 0.05)
             {
+                GetComponentInChildren<CapsuleCollider2D>().enabled = true;
                 m_bIsDashing = false;
                 m_fDashTimer = 0;
                 m_bDash = false;
