@@ -1,103 +1,126 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------------
+// Purpose: Handles collision and movement of the player
+//
+// Description:  Handles all collision, movement and sprite changes for player
+//
+// Author: Nicholas Weaire
+//--------------------------------------------------------------------------------------
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    enum MoveDirection { UP, DOWN, LEFT, RIGHT }; // Enum for direction the player is moving
+    [SerializeField] private ContactFilter2D m_cfFilter; // Contact filter for collision detection
+    private GameObject m_gPlayer; // Reference to player 
 
-    enum MoveDirection { UP, DOWN, LEFT, RIGHT };
+    #region Sprites
+    [SerializeField] private GameObject m_gSprite; // Reference to player sprite
+    [SerializeField] private Sprite m_sprFront; // Sprite facing player
+    [SerializeField] private Sprite m_sprBack; // Sprite facing away
+    [SerializeField] private Sprite m_sprSide; // Side on sprite
+    #endregion
 
-    [SerializeField] private float m_fDashDistance = 3;
-    [SerializeField] private ContactFilter2D m_cfFilter;
-    [SerializeField] private float m_fDashSpeed = 8;
-    [SerializeField] private float m_fDashCD = 0.5f;
-    [SerializeField] private Sprite m_sprFront;
-    [SerializeField] private Sprite m_sprBack;
-    [SerializeField] private Sprite m_sprSide;
-    [SerializeField] private GameObject m_gSprite;
+    #region Dash Variables
+    private bool m_bIsDashing = false; // Is player dashing
+    private float m_fDashTimer = 0; // Timer for dash lerp 
+    public float m_fDashCDTimer = 0; // Timer for dash cooldown
+    private bool m_bDash = true; // Is dash off cooldown
+    private Vector2 m_v2DashInput; // Input for dash
+    private Vector2 m_v2EndDashPos; // Position dash will end in 
+    private Vector2 m_v2StartDashPos; // Position dash starts in
+    [SerializeField] private float m_fDashDistance = 3; // Total dash distance
+    [SerializeField] private float m_fDashSpeed = 8; // Speed of dash
+    [SerializeField] private float m_fDashCD = 0.5f; // Cooldown of dash
+    #endregion
 
-    public Vector2 m_v2rightPoint;
-    public Vector2 m_v2leftPoint;
+    #region Movement Variables
+    private float m_fRadius; // Radius of movement collider
+    private float m_fSpeed; // Speed of player movement
+    private Vector2 m_v2rightPoint; // Right collision position
+    private Vector2 m_v2leftPoint; // left collision position 
+    private Vector2 m_v2StickInput; // Left stick input
+    private Vector2 m_v2Offset; // Offset of circle collider
+    #endregion
 
-    private GameObject m_gPlayer;
-
-
-    private bool m_bIsDashing = false;
-    private float m_fDashTimer = 0;
-
-    public float m_fDashCDTimer = 0;
-    private bool m_bDash = true;
-
-    private Vector2 m_v2StickInput;
-    private Vector2 m_v2DashInput;
-    private Vector2 m_v2EndDashPos;
-    private Vector2 m_v2StartDashPos;
-    private MoveDirection tempDir;
-    private float m_fRadius;
-
-    public float m_fSpeed;
-    private MoveDirection dir = MoveDirection.LEFT;
-
+    #region Direction Variables
+    private MoveDirection tempDir; // Temporary direction of player movement
+    private MoveDirection dir = MoveDirection.LEFT; // Current direction player is facing
+    #endregion
     void Start()
     {
-        m_gPlayer = GameObject.FindGameObjectWithTag("Player");
-        m_fRadius = GetComponent<CircleCollider2D>().radius;
+        m_gPlayer = GameObject.FindGameObjectWithTag("Player"); // Gets reference to player
+        m_fRadius = GetComponent<CircleCollider2D>().radius; // Gets radius of player
+        m_v2Offset = GetComponent<CircleCollider2D>().offset;
     }
 
     // Update is called once per frame
     void Update()
     {
-        m_fSpeed = m_gPlayer.GetComponent<Player>().GetMoveSpeed();
-        m_v2StickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        tempDir = dir;
-        CheckCollision();
-        Direction();
-        Dash();
-        if (dir != tempDir)
-        {
-            UpdateModel();
+        m_v2StickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // Gets the left stick input of controller
+        m_fSpeed = m_gPlayer.GetComponent<Player>().GetMoveSpeed(); // Gets player movement speed
+        tempDir = dir; // Saves direction player is moving
+        Move(); // Calls move function to check for collision and move Player
+        Direction(); // Changes the direction character is facing
+        Dash(); // Player dash ability
+        if (dir != tempDir) // If the direction is different to the saved direction
+        { 
+            UpdateModel(); // Update model to face correct direction
         }
 
     }
 
+    //--------------------------------------------------------------------------------------
+    // Checks for player input and faces the player in the direction of movement
+    //--------------------------------------------------------------------------------------
     void Direction()
     {
-        if (m_v2StickInput.x > 0.2f && m_v2StickInput.y > -0.5f && m_v2StickInput.y < 0.5f)
+        if (m_v2StickInput.x > 0.2f && m_v2StickInput.y > -0.5f && m_v2StickInput.y < 0.5f) // Checks if the left analog stick is in the right quadrant
         {
-            dir = MoveDirection.RIGHT;
+            dir = MoveDirection.RIGHT; // Sets player direction to Right
         }
-        else if (m_v2StickInput.x < -0.2f && m_v2StickInput.y > -0.5f && m_v2StickInput.y < 0.5f)
+        else if (m_v2StickInput.x < -0.2f && m_v2StickInput.y > -0.5f && m_v2StickInput.y < 0.5f) // Checks if the left analog stick is in the left quadrant
         {
-            dir = MoveDirection.LEFT;
+            dir = MoveDirection.LEFT; // Sets player direction to Left
         }
-        else if (m_v2StickInput.y > 0.2f && m_v2StickInput.x > -0.5f && m_v2StickInput.x < 0.5f)
+        else if (m_v2StickInput.y > 0.2f && m_v2StickInput.x > -0.5f && m_v2StickInput.x < 0.5f) // Checks if the left analog stick is in the top quadrant
         {
-            dir = MoveDirection.UP;
+            dir = MoveDirection.UP; // Sets player direction to Up
         }
-        else if (m_v2StickInput.y < -0.2f && m_v2StickInput.x > -0.5f && m_v2StickInput.x < 0.5f)
+        else if (m_v2StickInput.y < -0.2f && m_v2StickInput.x > -0.5f && m_v2StickInput.x < 0.5f) // Checks if the left analog stick is in the bottom quadrant
         {
-            dir = MoveDirection.DOWN;
+            dir = MoveDirection.DOWN; // Sets player direction to Down
         }
 
     }
 
+    //--------------------------------------------------------------------------------------
+    // Checks for Player dash input
+    // Checks for collision for dash
+    // Sets end point for dash based on collision, direction and dash distance
+    // Lerps to final dash position based on dash speed
+    //--------------------------------------------------------------------------------------
     void Dash()
     {
+        Vector2 rayOrigin = (Vector2)transform.position + new Vector2(GetComponent<CircleCollider2D>().offset.x, GetComponent<CircleCollider2D>().offset.y); // Gets origin of ray
         m_v2DashInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // Gets input of the left analog stick
-        m_v2DashInput.Normalize();
+        m_v2DashInput.Normalize(); // Normalizes input
         if (Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.x > 0.2f ||
             Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.x < -0.2f ||
             Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.y > 0.2f ||
             Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.y < -0.2f)
-        {
-            m_bIsDashing = true;
-            int count = 0;
-            RaycastHit2D[] Hit = new RaycastHit2D[1];
-            count = Physics2D.Raycast(this.transform.position, m_v2DashInput, m_cfFilter, Hit, m_fDashDistance);
+        { // checks for dash input and if dash in available and a direction Player is moving
+            m_bIsDashing = true; // Is dashing set to true untill end of dash
+            int count = 0; // Count of collisions detected
+            RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of objects the ray collides with
+            count = Physics2D.Raycast(rayOrigin, m_v2DashInput, m_cfFilter, Hit, m_fDashDistance); // Ray casts in direction of movement
+            Debug.DrawRay(this.transform.position, m_v2DashInput, Color.red);
             if (count > 0)
             {
-                m_v2EndDashPos.x = Hit[0].point.x - (m_v2DashInput.x * 0.5f);
-                m_v2EndDashPos.y = Hit[0].point.y - (m_v2DashInput.y * 0.5f);
+                m_v2EndDashPos.x = Hit[0].point.x - (m_v2DashInput.x * m_fRadius);
+                m_v2EndDashPos.y = Hit[0].point.y - (m_v2DashInput.y * m_fRadius);
             }
             else
             {
@@ -237,7 +260,7 @@ public class Movement : MonoBehaviour
             m_v2rightPoint += GetComponent<CircleCollider2D>().offset;
             m_v2rightPoint -= new Vector2(-m_v2StickInput.y, m_v2StickInput.x) / Mathf.Sqrt((m_v2StickInput.x * m_v2StickInput.x) + (m_v2StickInput.y * m_v2StickInput.y)) * m_fRadius;
     }
-    public void CheckCollision()
+    public void Move()
     {
     if (m_v2StickInput.x >= 0.2f || m_v2StickInput.x <= -0.2f || m_v2StickInput.y >= 0.2f || m_v2StickInput.y <= -0.2f)
     {
