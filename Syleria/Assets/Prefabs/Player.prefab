@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4042969057688520}
   - component: {fileID: 114565245224742756}
   - component: {fileID: 58317296571495974}
-  - component: {fileID: 50691911153499898}
+  - component: {fileID: 50663632650952026}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -74,7 +74,6 @@ GameObject:
   - component: {fileID: 212228563579340714}
   - component: {fileID: 58720255899350924}
   - component: {fileID: 114814191150548976}
-  - component: {fileID: 114866384363865900}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Shield
@@ -168,7 +167,7 @@ Transform:
   m_Father: {fileID: 4042969057688520}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50691911153499898
+--- !u!50 &50663632650952026
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
@@ -280,20 +279,11 @@ MonoBehaviour:
   m_sprBack: {fileID: 21300000, guid: 96423c86c4f118e4fb3bb662d330ff11, type: 3}
   m_sprSide: {fileID: 21300000, guid: 78fbb91aa9ee2394ab54b59a33c5d9c5, type: 3}
   m_gSprite: {fileID: 1356913713575182}
+  m_v2rightPoint: {x: 0, y: 0}
+  m_v2leftPoint: {x: 0, y: 0}
   m_fDashCDTimer: 0.513567
+  m_fSpeed: 50
 --- !u!114 &114814191150548976
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1805646289241786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d8495e23bb5edf409f73211dd27c7df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShieldDuration: 2
---- !u!114 &114866384363865900
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

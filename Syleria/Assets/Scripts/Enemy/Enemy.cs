@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
         RaycastHit2D[] aHit = new RaycastHit2D[2];
 
         int count = 0;
-        count = Physics2D.Raycast(transform.localPosition, transform.up - transform.right, m_cfFilter, aHit, 1.5f);
+        count = Physics2D.Raycast(transform.localPosition, transform.up - transform.right, m_cfFilter, aHit, 2f);
         Debug.DrawRay(transform.localPosition, transform.up - transform.right, Color.cyan);
         if (count > 0)
         {
@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
             m_bLeftHit = false;
         }
 
-        count = Physics2D.Raycast(transform.localPosition, transform.up + transform.right, m_cfFilter, aHit, 1.5f);
+        count = Physics2D.Raycast(transform.localPosition, transform.up + transform.right, m_cfFilter, aHit, 2f);
         Debug.DrawRay(transform.localPosition, transform.up + transform.right, Color.cyan);
         if (count > 0)
         {
@@ -85,14 +85,14 @@ public class Enemy : MonoBehaviour
         if (m_bLeftHit)
         {
             // Rotate towards the right 
-            transform.Rotate(Vector3.back * (180f * ( 1.5f/aHit[0].distance) * Time.deltaTime));
+            transform.Rotate(Vector3.back * (180f * ( 2f/aHit[0].distance) * Time.deltaTime));
 
         }
         // If the right feeler has been hit
         else if (m_bRightHit)
         {
             // Rotate towards the left 
-            transform.Rotate(Vector3.forward * (180f * ( 1.5f/aHit[0].distance) * Time.deltaTime));
+            transform.Rotate(Vector3.forward * (180f * ( 2f/aHit[0].distance) * Time.deltaTime));
         }
     }
 
