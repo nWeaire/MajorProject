@@ -117,262 +117,266 @@ public class Movement : MonoBehaviour
             RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of objects the ray collides with
             count = Physics2D.Raycast(rayOrigin, m_v2DashInput, m_cfFilter, Hit, m_fDashDistance); // Ray casts in direction of movement
             Debug.DrawRay(rayOrigin, m_v2DashInput, Color.red); // Draws a debug ray to show the dash direction
-            if (count > 0)
+            if (count > 0) // Checks if anything collided with the ray
             {
-                m_v2EndDashPos.x = Hit[0].point.x - (m_v2DashInput.x * m_fRadius) - m_v2Offset.x;
-                m_v2EndDashPos.y = Hit[0].point.y - (m_v2DashInput.y * m_fRadius) - m_v2Offset.y;
+                m_v2EndDashPos.x = Hit[0].point.x - (m_v2DashInput.x * m_fRadius) - m_v2Offset.x; // Sets x end point of dash based on where ray hit and circle collider offset
+                m_v2EndDashPos.y = Hit[0].point.y - (m_v2DashInput.y * m_fRadius) - m_v2Offset.y; // Sets y end point of dash based on where ray hit and circle collider offset
             }
-            else
+            else // If nothing hit
             {
-                m_v2EndDashPos = (Vector2)rayOrigin + (m_v2DashInput * m_fDashDistance) - m_v2Offset;
+                m_v2EndDashPos = (Vector2)rayOrigin + (m_v2DashInput * m_fDashDistance) - m_v2Offset; // End position of dash set based on dash distance
             }
-            m_v2StartDashPos = transform.position;
+            m_v2StartDashPos = transform.position; // Sets start dash position based on player position
         }
         else if
             (Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.x > -0.2f ||
             Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.x < 0.2f ||
             Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.y > -0.2f ||
             Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.y < 0.2f)
-        {
-            if (dir == MoveDirection.UP)
+        { // If dash input but not movement direction
+            if (dir == MoveDirection.UP) // If Player is facing upwards
             {
-                m_bIsDashing = true;
-                int count = 0;
-                RaycastHit2D[] Hit = new RaycastHit2D[1];
-                count = Physics2D.Raycast(rayOrigin, Vector2.up, m_cfFilter, Hit, m_fDashDistance);
-                if (count > 0)
+                m_bIsDashing = true; // Dashing is true
+                int count = 0; // Number of collisions with ray
+                RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of collisions with ray
+                count = Physics2D.Raycast(rayOrigin, Vector2.up, m_cfFilter, Hit, m_fDashDistance); // Raycast up 
+                if (count > 0) // If any collisions detected
                 {
-                    m_v2EndDashPos.x = Hit[0].point.x - (Vector2.up.x * 0.5f);
-                    m_v2EndDashPos.y = Hit[0].point.y - (Vector2.up.y * 0.5f);
+                    m_v2EndDashPos.x = Hit[0].point.x - (Vector2.up.x * 0.5f); // Sets x end point of dash based on where ray hit and circle collider offset
+                    m_v2EndDashPos.y = Hit[0].point.y - (Vector2.up.y * 0.5f); // Sets y end point of dash based on where ray hit and circle collider offset
                 }
-                else
+                else // If nothing hit
                 {
-                    m_v2EndDashPos = (Vector2)rayOrigin + (Vector2.up * m_fDashDistance);
+                    m_v2EndDashPos = (Vector2)rayOrigin + (Vector2.up * m_fDashDistance); // End position of dash set based on dash distance
                 }
-                m_v2StartDashPos = rayOrigin;
+                m_v2StartDashPos = transform.position; // Sets start dash position based on player position
             }
-            else if (dir == MoveDirection.DOWN)
+            else if (dir == MoveDirection.DOWN) // If Player is facing down
             {
-                m_bIsDashing = true;
-                int count = 0;
-                RaycastHit2D[] Hit = new RaycastHit2D[1];
-                count = Physics2D.Raycast(rayOrigin, Vector2.down, m_cfFilter, Hit, m_fDashDistance);
-                if (count > 0)
+                m_bIsDashing = true; // Dashing is true
+                int count = 0; // Number of collisions with ray
+                RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of collisions with ray
+                count = Physics2D.Raycast(rayOrigin, Vector2.down, m_cfFilter, Hit, m_fDashDistance); // Raycast Down 
+                if (count > 0) // If any collisions detected
                 {
-                    m_v2EndDashPos.x = Hit[0].point.x - (Vector2.down.x * 0.5f);
-                    m_v2EndDashPos.y = Hit[0].point.y - (Vector2.down.y * 0.5f);
+                    m_v2EndDashPos.x = Hit[0].point.x - (Vector2.down.x * 0.5f); // Sets x end point of dash based on where ray hit and circle collider offset
+                    m_v2EndDashPos.y = Hit[0].point.y - (Vector2.down.y * 0.5f); // Sets y end point of dash based on where ray hit and circle collider offset
                 }
-                else
+                else // If nothing hit
                 {
-                    m_v2EndDashPos = (Vector2)this.transform.position + (Vector2.down * m_fDashDistance);
+                    m_v2EndDashPos = (Vector2)this.transform.position + (Vector2.down * m_fDashDistance); // End position of dash set based on dash distance
                 }
-                m_v2StartDashPos = this.transform.position;
+                m_v2StartDashPos = this.transform.position; // Sets start dash position based on player position
             }
-            else if (dir == MoveDirection.RIGHT)
+            else if (dir == MoveDirection.RIGHT) // If Player is facing right
             {
-                m_bIsDashing = true;
-                int count = 0;
-                RaycastHit2D[] Hit = new RaycastHit2D[1];
-                count = Physics2D.Raycast(this.transform.position, Vector2.right, m_cfFilter, Hit, m_fDashDistance);              
-                if (count > 0)
+                m_bIsDashing = true; // Dashing is true
+                int count = 0; // Number of collisions with ray
+                RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of collisions with ray
+                count = Physics2D.Raycast(this.transform.position, Vector2.right, m_cfFilter, Hit, m_fDashDistance); // Raycast right               
+                if (count > 0) // If any collisions detected
                 {
-                    m_v2EndDashPos.x = Hit[0].point.x - (Vector2.right.x * 0.5f);
-                    m_v2EndDashPos.y = Hit[0].point.y - (Vector2.right.y * 0.5f);
+                    m_v2EndDashPos.x = Hit[0].point.x - (Vector2.right.x * 0.5f); // Sets x end point of dash based on where ray hit and circle collider offset
+                    m_v2EndDashPos.y = Hit[0].point.y - (Vector2.right.y * 0.5f); // Sets y end point of dash based on where ray hit and circle collider offset
                 }
-                else
+                else // If nothing hit
                 {
-                    m_v2EndDashPos = (Vector2)this.transform.position + (Vector2.right * m_fDashDistance);
+                    m_v2EndDashPos = (Vector2)this.transform.position + (Vector2.right * m_fDashDistance); // End position of dash set based on dash distance
                 }
-                m_v2StartDashPos = this.transform.position;
+                m_v2StartDashPos = this.transform.position; // Sets start dash position based on player position
             }
-            else if (dir == MoveDirection.LEFT)
+            else if (dir == MoveDirection.LEFT) // If Player is facing left
             {
-                m_bIsDashing = true;
-                int count = 0;
-                RaycastHit2D[] Hit = new RaycastHit2D[1];
-                count = Physics2D.Raycast(this.transform.position, Vector2.left, m_cfFilter, Hit, m_fDashDistance);
-                if (count > 0)
+                m_bIsDashing = true; // Dashing is true
+                int count = 0; // If any collisions detected
+                RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of collisions with ray
+                count = Physics2D.Raycast(this.transform.position, Vector2.left, m_cfFilter, Hit, m_fDashDistance); // Raycast left  
+                if (count > 0) // If any collisions detected
                 {
-                    m_v2EndDashPos.x = Hit[0].point.x - (Vector2.left.x * 0.5f);
-                    m_v2EndDashPos.y = Hit[0].point.y - (Vector2.left.y * 0.5f);
+                    m_v2EndDashPos.x = Hit[0].point.x - (Vector2.left.x * 0.5f); // Sets x end point of dash based on where ray hit and circle collider offset
+                    m_v2EndDashPos.y = Hit[0].point.y - (Vector2.left.y * 0.5f); // Sets y end point of dash based on where ray hit and circle collider offset
                 }
-                else
+                else // If nothing hit
                 {
-                    m_v2EndDashPos = (Vector2)this.transform.position + (Vector2.left * m_fDashDistance);
+                    m_v2EndDashPos = (Vector2)this.transform.position + (Vector2.left * m_fDashDistance); // End position of dash set based on dash distance
                 }
-                m_v2StartDashPos = this.transform.position;
-            }
-        }
-        if (m_bIsDashing)
-        {
-            m_fDashTimer += Time.deltaTime * m_fDashSpeed;
-            transform.position = Vector2.Lerp(m_v2StartDashPos, m_v2EndDashPos, m_fDashTimer);
-            GetComponentInChildren<CapsuleCollider2D>().enabled = false;
-            if (Vector2.Distance(this.transform.position, m_v2EndDashPos) <= 0.05)
-            {
-                GetComponentInChildren<CapsuleCollider2D>().enabled = true;
-                m_bIsDashing = false;
-                m_fDashTimer = 0;
-                m_bDash = false;
-                m_fDashCDTimer = 0;
+                m_v2StartDashPos = this.transform.position; // Sets start dash position based on player position
             }
         }
-        if (!m_bDash)
+        if (m_bIsDashing) // If dashing
         {
-            m_fDashCDTimer += Time.deltaTime;
-            if (m_fDashCDTimer >= m_fDashCD)
+            m_fDashTimer += Time.deltaTime * m_fDashSpeed; // Updates dash timer
+            transform.position = Vector2.Lerp(m_v2StartDashPos, m_v2EndDashPos, m_fDashTimer); // Lerps to new position
+            GetComponentInChildren<CapsuleCollider2D>().enabled = false; // Turns of the capsule collider to avoid enemy projectiles
+            if (Vector2.Distance(this.transform.position, m_v2EndDashPos) <= 0.05f) // If with in 0.05f of the end dash position end dash 
             {
-                m_bDash = true;
+                GetComponentInChildren<CapsuleCollider2D>().enabled = true; // Turn collider back on
+                m_bIsDashing = false; // Turn dashing to false
+                m_fDashTimer = 0; // Reset dash timer
+                m_bDash = false; // Dash off cooldown
+                m_fDashCDTimer = 0; // Dash cooldown timer to 0
+            }
+        }
+        if (!m_bDash) // if dash on cooldown
+        {
+            m_fDashCDTimer += Time.deltaTime; // Start cooldown timer
+            if (m_fDashCDTimer >= m_fDashCD) // if cooldown timer greater then cooldown
+            {
+                m_bDash = true; // Sets dash to true or available
             }
         }
     }
 
+    //--------------------------------------------------------------------------------------
+    // Checks the direction of movement
+    // Updates sprite based on direction
+    //--------------------------------------------------------------------------------------
     public void UpdateModel()
     {
-        switch (dir)
+        switch (dir) // Checks each direction
         {
-            case MoveDirection.UP:
-                m_gSprite.GetComponent<SpriteRenderer>().sprite = m_sprBack;
+            case MoveDirection.UP: // If facing up
+                m_gSprite.GetComponent<SpriteRenderer>().sprite = m_sprBack; // Sets sprite to face up
                 break;
-            case MoveDirection.DOWN:
-                m_gSprite.GetComponent<SpriteRenderer>().sprite = m_sprFront;
+            case MoveDirection.DOWN: // If facing down
+                m_gSprite.GetComponent<SpriteRenderer>().sprite = m_sprFront; // Sets sprite to face forward
                 break;
-            case MoveDirection.LEFT:
-                m_gSprite.GetComponent<SpriteRenderer>().sprite = m_sprSide;
-                m_gSprite.GetComponent<SpriteRenderer>().flipX = true;
+            case MoveDirection.LEFT: // If facing left
+                m_gSprite.GetComponent<SpriteRenderer>().sprite = m_sprSide; // Sets sprite to face left
+                m_gSprite.GetComponent<SpriteRenderer>().flipX = true; // Flips sprite
                 break;
-            case MoveDirection.RIGHT:
-                m_gSprite.GetComponent<SpriteRenderer>().sprite = m_sprSide;
-                m_gSprite.GetComponent<SpriteRenderer>().flipX = false;
+            case MoveDirection.RIGHT: // If facing right
+                m_gSprite.GetComponent<SpriteRenderer>().sprite = m_sprSide; // Sets sprite to face right
+                m_gSprite.GetComponent<SpriteRenderer>().flipX = false; // Flips sprite back
                 break;
             default:
                 break;
         }
     }
 
+    //--------------------------------------------------------------------------------------
+    // Checks the direction of the left analog input
+    // Updates the left and right point for collision detection rays
+    //--------------------------------------------------------------------------------------
     void Rotate()
     {
-            m_v2StickInput.Normalize();
-            m_v2leftPoint = this.transform.position;
-            m_v2leftPoint += GetComponent<CircleCollider2D>().offset;
-            m_v2leftPoint += new Vector2(-m_v2StickInput.y, m_v2StickInput.x) / Mathf.Sqrt((m_v2StickInput.x * m_v2StickInput.x) + (m_v2StickInput.y * m_v2StickInput.y)) * m_fRadius;
-            m_v2rightPoint = this.transform.position;
-            m_v2rightPoint += GetComponent<CircleCollider2D>().offset;
-            m_v2rightPoint -= new Vector2(-m_v2StickInput.y, m_v2StickInput.x) / Mathf.Sqrt((m_v2StickInput.x * m_v2StickInput.x) + (m_v2StickInput.y * m_v2StickInput.y)) * m_fRadius;
+            m_v2StickInput.Normalize(); // Normalize left analog input
+            m_v2leftPoint = this.transform.position; // Left point set to player position
+            m_v2leftPoint += GetComponent<CircleCollider2D>().offset; // Adds offset to the left point position
+            m_v2leftPoint += new Vector2(-m_v2StickInput.y, m_v2StickInput.x) / Mathf.Sqrt((m_v2StickInput.x * m_v2StickInput.x) + (m_v2StickInput.y * m_v2StickInput.y)) * m_fRadius; // Sets left point for collision
+            m_v2rightPoint = this.transform.position; // Right point set to player position
+            m_v2rightPoint += GetComponent<CircleCollider2D>().offset; // Adds offset to the right point position
+            m_v2rightPoint -= new Vector2(-m_v2StickInput.y, m_v2StickInput.x) / Mathf.Sqrt((m_v2StickInput.x * m_v2StickInput.x) + (m_v2StickInput.y * m_v2StickInput.y)) * m_fRadius; // Sets right point for collision
     }
+
+    //--------------------------------------------------------------------------------------
+    // Checks for collision based on left and right points
+    // Ray casts in direction of movement for collision
+    // Moves in direction if movement is possible
+    // Checks if sliding is possible against wall if movement isn't
+    //--------------------------------------------------------------------------------------
     public void Move()
     {
-    if (m_v2StickInput.x >= 0.2f || m_v2StickInput.x <= -0.2f || m_v2StickInput.y >= 0.2f || m_v2StickInput.y <= -0.2f)
+    if (m_v2StickInput.x >= 0.2f || m_v2StickInput.x <= -0.2f || m_v2StickInput.y >= 0.2f || m_v2StickInput.y <= -0.2f) // Checks for left analog stick input
     {
-        Rotate();
-        Vector2 rayOrigin = (Vector2)transform.position + new Vector2(GetComponent<CircleCollider2D>().offset.x, GetComponent<CircleCollider2D>().offset.y);
-        RaycastHit2D[] Hit = new RaycastHit2D[1];
-        int mCount = 0;
-        int lCount = 0;
-        int rCount = 0;
-        m_v2StickInput.Normalize();
-        mCount = Physics2D.Raycast(rayOrigin, m_v2StickInput, m_cfFilter, Hit, m_fRadius + 0.1f);
-        lCount += Physics2D.Raycast(m_v2leftPoint, m_v2StickInput, m_cfFilter, Hit, m_fRadius + 0.1f);
-        rCount += Physics2D.Raycast(m_v2rightPoint, m_v2StickInput, m_cfFilter, Hit, m_fRadius + 0.1f);
-        Debug.DrawRay(m_v2leftPoint, m_v2StickInput, Color.cyan);
-        Debug.DrawRay(m_v2rightPoint, m_v2StickInput, Color.cyan);
-        Debug.DrawRay(rayOrigin, m_v2StickInput, Color.cyan);
-
-            if (mCount > 0 && rCount <= 0 && lCount <= 0)
+        Rotate(); // Rotates the left and right positions for collision detection
+        Vector2 rayOrigin = (Vector2)transform.position + new Vector2(GetComponent<CircleCollider2D>().offset.x, GetComponent<CircleCollider2D>().offset.y); // Gets ray origin based on player position and collider offset
+        RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of collisions detected
+        int mCount = 0; // Middle ray count
+        int lCount = 0; // Left ray count
+        int rCount = 0; // Right ray count 
+        m_v2StickInput.Normalize(); // Normalise stick input 
+        mCount = Physics2D.Raycast(rayOrigin, m_v2StickInput, m_cfFilter, Hit, m_fRadius + 0.1f); // Middle ray cast
+        lCount += Physics2D.Raycast(m_v2leftPoint, m_v2StickInput, m_cfFilter, Hit, m_fRadius + 0.1f); // Left ray cast
+        rCount += Physics2D.Raycast(m_v2rightPoint, m_v2StickInput, m_cfFilter, Hit, m_fRadius + 0.1f); // Right ray cast
+            if (mCount > 0 && rCount <= 0 && lCount <= 0) // if only the middle ray hits
             {
-                Debug.Log("Just Middle Hit");
             }
-            else if (lCount > 0 && rCount <= 0 && mCount <= 0)
+            else if (lCount > 0 && rCount <= 0 && mCount <= 0) // if only the left ray hits
             {
-                Debug.Log("Just Left Hit");
-                if (Hit[0].normal.x > 0)
+                if (Hit[0].normal.x > 0) // Checks normal for sliding direction
                 {
-                    transform.Translate(Vector2.up * (Time.deltaTime * m_fSpeed));
+                    transform.Translate(Vector2.up * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
-                else if (Hit[0].normal.x < 0)
+                else if (Hit[0].normal.x < 0) // Checks normal for sliding direction
                 {
-                    transform.Translate(Vector2.down * (Time.deltaTime * m_fSpeed));
+                    transform.Translate(Vector2.down * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
-                else if(Hit[0].normal.y > 0)
+                else if(Hit[0].normal.y > 0) // Checks normal for sliding direction
                 {
-                    transform.Translate(Vector2.left * (Time.deltaTime * m_fSpeed));
+                    transform.Translate(Vector2.left * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
-                else
+                else // Checks normal for sliding direction
                 {
-                    transform.Translate(Vector2.right * (Time.deltaTime * m_fSpeed));
+                    transform.Translate(Vector2.right * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
             }
-            else if(rCount > 0 && lCount <= 0 && mCount <= 0)
+            else if(rCount > 0 && lCount <= 0 && mCount <= 0) // if only the right ray hits
             {
-                Debug.Log("Just Right Hit");
-                if (Hit[0].normal.x > 0)
+                if (Hit[0].normal.x > 0) // Checks normal for sliding direction
                 {
-                    transform.Translate(Vector2.down * (Time.deltaTime * m_fSpeed));
+                    transform.Translate(Vector2.down * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
-                else if (Hit[0].normal.x < 0)
+                else if (Hit[0].normal.x < 0) // Checks normal for sliding direction
                 {
-                    transform.Translate(Vector2.up * (Time.deltaTime * m_fSpeed));
+                    transform.Translate(Vector2.up * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
-                else if (Hit[0].normal.y > 0)
+                else if (Hit[0].normal.y > 0) // Checks normal for sliding direction
                 {
-                    transform.Translate(Vector2.right * (Time.deltaTime * m_fSpeed));
+                    transform.Translate(Vector2.right * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
-                else
+                else // Checks normal for sliding direction
                 {
-                    transform.Translate(Vector2.left * (Time.deltaTime * m_fSpeed));
+                    transform.Translate(Vector2.left * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
             }
-            else if(rCount > 0 && lCount <= 0 && mCount > 0)
+            else if(rCount > 0 && lCount <= 0 && mCount > 0) // If middle and right rays hit
             {
-                Debug.Log("Middle Right Hit");
-                if (Hit[0].normal.x > 0)
+                if (Hit[0].normal.x > 0) // Checks normal for sliding direction
                 {
-                    transform.Translate(Vector2.down * (Time.deltaTime * m_fSpeed));
+                    transform.Translate(Vector2.down * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
-                else if (Hit[0].normal.x < 0)
-                {
-                    transform.Translate(Vector2.up * (Time.deltaTime * m_fSpeed));
+                else if (Hit[0].normal.x < 0) // Checks normal for sliding direction
+                { 
+                    transform.Translate(Vector2.up * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
-                else if (Hit[0].normal.y > 0)
+                else if (Hit[0].normal.y > 0) // Checks normal for sliding direction
                 {
-                    transform.Translate(Vector2.right * (Time.deltaTime * m_fSpeed));
+                    transform.Translate(Vector2.right * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
-                else
+                else // Checks normal for sliding direction
                 {
-                    transform.Translate(Vector2.left * (Time.deltaTime * m_fSpeed));
+                    transform.Translate(Vector2.left * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
             }
-            else if (rCount <= 0 && lCount > 0 && mCount > 0)
+            else if (rCount <= 0 && lCount > 0 && mCount > 0) // If the left and middle ray hit
             {
-                Debug.Log("Middle Left Hit");
-                if (Hit[0].normal.x > 0)
+                if (Hit[0].normal.x > 0) // Checks normal for sliding direction
                 {
-                    transform.Translate(Vector2.up * (Time.deltaTime * m_fSpeed));
+                    transform.Translate(Vector2.up * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
-                else if (Hit[0].normal.x < 0)
+                else if (Hit[0].normal.x < 0) // Checks normal for sliding direction
                 {
-                    transform.Translate(Vector2.down * (Time.deltaTime * m_fSpeed));
+                    transform.Translate(Vector2.down * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
-                else if (Hit[0].normal.y > 0)
+                else if (Hit[0].normal.y > 0) // Checks normal for sliding direction
                 {
-                    transform.Translate(Vector2.left * (Time.deltaTime * m_fSpeed));
+                    transform.Translate(Vector2.left * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
-                else
+                else // Checks normal for sliding direction
                 {
-                    transform.Translate(Vector2.right * (Time.deltaTime * m_fSpeed));
+                    transform.Translate(Vector2.right * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
             }
-            else if(mCount > 0 && lCount > 0 && rCount > 0)
+            else if(mCount > 0 && lCount > 0 && rCount > 0) // If all rays hit
             {
-                Debug.Log("Stop");
             }
-            else if(rCount > 0 && lCount > 0 && mCount <= 0)
+            else if(rCount > 0 && lCount > 0 && mCount <= 0) // If right and left ray hit but not middle
             {
-                Debug.Log("Left and Right Hit");
             }
             else
             {
-                transform.Translate(m_v2StickInput * (Time.deltaTime * m_fSpeed));
+                transform.Translate(m_v2StickInput * (Time.deltaTime * m_fSpeed)); // If not rays hit move in direction of input
             }
 
         }

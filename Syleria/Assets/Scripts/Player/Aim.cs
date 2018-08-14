@@ -1,68 +1,88 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------------
+// Purpose: Handles aiming and firing of bullets
+//
+// Description:  Handles all aiming and firing of bullets and the rotation of the aiming retical
+//
+// Author: Nicholas Weaire
+//--------------------------------------------------------------------------------------
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Aim : MonoBehaviour
 {
-    [SerializeField] private GameObject m_gBullet;
-    [SerializeField] private float m_fBulletSpeed = 1000;
+    #region Bullet Variables
+    [SerializeField] private GameObject m_gBullet; // reference to Bullet gameObject
+    [SerializeField] private float m_fBulletSpeed = 20; // Bullet speed
+    #endregion
 
-    private GameObject m_gPlayer;
-    private Vector3 m_v3Aim;
-    private Vector2 stickInput;
+    #region Retical Variables
+    private GameObject m_gPlayer; // Reference to player gameObject
+    private float m_fAngle; // Angle of retical aim
+    private Vector2 stickInput; // Right stick input
+    #endregion
 
-    private float m_fFireRate;
-    private float m_fTimeBetweenShots = 0;
-    private float m_fAngle;
+    #region Shooting Variables
+    private float m_fFireRate; // Fire Rate for bullets
+    private float m_fTimeBetweenShots = 0; // Timer for time between shots
+    private Vector3 m_v3Aim; // Aiming for shooting
+    #endregion
 
-	// Use this for initialization
-	void Start ()
-    {
-        m_gPlayer = GameObject.FindGameObjectWithTag("Player");
-        m_fFireRate = 60.0f / (m_gPlayer.GetComponent<Player>().GetFireRate() * 60.0f);
-        m_fTimeBetweenShots = m_fFireRate;
+    // Use this for initialization
+    void Start ()
+    { 
+        m_gPlayer = GameObject.FindGameObjectWithTag("Player"); // Sets the reference for the player object
+        m_fFireRate = 60.0f / (m_gPlayer.GetComponent<Player>().GetFireRate() * 60.0f); // Calculates firerate to be shots per second
+        m_fTimeBetweenShots = m_fFireRate; // Sets time betweeen shots so you can fire straight away
     }
 
     // Update is called once per frame
     void Update ()
     {
-        m_fFireRate = 60.0f / (m_gPlayer.GetComponent<Player>().GetFireRate() * 60.0f);
-        Rotate();
-        Shoot();
+        m_fFireRate = 60.0f / (m_gPlayer.GetComponent<Player>().GetFireRate() * 60.0f); // Updates fire Rate
+        Rotate(); // Rotates the retical
+        Shoot(); // Shoots based on the retical aim
     }
 
+    //--------------------------------------------------------------------------------------
+    // Gets right stick input
+    // Rotates retical based on the input
+    //--------------------------------------------------------------------------------------
     void Rotate()
     {
-        stickInput = new Vector2(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY"));
+        stickInput = new Vector2(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY")); // Gets right stick input
 
-        if (stickInput.x >= 0.2f || stickInput.x <= -0.2f || stickInput.y >= 0.2f || stickInput.y <= -0.2f)
+        if (stickInput.x >= 0.2f || stickInput.x <= -0.2f || stickInput.y >= 0.2f || stickInput.y <= -0.2f) // Checks if there is right stick input
         {
-            m_fAngle = Mathf.Atan2(stickInput.x, stickInput.y) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, -m_fAngle));
+            m_fAngle = Mathf.Atan2(stickInput.x, stickInput.y) * Mathf.Rad2Deg; // Gets angle based on direction of the right stick input
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, -m_fAngle)); // Rotates retical
         }
     }
 
+    //--------------------------------------------------------------------------------------
+    // Sets aim based on the right stick input
+    // Fires projectiles based on aim
+    //--------------------------------------------------------------------------------------
     void Shoot()
     {
-        m_fTimeBetweenShots += Time.deltaTime;
-        Vector2 stickInput = new Vector2(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY"));
-        if (Input.GetButton("Fire2"))
+        m_fTimeBetweenShots += Time.deltaTime; // Cooldown for firing
+        Vector2 stickInput = new Vector2(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY")); // Right stick input
+        if (Input.GetButton("Fire2")) // Gets right bumper input
         {
-            m_v3Aim.x = stickInput.x;
-            m_v3Aim.y = stickInput.y;
-            m_v3Aim.z = 0;
-            m_v3Aim.Normalize();
+            m_v3Aim.x = stickInput.x; // Sets aim based on right stick input
+            m_v3Aim.y = stickInput.y; // Sets aim based on right stick input
+            m_v3Aim.z = 0; // Sets aim z to 0
+            m_v3Aim.Normalize(); // Normalize aim vector
 
-            Debug.DrawRay(this.transform.position, this.transform.up);
-            if (m_fTimeBetweenShots >= m_fFireRate)
+            if (m_fTimeBetweenShots >= m_fFireRate) // If firing is possible
             {
-                GameObject newBullet = Instantiate(m_gBullet, this.transform.position + this.transform.up, Quaternion.Euler(0, 0, -m_fAngle)) as GameObject;
-                //newBullet.GetComponent<Rigidbody2D>().AddForce(this.transform.up * m_fBulletSpeed);
-                newBullet.GetComponent<Bullet>().m_fSpeed = m_fBulletSpeed;
-                m_fTimeBetweenShots = 0;
+                GameObject newBullet = Instantiate(m_gBullet, this.transform.position + this.transform.up, Quaternion.Euler(0, 0, -m_fAngle)) as GameObject; // Instantiate bullet
+                newBullet.GetComponent<Bullet>().m_fSpeed = m_fBulletSpeed; // Set bullet speed
+                m_fTimeBetweenShots = 0; // Sets time between shots to 0
             }
         }
-        else
+        else // if unable to shoot, nothing happens
         {
 
         }
