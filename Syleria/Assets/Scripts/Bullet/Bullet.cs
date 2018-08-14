@@ -1,19 +1,26 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------------
+// Purpose: Handles collision and movement of the bullets
+//
+// Description:  Handles all collision, movement and interaction with bullets
+//
+// Author: Nicholas Weaire
+//--------------------------------------------------------------------------------------
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-    public float m_fSpeed;
-
-    private GameObject m_gPlayer;
-    private Vector2 m_v2StartPos;
+    public float m_fSpeed; // Speed of bullet
+    private GameObject m_gPlayer; // Reference to player object
+    private Vector2 m_v2StartPos; // Start position of bullet
 
 	// Use this for initialization
 	void Start ()
     {
-        m_gPlayer = GameObject.FindGameObjectWithTag("Player");
-        m_v2StartPos = this.transform.position;
+        m_gPlayer = GameObject.FindGameObjectWithTag("Player"); // Sets reference to player object
+        m_v2StartPos = this.transform.position; // Sets start position to player position
 	}
 	
 	// Update is called once per frame
@@ -25,30 +32,31 @@ public class Bullet : MonoBehaviour {
         CheckRange();
 	}
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-     
-    }
-
+    //--------------------------------------------------------------------------------------
+    // If bullet collides with any trigger colliders
+    //--------------------------------------------------------------------------------------
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == 8) // If colliding with terrain
         {
-            Destroy(this.gameObject);
+            Destroy(this.gameObject); // Deletes bullet
         }
-        if (collision.tag == "Enemy")
+        if (collision.tag == "Enemy") // If collision with enemy
         {
-            collision.GetComponent<Enemy>().TakeDamage(m_gPlayer.GetComponent<Player>().GetDamage());
-            Destroy(this.gameObject);
+            collision.GetComponent<Enemy>().TakeDamage(m_gPlayer.GetComponent<Player>().GetDamage()); // Deals damage to enemy based on players damage stat
+            Destroy(this.gameObject); // Deletes bullet
         }
-
     }
 
+    //--------------------------------------------------------------------------------------
+    // Checks distance between bullet position and start position
+    // Deletes bullet if over range
+    //--------------------------------------------------------------------------------------
     void CheckRange()
     {
-        if(Vector2.Distance(this.transform.position, m_v2StartPos) >= m_gPlayer.GetComponent<Player>().GetRange())
+        if(Vector2.Distance(this.transform.position, m_v2StartPos) >= m_gPlayer.GetComponent<Player>().GetRange()) // If distance from bullet to start position is greater then player range stat
         {
-            Destroy(this.gameObject);
+            Destroy(this.gameObject); // Destroys bullet object
         }
     }
 }
