@@ -116,17 +116,17 @@ public class Movement : MonoBehaviour
             int count = 0; // Count of collisions detected
             RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of objects the ray collides with
             count = Physics2D.Raycast(rayOrigin, m_v2DashInput, m_cfFilter, Hit, m_fDashDistance); // Ray casts in direction of movement
-            Debug.DrawRay(this.transform.position, m_v2DashInput, Color.red);
+            Debug.DrawRay(rayOrigin, m_v2DashInput, Color.red); // Draws a debug ray to show the dash direction
             if (count > 0)
             {
-                m_v2EndDashPos.x = Hit[0].point.x - (m_v2DashInput.x * m_fRadius);
-                m_v2EndDashPos.y = Hit[0].point.y - (m_v2DashInput.y * m_fRadius);
+                m_v2EndDashPos.x = Hit[0].point.x - (m_v2DashInput.x * m_fRadius) - m_v2Offset.x;
+                m_v2EndDashPos.y = Hit[0].point.y - (m_v2DashInput.y * m_fRadius) - m_v2Offset.y;
             }
             else
             {
-                m_v2EndDashPos = (Vector2)this.transform.position + (m_v2DashInput * m_fDashDistance);
+                m_v2EndDashPos = (Vector2)rayOrigin + (m_v2DashInput * m_fDashDistance) - m_v2Offset;
             }
-            m_v2StartDashPos = this.transform.position;
+            m_v2StartDashPos = transform.position;
         }
         else if
             (Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.x > -0.2f ||
@@ -139,7 +139,7 @@ public class Movement : MonoBehaviour
                 m_bIsDashing = true;
                 int count = 0;
                 RaycastHit2D[] Hit = new RaycastHit2D[1];
-                count = Physics2D.Raycast(this.transform.position, Vector2.up, m_cfFilter, Hit, m_fDashDistance);
+                count = Physics2D.Raycast(rayOrigin, Vector2.up, m_cfFilter, Hit, m_fDashDistance);
                 if (count > 0)
                 {
                     m_v2EndDashPos.x = Hit[0].point.x - (Vector2.up.x * 0.5f);
@@ -147,16 +147,16 @@ public class Movement : MonoBehaviour
                 }
                 else
                 {
-                    m_v2EndDashPos = (Vector2)this.transform.position + (Vector2.up * m_fDashDistance);
+                    m_v2EndDashPos = (Vector2)rayOrigin + (Vector2.up * m_fDashDistance);
                 }
-                m_v2StartDashPos = this.transform.position;
+                m_v2StartDashPos = rayOrigin;
             }
             else if (dir == MoveDirection.DOWN)
             {
                 m_bIsDashing = true;
                 int count = 0;
                 RaycastHit2D[] Hit = new RaycastHit2D[1];
-                count = Physics2D.Raycast(this.transform.position, Vector2.down, m_cfFilter, Hit, m_fDashDistance);
+                count = Physics2D.Raycast(rayOrigin, Vector2.down, m_cfFilter, Hit, m_fDashDistance);
                 if (count > 0)
                 {
                     m_v2EndDashPos.x = Hit[0].point.x - (Vector2.down.x * 0.5f);
