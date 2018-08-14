@@ -1,4 +1,13 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------------
+// Purpose: Used on the Slime enemies.
+//
+// Description: A child of Enemy, this script will control
+//              all functions in the Slime enemy.
+//
+// Author: Callan Davies
+//--------------------------------------------------------------------------------------
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,93 +40,124 @@ public class Slime : Enemy
     // This timer is used for all timing in the slime, being reset when its use is complete
     private float m_fTimer = 0f;
 
-    // Use this for initialization
+    //--------------------------------------------------------------------------------------
+    // initialization.
+    //--------------------------------------------------------------------------------------
     void Start()
     {
+        // Set player to Player
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
+        // Set current health to maxHealth.
         m_nCurrentHealth = m_nHealth;
+        // Set current speed to maxSpeed.
         m_fSpeed = m_fMaxSpeed;
     }
 
-    // Update is called once per frame
+    //--------------------------------------------------------------------------------------
+    // Update: Function that calls each frame to update game objects.
+    //--------------------------------------------------------------------------------------
     void Update()
     {
         // If Slime can move
         if (!m_bCannotMove)
         {
-            // Move forward by speed * deltaTime
+            // Move forward by speed * deltaTime.
             transform.position += transform.up * m_fSpeed * Time.deltaTime;
-            // Rotate towards the players position
+            // Rotate towards the players position.
             Seek(m_gPlayer.transform.position);
 
-            // Check for Obstacles, this will steer the Slime away from them when required
+            // Check for Obstacles, this will steer the Slime away from them when required.
             AvoidObstacles();
             
         }
-        // If Slime is spawning
+        // If Slime is spawning.
         else if(!m_bBigSlime && m_bSpawning)
         {
-          // increment Timer
+          // increment Timer.
           m_fTimer += 1 * Time.deltaTime;
 
-          // When Timer is higher than 1
+          // When Timer is higher than spawnTime
           if (m_fTimer > m_fSpawnTime)
           {
-            m_bCannotMove = false;
+                // Slime can now move
+                m_bCannotMove = false;
+                // Slime is no longer spawning.
                 m_bSpawning = false;
+                // Reset the timer.
                 m_fTimer = 0f;
           }
         }
+        // if Big Slime is not moving
         else
         {
+            // If Big slime is not Spawning, it is stunned.
             if(!m_bSpawning)
             {
-                m_bCannotMove = true;
+                // Increment timer.
                 m_fTimer += 1 * Time.deltaTime;
 
+                // When timer reaches stun time.
                 if (m_fTimer > m_fStunTime)
                 {
+                    // Unstun the Slime.
                     m_bCannotMove = false;
+                    // Reset the Timer.
                     m_fTimer = 0;
                 }
             }
         }
       
-        // If you have no health, die.
+        // If slime have no health, die.
         if (m_nCurrentHealth <= 0)
         {
             Die();
         }
     }
 
-
+    //--------------------------------------------------------------------------------------
+    // Die: This is called when health is 0 or less, runs anything the enemy should do 
+    //      on death, then deletes it.
+    //--------------------------------------------------------------------------------------
     void Die()
     {
+        // If this slime is a big slime.
         if (m_bBigSlime)
         {
-            // Spawn Slimes (temp) replace with array spawning x amount of smallSlime 
+            // Spawn Slimes (temp) replace with array spawning x amount of smallSlime .
             m_goSmallSlime.GetComponent<Slime>().m_bSpawning = true;
             Instantiate(m_goSmallSlime,new Vector2(transform.position.x - 0.5f,transform.position.y), transform.rotation);
             Instantiate(m_goSmallSlime, new Vector2(transform.position.x + 0.5f, transform.position.y), transform.rotation);
             Instantiate(m_goSmallSlime, new Vector2(transform.position.x, transform.position.y - 0.5f), transform.rotation);
             Instantiate(m_goSmallSlime, new Vector2(transform.position.x, transform.position.y + 0.5f), transform.rotation);
+            // Destroy this object.
             Destroy(gameObject);
         }
+        // If this slime is a small slime.
         else
         {
-            // Normal death stuff here
+            // Destroy this object.
             Destroy(gameObject);
         }
     }
 
+    //--------------------------------------------------------------------------------------
+    // OnTriggerEnter2D: A function called when the trigger on this object collides with 
+    //                   another object.
+    //
+    // Parameters:
+    //      Collider2D collision: The collider that this has collided with.
+    //--------------------------------------------------------------------------------------
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // If the Slime has collided with the Player.
         if (collision.tag == "Player")
         {
+            // Slime has been stunned.
             m_bCannotMove = true;
+            // Damage the player.
             m_gPlayer.GetComponent<Player>().AddCurrentHealth(-m_nDamage);
 
-            // Knockback here
+            // Knockback the player.
             m_gPlayer.transform.parent.position = m_gPlayer.transform.parent.position + (m_gPlayer.transform.parent.position - transform.position);
         }
     }

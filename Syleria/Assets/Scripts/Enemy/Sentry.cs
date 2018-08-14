@@ -1,4 +1,13 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------------
+// Purpose: Used on the Sentry enemies.
+//
+// Description: A child of Enemy, this script will control
+//              all functions in the Sentry enemy.
+//
+// Author: Callan Davies
+//--------------------------------------------------------------------------------------
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,14 +43,20 @@ public class Sentry : Enemy
     private int m_nBurstCount;
 
 
-    // Use this for initialization
-    void Start ()
+    //--------------------------------------------------------------------------------------
+    // initialization.
+    //--------------------------------------------------------------------------------------
+    void Start()
     {
+        // Get Player.
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
+        // Set the counter to max timer.
         m_fTimeBetweenShots = m_fFireRate;
     }
 
-    // Update is called once per frame
+    //--------------------------------------------------------------------------------------
+    // Update: Function that calls each frame to update game objects.
+    //--------------------------------------------------------------------------------------
     void Update()
     {
         // increase timer
@@ -51,18 +66,25 @@ public class Sentry : Enemy
         // if timer has reached the limit,
         if (m_fTimeBetweenShots >= m_fFireRate)
         {
-            // Shoot at player.
+            // if burst amount is less than the amount of shots wanted,
             if (m_nBurstCount < m_nBurstAmount)
             {
+                // Fire a shot.
                 Fire();
             }
+            // if BurstCount has added up to the amount of shots wanted,
             else
             {
+                // Increment Counter.
                 m_fTimeBetweenBursts += Time.deltaTime;
+                // Make counter in seconds.
                 m_fTimeBetweenBursts = m_fTimeBetweenBursts % 60;
+                // If counter has reacher the timer.
                 if(m_fTimeBetweenBursts >= m_fBurstTimer)
                 {
+                    // Reset timer.
                     m_fTimeBetweenBursts = 0.0f;
+                    // Reset Counter.
                     m_nBurstCount = 0;
                 }
             }
@@ -79,38 +101,46 @@ public class Sentry : Enemy
             // Face right if the sprite is facing right by default
             GetComponentInChildren<SpriteRenderer>().flipX = false;
         }
-
+        // If health is less than or equal to zero
         if(m_nCurrentHealth <= 0)
         {
             Die();
         }
     }
-
+    //--------------------------------------------------------------------------------------
+    // Fire: Spawn a projectile and fire it towards the player.
+    //--------------------------------------------------------------------------------------
     void Fire()
     {
-        // The direction between the player and the sentry
-        Vector3 v3AimDir = transform.position - m_gPlayer.transform.position;
-        v3AimDir.Normalize();
         // Instantiate a bullet
         GameObject newBullet = Instantiate(m_gProjectile, this.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
         m_nBurstCount++;
 
-        // Add force so the bullet will go towards the player's pos * speed
+        // Get the target position
         Vector3 v3Target = m_gPlayer.transform.position - transform.position;
         v3Target.Normalize();
+
+        // Calculate rotation needed to face Player
         float angle = Mathf.Atan2(v3Target.y, v3Target.x) * Mathf.Rad2Deg;
+        // Set bullets rotation to face Player.
         newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
         
+        // Set bullets damage to this Sentrys damage value
         newBullet.GetComponent<EnemyBullet>().m_nDam = m_nDamage;
+        // Set bullets damage to this Sentrys bullet speed
         newBullet.GetComponent<EnemyBullet>().m_fSpeed = m_fBulletSpeed;
-        //newBullet.GetComponent<Rigidbody2D>().AddForce(-v3AimDir * m_fBulletSpeed);
 
         // Reset timer
         m_fTimeBetweenShots = 0.0f;
     }
 
+    //--------------------------------------------------------------------------------------
+    // Die: This is called when health is 0 or less, runs anything the enemy should do 
+    //      on death, then deletes it.
+    //--------------------------------------------------------------------------------------
     void Die()
     {
+        // Destroy this object.
         Destroy(gameObject);
     }
 }
