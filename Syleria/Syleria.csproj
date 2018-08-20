@@ -297,10 +297,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Bullet\Barrage.cs" />
     <Compile Include="Assets\Scripts\Bullet\Bullet.cs" />
     <Compile Include="Assets\Scripts\Bullet\EnemyBullet.cs" />
     <Compile Include="Assets\Scripts\Camera\Cam.cs" />
-    <Compile Include="Assets\Scripts\Camera\SnapToGrid.cs" />
     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scripts\Enemy\LockRot.cs" />
     <Compile Include="Assets\Scripts\Enemy\Sentry.cs" />
@@ -310,6 +310,9 @@
     <Compile Include="Assets\Scripts\Player\Movement.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\UI\Health.cs" />
+    <Compile Include="Assets\Scripts\World Gen\FloorGen.cs" />
+    <Compile Include="Assets\Scripts\World Gen\GridSpawn.cs" />
+    <Compile Include="Assets\Scripts\World Gen\Room.cs" />
     <Compile Include="Assets\Scripts\World Gen\WorldGeneration.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
