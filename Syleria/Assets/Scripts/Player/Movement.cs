@@ -121,6 +121,7 @@ public class Movement : MonoBehaviour
             {
                 m_v2EndDashPos.x = Hit[0].point.x - (m_v2DashInput.x * m_fRadius) - m_v2Offset.x; // Sets x end point of dash based on where ray hit and circle collider offset
                 m_v2EndDashPos.y = Hit[0].point.y - (m_v2DashInput.y * m_fRadius) - m_v2Offset.y; // Sets y end point of dash based on where ray hit and circle collider offset
+                Debug.Log("Hit");
             }
             else // If nothing hit
             {
