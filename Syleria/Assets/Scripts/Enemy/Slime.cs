@@ -33,6 +33,14 @@ public class Slime : Enemy
     [Tooltip("When the timer reaches this number, it will allow a stunned slime to move")]
     public float m_fStunTime;
 
+    // When the timer reaches this number, it will allow stop moving
+    [Tooltip("How long each move of the slime will last for, in seconds")]
+    public float m_fMoveTime;
+
+    // When the timer reaches this number, it will allow a slime to move 
+    [Tooltip("How long the slime will wait before moving again, in seconds")]
+    public float m_fPauseTime;
+
     // bool that will be set true on small slimes, it will then be false after the slime can move
     [Tooltip("bool that will be set true on small slimes, it will then be false after the slime can move")]
     public bool m_bSpawning;
@@ -40,11 +48,28 @@ public class Slime : Enemy
     // This timer is used for all timing in the slime, being reset when its use is complete
     private float m_fTimer = 0f;
 
+    private float m_fMoveTimer = 0f;
+
+    private float m_fPauseTimer = 0f;
+
+    private float m_fKnockTimer = 0; // Timer for dash lerp 
+
+    private float m_fKnockSpeed = 3f; // Speed for knockback lerp
+
+    private Vector2 m_v2EndKnockPos; // Position knockback will end in 
+
+    private Vector2 m_v2StartKnockPos; // Position knockback starts in
+
+    [SerializeField] private float m_fKnockDistance = 3; // Total knockback distance
+
+    private bool m_bKnockBack;
+
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
-    void Start()
+    new void Start()
     {
+        base.Start();
         // Set player to Player
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         // Set current health to maxHealth.
@@ -61,8 +86,27 @@ public class Slime : Enemy
         // If Slime can move
         if (!m_bCannotMove)
         {
+            //increment timer.
+            m_fMoveTimer += Time.deltaTime;
+            m_fMoveTimer = m_fMoveTimer % 60;
             // Move forward by speed * deltaTime.
-            transform.position += transform.up * m_fSpeed * Time.deltaTime;
+            if (m_fMoveTimer <= m_fMoveTime)
+            {
+                transform.position += transform.up * m_fSpeed * Time.deltaTime;
+            }
+            if(m_fMoveTimer >= m_fMoveTime)
+            {
+                m_fPauseTimer += Time.deltaTime;
+                m_fPauseTimer = m_fPauseTimer % 60;
+
+                if(m_fPauseTimer >= m_fPauseTime)
+                {
+                    m_fMoveTimer = 0.0f;
+                    m_fPauseTimer = 0.0f;
+                }
+
+            }
+
             // Rotate towards the players position.
             Seek(m_gPlayer.transform.position);
 
@@ -95,6 +139,7 @@ public class Slime : Enemy
             {
                 // Increment timer.
                 m_fTimer += 1 * Time.deltaTime;
+                m_fTimer = m_fTimer % 60;
 
                 // When timer reaches stun time.
                 if (m_fTimer > m_fStunTime)
@@ -111,6 +156,17 @@ public class Slime : Enemy
         if (m_nCurrentHealth <= 0)
         {
             Die();
+        }
+
+        if(m_bKnockBack)
+        {
+            m_fKnockTimer += Time.deltaTime * m_fKnockSpeed;
+            m_gPlayer.transform.parent.position = Vector2.Lerp(m_v2StartKnockPos, m_v2EndKnockPos, m_fKnockTimer);
+            if(Vector2.Distance(m_gPlayer.transform.parent.position,m_v2EndKnockPos) <= 0.05f)
+            {
+                m_bKnockBack = false;
+                m_fKnockTimer = 0.0f;
+            }
         }
     }
 
@@ -158,7 +214,22 @@ public class Slime : Enemy
             m_gPlayer.GetComponent<Player>().AddCurrentHealth(-m_nDamage);
 
             // Knockback the player.
-            m_gPlayer.transform.parent.position = m_gPlayer.transform.parent.position + (m_gPlayer.transform.parent.position - transform.position);
+            m_bKnockBack = true;
+            int count = 0; // Count of collisions detected
+            RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of objects the ray collides with
+            Vector2 rayOrigin = (Vector2)m_gPlayer.transform.position + new Vector2(m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.x, m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.y); // Gets ray origin based on player position and collider offset
+            count = Physics2D.Raycast(rayOrigin, (Vector2)(m_gPlayer.transform.parent.position - transform.position), m_cfFilter, Hit, m_fKnockDistance); // Ray casts in direction of movement
+            Debug.DrawRay(m_gPlayer.transform.position, (Vector2)(m_gPlayer.transform.parent.position - transform.position), Color.red); // Draws a debug ray to show the dash direction
+            if (count > 0) // Checks if anything collided with the ray
+            {
+                m_v2EndKnockPos.x = Hit[0].point.x; 
+                m_v2EndKnockPos.y = Hit[0].point.y; 
+            }
+            else // If nothing hit
+            {
+                m_v2EndKnockPos = (Vector2)m_gPlayer.transform.position + (Vector2)(m_gPlayer.transform.parent.position - transform.position); // End position of dash set based on dash distance
+            }
+            m_v2StartKnockPos = m_gPlayer.transform.parent.position;
         }
     }
 }

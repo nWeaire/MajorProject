@@ -46,7 +46,7 @@ public class Sentry : Enemy
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
-    void Start()
+    new void Start()
     {
         // Get Player.
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");

@@ -54,6 +54,16 @@ public class Enemy : MonoBehaviour
     private bool m_bRightHit;
 
     //--------------------------------------------------------------------------------------
+    // initialization.
+    //--------------------------------------------------------------------------------------
+    public void Start()
+    {
+        m_bLeftHit = false;
+        m_bRightHit = false;
+    }
+
+
+    //--------------------------------------------------------------------------------------
     // AvoidObstacles: 
     //
     // Parameters:
@@ -113,14 +123,28 @@ public class Enemy : MonoBehaviour
         if (m_bLeftHit)
         {
             // Rotate towards the right, with speed dependent on how close it is to the obstacle. 
-            transform.Rotate(Vector3.back * (180f * ( 2f/aHit[0].distance) * Time.deltaTime));
+            if (aHit[0].distance > 0.0f)
+            {
+                transform.Rotate(Vector3.back * (180f * (2f / aHit[0].distance) * Time.deltaTime));
+            }
+            else
+            {
+                transform.Rotate(Vector3.back * (180f * (2f) * Time.deltaTime));
+            }
 
         }
         // If the right ray has been hit
         else if (m_bRightHit)
         {
             // Rotate towards the left, with speed dependent on how close it is to the obstacle. 
-            transform.Rotate(Vector3.forward * (180f * ( 2f/aHit[0].distance) * Time.deltaTime));
+            if (aHit[0].distance > 0.0f)
+            {
+                transform.Rotate(Vector3.forward * (180f * (2f / aHit[0].distance) * Time.deltaTime));
+            }
+            else
+            {
+                transform.Rotate(Vector3.forward * (180f * (2f) * Time.deltaTime));
+            }
         }
     }
 
@@ -142,16 +166,17 @@ public class Enemy : MonoBehaviour
         float dot = Vector3.Dot(transform.up.normalized, v3TargetDir);
         float rightDot = Vector3.Dot(transform.right.normalized, v3TargetDir);
 
+
+
         if (dot > 0.9f) // if Target is in the direction this is facing,
         {
             // Don't rotate.
-            return;
         }
-        else if (rightDot > 0) // rotate right as D is on the right.
+       if (rightDot > 0f) // rotate right as D is on the right.
         {
             transform.Rotate(Vector3.back * (180f * Time.deltaTime));
         }
-        else if (rightDot < 0) // rotate left as D is on the Left.
+       if (rightDot < 0f) // rotate left as D is on the Left.
         {
             transform.Rotate(Vector3.forward * (180f * Time.deltaTime));
 
@@ -167,12 +192,12 @@ public class Enemy : MonoBehaviour
     {
         Vector3 v3DesiredVelocity = m_gPlayer.transform.position - transform.position;
 
-        float distance = v3DesiredVelocity.magnitude;
+        float fDistance = v3DesiredVelocity.magnitude;
 
-        if (distance < m_fSlowingRadius)
+        if (fDistance < m_fSlowingRadius)
         {
-            m_fSpeed = distance;
-            Mathf.Clamp(m_fSpeed, 1, m_fMaxSpeed);
+            m_fSpeed = m_fMaxSpeed * (fDistance / m_fSlowingRadius);
+            Mathf.Clamp(m_fSpeed, m_fMaxSpeed * 0.5f, m_fMaxSpeed);
         }
         else
         {

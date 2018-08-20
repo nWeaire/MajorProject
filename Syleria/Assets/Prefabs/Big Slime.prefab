@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1884396772128378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.82, y: 8.62, z: 0}
+  m_LocalPosition: {x: -4.6, y: 2.92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4539837808739424}
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_nDamage: 5
   m_nCurrentHealth: 0
   m_fMaxSpeed: 5
-  m_fSpeed: 10
+  m_fSpeed: 5
   m_cfFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -128,7 +128,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  m_fSlowingRadius: 5
+  m_fSlowingRadius: 2
   m_fKnockBack: 0
   m_gPlayer: {fileID: 0}
   m_bBigSlime: 1
