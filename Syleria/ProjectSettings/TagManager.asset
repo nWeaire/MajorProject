@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Shield
   - Enemy
+  - Walkable
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - 
   - Terrain
   - Enemy
-  - 
+  - Walkable
   - 
   - 
   - 
@@ -51,4 +52,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 4212233635
+    locked: 0
+  - name: Enemy
+    uniqueID: 2572324381
     locked: 0
