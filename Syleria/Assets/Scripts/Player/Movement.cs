@@ -121,7 +121,6 @@ public class Movement : MonoBehaviour
             {
                 m_v2EndDashPos.x = Hit[0].point.x - (m_v2DashInput.x * m_fRadius) - m_v2Offset.x; // Sets x end point of dash based on where ray hit and circle collider offset
                 m_v2EndDashPos.y = Hit[0].point.y - (m_v2DashInput.y * m_fRadius) - m_v2Offset.y; // Sets y end point of dash based on where ray hit and circle collider offset
-                Debug.Log("Hit");
             }
             else // If nothing hit
             {
@@ -143,12 +142,12 @@ public class Movement : MonoBehaviour
                 count = Physics2D.Raycast(rayOrigin, Vector2.up, m_cfFilter, Hit, m_fDashDistance); // Raycast up 
                 if (count > 0) // If any collisions detected
                 {
-                    m_v2EndDashPos.x = Hit[0].point.x - (Vector2.up.x * 0.5f); // Sets x end point of dash based on where ray hit and circle collider offset
-                    m_v2EndDashPos.y = Hit[0].point.y - (Vector2.up.y * 0.5f); // Sets y end point of dash based on where ray hit and circle collider offset
+                    m_v2EndDashPos.x = Hit[0].point.x - (Vector2.up.x * m_fRadius) - m_v2Offset.x; // Sets x end point of dash based on where ray hit and circle collider offset
+                    m_v2EndDashPos.y = Hit[0].point.y - (Vector2.up.y * m_fRadius) - m_v2Offset.y; // Sets y end point of dash based on where ray hit and circle collider offset
                 }
                 else // If nothing hit
                 {
-                    m_v2EndDashPos = (Vector2)rayOrigin + (Vector2.up * m_fDashDistance); // End position of dash set based on dash distance
+                    m_v2EndDashPos = (Vector2)rayOrigin + (Vector2.up * m_fDashDistance) - m_v2Offset; // End position of dash set based on dash distance
                 }
                 m_v2StartDashPos = transform.position; // Sets start dash position based on player position
             }
@@ -160,48 +159,48 @@ public class Movement : MonoBehaviour
                 count = Physics2D.Raycast(rayOrigin, Vector2.down, m_cfFilter, Hit, m_fDashDistance); // Raycast Down 
                 if (count > 0) // If any collisions detected
                 {
-                    m_v2EndDashPos.x = Hit[0].point.x - (Vector2.down.x * 0.5f); // Sets x end point of dash based on where ray hit and circle collider offset
-                    m_v2EndDashPos.y = Hit[0].point.y - (Vector2.down.y * 0.5f); // Sets y end point of dash based on where ray hit and circle collider offset
+                    m_v2EndDashPos.x = Hit[0].point.x - (Vector2.down.x * 0.5f) - m_v2Offset.x; // Sets x end point of dash based on where ray hit and circle collider offset
+                    m_v2EndDashPos.y = Hit[0].point.y - (Vector2.down.y * 0.5f) - m_v2Offset.y; // Sets y end point of dash based on where ray hit and circle collider offset
                 }
                 else // If nothing hit
                 {
-                    m_v2EndDashPos = (Vector2)this.transform.position + (Vector2.down * m_fDashDistance); // End position of dash set based on dash distance
+                    m_v2EndDashPos = (Vector2)rayOrigin + (Vector2.down * m_fDashDistance) - m_v2Offset; // End position of dash set based on dash distance
                 }
-                m_v2StartDashPos = this.transform.position; // Sets start dash position based on player position
+                m_v2StartDashPos = transform.position; // Sets start dash position based on player position
             }
             else if (dir == MoveDirection.RIGHT) // If Player is facing right
             {
                 m_bIsDashing = true; // Dashing is true
                 int count = 0; // Number of collisions with ray
                 RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of collisions with ray
-                count = Physics2D.Raycast(this.transform.position, Vector2.right, m_cfFilter, Hit, m_fDashDistance); // Raycast right               
+                count = Physics2D.Raycast(rayOrigin, Vector2.right, m_cfFilter, Hit, m_fDashDistance); // Raycast right               
                 if (count > 0) // If any collisions detected
                 {
-                    m_v2EndDashPos.x = Hit[0].point.x - (Vector2.right.x * 0.5f); // Sets x end point of dash based on where ray hit and circle collider offset
-                    m_v2EndDashPos.y = Hit[0].point.y - (Vector2.right.y * 0.5f); // Sets y end point of dash based on where ray hit and circle collider offset
+                    m_v2EndDashPos.x = Hit[0].point.x - (Vector2.right.x * 0.5f) - m_v2Offset.x; // Sets x end point of dash based on where ray hit and circle collider offset
+                    m_v2EndDashPos.y = Hit[0].point.y - (Vector2.right.y * 0.5f) - m_v2Offset.y; // Sets y end point of dash based on where ray hit and circle collider offset
                 }
                 else // If nothing hit
                 {
-                    m_v2EndDashPos = (Vector2)this.transform.position + (Vector2.right * m_fDashDistance); // End position of dash set based on dash distance
+                    m_v2EndDashPos = (Vector2)rayOrigin + (Vector2.right * m_fDashDistance) - m_v2Offset; // End position of dash set based on dash distance
                 }
-                m_v2StartDashPos = this.transform.position; // Sets start dash position based on player position
+                m_v2StartDashPos = transform.position; // Sets start dash position based on player position
             }
             else if (dir == MoveDirection.LEFT) // If Player is facing left
             {
                 m_bIsDashing = true; // Dashing is true
                 int count = 0; // If any collisions detected
                 RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of collisions with ray
-                count = Physics2D.Raycast(this.transform.position, Vector2.left, m_cfFilter, Hit, m_fDashDistance); // Raycast left  
+                count = Physics2D.Raycast(rayOrigin, Vector2.left, m_cfFilter, Hit, m_fDashDistance); // Raycast left  
                 if (count > 0) // If any collisions detected
                 {
-                    m_v2EndDashPos.x = Hit[0].point.x - (Vector2.left.x * 0.5f); // Sets x end point of dash based on where ray hit and circle collider offset
-                    m_v2EndDashPos.y = Hit[0].point.y - (Vector2.left.y * 0.5f); // Sets y end point of dash based on where ray hit and circle collider offset
+                    m_v2EndDashPos.x = Hit[0].point.x - (Vector2.left.x * 0.5f) - m_v2Offset.x; // Sets x end point of dash based on where ray hit and circle collider offset
+                    m_v2EndDashPos.y = Hit[0].point.y - (Vector2.left.y * 0.5f) - m_v2Offset.y; // Sets y end point of dash based on where ray hit and circle collider offset
                 }
                 else // If nothing hit
                 {
-                    m_v2EndDashPos = (Vector2)this.transform.position + (Vector2.left * m_fDashDistance); // End position of dash set based on dash distance
+                    m_v2EndDashPos = (Vector2)rayOrigin + (Vector2.left * m_fDashDistance) - m_v2Offset; // End position of dash set based on dash distance
                 }
-                m_v2StartDashPos = this.transform.position; // Sets start dash position based on player position
+                m_v2StartDashPos = transform.position; // Sets start dash position based on player position
             }
         }
         if (m_bIsDashing) // If dashing
