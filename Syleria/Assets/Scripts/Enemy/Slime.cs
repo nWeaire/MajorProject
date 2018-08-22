@@ -52,9 +52,9 @@ public class Slime : Enemy
 
     private float m_fPauseTimer = 0f;
 
-    private float m_fKnockTimer = 0; // Timer for dash lerp 
+    private float m_fKnockTimer = 0; // Timer for knockback lerp 
 
-    private float m_fKnockSpeed = 3f; // Speed for knockback lerp
+    private float m_fKnockSpeed = 5f; // Speed for knockback lerp
 
     private Vector2 m_v2EndKnockPos; // Position knockback will end in 
 
@@ -162,7 +162,8 @@ public class Slime : Enemy
         {
             m_fKnockTimer += Time.deltaTime * m_fKnockSpeed;
             m_gPlayer.transform.parent.position = Vector2.Lerp(m_v2StartKnockPos, m_v2EndKnockPos, m_fKnockTimer);
-            if(Vector2.Distance(m_gPlayer.transform.parent.position,m_v2EndKnockPos) <= 0.05f)
+
+            if(Vector2.Distance(m_gPlayer.transform.parent.position,m_v2EndKnockPos) <= 0.5f)
             {
                 m_bKnockBack = false;
                 m_fKnockTimer = 0.0f;
@@ -205,6 +206,8 @@ public class Slime : Enemy
     //--------------------------------------------------------------------------------------
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Vector3 dir = transform.position - collision.transform.position;
+        dir.Normalize();
         // If the Slime has collided with the Player.
         if (collision.tag == "Player")
         {
@@ -217,19 +220,25 @@ public class Slime : Enemy
             m_bKnockBack = true;
             int count = 0; // Count of collisions detected
             RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of objects the ray collides with
-            Vector2 rayOrigin = (Vector2)m_gPlayer.transform.position + new Vector2(m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.x, m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.y); // Gets ray origin based on player position and collider offset
+            Vector2 rayOrigin = (Vector2)m_gPlayer.transform.parent.position - new Vector2(m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.x, m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.y); // Gets ray origin based on player position and collider offset
             count = Physics2D.Raycast(rayOrigin, (Vector2)(m_gPlayer.transform.parent.position - transform.position), m_cfFilter, Hit, m_fKnockDistance); // Ray casts in direction of movement
-            Debug.DrawRay(m_gPlayer.transform.position, (Vector2)(m_gPlayer.transform.parent.position - transform.position), Color.red); // Draws a debug ray to show the dash direction
+            Debug.DrawRay(rayOrigin, m_gPlayer.transform.parent.position - transform.position, Color.magenta, 10f);
             if (count > 0) // Checks if anything collided with the ray
             {
-                m_v2EndKnockPos.x = Hit[0].point.x; 
-                m_v2EndKnockPos.y = Hit[0].point.y; 
+                m_v2EndKnockPos.x = Hit[0].point.x + dir.x;
+                m_v2EndKnockPos.y = Hit[0].point.y + dir.y;
             }
             else // If nothing hit
             {
                 m_v2EndKnockPos = (Vector2)m_gPlayer.transform.position + (Vector2)(m_gPlayer.transform.parent.position - transform.position); // End position of dash set based on dash distance
             }
+            
             m_v2StartKnockPos = m_gPlayer.transform.parent.position;
+        }
+
+        if (collision.tag == "Enemy")
+        {
+            transform.position += dir * 0.1f;
         }
     }
 }

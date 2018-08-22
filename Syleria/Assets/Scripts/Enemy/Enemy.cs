@@ -41,8 +41,6 @@ public class Enemy : MonoBehaviour
     [Tooltip("If the enemy gets within this distance of the player it will slow")]
     public float m_fSlowingRadius;
 
-    public float m_fKnockBack;
-
     // Lets the enemy know where the player is
     [HideInInspector]
     public GameObject m_gPlayer;
@@ -197,7 +195,7 @@ public class Enemy : MonoBehaviour
         if (fDistance < m_fSlowingRadius)
         {
             m_fSpeed = m_fMaxSpeed * (fDistance / m_fSlowingRadius);
-            Mathf.Clamp(m_fSpeed, m_fMaxSpeed * 0.5f, m_fMaxSpeed);
+            Mathf.Clamp(m_fSpeed, m_fMaxSpeed, m_fMaxSpeed);
         }
         else
         {
