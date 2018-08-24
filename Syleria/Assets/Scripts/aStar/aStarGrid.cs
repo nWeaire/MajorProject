@@ -4,33 +4,44 @@ using UnityEngine;
 
 public class aStarGrid : MonoBehaviour {
 
-    public GameObject m_gTest;
-    private List<Vector2> m_av2NodePositions;
-    private bool m_bGridSpawned = false;
-    // Use this for initialization
-	void Start ()
+    struct GridNode
     {
-        m_av2NodePositions = new List<Vector2>();
+        public bool Walkable;
+        public Vector2 Index;
+        public Vector2 WorldPosition;
     }
 
-	// Update is called once per frame
-	void Update ()
+    private GridNode[,] m_grid;
+    public int m_nGridHeight = 1;
+    public int m_nGridWidth = 1;
+    public GameObject m_gNode;
+    public LayerMask m_WalkableLayer;
+
+	// Use this for initialization
+	void Start ()
     {
-		if(m_av2NodePositions.Count != 0 && !m_bGridSpawned)
+        m_grid = new GridNode[m_nGridWidth, m_nGridHeight];
+        for (int i = 0; i < m_nGridWidth; i++)
         {
-            SpawnGrid();
-            m_bGridSpawned = true;
+            for (int j = 0; j < m_nGridHeight; j++)
+            {
+                m_grid[i, j].Walkable = Physics2D.Raycast((this.transform.position + new Vector3(i, j)) + new Vector3(0, 0, -1), Vector3.forward, 0.1f, m_WalkableLayer);
+                m_grid[i, j].Index.x = i;
+                m_grid[i, j].Index.y = j;
+                m_grid[i, j].WorldPosition = this.transform.position + new Vector3(i, j);
+
+                Debug.DrawRay((this.transform.position + new Vector3(i, j)) + new Vector3(0, 0, -1), Vector3.forward, Color.red, 10.0f);
+
+                if (m_grid[i, j].Walkable)
+                {
+                    Instantiate(m_gNode, (this.transform.position + new Vector3(i, j)) , new Quaternion());
+                }
+            }
         }
 	}
-    public void AddPosition(List<Vector2> list)
-    {
-        m_av2NodePositions.AddRange(list);
-    }
-    public void SpawnGrid()
-    {
-        foreach (Vector2 item in m_av2NodePositions)
-        {
-            //Instantiate(m_gTest, new Vector3(item.x, item.y), new Quaternion());
-        }        
-    }
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
 }
