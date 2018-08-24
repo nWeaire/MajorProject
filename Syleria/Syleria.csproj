@@ -284,6 +284,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\aStar\aStarGrid.cs" />
+    <Compile Include="Assets\Scripts\aStar\Grid.cs" />
+    <Compile Include="Assets\Scripts\aStar\MoveTarget.cs" />
+    <Compile Include="Assets\Scripts\aStar\Node.cs" />
+    <Compile Include="Assets\Scripts\aStar\Pathfinding.cs" />
     <Compile Include="Assets\Scripts\Bullet\Barrage.cs" />
     <Compile Include="Assets\Scripts\Bullet\Bullet.cs" />
     <Compile Include="Assets\Scripts\Bullet\EnemyBullet.cs" />

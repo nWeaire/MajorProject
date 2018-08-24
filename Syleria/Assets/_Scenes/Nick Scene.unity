@@ -5098,8 +5098,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0448dcaf94264947bcbd44b8a7956a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_nGridHeight: 20
-  m_nGridWidth: 20
+  m_nGridHeight: 110
+  m_nGridWidth: 100
   m_gNode: {fileID: 1085766854477492, guid: 76c8515e6c540fd45b184dfd8a4466c1, type: 2}
   m_WalkableLayer:
     serializedVersion: 2
@@ -5111,7 +5111,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 358255547}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -50, y: -50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -16372,6 +16372,10 @@ Prefab:
         type: 2}
       propertyPath: m_SortingLayer
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198049203941808, guid: afe7f6d62b141074c94df55e75341a12, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: afe7f6d62b141074c94df55e75341a12, type: 2}
