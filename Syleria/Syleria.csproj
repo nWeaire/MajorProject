@@ -284,14 +284,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\aStar\aStarGrid.cs" />
-    <Compile Include="Assets\Scripts\aStar\Grid.cs" />
-    <Compile Include="Assets\Scripts\aStar\MoveTarget.cs" />
     <Compile Include="Assets\Scripts\aStar\Node.cs" />
-    <Compile Include="Assets\Scripts\aStar\Pathfinding.cs" />
+    <Compile Include="Assets\Scripts\aStar\Pathing.cs" />
     <Compile Include="Assets\Scripts\Bullet\Barrage.cs" />
     <Compile Include="Assets\Scripts\Bullet\Bullet.cs" />
     <Compile Include="Assets\Scripts\Bullet\EnemyBullet.cs" />
     <Compile Include="Assets\Scripts\Camera\Cam.cs" />
+    <Compile Include="Assets\Scripts\Companion\Companion.cs" />
     <Compile Include="Assets\Scripts\Companion\Fox.cs" />
     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scripts\Enemy\LockRot.cs" />

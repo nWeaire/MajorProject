@@ -49,6 +49,7 @@ public class Movement : MonoBehaviour
     private MoveDirection tempDir; // Temporary direction of player movement
     private MoveDirection dir = MoveDirection.LEFT; // Current direction player is facing
     #endregion
+
     void Start()
     {
         m_gPlayer = GameObject.FindGameObjectWithTag("Player"); // Gets reference to player
@@ -69,7 +70,6 @@ public class Movement : MonoBehaviour
         { 
             UpdateModel(); // Update model to face correct direction
         }
-
     }
 
     //--------------------------------------------------------------------------------------
