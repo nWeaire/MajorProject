@@ -3,14 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class aStarGrid : MonoBehaviour {
-
-    //public struct Node
-    //{
-    //    public bool Walkable;
-    //    public int  IndexX;
-    //    public int  IndexY;
-    //    public Vector2 WorldPosition;
-    //}
     
     public List<Node> FinalPath;
     private Node[,] m_grid;
@@ -33,16 +25,16 @@ public class aStarGrid : MonoBehaviour {
             for (int j = 0; j < m_nGridHeight; j++)
             {
                 m_grid[i, j] = new Node(new Vector2(), false, 0, 0);
-                m_grid[i, j].Walkable = Physics2D.Raycast((this.transform.position + new Vector3(i, j)) + new Vector3(0, 0, -1), Vector3.forward, 0.1f, m_WalkableLayer);
+                m_grid[i, j].Walkable = Physics2D.Raycast((this.transform.position + new Vector3(i, j)) + new Vector3(0.5f, 0.5f, -1), Vector3.forward, 0.1f, m_WalkableLayer);
                 m_grid[i, j].IndexX = i;
                 m_grid[i, j].IndexY = j;
-                m_grid[i, j].WorldPosition = this.transform.position + new Vector3(i, j);
-                Debug.DrawRay((this.transform.position + new Vector3(i, j)) + new Vector3(0, 0, -1), Vector3.forward, Color.red, 10.0f);
+                m_grid[i, j].WorldPosition = this.transform.position + new Vector3(i, j) + new Vector3(0.5f, 0.5f , 0);
+                Debug.DrawRay((this.transform.position + new Vector3(i, j)) + new Vector3(0.5f, 0.5f, -1), Vector3.forward, Color.red, 10.0f);
 
                 if (m_grid[i, j].Walkable)
                 {
                     
-                    //Instantiate(m_gNode, (this.transform.position + new Vector3(i, j)), new Quaternion());
+                    //Instantiate(m_gNode, (this.transform.position + new Vector3(i, j) + new Vector3(0.5f, 0.5f, 0)), new Quaternion());
                 }
             }
         }
@@ -111,7 +103,7 @@ public class aStarGrid : MonoBehaviour {
         int ix = Mathf.RoundToInt((m_nGridWidth - 1) * ixPos);
         int iy = Mathf.RoundToInt((m_nGridHeight - 1) * iyPos);
 
-        return m_grid[ix, iy - 5];
+        return m_grid[ix, iy];
     }
 
     // Update is called once per frame

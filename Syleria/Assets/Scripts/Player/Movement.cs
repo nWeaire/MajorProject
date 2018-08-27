@@ -107,10 +107,10 @@ public class Movement : MonoBehaviour
         Vector2 rayOrigin = (Vector2)transform.position + new Vector2(GetComponent<CircleCollider2D>().offset.x, GetComponent<CircleCollider2D>().offset.y); // Gets origin of ray
         m_v2DashInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // Gets input of the left analog stick
         m_v2DashInput.Normalize(); // Normalizes input
-        if (Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.x > 0.2f ||
-            Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.x < -0.2f ||
-            Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.y > 0.2f ||
-            Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.y < -0.2f)
+        if ((Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash) && (m_v2DashInput.x > 0.2f ||
+            m_v2DashInput.x < -0.2f ||
+            m_v2DashInput.y > 0.2f ||
+            m_v2DashInput.y < -0.2f))
         { // checks for dash input and if dash in available and a direction Player is moving
             m_bIsDashing = true; // Is dashing set to true untill end of dash
             int count = 0; // Count of collisions detected
@@ -129,10 +129,10 @@ public class Movement : MonoBehaviour
             m_v2StartDashPos = transform.position; // Sets start dash position based on player position
         }
         else if
-            (Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.x > -0.2f ||
-            Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.x < 0.2f ||
-            Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.y > -0.2f ||
-            Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash && m_v2DashInput.y < 0.2f)
+            ((Input.GetButtonDown("Fire3") && !m_bIsDashing && m_bDash) && (m_v2DashInput.x > -0.2f ||
+             m_v2DashInput.x < 0.2f ||
+             m_v2DashInput.y > -0.2f ||
+             m_v2DashInput.y < 0.2f))
         { // If dash input but not movement direction
             if (dir == MoveDirection.UP) // If Player is facing upwards
             {
