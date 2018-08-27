@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------------
+// Purpose: Handles Movement and state changes of companions
+//
+// Description:  Handles movement and state changes of companion, including attack, idle, follow and aStar States
+//
+// Author: Nicholas Weaire
+//--------------------------------------------------------------------------------------
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,9 +37,10 @@ public class Companion : MonoBehaviour {
 	void Update ()
     {
         StateMachine(); // Calls state machine
+        StartCoroutine("UpdateState");
     }
 
-    public void UpdateState()
+    public IEnumerator UpdateState()
     {
         if(!Physics2D.Linecast((Vector2)this.transform.position, m_gPlayer.transform.position, m_wallLayer))
         {
@@ -45,6 +54,7 @@ public class Companion : MonoBehaviour {
         {
             m_eState = State.IDLE;
         }
+        yield return new WaitForSeconds(.1f);
     }
 
     public void StateMachine()
@@ -52,15 +62,13 @@ public class Companion : MonoBehaviour {
         switch (m_eState)
         {
             case State.IDLE:
-                // Is next to player and doesn't need to follow or attack
-                UpdateState();
+                // Is next to player and doesn't need to follow or attack            
                 break;
             case State.FOLLOW:
                 // Can directly see player so follows with basic obstacle avoidance 
                 Vector2 dirToPlayer = (m_gPlayer.transform.position + (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset) - this.transform.position;
                 dirToPlayer.Normalize();
                 this.transform.Translate((dirToPlayer) * m_fFollowSpeed * Time.deltaTime);
-                UpdateState();
                 break;
             case State.ASTAR:
                 // When following but walls are in way of target
@@ -68,14 +76,10 @@ public class Companion : MonoBehaviour {
                 Vector2 dirToNextNode = m_Path[0].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
                 dirToNextNode.Normalize(); // Normalize direction
                 transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node
-
-                UpdateState(); // Checks for state update
                 break;
             case State.ATTACK:
                 // Enemy is in range for attacking
-
-                break;
-
+                break;           
             default:
                 break;
         }

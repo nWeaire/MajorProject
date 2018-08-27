@@ -1,17 +1,25 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------------
+// Purpose: Creation and handling for pathing to target node
+//
+// Description:  Finds paths to target through a* grid
+//
+// Author: Nicholas Weaire
+//--------------------------------------------------------------------------------------
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Pathing : MonoBehaviour {
 
-    public aStarGrid m_grid;
-    private Vector2 m_v2StartPosition;
-    private Vector2 m_v2TargetPosition;
+    public aStarGrid m_grid; // Reference to a* grid
+    private Vector2 m_v2StartPosition; // Start position of path
+    private Vector2 m_v2TargetPosition; // Targets position
+   
 
     // Use this for initialization
     void Start ()
     {
-        m_grid = GetComponent<aStarGrid>();
+        m_grid = GetComponent<aStarGrid>(); // Gets reference to grid
 	}
 	
 	// Update is called once per frame

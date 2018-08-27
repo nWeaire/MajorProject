@@ -1,20 +1,27 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------------
+// Purpose: Creation and handling of a* grid
+//
+// Description:  Handles all creation of grid, nodes and assigning neighbours 
+//
+// Author: Nicholas Weaire
+//--------------------------------------------------------------------------------------
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class aStarGrid : MonoBehaviour {
     
-    public List<Node> FinalPath;
-    private Node[,] m_grid;
-    public int m_nGridHeight = 1;
-    public int m_nGridWidth = 1;
-    public GameObject m_gNode;
-    public LayerMask m_WalkableLayer;
+    public List<Node> FinalPath; // Final path to target
+    private Node[,] m_grid; // 2d array of nodes to represent grid
+    public int m_nGridHeight = 1; // Grid height
+    public int m_nGridWidth = 1; // Grid width
+    public LayerMask m_WalkableLayer; // Layers of all walkable tiles
 
 	// Use this for initialization
 	void Awake ()
     {
-        CreateGrid();
+        CreateGrid(); // creates grid on wake up
 	}
 
     public void CreateGrid()
