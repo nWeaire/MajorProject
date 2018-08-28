@@ -17,15 +17,18 @@ public class aStarGrid : MonoBehaviour {
     public int m_nGridHeight = 1; // Grid height
     public int m_nGridWidth = 1; // Grid width
     public LayerMask m_WalkableLayer; // Layers of all walkable tiles
+    public GameObject m_gNode;
+    private List<Node> m_lWalkable;
 
 	// Use this for initialization
 	void Awake ()
     {
         CreateGrid(); // creates grid on wake up
-	}
+    }
 
     public void CreateGrid()
     {
+        m_lWalkable = new List<Node>(500);
         m_grid = new Node[m_nGridWidth, m_nGridHeight];
         for (int i = 0; i < m_nGridWidth; i++)
         {
@@ -36,23 +39,24 @@ public class aStarGrid : MonoBehaviour {
                 m_grid[i, j].IndexX = i;
                 m_grid[i, j].IndexY = j;
                 m_grid[i, j].WorldPosition = this.transform.position + new Vector3(i, j) + new Vector3(0.5f, 0.5f , 0);
-                Debug.DrawRay((this.transform.position + new Vector3(i, j)) + new Vector3(0.5f, 0.5f, -1), Vector3.forward, Color.red, 10.0f);
+                //Debug.DrawRay((this.transform.position + new Vector3(i, j)) + new Vector3(0.5f, 0.5f, -1), Vector3.forward, Color.red, 10.0f);
 
                 if (m_grid[i, j].Walkable)
-                {
-                    
+                { 
                     //Instantiate(m_gNode, (this.transform.position + new Vector3(i, j) + new Vector3(0.5f, 0.5f, 0)), new Quaternion());
+                    m_lWalkable.Add(m_grid[i, j]);
                 }
             }
         }
+        Debug.Log("Created");
     }
 
     //Function that gets the neighboring nodes of the given node.
     public List<Node> GetNeighboringNodes(Node a_NeighborNode)
     {
-        List<Node> NeighborList = new List<Node>();//Make a new list of all available neighbors.
-        int icheckX;//Variable to check if the XPosition is within range of the node array to avoid out of range errors.
-        int icheckY;//Variable to check if the YPosition is within range of the node array to avoid out of range errors.
+        List<Node> NeighborList = new List<Node>(); //Make a new list of all available neighbors.
+        int icheckX; // Variable to check if the XPosition is within range of the node array to avoid out of range errors.
+        int icheckY; // Variable to check if the YPosition is within range of the node array to avoid out of range errors.
 
         //Check the right side of the current node.
         icheckX = a_NeighborNode.IndexX + 1;
@@ -101,20 +105,22 @@ public class aStarGrid : MonoBehaviour {
     //Gets the closest node to the given world position.
     public Node NodeFromWorldPoint(Vector3 a_vWorldPos)
     {
-        float ixPos = ((a_vWorldPos.x + m_nGridWidth / 2) / m_nGridWidth);
-        float iyPos = ((a_vWorldPos.y + m_nGridHeight / 2) / m_nGridHeight);
-
-        ixPos = Mathf.Clamp01(ixPos);
-        iyPos = Mathf.Clamp01(iyPos);
-
-        int ix = Mathf.RoundToInt((m_nGridWidth - 1) * ixPos);
-        int iy = Mathf.RoundToInt((m_nGridHeight - 1) * iyPos);
-
-        return m_grid[ix, iy];
+        Node tempLocation = m_lWalkable[1];
+        for (int i = 0; i < m_lWalkable.Count; i++)
+        {
+            if(Vector2.Distance(a_vWorldPos, m_lWalkable[i].WorldPosition) < Vector2.Distance(a_vWorldPos, tempLocation.WorldPosition))
+            {
+                tempLocation = m_lWalkable[i];
+              
+            }
+        }
+        return tempLocation;
     }
 
     // Update is called once per frame
-    void Update () {
-		
-	}
+    void Update ()
+    {
+        Debug.DrawLine(this.transform.position, this.transform.position + new Vector3(0, m_nGridHeight, 0));
+        Debug.DrawLine(this.transform.position, this.transform.position + new Vector3(m_nGridWidth, 0, 0));
+    }
 }

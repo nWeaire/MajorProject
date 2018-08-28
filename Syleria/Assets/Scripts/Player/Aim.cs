@@ -63,7 +63,7 @@ public class Aim : MonoBehaviour
     //--------------------------------------------------------------------------------------
     // Sets aim based on the right stick input
     // Fires projectiles based on aim
-    //--------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------
     void Shoot()
     {
         m_fTimeBetweenShots += Time.deltaTime; // Cooldown for firing

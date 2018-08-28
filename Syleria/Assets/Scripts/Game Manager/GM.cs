@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------------
+// Purpose: All over arching game functions
+//
+// Description:  Game Management including ending, restarting and quitting game
+//
+// Author: Nicholas Weaire
+//--------------------------------------------------------------------------------------
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,7 +15,7 @@ public class GM : MonoBehaviour {
     private Player m_Player;
 
     public GameObject m_EndGameUI;
-
+    public GameObject m_runTimeObjects;
 	// Use this for initialization
 	void Start ()
     {
@@ -35,6 +42,7 @@ public class GM : MonoBehaviour {
         {
             Debug.Log("Lost");
             m_EndGameUI.SetActive(true);
+            m_runTimeObjects.SetActive(false);
         }
         yield return new WaitForSeconds(.3f);
     }

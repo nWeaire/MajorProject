@@ -12,9 +12,6 @@ using UnityEngine;
 public class Pathing : MonoBehaviour {
 
     public aStarGrid m_grid; // Reference to a* grid
-    private Vector2 m_v2StartPosition; // Start position of path
-    private Vector2 m_v2TargetPosition; // Targets position
-   
 
     // Use this for initialization
     void Start ()
