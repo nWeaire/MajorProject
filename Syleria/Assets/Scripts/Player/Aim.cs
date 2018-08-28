@@ -67,13 +67,8 @@ public class Aim : MonoBehaviour
     void Shoot()
     {
         m_fTimeBetweenShots += Time.deltaTime; // Cooldown for firing
-        Vector2 stickInput = new Vector2(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY")); // Right stick input
         if (Input.GetButton("Fire2")) // Gets right bumper input
         {
-            m_v3Aim.x = stickInput.x; // Sets aim based on right stick input
-            m_v3Aim.y = stickInput.y; // Sets aim based on right stick input
-            m_v3Aim.z = 0; // Sets aim z to 0
-            m_v3Aim.Normalize(); // Normalize aim vector
 
             if (m_fTimeBetweenShots >= m_fFireRate) // If firing is possible
             {

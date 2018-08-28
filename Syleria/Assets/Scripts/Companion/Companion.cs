@@ -42,7 +42,7 @@ public class Companion : MonoBehaviour {
 
     public IEnumerator UpdateState()
     {
-        if(!Physics2D.Linecast((Vector2)this.transform.position, m_gPlayer.transform.position, m_wallLayer))
+        if(!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset, m_wallLayer))
         {
             m_eState = State.FOLLOW;
         }

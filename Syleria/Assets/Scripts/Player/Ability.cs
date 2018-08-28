@@ -12,12 +12,9 @@ using UnityEngine;
 
 public class Ability : MonoBehaviour {
 
-    enum Companion
-    {
-        FOX,
-        TURTLE,
-        BIRD
-    }
+    enum Companion {FOX, TURTLE, BIRD}
+
+    public GameObject m_Aim;
 
     #region Shield
     [SerializeField] private float m_fShieldCD = 3.0f; // Cooldown for shield
@@ -123,7 +120,7 @@ public class Ability : MonoBehaviour {
         if(m_bIsSlashing) // If Slashing
         {
             m_fSlashDurationTimer += Time.deltaTime;
-            Vector2 aimDirection = new Vector2(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY"));
+            Vector2 aimDirection = m_Aim.transform.up;
             aimDirection.Normalize();
             m_cSlashCollider.enabled = true;
             Vector2[] slashPoints = new Vector2[3];
