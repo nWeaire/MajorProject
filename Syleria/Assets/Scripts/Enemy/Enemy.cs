@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour
     //--------------------------------------------------------------------------------------
     public void Update()
     {
-        StateMachine(m_gPlayer.transform.position); // Calls state machine
+        StateMachine((Vector2)m_gPlayer.transform.position); // Calls state machine
         StartCoroutine("UpdateState");
     }
 
@@ -101,13 +101,13 @@ public class Enemy : MonoBehaviour
                 break;
             case State.CHASE:
                 // Can directly see player so follows with basic obstacle avoidance 
-                Vector2 dirToPlayer = (v3Target + (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset) - this.transform.position;
+                Vector2 dirToPlayer = (v3Target - (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset) - this.transform.position;
                 dirToPlayer.Normalize();
                 this.transform.Translate((dirToPlayer) * m_fSeekSpeed * Time.deltaTime);
                 break;
             case State.ASTAR:
                 // When following but walls are in way of target
-                m_Path = m_aStar.FindPath(this.transform.position, v3Target + (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset); // Finds path to player
+                m_Path = m_aStar.FindPath(this.transform.position, v3Target - (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset); // Finds path to player
                 Vector2 dirToNextNode = m_Path[0].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
                 dirToNextNode.Normalize(); // Normalize direction
                 transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node

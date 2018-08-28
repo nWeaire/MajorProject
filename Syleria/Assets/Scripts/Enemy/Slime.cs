@@ -153,7 +153,7 @@ public class Slime : Enemy
         {
             m_fKnockTimer += Time.deltaTime * m_fKnockSpeed;
             m_gPlayer.transform.parent.position = Vector2.Lerp(m_v2StartKnockPos, m_v2EndKnockPos, m_fKnockTimer);
-
+            
             if(Vector2.Distance(m_gPlayer.transform.parent.position,m_v2EndKnockPos) <= 0.5f)
             {
                 m_bKnockBack = false;
