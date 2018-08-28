@@ -119,12 +119,11 @@ public class aStarGrid : MonoBehaviour
 
         Vector2 tempPos = a_vWorldPos;
         tempPos.x = a_vWorldPos.x;
-        tempPos.y = a_vWorldPos.y - 0.2f;
+        tempPos.y = a_vWorldPos.y - 0.58f;
 
         Vector2 RelativePos = tempPos - (Vector2)this.transform.position;
 
         Vector2Int tile = new Vector2Int(Mathf.RoundToInt(RelativePos.x / 1), Mathf.RoundToInt(RelativePos.y / 1));
-        Instantiate(m_gNode, m_grid[tile.x, tile.y].WorldPosition, new Quaternion());
         Node tempNode = m_grid[tile.x, tile.y];
         return tempNode;
     }
