@@ -103,12 +103,6 @@ public class Slime : Enemy
                 }
 
             }
-
-            // Rotate towards the players position.
-            //Seek(m_gPlayer.transform.position);
-
-            // Check for Obstacles, this will steer the Slime away from them when required.
-            //AvoidObstacles();
             
         }
         // If Slime is spawning.
