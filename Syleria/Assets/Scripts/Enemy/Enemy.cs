@@ -13,7 +13,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-
+    public float m_fIdleDistance;
     public enum State { IDLE, CHASE, ASTAR, ATTACK }
 
     public enum EnemyType { SLIME, SHOTGUN, SENTRY}
@@ -89,6 +89,10 @@ public class Enemy : MonoBehaviour
             {
                 m_eState = State.IDLE;
             }
+        }
+        if(Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset) >= m_fIdleDistance)
+        {
+            m_eState = State.IDLE;
         }
         yield return new WaitForSeconds(.1f);
     }
