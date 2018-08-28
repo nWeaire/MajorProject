@@ -57,7 +57,7 @@ public class Sentry : Enemy
     //--------------------------------------------------------------------------------------
     // Update: Function that calls each frame to update game objects.
     //--------------------------------------------------------------------------------------
-    void Update()
+    new void Update()
     {
         // increase timer
         m_fTimeBetweenShots += Time.deltaTime;

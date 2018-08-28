@@ -13,195 +13,112 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+
+    public enum State { IDLE, CHASE, ASTAR, ATTACK }
+
+    public enum EnemyType { SLIME, SHOTGUN, SENTRY}
+
+    #region AStar
+    public List<Node> m_Path;
+    public Pathing m_aStar;
+    [SerializeField] private float m_fAStarSpeed = 0.01f;
+    private float m_fDistToNode;
+    #endregion
+
+    public GameObject m_gPlayer; // Reference to player
+
+    public EnemyType m_eEnemyType;
+  
+    public State m_eState = State.IDLE; // Starting state for Enemy
+
+    public LayerMask m_WallLayer;
+
     // Maximum health for the Enemy
     [Tooltip("Maximum health for this Enemy")]
     public int m_nHealth;
-
-    // Damage that the enemy will do
-    [Tooltip("Damage that this enemy will do to the player")]
-    public int m_nDamage;
 
     // The CurrentHealth of the Enemy
     [Tooltip("The Current Health of this enemy")]
     public int m_nCurrentHealth;
 
-    // Maximum speed that the enemy can go
-    [Tooltip("This is the maximum speed of the enemy, and their natural speed unless they are slowing down")]
-    public float m_fMaxSpeed;
+    // Damage that the enemy will do
+    [Tooltip("Damage that this enemy will do to the player")]
+    public int m_nDamage;
 
-    // Current speed of the enemy
-    [Tooltip("How fast the enemy is going currently")]
-    public float m_fSpeed;
-
-    // Filter for what the Enemy must avoid
-    [Tooltip("This is the filter for the enemy to avoid (e.g the terrain layer)")]
-    public ContactFilter2D m_cfFilter;
-
-    //If the enemy gets within this distance of the player it will slow
-    [Tooltip("If the enemy gets within this distance of the player it will slow")]
-    public float m_fSlowingRadius;
-
-    // Lets the enemy know where the player is
     [HideInInspector]
-    public GameObject m_gPlayer;
+    public ContactFilter2D m_cFilter;
 
-    // Boolean for leftmost raycast
-    private bool m_bLeftHit;
+    [SerializeField] private float m_fSeekSpeed = 3.0f; // Seek move speed
 
-    // Boolean for rightmost raycast
-    private bool m_bRightHit;
 
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
     public void Start()
     {
-        m_bLeftHit = false;
-        m_bRightHit = false;
-    }
-
-
-    //--------------------------------------------------------------------------------------
-    // AvoidObstacles: 
-    //
-    // Parameters:
-    //      v3Target: The Target that the Enemy will attempt to rotate towards
-    //--------------------------------------------------------------------------------------
-    public void AvoidObstacles()
-    {
-        // Initialise an array of RayCast hits.
-        RaycastHit2D[] aHit = new RaycastHit2D[2];
-
-        // Initialise the counter for raycasts
-        int count = 0;
-        // Count will be equal to the amount of objects hit in the Raycast.
-        count = Physics2D.Raycast(transform.localPosition, transform.up - transform.right, m_cfFilter, aHit, 2f);
-        // Draw the ray in Scene view.
-        Debug.DrawRay(transform.localPosition, transform.up - transform.right, Color.cyan);
-        // If the Raycast has hit something,
-        if (count > 0)
-        {
-            // Then leftHit is true.
-            m_bLeftHit = true;
-        }
-        // If the Raycast hasn't hit something,
-        else
-        {
-            // Then leftHit is false.
-            m_bLeftHit = false;
-        }
-        // Count will be equal to the amount of objects hit in the Raycast.
-        count = Physics2D.Raycast(transform.localPosition, transform.up + transform.right, m_cfFilter, aHit, 2f);
-        // Draw the ray in Scene view.
-        Debug.DrawRay(transform.localPosition, transform.up + transform.right, Color.cyan);
-
-        // If the Raycast has hit something,
-        if (count > 0)
-        {
-            // Then rightHit is true.
-            m_bRightHit = true;
-        }
-        // If the Raycast hasn't hit something,
-        else
-        {
-            // Then rightHit is false.
-            m_bRightHit = false;
-        }
-
-        // Display the ray casts in the scene view
-        foreach (RaycastHit2D element in aHit)
-        {
-            if (element.point != new Vector2(0, 0))
-            {
-                Debug.DrawLine(transform.position, element.point, Color.red);
-            }
-        }     
-
-        // If the left ray has been hit
-        if (m_bLeftHit)
-        {
-            // Rotate towards the right, with speed dependent on how close it is to the obstacle. 
-            if (aHit[0].distance > 0.0f)
-            {
-                transform.Rotate(Vector3.back * (180f * (2f / aHit[0].distance) * Time.deltaTime));
-            }
-            else
-            {
-                transform.Rotate(Vector3.back * (180f * (2f) * Time.deltaTime));
-            }
-
-        }
-        // If the right ray has been hit
-        else if (m_bRightHit)
-        {
-            // Rotate towards the left, with speed dependent on how close it is to the obstacle. 
-            if (aHit[0].distance > 0.0f)
-            {
-                transform.Rotate(Vector3.forward * (180f * (2f / aHit[0].distance) * Time.deltaTime));
-            }
-            else
-            {
-                transform.Rotate(Vector3.forward * (180f * (2f) * Time.deltaTime));
-            }
-        }
+        m_aStar = GameObject.FindGameObjectWithTag("A*").GetComponent<Pathing>();
+        m_aStar = m_aStar.GetComponent<Pathing>(); // Gets pathing component
+        m_Path = m_aStar.FindPath(this.transform.position, m_gPlayer.transform.position); // Finds starting path to player
+        m_cFilter.layerMask = m_WallLayer;
     }
 
     //--------------------------------------------------------------------------------------
-    // Seek: Rotate towards the target over time.
-    //
-    // Parameters:
-    //      v3Target: The Target that the Enemy will attempt to rotate towards.
+    // Update: Function that calls each frame to update game objects.
     //--------------------------------------------------------------------------------------
-    public void Seek(Vector3 v3Target)
+    public void Update()
     {
-        // Find the target that will allow us to get to the target.
-        Vector3 v3TargetDir = v3Target - transform.position;
-        // Normalize the Direction vector.
-        v3TargetDir.Normalize();
-
-        Debug.DrawRay(this.transform.position, v3TargetDir, Color.red);
-
-        float dot = Vector3.Dot(transform.up.normalized, v3TargetDir);
-        float rightDot = Vector3.Dot(transform.right.normalized, v3TargetDir);
-
-
-
-        if (dot > 0.9f) // if Target is in the direction this is facing,
-        {
-            // Don't rotate.
-        }
-       if (rightDot > 0f) // rotate right as D is on the right.
-        {
-            transform.Rotate(Vector3.back * (180f * Time.deltaTime));
-        }
-       if (rightDot < 0f) // rotate left as D is on the Left.
-        {
-            transform.Rotate(Vector3.forward * (180f * Time.deltaTime));
-
-        }
-        // Call arrive script, as it will do nothing unless it is close enough.
-        Arrive();
+        StateMachine(m_gPlayer.transform.position); // Calls state machine
+        StartCoroutine("UpdateState");
     }
 
-    //--------------------------------------------------------------------------------------
-    // Arrive: When the Enemy is close to the Player, they should slow slightly for steering.
-    //--------------------------------------------------------------------------------------
-    public void Arrive()
+    public IEnumerator UpdateState()
     {
-        Vector3 v3DesiredVelocity = m_gPlayer.transform.position - transform.position;
-
-        float fDistance = v3DesiredVelocity.magnitude;
-
-        if (fDistance < m_fSlowingRadius)
+        if (!Physics2D.Linecast((Vector2)this.transform.position, m_gPlayer.transform.position, m_WallLayer))
         {
-            m_fSpeed = m_fMaxSpeed * (fDistance / m_fSlowingRadius);
-            Mathf.Clamp(m_fSpeed, m_fMaxSpeed, m_fMaxSpeed);
+            m_eState = State.CHASE;
         }
         else
         {
-            m_fSpeed = m_fMaxSpeed;
+            m_eState = State.ASTAR;
+        }
+        if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= 6f)
+        {
+            if (m_eEnemyType == EnemyType.SHOTGUN)
+            {
+                m_eState = State.IDLE;
+            }
+        }
+        yield return new WaitForSeconds(.1f);
+    }
+
+    public void StateMachine(Vector3 v3Target)
+    {
+        switch (m_eState)
+        {
+            case State.IDLE:
+                // Is next to player and doesn't need to follow or attack            
+                break;
+            case State.CHASE:
+                // Can directly see player so follows with basic obstacle avoidance 
+                Vector2 dirToPlayer = (v3Target + (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset) - this.transform.position;
+                dirToPlayer.Normalize();
+                this.transform.Translate((dirToPlayer) * m_fSeekSpeed * Time.deltaTime);
+                break;
+            case State.ASTAR:
+                // When following but walls are in way of target
+                m_Path = m_aStar.FindPath(this.transform.position, v3Target + (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset); // Finds path to player
+                Vector2 dirToNextNode = m_Path[0].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
+                dirToNextNode.Normalize(); // Normalize direction
+                transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node
+                break;
+            case State.ATTACK:
+                // Enemy is in range for attacking
+                break;
+            default:
+                break;
         }
     }
+
     //--------------------------------------------------------------------------------------
     // TakeDamage: Calling this on any enemy will damage it.
     //

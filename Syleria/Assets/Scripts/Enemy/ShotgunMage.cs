@@ -34,7 +34,7 @@ public class ShotgunMage : Enemy
 
     // Amount of bullets that will be instantiated in the spread
     [Tooltip("Amount of bullets that will be instantiated in the spread")]
-    public int m_nSpreadAmount = 5;
+    public int m_nBulletAmount = 5;
 
     // Amount of spread between the bullets in a burst
     [Tooltip("Amount of spread between the bullets in a burst")]
@@ -58,17 +58,18 @@ public class ShotgunMage : Enemy
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         // Set the counter to max timer.
         m_fTimeBetweenShots = m_fFireRate;
+        m_eEnemyType = EnemyType.SHOTGUN;
     }
 
     //--------------------------------------------------------------------------------------
     // Update: Function that calls each frame to update game objects.
     //--------------------------------------------------------------------------------------
-    void Update ()
+    new void Update ()
     {
         // increase timer
         m_fTimeBetweenShots += Time.deltaTime;
         m_fTimeBetweenShots = m_fTimeBetweenShots % 60;
-
+      
         // if timer has reached the limit,
         if (m_fTimeBetweenShots >= m_fFireRate)
         {
@@ -76,7 +77,10 @@ public class ShotgunMage : Enemy
             if (m_nBurstCount < m_nBurstAmount)
             {
                 // Fire a shot.
-                Fire();
+                if (!Physics2D.Linecast((Vector2)this.transform.position, m_gPlayer.transform.position, m_WallLayer))
+                {
+                    Fire();
+                }
             }
             // if BurstCount has added up to the amount of shots wanted,
             else
@@ -95,6 +99,7 @@ public class ShotgunMage : Enemy
                 }
             }
         }
+        base.Update();
 
         // Boolean setting for the sprite
         if (transform.position.x - m_gPlayer.transform.position.x >= 0)
@@ -120,19 +125,16 @@ public class ShotgunMage : Enemy
     void Fire()
     {
         // Instantiate a bullet
-        for (int i = 0; i < m_nSpreadAmount; ++i)
+        for (int i = 0; i < m_nBulletAmount; ++i)
         {
             GameObject newBullet = Instantiate(m_gProjectile, this.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
-           
-
             // Get the target position
             Vector3 v3Target = m_gPlayer.transform.position - transform.position;
             v3Target.Normalize();
             // Calculate rotation needed to face Player
             float angle = Mathf.Atan2(v3Target.y, v3Target.x) * Mathf.Rad2Deg;
             // Set bullets rotation to face Player.
-            newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90 + (i * m_fBulletSpread)));
-
+            newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90 - (((float)m_nBulletAmount - 1) * 0.5f)*m_fBulletSpread + (i * m_fBulletSpread)));
             // Set bullets damage to this damage value
             newBullet.GetComponent<EnemyBullet>().m_nDam = m_nDamage;
             // Set bullets damage to this  bullet speed

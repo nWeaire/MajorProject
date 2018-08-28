@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Slime : Enemy
-{
+{ 
     // If true, this slime will spawn smaller slimes on death
     [Tooltip("Untick this on the Small Slime Prefab, or on any slime that shouldn't spawn other slimes")]
     public bool m_bBigSlime;
@@ -70,18 +70,14 @@ public class Slime : Enemy
     new void Start()
     {
         base.Start();
-        // Set player to Player
-        m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         // Set current health to maxHealth.
         m_nCurrentHealth = m_nHealth;
-        // Set current speed to maxSpeed.
-        m_fSpeed = m_fMaxSpeed;
     }
 
     //--------------------------------------------------------------------------------------
     // Update: Function that calls each frame to update game objects.
     //--------------------------------------------------------------------------------------
-    void Update()
+    new void Update()
     {
         // If Slime can move
         if (!m_bCannotMove)
@@ -92,7 +88,7 @@ public class Slime : Enemy
             // Move forward by speed * deltaTime.
             if (m_fMoveTimer <= m_fMoveTime)
             {
-                transform.position += transform.up * m_fSpeed * Time.deltaTime;
+                base.Update();
             }
             if(m_fMoveTimer >= m_fMoveTime)
             {
@@ -108,10 +104,10 @@ public class Slime : Enemy
             }
 
             // Rotate towards the players position.
-            Seek(m_gPlayer.transform.position);
+            //Seek(m_gPlayer.transform.position);
 
             // Check for Obstacles, this will steer the Slime away from them when required.
-            AvoidObstacles();
+            //AvoidObstacles();
             
         }
         // If Slime is spawning.
@@ -182,11 +178,13 @@ public class Slime : Enemy
         {
             // Spawn Slimes (temp) replace with array spawning x amount of smallSlime .
             m_goSmallSlime.GetComponent<Slime>().m_bSpawning = true;
-            Instantiate(m_goSmallSlime,new Vector2(transform.position.x - 0.5f,transform.position.y), transform.rotation);
+            m_goSmallSlime.GetComponent<Slime>().m_gPlayer = m_gPlayer;
+            Instantiate(m_goSmallSlime, new Vector2(transform.position.x - 0.5f,transform.position.y), transform.rotation);
             Instantiate(m_goSmallSlime, new Vector2(transform.position.x + 0.5f, transform.position.y), transform.rotation);
             Instantiate(m_goSmallSlime, new Vector2(transform.position.x, transform.position.y - 0.5f), transform.rotation);
             Instantiate(m_goSmallSlime, new Vector2(transform.position.x, transform.position.y + 0.5f), transform.rotation);
             // Destroy this object.
+            Debug.Log("DEAD");
             Destroy(gameObject);
         }
         // If this slime is a small slime.
@@ -221,7 +219,7 @@ public class Slime : Enemy
             int count = 0; // Count of collisions detected
             RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of objects the ray collides with
             Vector2 rayOrigin = (Vector2)m_gPlayer.transform.parent.position - new Vector2(m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.x, m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.y); // Gets ray origin based on player position and collider offset
-            count = Physics2D.Raycast(rayOrigin, (Vector2)(m_gPlayer.transform.parent.position - transform.position), m_cfFilter, Hit, m_fKnockDistance); // Ray casts in direction of movement
+            count = Physics2D.Raycast(rayOrigin, (Vector2)(m_gPlayer.transform.parent.position - transform.position), m_cFilter, Hit, m_fKnockDistance); // Ray casts in direction of movement
             Debug.DrawRay(rayOrigin, m_gPlayer.transform.parent.position - transform.position, Color.magenta, 10f);
             if (count > 0) // Checks if anything collided with the ray
             {
