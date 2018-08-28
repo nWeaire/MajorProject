@@ -56,6 +56,7 @@ public class Enemy : MonoBehaviour
     //--------------------------------------------------------------------------------------
     public void Start()
     {
+        m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         m_aStar = GameObject.FindGameObjectWithTag("A*").GetComponent<Pathing>();
         m_aStar = m_aStar.GetComponent<Pathing>(); // Gets pathing component
         m_Path = m_aStar.FindPath(this.transform.position, m_gPlayer.transform.position); // Finds starting path to player
