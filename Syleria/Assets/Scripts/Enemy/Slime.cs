@@ -154,7 +154,7 @@ public class Slime : Enemy
             m_fKnockTimer += Time.deltaTime * m_fKnockSpeed;
             m_gPlayer.transform.parent.position = Vector2.Lerp(m_v2StartKnockPos, m_v2EndKnockPos, m_fKnockTimer);
             
-            if(Vector2.Distance(m_gPlayer.transform.parent.position,m_v2EndKnockPos) <= 0.5f)
+            if(Vector2.Distance(m_gPlayer.transform.parent.position,m_v2EndKnockPos) <= 0.1f)
             {
                 m_bKnockBack = false;
                 m_fKnockTimer = 0.0f;
@@ -215,7 +215,7 @@ public class Slime : Enemy
             RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of objects the ray collides with
             Vector2 rayOrigin = (Vector2)m_gPlayer.transform.parent.position - new Vector2(m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.x, m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.y); // Gets ray origin based on player position and collider offset
             count = Physics2D.Raycast(rayOrigin, (Vector2)(m_gPlayer.transform.parent.position - transform.position), m_cFilter, Hit, m_fKnockDistance); // Ray casts in direction of movement
-            Debug.DrawRay(rayOrigin, m_gPlayer.transform.parent.position - transform.position, Color.magenta, 10f);
+            Debug.DrawRay(rayOrigin, m_gPlayer.transform.parent.position - transform.position, Color.magenta, m_fKnockDistance);
             if (count > 0) // Checks if anything collided with the ray
             {
                 m_v2EndKnockPos.x = Hit[0].point.x + dir.x;

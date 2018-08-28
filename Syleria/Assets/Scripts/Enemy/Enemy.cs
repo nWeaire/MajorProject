@@ -61,6 +61,7 @@ public class Enemy : MonoBehaviour
         m_aStar = m_aStar.GetComponent<Pathing>(); // Gets pathing component
         m_Path = m_aStar.FindPath(this.transform.position, m_gPlayer.transform.position); // Finds starting path to player
         m_cFilter.layerMask = m_WallLayer;
+        m_cFilter.useLayerMask = true;
     }
 
     //--------------------------------------------------------------------------------------
