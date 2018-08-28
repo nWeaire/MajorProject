@@ -70,6 +70,7 @@ public class Slime : Enemy
     new void Start()
     {
         base.Start();
+        m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         // Set current health to maxHealth.
         m_nCurrentHealth = m_nHealth;
     }
