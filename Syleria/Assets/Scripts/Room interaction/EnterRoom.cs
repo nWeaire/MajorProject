@@ -14,8 +14,8 @@ public class EnterRoom : MonoBehaviour
 {
 
     public SpawnPoints[] m_aSpawnPoints;
-    private bool m_bRoomActive = false;
-
+    public bool m_bRoomActive = false;
+    public bool m_bSpawned = false;
     // Use this for initialization
     void Start()
     {
@@ -25,12 +25,13 @@ public class EnterRoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(m_bRoomActive)
+        if(m_bRoomActive && !m_bSpawned)
         {
             for (int i = 0; i < m_aSpawnPoints.Length; i++)
             {
-                m_aSpawnPoints[i].SpawnEnemy(1);
+                m_aSpawnPoints[i].SpawnEnemy(0);
             }
+            m_bSpawned = true;
         }
     }
 

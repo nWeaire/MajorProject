@@ -73,7 +73,7 @@ public class Companion : MonoBehaviour {
             case State.ASTAR:
                 // When following but walls are in way of target
                 m_Path = m_aStar.FindPath(this.transform.position, m_gPlayer.transform.position + (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset); // Finds path to player
-                Vector2 dirToNextNode = m_Path[0].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
+                Vector2 dirToNextNode = m_Path[1].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
                 dirToNextNode.Normalize(); // Normalize direction
                 transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node
                 break;

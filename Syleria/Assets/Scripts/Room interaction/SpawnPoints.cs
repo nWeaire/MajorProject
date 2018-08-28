@@ -13,6 +13,12 @@ using UnityEngine;
 public class SpawnPoints : MonoBehaviour {
 
     public GameObject[] m_aEnemies;
+    public int m_nWaveNumber = 0;
+    public bool m_bWavedead;
+    private void Start()
+    {
+        m_nWaveNumber = m_aEnemies.Length;
+    }
 
     public void SpawnEnemy(int waveNumber)
     {
@@ -21,5 +27,8 @@ public class SpawnPoints : MonoBehaviour {
             Instantiate(m_aEnemies[waveNumber], this.transform.position, new Quaternion());
         }
     }
+
+
+
     
 }
