@@ -54,6 +54,7 @@ public class ShotgunMage : Enemy
     //--------------------------------------------------------------------------------------
     new void Start () 
     {
+        base.Start();
         // Get Player.
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         // Set the counter to max timer.
