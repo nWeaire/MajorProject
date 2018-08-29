@@ -134,7 +134,8 @@ public class Ability : MonoBehaviour {
             slashPoints[0] = new Vector2(0, -0.5f);
             slashPoints[1] = new Vector2(m_v2rightPoint.x, m_v2rightPoint.y);
             slashPoints[2] = new Vector2(m_v2leftPoint.x, m_v2leftPoint.y);
-            m_cSlashCollider.points = slashPoints;        
+            m_cSlashCollider.points = slashPoints;
+
         }
         if(!m_bIsSlashing)
         {

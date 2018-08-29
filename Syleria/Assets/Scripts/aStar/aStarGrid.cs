@@ -118,7 +118,7 @@ public class aStarGrid : MonoBehaviour
         //return tempLocation;
 
         Vector2 tempPos = a_vWorldPos;
-        tempPos.x = a_vWorldPos.x;
+        tempPos.x = a_vWorldPos.x - 0.5f;
         tempPos.y = a_vWorldPos.y - 0.58f;
 
         Vector2 RelativePos = tempPos - (Vector2)this.transform.position;
