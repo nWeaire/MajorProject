@@ -27,8 +27,4 @@ public class SpawnPoints : MonoBehaviour {
             Instantiate(m_aEnemies[waveNumber], this.transform.position, new Quaternion());
         }
     }
-
-
-
-    
 }

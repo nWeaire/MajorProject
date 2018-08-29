@@ -29,7 +29,7 @@ public class aStarGrid : MonoBehaviour
 
     public void CreateGrid()
     {
-        m_lWalkable = new List<Node>(500);
+        m_lWalkable = new List<Node>();
         m_grid = new Node[m_nGridWidth, m_nGridHeight];
         for (int i = 0; i < m_nGridWidth; i++)
         {

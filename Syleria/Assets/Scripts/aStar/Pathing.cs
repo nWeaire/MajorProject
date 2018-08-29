@@ -92,7 +92,7 @@ public class Pathing : MonoBehaviour {
         FinalPath.Reverse();//Reverse the path to get the correct order
         for (int i = 0; i < FinalPath.Count; i++)
         {
-            Debug.Log(FinalPath[i].WorldPosition);
+            //Debug.Log(FinalPath[i].WorldPosition);
         }
         return m_grid.FinalPath = FinalPath;//Set the final path
 
