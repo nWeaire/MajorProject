@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class EnterRoom : MonoBehaviour
 {
-    public GameObject m_Door;
+    public GameObject[] m_Door;
     public SpawnPoints[] m_aSpawnPoints;
     public bool m_bRoomActive = false;
     public bool m_bSpawned = false;
@@ -28,7 +28,10 @@ public class EnterRoom : MonoBehaviour
     {
         if(m_bRoomActive && !m_bSpawned)
         {
-            m_Door.SetActive(true);
+            for (int i = 0; i < m_Door.Length; i++)
+            {
+                m_Door[i].SetActive(true);
+            }
             for (int i = 0; i < m_aSpawnPoints.Length; i++)
             {
                 m_aSpawnPoints[i].SpawnEnemy(0);
@@ -39,7 +42,10 @@ public class EnterRoom : MonoBehaviour
         m_enemy = GameObject.FindGameObjectsWithTag("Enemy");
         if (m_enemy.Length <= 0 && m_bRoomActive)
         {
-            m_Door.SetActive(false);
+            for (int i = 0; i < m_Door.Length; i++)
+            {
+                m_Door[i].SetActive(false);
+            }
             Destroy(this.gameObject);
         }
     }
