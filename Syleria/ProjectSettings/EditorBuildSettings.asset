@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/_Scenes/Callan Scene.unity
-    guid: 9a4e0c78c4d58ac4aa84a0b71b6c618d
-  - enabled: 1
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
     path: Assets/_Scenes/Nick Scene.unity
     guid: 78db63a05106fd04b874ad858a1b3932
+  - enabled: 1
+    path: Assets/_Scenes/PlayableScee.unity
+    guid: b6ccf63aa7c21cd499dc4efae01e93bb

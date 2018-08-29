@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c60c8854e7a924e83abcfb1f75f803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_fIdleDistance: 20
   m_aStar: {fileID: 0}
   m_fAStarSpeed: 3
   m_gPlayer: {fileID: 0}
@@ -138,7 +139,7 @@ MonoBehaviour:
   m_bBigSlime: 0
   m_goSmallSlime: {fileID: 1986857641011166}
   m_bCannotMove: 1
-  m_fSpawnTime: 1.5
+  m_fSpawnTime: 0.5
   m_fStunTime: 1.5
   m_fMoveTime: 0.5
   m_fPauseTime: 0.25
