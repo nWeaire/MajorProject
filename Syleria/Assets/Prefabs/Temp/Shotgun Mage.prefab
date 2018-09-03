@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 4162678842765698}
   - component: {fileID: 114561609737836964}
   - component: {fileID: 70863236444140672}
+  - component: {fileID: 50022993529053748}
   m_Layer: 0
   m_Name: Shotgun Mage
   m_TagString: Enemy
@@ -71,6 +72,26 @@ Transform:
   m_Father: {fileID: 4162678842765698}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50022993529053748
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1931324696854696}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!70 &70863236444140672
 CapsuleCollider2D:
   m_ObjectHideFlags: 1

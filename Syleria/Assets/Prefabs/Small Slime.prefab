@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4928883658877096}
   - component: {fileID: 114730429391602208}
   - component: {fileID: 58381166154580234}
+  - component: {fileID: 50318275369710376}
   m_Layer: 9
   m_Name: Small Slime
   m_TagString: Enemy
@@ -72,6 +73,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50318275369710376
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1986857641011166}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &58381166154580234
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -109,27 +130,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c60c8854e7a924e83abcfb1f75f803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_fIdleDistance: 0
+  m_aStar: {fileID: 0}
+  m_fAStarSpeed: 0.01
+  m_gPlayer: {fileID: 0}
+  m_eEnemyType: 0
+  m_eState: 0
+  m_WallLayer:
+    serializedVersion: 2
+    m_Bits: 0
   m_nHealth: 10
-  m_nDamage: 3
   m_nCurrentHealth: 0
-  m_fMaxSpeed: 6
-  m_fSpeed: 8
-  m_cfFilter:
+  m_nDamage: 3
+  m_cFilter:
     useTriggers: 0
-    useLayerMask: 1
+    useLayerMask: 0
     useDepth: 0
     useOutsideDepth: 0
     useNormalAngle: 0
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 256
+      m_Bits: 0
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  m_fSlowingRadius: 1
-  m_gPlayer: {fileID: 0}
+  m_fSeekSpeed: 3
   m_bBigSlime: 0
   m_goSmallSlime: {fileID: 1986857641011166}
   m_bCannotMove: 1

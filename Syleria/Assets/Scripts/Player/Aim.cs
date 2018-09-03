@@ -72,7 +72,7 @@ public class Aim : MonoBehaviour
 
             if (m_fTimeBetweenShots >= m_fFireRate) // If firing is possible
             {
-                GameObject newBullet = Instantiate(m_gBullet, this.transform.position + this.transform.up, Quaternion.Euler(0, 0, -m_fAngle)) as GameObject; // Instantiate bullet
+                GameObject newBullet = Instantiate(m_gBullet, this.transform.position, Quaternion.Euler(0, 0, -m_fAngle)) as GameObject; // Instantiate bullet
                 newBullet.GetComponent<Bullet>().m_fSpeed = m_fBulletSpeed; // Set bullet speed
                 m_fTimeBetweenShots = 0; // Sets time between shots to 0
             }

@@ -99,39 +99,62 @@ public class aStarGrid : MonoBehaviour
                 NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
             }
         }
+        //Check the Bottom Left side of the current node.
+        icheckX = a_NeighborNode.IndexX - 1;
+        icheckY = a_NeighborNode.IndexY - 1;
+        if (icheckX >= 0 && icheckX < m_nGridWidth)//If the XPosition is in range of the array
+        {
+            if (icheckY >= 0 && icheckY < m_nGridHeight)//If the YPosition is in range of the array
+            {
+                NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
+            }
+        }
+        //Check the Bottom Right side of the current node.
+        icheckX = a_NeighborNode.IndexX + 1;
+        icheckY = a_NeighborNode.IndexY - 1;
+        if (icheckX >= 0 && icheckX < m_nGridWidth)//If the XPosition is in range of the array
+        {
+            if (icheckY >= 0 && icheckY < m_nGridHeight)//If the YPosition is in range of the array
+            {
+                NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
+            }
+        }
+        //Check the Top Left side of the current node.
+        icheckX = a_NeighborNode.IndexX - 1;
+        icheckY = a_NeighborNode.IndexY + 1;
+        if (icheckX >= 0 && icheckX < m_nGridWidth)//If the XPosition is in range of the array
+        {
+            if (icheckY >= 0 && icheckY < m_nGridHeight)//If the YPosition is in range of the array
+            {
+                NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
+            }
+        }
+        //Check the Top Right side of the current node.
+        icheckX = a_NeighborNode.IndexX + 1;
+        icheckY = a_NeighborNode.IndexY + 1;
+        if (icheckX >= 0 && icheckX < m_nGridWidth)//If the XPosition is in range of the array
+        {
+            if (icheckY >= 0 && icheckY < m_nGridHeight)//If the YPosition is in range of the array
+            {
+                NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
+            }
+        }
 
         return NeighborList;//Return the neighbors list.
     }
 
     //Gets the closest node to the given world position.
-    public Node NodeFromWorldPoint(Vector3 a_vWorldPos)
-    {
-        //Node tempLocation = m_lWalkable[1];
-        //for (int i = 0; i < m_lWalkable.Count; i++)
-        //{
-        //    if (Vector2.Distance(a_vWorldPos, m_lWalkable[i].WorldPosition) < Vector2.Distance(a_vWorldPos, tempLocation.WorldPosition))
-        //    {
-        //        tempLocation = m_lWalkable[i];
+    public Node NodeFromWorldPoint(Vector3 WorldPosition)
+    { 
+        Vector2 tempPos = WorldPosition; // Temp pos of target
+        tempPos.x = WorldPosition.x - 0.5f; // X world position
+        tempPos.y = WorldPosition.y - 0.58f; // Y world position
 
-        //    }
-        //}
-        //return tempLocation;
+        Vector2 RelativePos = tempPos - (Vector2)this.transform.position; // Relative position to grid position
 
-        Vector2 tempPos = a_vWorldPos;
-        tempPos.x = a_vWorldPos.x - 0.5f;
-        tempPos.y = a_vWorldPos.y - 0.58f;
-
-        Vector2 RelativePos = tempPos - (Vector2)this.transform.position;
-
-        Vector2Int tile = new Vector2Int(Mathf.RoundToInt(RelativePos.x / 1), Mathf.RoundToInt(RelativePos.y / 1));
-        Node tempNode = m_grid[tile.x, tile.y];
-        return tempNode;
+        Vector2Int tile = new Vector2Int(Mathf.RoundToInt(RelativePos.x / 1), Mathf.RoundToInt(RelativePos.y / 1)); // Round position to closet int
+        Node tempNode = m_grid[tile.x, tile.y]; // Gets node based on position
+        return tempNode; // Returns node
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.DrawLine(this.transform.position, this.transform.position + new Vector3(0, m_nGridHeight, 0));
-        Debug.DrawLine(this.transform.position, this.transform.position + new Vector3(m_nGridWidth, 0, 0));
-    }
 }
