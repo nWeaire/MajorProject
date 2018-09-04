@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: f0ea1bd421d4f124ca50ff2ebb5f4947
-timeCreated: 1535937508
+timeCreated: 1536104177
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -284,8 +284,8 @@ TextureImporter:
       physicsShape:
       - - {x: -16, y: -16}
         - {x: 16, y: -16}
-        - {x: 16, y: -6}
-        - {x: -16, y: -6}
+        - {x: 16, y: 16}
+        - {x: -16, y: 16}
       tessellationDetail: 0
     - serializedVersion: 2
       name: Wall1_tileset_1_9
@@ -300,8 +300,8 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -6, y: -16}
-        - {x: -6, y: 16}
+      - - {x: 16, y: -16}
+        - {x: 16, y: 16}
         - {x: -16, y: 16}
         - {x: -16, y: -16}
       tessellationDetail: 0
@@ -319,10 +319,9 @@ TextureImporter:
       outline: []
       physicsShape:
       - - {x: -16, y: 16}
-        - {x: -16, y: 6}
-        - {x: -8, y: 6}
-        - {x: -6, y: 8}
-        - {x: -6, y: 16}
+        - {x: -16, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: 16}
       tessellationDetail: 0
     - serializedVersion: 2
       name: Wall1_tileset_1_11
@@ -337,10 +336,9 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: 6, y: 16}
-        - {x: 6, y: 8}
-        - {x: 8, y: 6}
-        - {x: 16, y: 6}
+      - - {x: -16, y: 16}
+        - {x: -16, y: -16}
+        - {x: 16, y: -16}
         - {x: 16, y: 16}
       tessellationDetail: 0
     - serializedVersion: 2
@@ -356,8 +354,8 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: 6, y: 16}
-        - {x: 6, y: -16}
+      - - {x: -16, y: 16}
+        - {x: -16, y: -16}
         - {x: 16, y: -16}
         - {x: 16, y: 16}
       tessellationDetail: 0
@@ -375,8 +373,8 @@ TextureImporter:
       outline: []
       physicsShape:
       - - {x: -16, y: 16}
-        - {x: -16, y: 6}
-        - {x: 16, y: 6}
+        - {x: -16, y: -16}
+        - {x: 16, y: -16}
         - {x: 16, y: 16}
       tessellationDetail: 0
     - serializedVersion: 2
@@ -393,10 +391,9 @@ TextureImporter:
       outline: []
       physicsShape:
       - - {x: -16, y: -16}
-        - {x: -6, y: -16}
-        - {x: -6, y: -8}
-        - {x: -8, y: -6}
-        - {x: -16, y: -6}
+        - {x: 16, y: -16}
+        - {x: 16, y: 16}
+        - {x: -16, y: 16}
       tessellationDetail: 0
     - serializedVersion: 2
       name: Wall1_tileset_1_15
@@ -411,11 +408,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: 6, y: -8}
-        - {x: 6, y: -16}
+      - - {x: -16, y: -16}
         - {x: 16, y: -16}
-        - {x: 16, y: -6}
-        - {x: 8, y: -6}
+        - {x: 16, y: 16}
+        - {x: -16, y: 16}
       tessellationDetail: 0
     outline: []
     physicsShape: []
