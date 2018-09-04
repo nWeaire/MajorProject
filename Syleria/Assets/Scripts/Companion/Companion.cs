@@ -28,8 +28,11 @@ public class Companion : MonoBehaviour
     public LayerMask m_wallLayer; // LayerMask for sight check
     private bool isAttacking = false;
     private GameObject m_gTarget;
-
-
+    private float m_fAttackTimer = 0;
+    [SerializeField] private float m_fAttackCD = 1.0f;
+    [SerializeField] private int m_nAttackPercentage = 40;
+    [SerializeField] private int m_nDamage;
+    private bool m_bAttackOnCD = false;
     // Use this for initialization
     void Start()
     {
@@ -91,9 +94,20 @@ public class Companion : MonoBehaviour
                     {
                         Follow((Vector2)m_gTarget.transform.position);
                     }
+                    else if(!m_bAttackOnCD)
+                    {
+                        StartCoroutine("UpdateDamage");
+                        m_gTarget.GetComponent<Enemy>().TakeDamage(m_nDamage);
+                        m_bAttackOnCD = true;
+                    }
                     else
                     {
-                        m_gTarget.GetComponent<Enemy>().TakeDamage(1);
+                        m_fAttackTimer += Time.deltaTime;
+                        if(m_fAttackTimer >= m_fAttackCD)
+                        {
+                            m_bAttackOnCD = false;
+                            m_fAttackTimer = 0f;
+                        }
                     }
                 }
                 else
@@ -150,5 +164,11 @@ public class Companion : MonoBehaviour
                 }
             }
         }
+    }
+
+    public IEnumerator UpdateDamage()
+    {
+        m_nDamage = (m_gPlayer.GetComponentInChildren<Player>().GetDamage() * m_nAttackPercentage) / 100;
+        yield return new WaitForSeconds(10.0f);
     }
 }
