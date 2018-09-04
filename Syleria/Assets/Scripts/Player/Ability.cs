@@ -16,16 +16,6 @@ public class Ability : MonoBehaviour {
 
     public GameObject m_Aim;
 
-    #region Shield
-    [SerializeField] private float m_fShieldCD = 3.0f; // Cooldown for shield
-    [SerializeField] private float m_fShieldDuration = 2.0f; // Duration of shield
-    private float m_fShieldCDTimer = 3.0f; // Shield cooldown timer
-    private float m_fShieldDurationTimer = 0.0f; // Shield duration timer
-    private bool m_bIsShielded = false; // Checks if shielded
-    [SerializeField] private CircleCollider2D m_cCircleCollider;
-    [SerializeField] private SpriteRenderer m_cSpriteRenderer;
-    #endregion
-
     #region Companion
     [SerializeField] Companion m_eCompanion = Companion.BIRD;
     #endregion
@@ -43,10 +33,16 @@ public class Ability : MonoBehaviour {
     private float m_fSlashDurationTimer = 0;
     #endregion
 
+    #region Taunt
+    [SerializeField] private float m_fTauntRange;
+    [SerializeField] private float m_fTauntRadius;
+
+    #endregion
+
     // Use this for initialization
     void Start ()
     {
-        m_fShieldCDTimer = m_fShieldCD; // Sets cooldown timer to cooldown to allow for immediate use of shield
+    
     }
 	
 	// Update is called once per frame
@@ -57,50 +53,15 @@ public class Ability : MonoBehaviour {
         {
             case Companion.FOX:
                 Slash();
-                this.gameObject.tag = "Untagged";
                 break;
             case Companion.TURTLE:
 
                 break;
             case Companion.BIRD:
-                this.gameObject.tag = "Shield";
-                Shield();
+
                 break;
             default:
                 break;
-        }
-    }
-
-    //--------------------------------------------------------------------------------------
-    // Checks for input
-    // Creates circle colider and sprite around player
-    // Handles shield duration and cooldown
-    //--------------------------------------------------------------------------------------
-    public void Shield()
-    {
-        if (Input.GetAxisRaw("Ability") > 0 && !m_bIsShielded && m_fShieldCDTimer >= m_fShieldCD) // Checks if left trigger is pressed and shield is available
-        {
-            m_cCircleCollider.enabled = true; // Turns on shield sprite
-            m_cSpriteRenderer.enabled = true; // Turns on shield collider
-            m_bIsShielded = true; // is shielded to true
-        }
-
-        if (m_bIsShielded) // If shielded
-        {
-            m_fShieldDurationTimer += Time.deltaTime; // Start duration timer
-        }
-        else if (!m_bIsShielded) // if not shielded
-        {
-            m_fShieldCDTimer += Time.deltaTime; // Start cooldown timer
-        }
-
-        if (m_fShieldDurationTimer >= m_fShieldDuration) // If shield duration timer is greater then duration
-        {
-            m_cSpriteRenderer.enabled = false; // Turn shield sprite off
-            m_cCircleCollider.enabled = false; // Turn shield collider off
-            m_fShieldDurationTimer = 0; // Set duration timer to 0
-            m_bIsShielded = false; // Set shield to false
-            m_fShieldCDTimer = 0; // Set cooldown timer to 0
         }
     }
 
