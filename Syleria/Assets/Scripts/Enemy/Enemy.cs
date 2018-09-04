@@ -33,6 +33,9 @@ public class Enemy : MonoBehaviour
 
     public LayerMask m_WallLayer;
 
+    [HideInInspector]
+    public bool m_bHit;
+
     // Maximum health for the Enemy
     [Tooltip("Maximum health for this Enemy")]
     public int m_nHealth;
@@ -50,6 +53,10 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private float m_fSeekSpeed = 3.0f; // Seek move speed
 
+    private bool m_bSeenPlayer;
+
+    private float m_fFlashTimer = 0.2f;
+
 
     //--------------------------------------------------------------------------------------
     // initialization.
@@ -62,6 +69,7 @@ public class Enemy : MonoBehaviour
         m_Path = m_aStar.FindPath(this.transform.position, m_gPlayer.transform.position); // Finds starting path to player
         m_cFilter.layerMask = m_WallLayer;
         m_cFilter.useLayerMask = true;
+        m_bSeenPlayer = false;
     }
 
     //--------------------------------------------------------------------------------------
@@ -69,8 +77,26 @@ public class Enemy : MonoBehaviour
     //--------------------------------------------------------------------------------------
     public void Update()
     {
+        if(Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset) <= m_fIdleDistance)
+        {
+            m_bSeenPlayer = true;
+        }
         StateMachine((Vector2)m_gPlayer.transform.position); // Calls state machine
+        
         StartCoroutine("UpdateState");
+
+        if(m_bHit)
+        {
+            m_fFlashTimer *= Time.deltaTime;
+            m_fFlashTimer %= 60;
+
+            if(m_fFlashTimer > 1)
+            {
+                GetComponentInChildren<SpriteRenderer>().color = Color.white;
+                m_bHit = false;
+                m_fFlashTimer = 0;
+            }
+        }
     }
 
     public IEnumerator UpdateState()
@@ -90,7 +116,7 @@ public class Enemy : MonoBehaviour
                 m_eState = State.IDLE;
             }
         }
-        if(Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset) >= m_fIdleDistance)
+        if(!m_bSeenPlayer)
         {
             m_eState = State.IDLE;
         }
@@ -135,5 +161,8 @@ public class Enemy : MonoBehaviour
     {
         // Current health = currentHealth - damage.
         m_nCurrentHealth -= nDamage;
+
+        GetComponentInChildren<SpriteRenderer>().color = Color.red;
+        m_bHit = true;
     }
 }

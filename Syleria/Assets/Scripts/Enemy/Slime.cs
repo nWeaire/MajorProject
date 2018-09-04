@@ -17,6 +17,8 @@ public class Slime : Enemy
     [Tooltip("Untick this on the Small Slime Prefab, or on any slime that shouldn't spawn other slimes")]
     public bool m_bBigSlime;
 
+    public int m_nSmallSlimes;
+
     // Prefab for the Small Slimes that a Big Slime will spawn
     [Tooltip("Prefab of Small Slime goes here")]
     public GameObject m_goSmallSlime;
@@ -152,14 +154,15 @@ public class Slime : Enemy
         if(m_bKnockBack)
         {
             m_fKnockTimer += Time.deltaTime * m_fKnockSpeed;
-            m_gPlayer.transform.parent.position = Vector2.Lerp(m_v2StartKnockPos, m_v2EndKnockPos, m_fKnockTimer);
+            m_gPlayer.transform.parent.position = Vector2.Lerp(m_v2StartKnockPos, m_v2EndKnockPos + m_gPlayer.GetComponentInParent<CircleCollider2D>().offset, m_fKnockTimer);
             
-            if(Vector2.Distance(m_gPlayer.transform.parent.position,m_v2EndKnockPos) <= 0.1f)
+            if(Vector2.Distance(m_gPlayer.transform.parent.position,m_v2EndKnockPos + m_gPlayer.GetComponentInParent<CircleCollider2D>().offset) <= 0.1f)
             {
                 m_bKnockBack = false;
                 m_fKnockTimer = 0.0f;
             }
         }
+
     }
 
     //--------------------------------------------------------------------------------------
@@ -174,10 +177,17 @@ public class Slime : Enemy
             // Spawn Slimes (temp) replace with array spawning x amount of smallSlime .
             m_goSmallSlime.GetComponent<Slime>().m_bSpawning = true;
             m_goSmallSlime.GetComponent<Slime>().m_gPlayer = m_gPlayer;
-            Instantiate(m_goSmallSlime, new Vector2(transform.position.x - 0.5f,transform.position.y), transform.rotation);
-            Instantiate(m_goSmallSlime, new Vector2(transform.position.x + 0.5f, transform.position.y), transform.rotation);
-            Instantiate(m_goSmallSlime, new Vector2(transform.position.x, transform.position.y - 0.5f), transform.rotation);
-            Instantiate(m_goSmallSlime, new Vector2(transform.position.x, transform.position.y + 0.5f), transform.rotation);
+
+            //for(int i = 0; i < m_nSmallSlimes; ++i)
+            //{
+
+            //    Instantiate(m_goSmallSlime, new Vector2(transform.position.x + i, transform.position.y), transform.rotation);
+
+            //}
+            Instantiate(m_goSmallSlime, new Vector2(transform.position.x - m_goSmallSlime.GetComponent<CircleCollider2D>().radius, transform.position.y), transform.rotation);
+            Instantiate(m_goSmallSlime, new Vector2(transform.position.x + m_goSmallSlime.GetComponent<CircleCollider2D>().radius, transform.position.y), transform.rotation);
+            Instantiate(m_goSmallSlime, new Vector2(transform.position.x, transform.position.y - m_goSmallSlime.GetComponent<CircleCollider2D>().radius), transform.rotation);
+            Instantiate(m_goSmallSlime, new Vector2(transform.position.x, transform.position.y + m_goSmallSlime.GetComponent<CircleCollider2D>().radius), transform.rotation);
             // Destroy this object.
             Debug.Log("DEAD");
             Destroy(gameObject);
@@ -188,6 +198,30 @@ public class Slime : Enemy
             // Destroy this object.
             Destroy(gameObject);
         }
+    }
+
+    void KnockPlayer(Vector3 dir)
+    {
+        // Knockback the player.
+        m_bKnockBack = true;
+        int count = 0; // Count of collisions detected
+        RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of objects the ray collides with
+        Vector2 rayOrigin = (Vector2)m_gPlayer.transform.parent.position - new Vector2(m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.x, m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.y); // Gets ray origin based on player position and collider offset
+        count = Physics2D.Raycast(rayOrigin, (Vector2)(m_gPlayer.transform.parent.position - transform.position), m_cFilter, Hit, m_fKnockDistance); // Ray casts in direction of movement
+        Debug.DrawRay(rayOrigin, m_gPlayer.transform.parent.position - transform.position, Color.magenta, m_fKnockDistance);
+        if (count > 0) // Checks if anything collided with the ray
+        {
+            Debug.Log("KnockWALL");
+            m_v2EndKnockPos.x = Hit[0].point.x + dir.x;
+            m_v2EndKnockPos.y = Hit[0].point.y + dir.y;
+        }
+        else // If nothing hit
+        {
+
+            m_v2EndKnockPos = (Vector2)m_gPlayer.transform.position + (Vector2)(m_gPlayer.transform.parent.position - transform.position); // End position of dash set based on dash distance
+        }
+
+        m_v2StartKnockPos = m_gPlayer.transform.parent.position;
     }
 
     //--------------------------------------------------------------------------------------
@@ -209,29 +243,24 @@ public class Slime : Enemy
             // Damage the player.
             m_gPlayer.GetComponent<Player>().AddCurrentHealth(-m_nDamage);
 
-            // Knockback the player.
-            m_bKnockBack = true;
-            int count = 0; // Count of collisions detected
-            RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of objects the ray collides with
-            Vector2 rayOrigin = (Vector2)m_gPlayer.transform.parent.position - new Vector2(m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.x, m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.y); // Gets ray origin based on player position and collider offset
-            count = Physics2D.Raycast(rayOrigin, (Vector2)(m_gPlayer.transform.parent.position - transform.position), m_cFilter, Hit, m_fKnockDistance); // Ray casts in direction of movement
-            Debug.DrawRay(rayOrigin, m_gPlayer.transform.parent.position - transform.position, Color.magenta, m_fKnockDistance);
-            if (count > 0) // Checks if anything collided with the ray
+            if (!m_bKnockBack)
             {
-                m_v2EndKnockPos.x = Hit[0].point.x + dir.x;
-                m_v2EndKnockPos.y = Hit[0].point.y + dir.y;
+                KnockPlayer(dir);
             }
-            else // If nothing hit
-            {
-                m_v2EndKnockPos = (Vector2)m_gPlayer.transform.position + (Vector2)(m_gPlayer.transform.parent.position - transform.position); // End position of dash set based on dash distance
-            }
-            
-            m_v2StartKnockPos = m_gPlayer.transform.parent.position;
         }
+    }
 
-        if (collision.tag == "Enemy")
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.tag == "Player")
         {
-            transform.position += dir * 0.1f;
+            if(!m_bKnockBack)
+            {
+                //m_gPlayer.GetComponent<Player>().AddCurrentHealth(-m_nDamage);
+                //Vector3 dir = transform.position - collision.transform.position;
+                //dir.Normalize();
+                //KnockPlayer(dir);
+            }
         }
     }
 }

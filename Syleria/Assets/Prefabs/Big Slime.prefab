@@ -53,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1884396772128378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.25, y: -5.71, z: 0}
+  m_LocalPosition: {x: -3.59, y: -47.88, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4539837808739424}
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_fIdleDistance: 20
   m_aStar: {fileID: 0}
-  m_fAStarSpeed: 6
+  m_fAStarSpeed: 0
   m_gPlayer: {fileID: 0}
   m_eEnemyType: 0
   m_eState: 0
@@ -156,8 +156,9 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  m_fSeekSpeed: 6
+  m_fSeekSpeed: 0
   m_bBigSlime: 1
+  m_nSmallSlimes: 4
   m_goSmallSlime: {fileID: 1986857641011166, guid: f7b0b487ad13d2542a34307a7099a986,
     type: 2}
   m_bCannotMove: 1
