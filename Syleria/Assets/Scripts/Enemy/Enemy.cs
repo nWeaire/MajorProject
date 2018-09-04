@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public GameObject m_gCompanion;
 
-    [HideInInspector]
+    //[HideInInspector]
     public bool m_bTaunted = false;
 
     [SerializeField] private float m_fSeekSpeed = 3.0f; // Seek move speed

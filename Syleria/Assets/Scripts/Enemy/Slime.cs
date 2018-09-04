@@ -112,12 +112,13 @@ public class Slime : Enemy
         {
           // increment Timer.
           m_fTimer += 1 * Time.deltaTime;
-
-          // When Timer is higher than spawnTime
-          if (m_fTimer > m_fSpawnTime)
+            GetComponent<CircleCollider2D>().enabled = false;
+            // When Timer is higher than spawnTime
+            if (m_fTimer > m_fSpawnTime)
           {
                 // Slime can now move
                 m_bCannotMove = false;
+                GetComponent<CircleCollider2D>().enabled = true;
                 // Slime is no longer spawning.
                 m_bSpawning = false;
                 // Reset the timer.
@@ -130,6 +131,7 @@ public class Slime : Enemy
             // If Big slime is not Spawning, it is stunned.
             if(!m_bSpawning)
             {
+                
                 // Increment timer.
                 m_fTimer += 1 * Time.deltaTime;
                 m_fTimer = m_fTimer % 60;
@@ -137,6 +139,7 @@ public class Slime : Enemy
                 // When timer reaches stun time.
                 if (m_fTimer > m_fStunTime)
                 {
+
                     // Unstun the Slime.
                     m_bCannotMove = false;
                     // Reset the Timer.
@@ -211,7 +214,6 @@ public class Slime : Enemy
         Debug.DrawRay(rayOrigin, m_gPlayer.transform.parent.position - transform.position, Color.magenta, m_fKnockDistance);
         if (count > 0) // Checks if anything collided with the ray
         {
-            Debug.Log("KnockWALL");
             m_v2EndKnockPos.x = Hit[0].point.x + dir.x;
             m_v2EndKnockPos.y = Hit[0].point.y + dir.y;
         }
@@ -236,7 +238,7 @@ public class Slime : Enemy
         Vector3 dir = transform.position - collision.transform.position;
         dir.Normalize();
         // If the Slime has collided with the Player.
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && !m_bCannotMove)
         {
             // Slime has been stunned.
             m_bCannotMove = true;
@@ -252,9 +254,9 @@ public class Slime : Enemy
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if (collision.tag == "Player")
         {
-            if(!m_bKnockBack && !m_bCannotMove)
+            if (!m_bKnockBack && !m_bCannotMove)
             {
                 m_bCannotMove = true;
                 m_gPlayer.GetComponent<Player>().AddCurrentHealth(-m_nDamage);
@@ -262,6 +264,14 @@ public class Slime : Enemy
                 dir.Normalize();
                 KnockPlayer(dir);
             }
+        }
+
+        if (collision.tag == "Enemy")
+        {
+            Vector3 dir = transform.position - collision.transform.position;
+            dir.Normalize();
+            transform.position += dir * 0.05f;
+            Debug.Log("ENEMYCOLLIDE");
         }
     }
 }
