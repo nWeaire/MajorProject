@@ -14,7 +14,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float m_fIdleDistance;
-    public enum State { IDLE, CHASE, ASTAR, ATTACK }
+
+    public enum State { IDLE, CHASE, ASTAR, ATTACK, TAUNTED }
 
     public enum EnemyType { SLIME, SHOTGUN, SENTRY}
 
@@ -51,11 +52,19 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public ContactFilter2D m_cFilter;
 
+    [HideInInspector]
+    public GameObject m_gCompanion;
+
+    [HideInInspector]
+    public bool m_bTaunted = false;
+
     [SerializeField] private float m_fSeekSpeed = 3.0f; // Seek move speed
 
     private bool m_bSeenPlayer;
 
     private float m_fFlashTimer = 0.2f;
+
+    private Vector2 m_gTarget;
 
 
     //--------------------------------------------------------------------------------------
@@ -65,11 +74,13 @@ public class Enemy : MonoBehaviour
     {
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         m_aStar = GameObject.FindGameObjectWithTag("A*").GetComponent<Pathing>();
+        m_gCompanion = GameObject.FindGameObjectWithTag("Companion");
         m_aStar = m_aStar.GetComponent<Pathing>(); // Gets pathing component
         m_Path = m_aStar.FindPath(this.transform.position, m_gPlayer.transform.position); // Finds starting path to player
         m_cFilter.layerMask = m_WallLayer;
         m_cFilter.useLayerMask = true;
         m_bSeenPlayer = false;
+
     }
 
     //--------------------------------------------------------------------------------------
@@ -81,11 +92,12 @@ public class Enemy : MonoBehaviour
         {
             m_bSeenPlayer = true;
         }
-        StateMachine((Vector2)m_gPlayer.transform.position); // Calls state machine
+        StateMachine(); // Calls state machine
         
         StartCoroutine("UpdateState");
+        SetTarget((Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset);
 
-        if(m_bHit)
+        if (m_bHit)
         {
             m_fFlashTimer *= Time.deltaTime;
             m_fFlashTimer %= 60;
@@ -101,29 +113,36 @@ public class Enemy : MonoBehaviour
 
     public IEnumerator UpdateState()
     {
-        if (!Physics2D.Linecast((Vector2)this.transform.position, m_gPlayer.transform.position, m_WallLayer))
+        if (!m_bTaunted)
         {
-            m_eState = State.CHASE;
-        }
-        else
-        {
-            m_eState = State.ASTAR;
-        }
-        if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= 6f)
-        {
-            if (m_eEnemyType == EnemyType.SHOTGUN)
+            if (!Physics2D.Linecast((Vector2)this.transform.position, m_gPlayer.transform.position, m_WallLayer))
+            {
+                m_eState = State.CHASE;
+            }
+            else
+            {
+                m_eState = State.ASTAR;
+            }
+            if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= 6f)
+            {
+                if (m_eEnemyType == EnemyType.SHOTGUN)
+                {
+                    m_eState = State.IDLE;
+                }
+            }
+            if (!m_bSeenPlayer)
             {
                 m_eState = State.IDLE;
             }
         }
-        if(!m_bSeenPlayer)
+        else
         {
-            m_eState = State.IDLE;
+            m_eState = State.TAUNTED;
         }
         yield return new WaitForSeconds(.1f);
     }
 
-    public void StateMachine(Vector3 v3Target)
+    public void StateMachine()
     {
         switch (m_eState)
         {
@@ -132,19 +151,27 @@ public class Enemy : MonoBehaviour
                 break;
             case State.CHASE:
                 // Can directly see player so follows with basic obstacle avoidance 
-                Vector2 dirToPlayer = (v3Target - (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset) - this.transform.position;
+                Vector2 dirToPlayer = (m_gTarget) - (Vector2)this.transform.position;
                 dirToPlayer.Normalize();
                 this.transform.Translate((dirToPlayer) * m_fSeekSpeed * Time.deltaTime);
                 break;
             case State.ASTAR:
                 // When following but walls are in way of target
-                m_Path = m_aStar.FindPath(this.transform.position, v3Target - (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset); // Finds path to player
+                m_Path = m_aStar.FindPath(this.transform.position, m_gTarget); // Finds path to player
                 Vector2 dirToNextNode = m_Path[0].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
                 dirToNextNode.Normalize(); // Normalize direction
                 transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node
                 break;
             case State.ATTACK:
                 // Enemy is in range for attacking
+                break;
+            case State.TAUNTED:
+                // Enemy is being taunted
+                // When following but walls are in way of target
+                m_Path = m_aStar.FindPath(this.transform.position, m_gCompanion.transform.position); // Finds path to player
+                dirToNextNode = m_Path[0].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
+                dirToNextNode.Normalize(); // Normalize direction
+                transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node
                 break;
             default:
                 break;
@@ -164,5 +191,10 @@ public class Enemy : MonoBehaviour
 
         GetComponentInChildren<SpriteRenderer>().color = Color.red;
         m_bHit = true;
+    }
+
+    public void SetTarget(Vector2 gTarget)
+    {
+        m_gTarget = gTarget;
     }
 }

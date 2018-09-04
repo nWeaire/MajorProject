@@ -254,12 +254,13 @@ public class Slime : Enemy
     {
         if(collision.tag == "Player")
         {
-            if(!m_bKnockBack)
+            if(!m_bKnockBack && !m_bCannotMove)
             {
-                //m_gPlayer.GetComponent<Player>().AddCurrentHealth(-m_nDamage);
-                //Vector3 dir = transform.position - collision.transform.position;
-                //dir.Normalize();
-                //KnockPlayer(dir);
+                m_bCannotMove = true;
+                m_gPlayer.GetComponent<Player>().AddCurrentHealth(-m_nDamage);
+                Vector3 dir = transform.position - collision.transform.position;
+                dir.Normalize();
+                KnockPlayer(dir);
             }
         }
     }
