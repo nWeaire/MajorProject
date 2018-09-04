@@ -67,7 +67,7 @@ public class Aim : MonoBehaviour
     void Shoot()
     {
         m_fTimeBetweenShots += Time.deltaTime; // Cooldown for firing
-        if (Input.GetButton("Fire2")) // Gets right bumper input
+        if (Input.GetButton("Fire2") || Input.GetAxisRaw("Fire2") > 0.1f) // Gets right bumper input
         {
 
             if (m_fTimeBetweenShots >= m_fFireRate) // If firing is possible

@@ -36,6 +36,7 @@ public class Ability : MonoBehaviour {
     [SerializeField] private float m_fSlashWidth = 3;
     [SerializeField] private float m_fSlashCD = 5;
     [SerializeField] private float m_fSlashDuration = 0.1f;
+    [SerializeField] private int m_nSlashDamage = 50;
     private bool m_bIsSlashing = false;
     private bool m_bSlash = true;
     private float m_fSlashCDTimer = 0;
@@ -152,7 +153,7 @@ public class Ability : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<Enemy>().TakeDamage(10);
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(m_nSlashDamage);
         }
     }
 }

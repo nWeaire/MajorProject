@@ -80,7 +80,7 @@ public class Companion : MonoBehaviour
             case State.FOLLOW:
                 // Can directly see player so follows with basic obstacle avoidance 
                 Vector2 FollowTargetPos = m_gPlayer.transform.position + (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset;
-                Follow(FollowTargetPos);
+                AStar(FollowTargetPos);
                 break;
             case State.PATH:
                 // When following but walls are in way of target
@@ -143,11 +143,15 @@ public class Companion : MonoBehaviour
     public void AStar(Vector2 TargetPosition)
     {
         m_Path = m_aStar.FindPath(this.transform.position, TargetPosition); // Finds path to target
-        if (m_Path[1] != null)
+        if (m_Path.Count > 1)
         {
             Vector2 dirToNextNode = m_Path[1].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
             dirToNextNode.Normalize(); // Normalize direction
             transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node
+        }
+        else
+        {
+
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -171,4 +175,5 @@ public class Companion : MonoBehaviour
         m_nDamage = (m_gPlayer.GetComponentInChildren<Player>().GetDamage() * m_nAttackPercentage) / 100;
         yield return new WaitForSeconds(10.0f);
     }
+
 }

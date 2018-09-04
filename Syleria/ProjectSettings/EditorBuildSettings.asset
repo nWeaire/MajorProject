@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Scenes/Nick Scene.unity
     guid: 78db63a05106fd04b874ad858a1b3932
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/PlayableScee.unity
     guid: b6ccf63aa7c21cd499dc4efae01e93bb
+  - enabled: 1
+    path: Assets/_Scenes/Nick.unity
+    guid: d685586f50872b04d9973bddfb017726

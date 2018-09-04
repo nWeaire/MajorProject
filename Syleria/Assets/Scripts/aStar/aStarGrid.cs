@@ -154,7 +154,25 @@ public class aStarGrid : MonoBehaviour
 
         Vector2Int tile = new Vector2Int(Mathf.RoundToInt(RelativePos.x / 1), Mathf.RoundToInt(RelativePos.y / 1)); // Round position to closet int
         Node tempNode = m_grid[tile.x, tile.y]; // Gets node based on position
-        return tempNode; // Returns node
+        if(tempNode.Walkable)
+        {
+            return tempNode; // Returns node
+        }
+        else
+        {
+            List<Node> tempList = GetNeighboringNodes(tempNode);
+            float tempDist = 0;
+            for (int i = 0; i < tempList.Count; i++)
+            {
+                if(tempList[i].Walkable)
+                {
+                    if (Vector2.Distance(tempList[i].WorldPosition, tempNode.WorldPosition) <= tempDist)
+                    {
+                        tempNode = tempList[i];
+                    }
+                }
+            }
+            return tempNode;
+        }
     }
-
 }
