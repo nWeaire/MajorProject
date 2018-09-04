@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Walkable
   - A*
+  - Companion
   layers:
   - Default
   - TransparentFX
