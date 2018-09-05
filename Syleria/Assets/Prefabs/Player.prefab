@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4164575221079716}
   - component: {fileID: 212036647835356426}
+  - component: {fileID: 95672122874954886}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -106,7 +107,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1383068034973668}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -180.95787, y: -336.18323, z: 17.232359}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4542321207175224}
@@ -275,6 +276,23 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.020855188}
   m_Size: {x: 1.0281849, y: 2.0174055}
   m_Direction: 0
+--- !u!95 &95672122874954886
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1356913713575182}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cb86b667a6e39004ab3c6f8ea6178946, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114565245224742756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -301,13 +319,13 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   m_gSprite: {fileID: 1356913713575182}
-  m_sprFront: {fileID: 21300000, guid: 1ffeb72ad3a41354ab894636b1d907ed, type: 3}
-  m_sprBack: {fileID: 21300000, guid: 96423c86c4f118e4fb3bb662d330ff11, type: 3}
-  m_sprSide: {fileID: 21300000, guid: 78fbb91aa9ee2394ab54b59a33c5d9c5, type: 3}
-  m_fDashCDTimer: 0.513567
+  m_sprFront: {fileID: 21300000, guid: cfd0022c584bdd342a6281d10d32343a, type: 3}
+  m_sprBack: {fileID: 21300000, guid: c1b1e25fe1390ea419dbad3ceccb0743, type: 3}
+  m_sprSide: {fileID: 21300000, guid: 3f585d8883b23a349a281102cc107f5e, type: 3}
+  m_fDashCDTimer: 1
   m_fDashDistance: 4
   m_fDashSpeed: 10
-  m_fDashCD: 0.5
+  m_fDashCD: 1
 --- !u!114 &114814191150548976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -319,16 +337,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8495e23bb5edf409f73211dd27c7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fShieldCD: 3
-  m_fShieldDuration: 2
-  m_cCircleCollider: {fileID: 58720255899350924}
-  m_cSpriteRenderer: {fileID: 212228563579340714}
+  m_Aim: {fileID: 1940137475714804}
   m_eCompanion: 0
   m_cSlashCollider: {fileID: 60357293760735022}
   m_fSlashRange: 5
   m_fSlashWidth: 3
   m_fSlashCD: 5
   m_fSlashDuration: 0.1
+  m_nSlashDamage: 50
+  m_fTauntRange: 0
+  m_fTauntRadius: 0
 --- !u!114 &114924172079761324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -341,10 +359,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_nDamage: 10
-  m_nCurrentHealth: 100
-  m_nMaxHealth: 100
+  m_nCurrentHealth: 300
+  m_nMaxHealth: 300
   m_nRange: 10
-  m_nFireRate: 2
+  m_nFireRate: 2.5
   m_fSpeed: 10
 --- !u!114 &114966004738419206
 MonoBehaviour:
@@ -358,7 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_gBullet: {fileID: 1668811833332258, guid: 2e8e59384786f9944b5f17859551106a, type: 2}
-  m_fBulletSpeed: 20
+  m_fBulletSpeed: 30
 --- !u!212 &212036647835356426
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -392,13 +410,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -82733661
   m_SortingLayer: 3
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1ffeb72ad3a41354ab894636b1d907ed, type: 3}
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 21300000, guid: cfd0022c584bdd342a6281d10d32343a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.64}
+  m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -445,7 +463,7 @@ SpriteRenderer:
   m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!212 &212394765478934888
 SpriteRenderer:
@@ -481,8 +499,8 @@ SpriteRenderer:
   m_SortingLayerID: -82733661
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a8b09fbcce77bd74e9c85f67bfab3cf3, type: 3}
-  m_Color: {r: 0.38235295, g: 0.38235295, b: 0.38235295, a: 0.391}
+  m_Sprite: {fileID: 21300000, guid: ad6721bd17ff6404bac6c317087972fb, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.891}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

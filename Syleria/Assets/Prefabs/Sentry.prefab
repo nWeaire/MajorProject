@@ -80,7 +80,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1198049203941808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.679954, y: -1.0477512, z: 0}
+  m_LocalPosition: {x: -30.41496, y: -43.48385, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4328842602028090}
@@ -127,12 +127,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ae8922e13b82e4587792562ea282d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_fIdleDistance: 0
+  m_aStar: {fileID: 0}
+  m_fAStarSpeed: 0.01
+  m_gPlayer: {fileID: 0}
+  m_eEnemyType: 2
+  m_eState: 0
+  m_WallLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  m_bHit: 0
   m_nHealth: 25
-  m_nDamage: 10
   m_nCurrentHealth: 10
-  m_fMaxSpeed: 0
-  m_fSpeed: 0
-  m_cfFilter:
+  m_nDamage: 10
+  m_fFlashTime: 0
+  m_cFilter:
     useTriggers: 0
     useLayerMask: 0
     useDepth: 0
@@ -146,14 +155,16 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  m_fSlowingRadius: 0
-  m_gPlayer: {fileID: 0}
-  m_gProjectile: {fileID: 1668811833332258, guid: 03c10123d03caa04a973c9c4ca4c1b6b,
+  m_gCompanion: {fileID: 0}
+  m_bTaunted: 0
+  m_fSeekSpeed: 3
+  m_fFlashTimer: 0.2
+  m_gProjectile: {fileID: 1668811833332258, guid: 8e64c03dce7bb644ba59767d9dfa3bda,
     type: 2}
   m_fBulletSpeed: 8
-  m_fFireRate: 0.4
-  m_fBurstTimer: 5
-  m_nBurstAmount: 5
+  m_fFireRate: 0.1
+  m_fBurstTimer: 2.5
+  m_nBurstAmount: 20
 --- !u!212 &212598843437073056
 SpriteRenderer:
   m_ObjectHideFlags: 1

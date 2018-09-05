@@ -17,6 +17,12 @@ public class EnemyBullet : MonoBehaviour
     [Tooltip("Range until bullet despawns")]
     public float m_fRange;
 
+    public float m_fSinMag = 20f;
+
+    public float m_fSinFreq = 0.1f;
+
+    public bool m_bSerpentine = false;
+
     // The damage that this bullet will do.
     // NOTE: this will be set in the enemy that spawns it.
     [HideInInspector]
@@ -52,6 +58,10 @@ public class EnemyBullet : MonoBehaviour
         // Move forward by speed * deltaTime
         transform.position += transform.up * m_fSpeed * Time.deltaTime;
         // Delete bullet if it reaches its max range
+        if (m_bSerpentine && Vector2.Distance(this.transform.position, m_v2StartPos) >= 0.5f)
+        {
+            transform.position += transform.right * Mathf.Sin(Time.time * m_fSinMag) * (m_fSinFreq * 0.01f);
+        }
         CheckRange();
     }
 

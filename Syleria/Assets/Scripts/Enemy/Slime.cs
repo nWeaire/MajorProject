@@ -270,8 +270,8 @@ public class Slime : Enemy
         {
             Vector3 dir = transform.position - collision.transform.position;
             dir.Normalize();
-            transform.position += dir * 0.05f;
-            Debug.Log("ENEMYCOLLIDE");
+            transform.position += dir * 0.01f;
+            
         }
     }
 }

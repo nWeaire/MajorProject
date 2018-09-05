@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 50916496042594064}
   - component: {fileID: 114995566601524644}
   m_Layer: 0
-  m_Name: EnemyBullet
+  m_Name: SentryBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_fRange: 15
   m_fSinMag: 4
   m_fSinFreq: 20
-  m_bSerpentine: 0
+  m_bSerpentine: 1
   m_nDam: 0
   m_fSpeed: 0
 --- !u!212 &212508175955866226

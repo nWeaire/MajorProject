@@ -49,6 +49,9 @@ public class Enemy : MonoBehaviour
     [Tooltip("Damage that this enemy will do to the player")]
     public int m_nDamage;
 
+    [Tooltip("Amount of seconds the slime will spend as red")]
+    public float m_fFlashTime;
+
     [HideInInspector]
     public ContactFilter2D m_cFilter;
 
@@ -62,7 +65,7 @@ public class Enemy : MonoBehaviour
 
     private bool m_bSeenPlayer;
 
-    private float m_fFlashTimer = 0.2f;
+    public float m_fFlashTimer = 0.0f;
 
     private Vector2 m_gTarget;
 
@@ -99,10 +102,10 @@ public class Enemy : MonoBehaviour
 
         if (m_bHit)
         {
-            m_fFlashTimer *= Time.deltaTime;
+            m_fFlashTimer += Time.deltaTime;
             m_fFlashTimer %= 60;
 
-            if(m_fFlashTimer > 1)
+            if(m_fFlashTimer > m_fFlashTime)
             {
                 GetComponentInChildren<SpriteRenderer>().color = Color.white;
                 m_bHit = false;
