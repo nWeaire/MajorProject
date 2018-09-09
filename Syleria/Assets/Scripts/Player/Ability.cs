@@ -20,23 +20,29 @@ public class Ability : MonoBehaviour {
     [SerializeField] Companion m_eCompanion = Companion.BIRD;
     #endregion
 
+    #region Global
+    [SerializeField] private float m_fAbilityCD = 5;
+    private float m_fAbilityCDTimer = 0;
+    private bool m_bAbility = true;
+    private bool m_bIsAbility = false;
+    #endregion
+
     #region Slash
     [SerializeField] private PolygonCollider2D m_cSlashCollider;
     [SerializeField] private float m_fSlashRange;
     [SerializeField] private float m_fSlashWidth = 3;
-    [SerializeField] private float m_fSlashCD = 5;
     [SerializeField] private float m_fSlashDuration = 0.1f;
     [SerializeField] private int m_nSlashDamage = 50;
-    private bool m_bIsSlashing = false;
-    private bool m_bSlash = true;
-    private float m_fSlashCDTimer = 0;
     private float m_fSlashDurationTimer = 0;
     #endregion
 
     #region Taunt
-    [SerializeField] private float m_fTauntRange;
-    [SerializeField] private float m_fTauntRadius;
-
+    [SerializeField] private float m_fTauntRange = 5.0f;
+    [SerializeField] private float m_fTauntRadius = 3.0f;
+    [SerializeField] private float m_fTauntSpeed = 0.5f;
+    [SerializeField] private float m_fTauntDuration = 2.5f;
+    private float m_fTauntDurationTimer = 0;
+    private GameObject[] m_aEnemies;
     #endregion
 
     // Use this for initialization
@@ -48,14 +54,13 @@ public class Ability : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-
         switch (m_eCompanion)
         {
             case Companion.FOX:
                 Slash();
                 break;
             case Companion.TURTLE:
-
+                Taunt();
                 break;
             case Companion.BIRD:
 
@@ -67,19 +72,19 @@ public class Ability : MonoBehaviour {
 
     public void Slash()
     {
-        if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsSlashing && m_bSlash)
+        if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsAbility && m_bAbility)
         {
-            m_bIsSlashing = true;
-            m_bSlash = false;
+            m_bIsAbility = true;
+            m_bAbility = false;
         }
 
         if (m_fSlashDurationTimer >= m_fSlashDuration)
         {
             m_cSlashCollider.enabled = false;
-            m_bIsSlashing = false;
+            m_bIsAbility = false;
             m_fSlashDurationTimer = 0;
         }
-        if(m_bIsSlashing) // If Slashing
+        if(m_bIsAbility) // If Slashing
         {
             m_fSlashDurationTimer += Time.deltaTime;
             Vector2 aimDirection = m_Aim.transform.up;
@@ -99,14 +104,55 @@ public class Ability : MonoBehaviour {
             m_cSlashCollider.points = slashPoints;
 
         }
-        if(!m_bIsSlashing)
+        if(!m_bIsAbility)
         {
-            m_fSlashCDTimer += Time.deltaTime;
+            m_fAbilityCDTimer += Time.deltaTime;
         }
-        if(m_fSlashCDTimer >= m_fSlashCD)
+        if(m_fAbilityCDTimer >= m_fAbilityCD)
         {
-            m_bSlash = true;
-            m_fSlashCDTimer = 0;
+            m_bAbility = true;
+            m_fAbilityCDTimer = 0;
+        }
+    }
+
+    public void Taunt()
+    {
+        m_aEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsAbility && m_bAbility)
+        {
+            m_bIsAbility = true;
+            m_bAbility = false;
+        }
+
+        if (m_fTauntDurationTimer >= m_fTauntDuration)
+        {
+            //m_cSlashCollider.enabled = false;
+            m_bIsAbility = false;
+            m_fTauntDurationTimer = 0;
+            for (int i = 0; i < m_aEnemies.Length; i++)
+            {
+                 m_aEnemies[i].GetComponent<Enemy>().m_bTaunted = false;
+            }
+        }
+        if (m_bIsAbility)
+        {
+            m_fTauntDurationTimer += Time.deltaTime;
+            for (int i = 0; i < m_aEnemies.Length; i++)
+            {
+                if(Vector2.Distance(m_aEnemies[i].transform.position, GameObject.FindGameObjectWithTag("Companion").transform.position) <= m_fTauntRadius)
+                {
+                    m_aEnemies[i].GetComponent<Enemy>().m_bTaunted = true;
+                }
+            }
+        }
+        if (!m_bIsAbility)
+        {
+            m_fAbilityCDTimer += Time.deltaTime;
+        }
+        if (m_fAbilityCDTimer >= m_fAbilityCD)
+        {
+            m_bAbility = true;
+            m_fAbilityCDTimer = 0;
         }
     }
 
