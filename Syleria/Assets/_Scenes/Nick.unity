@@ -48195,6 +48195,21 @@ Prefab:
       propertyPath: m_eCompanion
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114814191150548976, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+        type: 2}
+      propertyPath: m_fTauntRadius
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114814191150548976, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+        type: 2}
+      propertyPath: m_fTauntSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114814191150548976, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+        type: 2}
+      propertyPath: m_fTauntRange
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb2b31551868fea4b9a649f7dc4bff3d, type: 2}
   m_IsPrefabParent: 0

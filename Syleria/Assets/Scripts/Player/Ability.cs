@@ -18,11 +18,12 @@ public class Ability : MonoBehaviour {
 
     #region Companion
     [SerializeField] Companion m_eCompanion = Companion.BIRD;
+    private GameObject m_gCompanion;
     #endregion
 
     #region Global
     [SerializeField] private float m_fAbilityCD = 5;
-    private float m_fAbilityCDTimer = 0;
+    public float m_fAbilityCDTimer = 0;
     private bool m_bAbility = true;
     private bool m_bIsAbility = false;
     #endregion
@@ -41,14 +42,17 @@ public class Ability : MonoBehaviour {
     [SerializeField] private float m_fTauntRadius = 3.0f;
     [SerializeField] private float m_fTauntSpeed = 0.5f;
     [SerializeField] private float m_fTauntDuration = 2.5f;
+    private bool m_bEndPosFound = false;
+    private bool m_bIsTaunting = false;
     private float m_fTauntDurationTimer = 0;
     private GameObject[] m_aEnemies;
+    private Vector2 m_v2EndPos;
     #endregion
 
     // Use this for initialization
     void Start ()
     {
-    
+        m_gCompanion = GameObject.FindGameObjectWithTag("Companion");
     }
 	
 	// Update is called once per frame
@@ -120,6 +124,7 @@ public class Ability : MonoBehaviour {
         m_aEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsAbility && m_bAbility)
         {
+            m_gCompanion.transform.position = this.transform.position;
             m_bIsAbility = true;
             m_bAbility = false;
         }
@@ -128,6 +133,7 @@ public class Ability : MonoBehaviour {
         {
             //m_cSlashCollider.enabled = false;
             m_bIsAbility = false;
+            m_bIsTaunting = false;
             m_fTauntDurationTimer = 0;
             for (int i = 0; i < m_aEnemies.Length; i++)
             {
@@ -136,16 +142,37 @@ public class Ability : MonoBehaviour {
         }
         if (m_bIsAbility)
         {
-            m_fTauntDurationTimer += Time.deltaTime;
-            for (int i = 0; i < m_aEnemies.Length; i++)
+            m_fAbilityCDTimer = 0f;
+            Vector2 aimDirection = m_Aim.transform.up;
+            aimDirection.Normalize();
+            if (!m_bEndPosFound)
             {
-                if(Vector2.Distance(m_aEnemies[i].transform.position, GameObject.FindGameObjectWithTag("Companion").transform.position) <= m_fTauntRadius)
-                {
-                    m_aEnemies[i].GetComponent<Enemy>().m_bTaunted = true;
-                }
+                m_v2EndPos = new Vector2((aimDirection.x * m_fTauntRange) + this.transform.position.x, (aimDirection.y * m_fTauntRange) + this.transform.position.y);
+                m_bEndPosFound = true;
             }
+            Vector2 dirToEndPos = (m_v2EndPos - (Vector2)this.transform.position);
+            dirToEndPos.Normalize();
+            m_gCompanion.transform.Translate(dirToEndPos * m_fTauntSpeed * Time.deltaTime);
+            Debug.Log(dirToEndPos);
+            if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsTaunting)
+            {
+                m_bIsTaunting = true;
+                for (int i = 0; i < m_aEnemies.Length; i++)
+                {
+                    if (Vector2.Distance(m_aEnemies[i].transform.position, m_gCompanion.transform.position) <= m_fTauntRadius)
+                    {
+                        m_aEnemies[i].GetComponent<Enemy>().m_bTaunted = true;
+                    }
+                }
+                m_bEndPosFound = false;
+            }
+           
         }
-        if (!m_bIsAbility)
+        if(m_bIsTaunting)
+        {
+            m_fTauntDurationTimer += Time.deltaTime;
+        }
+        if (!m_bAbility)
         {
             m_fAbilityCDTimer += Time.deltaTime;
         }
