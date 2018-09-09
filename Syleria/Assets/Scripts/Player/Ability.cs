@@ -153,7 +153,7 @@ public class Ability : MonoBehaviour {
             Vector2 dirToEndPos = (m_v2EndPos - (Vector2)this.transform.position);
             dirToEndPos.Normalize();
             m_gCompanion.transform.Translate(dirToEndPos * m_fTauntSpeed * Time.deltaTime);
-            Debug.Log(dirToEndPos);
+
             if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsTaunting)
             {
                 m_bIsTaunting = true;

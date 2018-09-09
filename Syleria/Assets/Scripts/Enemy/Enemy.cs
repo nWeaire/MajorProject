@@ -154,16 +154,11 @@ public class Enemy : MonoBehaviour
                 break;
             case State.CHASE:
                 // Can directly see player so follows with basic obstacle avoidance 
-                Vector2 dirToPlayer = (m_gTarget) - (Vector2)this.transform.position;
-                dirToPlayer.Normalize();
-                this.transform.Translate((dirToPlayer) * m_fSeekSpeed * Time.deltaTime);
+                Follow(m_gTarget);
                 break;
             case State.ASTAR:
                 // When following but walls are in way of target
-                m_Path = m_aStar.FindPath(this.transform.position, m_gTarget); // Finds path to player
-                Vector2 dirToNextNode = m_Path[0].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
-                dirToNextNode.Normalize(); // Normalize direction
-                transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node
+                AStar(m_gTarget);
                 break;
             case State.ATTACK:
                 // Enemy is in range for attacking
@@ -171,13 +166,31 @@ public class Enemy : MonoBehaviour
             case State.TAUNTED:
                 // Enemy is being taunted
                 // When following but walls are in way of target
-                m_Path = m_aStar.FindPath(this.transform.position, m_gCompanion.transform.position); // Finds path to player
-                dirToNextNode = m_Path[0].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
-                dirToNextNode.Normalize(); // Normalize direction
-                transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node
+                AStar(m_gCompanion.transform.position);
                 break;
             default:
                 break;
+        }
+    }
+
+    public void Follow(Vector2 TargetPosition)
+    {
+        Vector2 DirToTarget = (TargetPosition) - (Vector2)this.transform.position;
+        DirToTarget.Normalize();
+        this.transform.Translate((DirToTarget) * m_fSeekSpeed * Time.deltaTime);
+    }
+    public void AStar(Vector2 TargetPosition)
+    {
+        m_Path = m_aStar.FindPath(this.transform.position, TargetPosition); // Finds path to target
+        if (m_Path.Count > 1)
+        {
+            Vector2 dirToNextNode = m_Path[1].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
+            dirToNextNode.Normalize(); // Normalize direction
+            transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node
+        }
+        else
+        {
+
         }
     }
 
