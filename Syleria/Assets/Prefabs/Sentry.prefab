@@ -139,7 +139,7 @@ MonoBehaviour:
   m_bHit: 0
   m_nHealth: 25
   m_nCurrentHealth: 10
-  m_nDamage: 10
+  m_nDamage: 3
   m_fFlashTime: 0
   m_cFilter:
     useTriggers: 0
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_fBulletSpeed: 8
   m_fFireRate: 0.1
   m_fBurstTimer: 2.5
-  m_nBurstAmount: 20
+  m_nBurstAmount: 5
 --- !u!212 &212598843437073056
 SpriteRenderer:
   m_ObjectHideFlags: 1

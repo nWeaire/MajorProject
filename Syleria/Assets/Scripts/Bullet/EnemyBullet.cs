@@ -23,6 +23,10 @@ public class EnemyBullet : MonoBehaviour
 
     public bool m_bSerpentine = false;
 
+    public float m_fMaxOffSet;
+
+    public float m_fMinOffSet;
+
     // The damage that this bullet will do.
     // NOTE: this will be set in the enemy that spawns it.
     [HideInInspector]
@@ -39,6 +43,8 @@ public class EnemyBullet : MonoBehaviour
     // The position this bullet was instantiated at.
     private Vector2 m_v2StartPos;
 
+    private float m_fOffset;
+
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
@@ -48,6 +54,7 @@ public class EnemyBullet : MonoBehaviour
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         // Set the startPos as the position it starts at.
         m_v2StartPos = this.transform.position;
+        m_fOffset = Random.Range(m_fMinOffSet, m_fMaxOffSet);
     }
 
     //--------------------------------------------------------------------------------------
@@ -60,7 +67,7 @@ public class EnemyBullet : MonoBehaviour
         // Delete bullet if it reaches its max range
         if (m_bSerpentine && Vector2.Distance(this.transform.position, m_v2StartPos) >= 0.5f)
         {
-            transform.position += transform.right * Mathf.Sin(Time.time * m_fSinMag) * (m_fSinFreq * 0.01f);
+            transform.position += transform.right * Mathf.Sin(Time.time * m_fOffset)* m_fSinMag * (m_fSinFreq * 0.01f);
         }
         CheckRange();
     }
