@@ -90,8 +90,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fRange: 15
-  m_fSinMag: 4
-  m_fSinFreq: 20
+  m_fSinMag: 0
+  m_fSinFreq: 5.79
   m_bSerpentine: 1
   m_nDam: 0
   m_fSpeed: 0

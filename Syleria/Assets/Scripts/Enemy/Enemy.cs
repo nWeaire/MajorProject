@@ -58,6 +58,9 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public GameObject m_gCompanion;
 
+    [HideInInspector]
+    public bool m_bCanShoot = true;
+
     //[HideInInspector]
     public bool m_bTaunted = false;
 
@@ -118,15 +121,10 @@ public class Enemy : MonoBehaviour
     {
         if (!m_bTaunted)
         {
-            if (!Physics2D.Linecast((Vector2)this.transform.position, m_gPlayer.transform.position, m_WallLayer))
-            {
-                m_eState = State.CHASE;
-            }
-            else
-            {
-                m_eState = State.ASTAR;
-            }
-            if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= 6f)
+            
+            m_eState = State.ASTAR;
+
+            if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= 4f)
             {
                 if (m_eEnemyType == EnemyType.SHOTGUN)
                 {
@@ -154,7 +152,7 @@ public class Enemy : MonoBehaviour
                 break;
             case State.CHASE:
                 // Can directly see player so follows with basic obstacle avoidance 
-                Follow(m_gTarget);
+                //Follow(m_gTarget);
                 break;
             case State.ASTAR:
                 // When following but walls are in way of target
@@ -166,7 +164,14 @@ public class Enemy : MonoBehaviour
             case State.TAUNTED:
                 // Enemy is being taunted
                 // When following but walls are in way of target
-                AStar(m_gCompanion.transform.position);
+                if (m_eEnemyType == EnemyType.SLIME)
+                {
+                    AStar(m_gCompanion.transform.position);
+                }
+                else if(m_eEnemyType == EnemyType.SHOTGUN)
+                {
+                    AStar(m_gCompanion.transform.position);
+                }
                 break;
             default:
                 break;

@@ -49,6 +49,8 @@ public class ShotgunMage : Enemy
     // a counter for the shots in a burst
     private int m_nBurstCount;
 
+    private Vector3 m_v3Target;
+
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
@@ -57,6 +59,7 @@ public class ShotgunMage : Enemy
         base.Start();
         // Get Player.
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
+        m_v3Target = m_gPlayer.transform.position;
         // Set the counter to max timer.
         m_fTimeBetweenShots = m_fFireRate;
         m_eEnemyType = EnemyType.SHOTGUN;
@@ -78,9 +81,19 @@ public class ShotgunMage : Enemy
             if (m_nBurstCount < m_nBurstAmount)
             {
                 // Fire a shot.
-                if (!Physics2D.Linecast((Vector2)this.transform.position, m_gPlayer.transform.position, m_WallLayer))
+                if (!m_bTaunted)
                 {
-                    Fire();
+                    if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position, m_WallLayer))
+                    {
+                        Fire();
+                    }
+                }
+                else
+                {
+                    if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gCompanion.transform.position, m_WallLayer))
+                    {
+                        Fire();
+                    }
                 }
             }
             // if BurstCount has added up to the amount of shots wanted,
@@ -130,10 +143,18 @@ public class ShotgunMage : Enemy
         {
             GameObject newBullet = Instantiate(m_gProjectile, this.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
             // Get the target position
-            Vector3 v3Target = m_gPlayer.transform.position - transform.position;
-            v3Target.Normalize();
+            if (m_bTaunted)
+            {
+                m_v3Target = m_gCompanion.transform.position - transform.position;
+                m_v3Target.Normalize();
+            }
+            else
+            {
+                m_v3Target = m_gPlayer.transform.position - transform.position;
+                m_v3Target.Normalize();
+            }
             // Calculate rotation needed to face Player
-            float angle = Mathf.Atan2(v3Target.y, v3Target.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(m_v3Target.y, m_v3Target.x) * Mathf.Rad2Deg;
             // Set bullets rotation to face Player.
             newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90 - (((float)m_nBulletAmount - 1) * 0.5f)*m_fBulletSpread + (i * m_fBulletSpread)));
             // Set bullets damage to this damage value
