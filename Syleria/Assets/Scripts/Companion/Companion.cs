@@ -13,13 +13,12 @@ using UnityEngine;
 public class Companion : MonoBehaviour
 {
 
-    public enum State { IDLE, FOLLOW, PATH, ATTACK } // Enum controlling states of companion
+    public enum State { IDLE, FOLLOW, PATH, ATTACK, TAUNT } // Enum controlling states of companion
 
     #region AStar
     [SerializeField] private float m_fAStarSpeed = 0.01f;
     public List<Node> m_Path;
     public Pathing m_aStar;
-    private float m_fDistToNode;
     #endregion
 
     public GameObject m_gPlayer; // Reference to player
@@ -116,7 +115,9 @@ public class Companion : MonoBehaviour
                 }
 
                 break;
+            case State.TAUNT:
 
+                break;
             default:
                 break;
         }

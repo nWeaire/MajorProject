@@ -10,14 +10,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ability : MonoBehaviour {
+public class Ability : MonoBehaviour
+{
 
-    enum Companion {FOX, TURTLE, BIRD}
+    enum CompanionSelected { FOX, TURTLE, BIRD }
 
     public GameObject m_Aim;
 
+    public ContactFilter2D m_wallLayer;
+    
     #region Companion
-    [SerializeField] Companion m_eCompanion = Companion.BIRD;
+    [SerializeField] CompanionSelected m_eCompanionSelected = CompanionSelected.BIRD;
     private GameObject m_gCompanion;
     #endregion
 
@@ -26,6 +29,7 @@ public class Ability : MonoBehaviour {
     public float m_fAbilityCDTimer = 0;
     private bool m_bAbility = true;
     private bool m_bIsAbility = false;
+    private bool m_bTriggerDown = false;
     #endregion
 
     #region Slash
@@ -50,23 +54,24 @@ public class Ability : MonoBehaviour {
     #endregion
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
+        
         m_gCompanion = GameObject.FindGameObjectWithTag("Companion");
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
-        switch (m_eCompanion)
+        switch (m_eCompanionSelected)
         {
-            case Companion.FOX:
+            case CompanionSelected.FOX:
                 Slash();
                 break;
-            case Companion.TURTLE:
+            case CompanionSelected.TURTLE:
                 Taunt();
                 break;
-            case Companion.BIRD:
+            case CompanionSelected.BIRD:
 
                 break;
             default:
@@ -88,7 +93,7 @@ public class Ability : MonoBehaviour {
             m_bIsAbility = false;
             m_fSlashDurationTimer = 0;
         }
-        if(m_bIsAbility) // If Slashing
+        if (m_bIsAbility) // If Slashing
         {
             m_fSlashDurationTimer += Time.deltaTime;
             Vector2 aimDirection = m_Aim.transform.up;
@@ -108,11 +113,11 @@ public class Ability : MonoBehaviour {
             m_cSlashCollider.points = slashPoints;
 
         }
-        if(!m_bIsAbility)
+        if (!m_bIsAbility)
         {
             m_fAbilityCDTimer += Time.deltaTime;
         }
-        if(m_fAbilityCDTimer >= m_fAbilityCD)
+        if (m_fAbilityCDTimer >= m_fAbilityCD)
         {
             m_bAbility = true;
             m_fAbilityCDTimer = 0;
@@ -127,6 +132,7 @@ public class Ability : MonoBehaviour {
             m_gCompanion.transform.position = this.transform.position;
             m_bIsAbility = true;
             m_bAbility = false;
+            m_bTriggerDown = true;
         }
 
         if (m_fTauntDurationTimer >= m_fTauntDuration)
@@ -137,26 +143,48 @@ public class Ability : MonoBehaviour {
             m_fTauntDurationTimer = 0;
             for (int i = 0; i < m_aEnemies.Length; i++)
             {
-                 m_aEnemies[i].GetComponent<Enemy>().m_bTaunted = false;
+                m_aEnemies[i].GetComponent<Enemy>().m_bTaunted = false;
             }
         }
         if (m_bIsAbility)
         {
+            m_gCompanion.GetComponent<Companion>().m_eState = Companion.State.TAUNT;
             m_fAbilityCDTimer = 0f;
             Vector2 aimDirection = m_Aim.transform.up;
             aimDirection.Normalize();
+
             if (!m_bEndPosFound)
             {
-                m_v2EndPos = new Vector2((aimDirection.x * m_fTauntRange) + this.transform.position.x, (aimDirection.y * m_fTauntRange) + this.transform.position.y);
+                RaycastHit2D[] hit = new RaycastHit2D[1];
+                int count = 0;
+                count = Physics2D.Raycast(m_Aim.transform.position, aimDirection, m_wallLayer, hit, m_fTauntRange);
+                if (count > 0)
+                {
+                    m_v2EndPos = new Vector2(hit[0].point.x, hit[0].point.y);
+                }
+                else
+                {
+                    m_v2EndPos = new Vector2((aimDirection.x * m_fTauntRange) + this.transform.position.x, (aimDirection.y * m_fTauntRange) + this.transform.position.y);
+                }
                 m_bEndPosFound = true;
             }
-            Vector2 dirToEndPos = (m_v2EndPos - (Vector2)this.transform.position);
-            dirToEndPos.Normalize();
-            m_gCompanion.transform.Translate(dirToEndPos * m_fTauntSpeed * Time.deltaTime);
 
-            if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsTaunting)
+            if (!m_bIsTaunting)
+            {
+                Vector2 dirToEndPos = (m_v2EndPos - (Vector2)this.transform.position);
+                dirToEndPos.Normalize();
+                m_gCompanion.transform.Translate(dirToEndPos * m_fTauntSpeed * Time.deltaTime);
+            }
+
+            if(Input.GetAxisRaw("Ability") < 0.2f)
+            {
+                m_bTriggerDown = false;
+            }
+
+            if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsTaunting && !m_bTriggerDown || Vector2.Distance(m_gCompanion.transform.position, m_v2EndPos) <= 0.8f && !m_bIsTaunting)
             {
                 m_bIsTaunting = true;
+
                 for (int i = 0; i < m_aEnemies.Length; i++)
                 {
                     if (Vector2.Distance(m_aEnemies[i].transform.position, m_gCompanion.transform.position) <= m_fTauntRadius)
@@ -164,21 +192,24 @@ public class Ability : MonoBehaviour {
                         m_aEnemies[i].GetComponent<Enemy>().m_bTaunted = true;
                     }
                 }
-                m_bEndPosFound = false;
             }
-           
+
         }
-        if(m_bIsTaunting)
+
+        if (m_bIsTaunting)
         {
             m_fTauntDurationTimer += Time.deltaTime;
         }
+
         if (!m_bAbility)
         {
             m_fAbilityCDTimer += Time.deltaTime;
         }
+
         if (m_fAbilityCDTimer >= m_fAbilityCD)
         {
             m_bAbility = true;
+            m_bEndPosFound = false;
             m_fAbilityCDTimer = 0;
         }
     }
