@@ -13,32 +13,32 @@ using UnityEngine;
 public class Ability : MonoBehaviour
 {
 
-    enum CompanionSelected { FOX, TURTLE, BIRD }
+    enum CompanionSelected { FOX, TURTLE, BIRD } // Enum containing all possible companions
 
-    public GameObject m_Aim;
+    public GameObject m_Aim; // Reference to aiming retical on player
 
-    public ContactFilter2D m_wallLayer;
+    public ContactFilter2D m_wallLayer; // Contact Filter for wall layer
     
     #region Companion
-    [SerializeField] CompanionSelected m_eCompanionSelected = CompanionSelected.BIRD;
-    private GameObject m_gCompanion;
+    [SerializeField] CompanionSelected m_eCompanionSelected = CompanionSelected.FOX; // Current companion selected 
+    private GameObject m_gCompanion; // Reference to companion
     #endregion
 
     #region Global
-    [SerializeField] private float m_fAbilityCD = 5;
-    public float m_fAbilityCDTimer = 0;
-    private bool m_bAbility = true;
-    private bool m_bIsAbility = false;
-    private bool m_bTriggerDown = false;
+    [SerializeField] private float m_fAbilityCD = 5; // Global ability cooldown
+    public float m_fAbilityCDTimer = 0; // Ability cooldown timer
+    private bool m_bAbility = true; // Ability is available
+    private bool m_bIsAbility = false; // IsAbility being used
+    private bool m_bTriggerDown = false; // IsTrigger down
     #endregion
 
     #region Slash
-    [SerializeField] private PolygonCollider2D m_cSlashCollider;
-    [SerializeField] private float m_fSlashRange;
-    [SerializeField] private float m_fSlashWidth = 3;
-    [SerializeField] private float m_fSlashDuration = 0.1f;
-    [SerializeField] private int m_nSlashDamage = 50;
-    private float m_fSlashDurationTimer = 0;
+    [SerializeField] private PolygonCollider2D m_cSlashCollider; // Polygon collisder for slash
+    [SerializeField] private float m_fSlashRange; // Range of slash
+    [SerializeField] private float m_fSlashWidth = 3; // Width of slash
+    [SerializeField] private float m_fSlashDuration = 0.1f; // Duration slash exists
+    [SerializeField] private int m_nSlashDamage = 50; // Slash damage
+    private float m_fSlashDurationTimer = 0; // Duration timer for slash
     #endregion
 
     #region Taunt
@@ -51,6 +51,7 @@ public class Ability : MonoBehaviour
     private float m_fTauntDurationTimer = 0;
     private GameObject[] m_aEnemies;
     private Vector2 m_v2EndPos;
+    private Vector2 m_v2DirToEndPos;
     #endregion
 
     // Use this for initialization
@@ -127,7 +128,7 @@ public class Ability : MonoBehaviour
     public void Taunt()
     {
         m_aEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsAbility && m_bAbility)
+        if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsAbility && m_bAbility && !m_bTriggerDown)
         {
             m_gCompanion.transform.position = this.transform.position;
             m_bIsAbility = true;
@@ -166,14 +167,15 @@ public class Ability : MonoBehaviour
                 {
                     m_v2EndPos = new Vector2((aimDirection.x * m_fTauntRange) + this.transform.position.x, (aimDirection.y * m_fTauntRange) + this.transform.position.y);
                 }
+                m_v2DirToEndPos = (m_v2EndPos - (Vector2)this.transform.position);
+                m_v2DirToEndPos.Normalize();
                 m_bEndPosFound = true;
             }
 
             if (!m_bIsTaunting)
             {
-                Vector2 dirToEndPos = (m_v2EndPos - (Vector2)this.transform.position);
-                dirToEndPos.Normalize();
-                m_gCompanion.transform.Translate(dirToEndPos * m_fTauntSpeed * Time.deltaTime);
+
+                m_gCompanion.transform.Translate(m_v2DirToEndPos * m_fTauntSpeed * Time.deltaTime);
             }
 
             if(Input.GetAxisRaw("Ability") < 0.2f)
