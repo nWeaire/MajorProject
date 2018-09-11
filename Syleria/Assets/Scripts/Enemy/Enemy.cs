@@ -61,7 +61,10 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public bool m_bCanShoot = true;
 
-    //[HideInInspector]
+    [HideInInspector]
+    public bool m_bMovingLeft;
+
+    [HideInInspector]
     public bool m_bTaunted = false;
 
     [SerializeField] private float m_fSeekSpeed = 3.0f; // Seek move speed
@@ -115,6 +118,18 @@ public class Enemy : MonoBehaviour
                 m_fFlashTimer = 0;
             }
         }
+
+        // Boolean setting for the sprite
+        if (transform.position.x - m_gPlayer.transform.position.x >= 0)
+        {
+            // Face left 
+            m_bMovingLeft = true;
+        }
+        else
+        {
+            // Face right
+            m_bMovingLeft = false;
+        }
     }
 
     public IEnumerator UpdateState()
@@ -164,14 +179,8 @@ public class Enemy : MonoBehaviour
             case State.TAUNTED:
                 // Enemy is being taunted
                 // When following but walls are in way of target
-                if (m_eEnemyType == EnemyType.SLIME)
-                {
-                    AStar(m_gCompanion.transform.position);
-                }
-                else if(m_eEnemyType == EnemyType.SHOTGUN)
-                {
-                    AStar(m_gCompanion.transform.position);
-                }
+                if(m_eEnemyType != EnemyType.SENTRY)
+                AStar(m_gCompanion.transform.position);
                 break;
             default:
                 break;

@@ -42,6 +42,8 @@ public class Sentry : Enemy
     // a counter for the shots in a burst
     private int m_nBurstCount;
 
+    private Vector3 m_v3Target;
+
 
     //--------------------------------------------------------------------------------------
     // initialization.
@@ -117,12 +119,19 @@ public class Sentry : Enemy
         GameObject newBullet = Instantiate(m_gProjectile, this.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
         m_nBurstCount++;
 
-        // Get the target position
-        Vector3 v3Target = m_gPlayer.transform.position - transform.position;
-        v3Target.Normalize();
-
+        if (m_bTaunted)
+        {
+            m_v3Target = m_gCompanion.transform.position - transform.position;
+            m_v3Target.Normalize();
+        }
+        else
+        {
+            // Get the target position
+            m_v3Target = m_gPlayer.transform.position - transform.position;
+            m_v3Target.Normalize();
+        }
         // Calculate rotation needed to face Player
-        float angle = Mathf.Atan2(v3Target.y, v3Target.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(m_v3Target.y, m_v3Target.x) * Mathf.Rad2Deg;
         // Set bullets rotation to face Player.
         newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
         

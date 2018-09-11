@@ -192,7 +192,6 @@ public class Slime : Enemy
             Instantiate(m_goSmallSlime, new Vector2(transform.position.x, transform.position.y - m_goSmallSlime.GetComponent<CircleCollider2D>().radius), transform.rotation);
             Instantiate(m_goSmallSlime, new Vector2(transform.position.x, transform.position.y + m_goSmallSlime.GetComponent<CircleCollider2D>().radius), transform.rotation);
             // Destroy this object.
-            Debug.Log("DEAD");
             Destroy(gameObject);
         }
         // If this slime is a small slime.

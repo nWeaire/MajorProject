@@ -73,7 +73,12 @@ public class ShotgunMage : Enemy
         // increase timer
         m_fTimeBetweenShots += Time.deltaTime;
         m_fTimeBetweenShots = m_fTimeBetweenShots % 60;
-      
+
+        // If health is less than or equal to zero
+        if (m_nCurrentHealth <= 0)
+        {
+            Die();
+        }
         // if timer has reached the limit,
         if (m_fTimeBetweenShots >= m_fFireRate)
         {
@@ -119,18 +124,14 @@ public class ShotgunMage : Enemy
         if (transform.position.x - m_gPlayer.transform.position.x >= 0)
         {
             // Face left if the sprite is facing right by default
-            GetComponentInChildren<SpriteRenderer>().flipX = true;
+            m_bMovingLeft = true;
         }
         else
         {
             // Face right if the sprite is facing right by default
-            GetComponentInChildren<SpriteRenderer>().flipX = false;
+            m_bMovingLeft = false;
         }
-        // If health is less than or equal to zero
-        if (m_nCurrentHealth <= 0)
-        {
-            Die();
-        }
+
     }
 
     //--------------------------------------------------------------------------------------

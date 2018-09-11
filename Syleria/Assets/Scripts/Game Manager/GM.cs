@@ -40,7 +40,6 @@ public class GM : MonoBehaviour {
     {
         if(m_Player.GetCurrentHealth() <= 0)
         {
-            Debug.Log("Lost");
             m_EndGameUI.SetActive(true);
             m_runTimeObjects.SetActive(false);
         }

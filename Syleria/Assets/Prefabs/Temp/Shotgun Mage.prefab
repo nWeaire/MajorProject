@@ -147,7 +147,8 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   m_gCompanion: {fileID: 0}
-  m_bTaunted: 0
+  m_bCanShoot: 1
+  m_bTaunted: 1
   m_fSeekSpeed: 3
   m_fFlashTimer: 0.2
   m_gProjectile: {fileID: 1668811833332258, guid: 03c10123d03caa04a973c9c4ca4c1b6b,
