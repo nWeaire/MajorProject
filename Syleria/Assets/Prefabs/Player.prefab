@@ -338,15 +338,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Aim: {fileID: 1940137475714804}
-  m_eCompanion: 0
+  m_wallLayer:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  m_eCompanionSelected: 0
+  m_fAbilityCD: 5
+  m_fAbilityCDTimer: 0
   m_cSlashCollider: {fileID: 60357293760735022}
   m_fSlashRange: 5
   m_fSlashWidth: 3
-  m_fSlashCD: 5
   m_fSlashDuration: 0.1
   m_nSlashDamage: 50
   m_fTauntRange: 0
   m_fTauntRadius: 0
+  m_fTauntSpeed: 0.5
+  m_fTauntDuration: 2.5
 --- !u!114 &114924172079761324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -410,7 +427,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -82733661
   m_SortingLayer: 3
-  m_SortingOrder: 5
+  m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: cfd0022c584bdd342a6281d10d32343a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
