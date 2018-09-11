@@ -92,18 +92,6 @@ public class Sentry : Enemy
                 }
             }
         }
-
-        // Boolean setting for the sprite
-        if (transform.position.x - m_gPlayer.transform.position.x >= 0)
-        {
-            // Face left if the sprite is facing right by default
-            GetComponentInChildren<SpriteRenderer>().flipX = true;
-        }
-        else
-        {
-            // Face right if the sprite is facing right by default
-            GetComponentInChildren<SpriteRenderer>().flipX = false;
-        }
         // If health is less than or equal to zero
         if(m_nCurrentHealth <= 0)
         {

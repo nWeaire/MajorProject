@@ -67,8 +67,6 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public bool m_bTaunted = false;
 
-    [SerializeField] private float m_fSeekSpeed = 3.0f; // Seek move speed
-
     private bool m_bSeenPlayer;
 
     public float m_fFlashTimer = 0.0f;
@@ -76,11 +74,13 @@ public class Enemy : MonoBehaviour
     private Vector2 m_gTarget;
 
 
+
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
     public void Start()
     {
+        m_bTaunted = false;
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         m_aStar = GameObject.FindGameObjectWithTag("A*").GetComponent<Pathing>();
         m_gCompanion = GameObject.FindGameObjectWithTag("Companion");
@@ -119,25 +119,19 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        // Boolean setting for the sprite
-        if (transform.position.x - m_gPlayer.transform.position.x >= 0)
-        {
-            // Face left 
-            m_bMovingLeft = true;
-        }
-        else
-        {
-            // Face right
-            m_bMovingLeft = false;
-        }
     }
 
     public IEnumerator UpdateState()
     {
         if (!m_bTaunted)
         {
-            
-            m_eState = State.ASTAR;
+            if (!Physics2D.Linecast((Vector2)this.transform.position, m_gPlayer.transform.position, m_WallLayer) 
+                && Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= 3f)
+            {
+                m_eState = State.CHASE;
+            }
+            else
+                m_eState = State.ASTAR;
 
             if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= 4f)
             {
@@ -145,6 +139,7 @@ public class Enemy : MonoBehaviour
                 {
                     m_eState = State.IDLE;
                 }
+
             }
             if (!m_bSeenPlayer)
             {
@@ -167,7 +162,7 @@ public class Enemy : MonoBehaviour
                 break;
             case State.CHASE:
                 // Can directly see player so follows with basic obstacle avoidance 
-                //Follow(m_gTarget);
+                Follow(m_gTarget);
                 break;
             case State.ASTAR:
                 // When following but walls are in way of target
@@ -191,7 +186,7 @@ public class Enemy : MonoBehaviour
     {
         Vector2 DirToTarget = (TargetPosition) - (Vector2)this.transform.position;
         DirToTarget.Normalize();
-        this.transform.Translate((DirToTarget) * m_fSeekSpeed * Time.deltaTime);
+        this.transform.Translate((DirToTarget) * m_fAStarSpeed * Time.deltaTime);
     }
     public void AStar(Vector2 TargetPosition)
     {

@@ -62,6 +62,8 @@ public class Slime : Enemy
 
     private Vector2 m_v2StartKnockPos; // Position knockback starts in
 
+    private Animator m_Animator;
+
     [SerializeField] private float m_fKnockDistance = 3; // Total knockback distance
 
     private bool m_bKnockBack;
@@ -71,6 +73,7 @@ public class Slime : Enemy
     //--------------------------------------------------------------------------------------
     new void Start()
     {
+        m_Animator = GetComponentInChildren<Animator>();
         base.Start();
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         // Set current health to maxHealth.
@@ -82,6 +85,20 @@ public class Slime : Enemy
     //--------------------------------------------------------------------------------------
     new void Update()
     {
+
+        // Boolean setting for the sprite
+        if (transform.position.x - m_gPlayer.transform.position.x >= 0)
+        {
+            // Face left 
+            m_bMovingLeft = true;
+            m_Animator.SetBool("MovingLeft", m_bMovingLeft);
+        }
+        else
+        {
+            // Face right
+            m_bMovingLeft = false;
+            m_Animator.SetBool("MovingLeft", m_bMovingLeft);
+        }
         // If Slime can move
         if (!m_bCannotMove)
         {

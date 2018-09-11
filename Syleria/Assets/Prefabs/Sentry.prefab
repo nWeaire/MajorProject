@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4704070552154198}
   - component: {fileID: 114252528618166760}
   - component: {fileID: 58714410874404886}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sentry
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4328842602028090}
   - component: {fileID: 212810913249868118}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4908265016325544}
   - component: {fileID: 212598843437073056}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: eye 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_bHit: 0
   m_nHealth: 25
   m_nCurrentHealth: 10
-  m_nDamage: 3
+  m_nDamage: 9
   m_fFlashTime: 0
   m_cFilter:
     useTriggers: 0
@@ -156,13 +156,15 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   m_gCompanion: {fileID: 0}
+  m_bCanShoot: 1
+  m_bMovingLeft: 0
   m_bTaunted: 0
   m_fSeekSpeed: 3
   m_fFlashTimer: 0.2
   m_gProjectile: {fileID: 1668811833332258, guid: 8e64c03dce7bb644ba59767d9dfa3bda,
     type: 2}
-  m_fBulletSpeed: 8
-  m_fFireRate: 0.1
+  m_fBulletSpeed: 4
+  m_fFireRate: 0.5
   m_fBurstTimer: 2.5
   m_nBurstAmount: 5
 --- !u!212 &212598843437073056
