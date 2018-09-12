@@ -33,16 +33,16 @@ public class SwordMage : Enemy
     // a timer for use in timing between bursts
     private float m_fTimeBetweenBursts;
 
-    public float m_fMoveTimer = 0;
+    private float m_fMoveTimer = 0;
 
     // a counter for the shots in a burst
     private int m_nBurstCount;
 
     private Vector3 m_v3Target;
 
-    public bool m_bFinishedFiring;
+    private bool m_bFinishedFiring;
 
-    public bool m_bCanMove;
+    private bool m_bCanMove;
 
 
     //--------------------------------------------------------------------------------------
