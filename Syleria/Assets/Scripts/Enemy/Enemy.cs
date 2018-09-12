@@ -15,9 +15,12 @@ public class Enemy : MonoBehaviour
 {
     public float m_fIdleDistance;
 
+    [Tooltip("How far the enemy will stay away from the player for shooting")]
+    public float m_fAimDistance;
+
     public enum State { IDLE, CHASE, ASTAR, ATTACK, TAUNTED }
 
-    public enum EnemyType { SLIME, SHOTGUN, SENTRY}
+    public enum EnemyType { SLIME, SHOTGUN, SENTRY, SWORD}
 
     #region AStar
     public List<Node> m_Path;
@@ -69,7 +72,7 @@ public class Enemy : MonoBehaviour
 
     private bool m_bSeenPlayer;
 
-    public float m_fFlashTimer = 0.0f;
+    public float m_fFlashTimer = 0f;
 
     private Vector2 m_gTarget;
 
@@ -80,6 +83,7 @@ public class Enemy : MonoBehaviour
     //--------------------------------------------------------------------------------------
     public void Start()
     {
+        m_nCurrentHealth = m_nHealth;
         m_bTaunted = false;
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         m_aStar = GameObject.FindGameObjectWithTag("A*").GetComponent<Pathing>();
@@ -133,13 +137,17 @@ public class Enemy : MonoBehaviour
             else
                 m_eState = State.ASTAR;
 
-            if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= 4f)
+            if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= m_fAimDistance)
             {
-                if (m_eEnemyType == EnemyType.SHOTGUN)
+                if (m_eEnemyType == EnemyType.SHOTGUN || m_eEnemyType == EnemyType.SWORD)
                 {
                     m_eState = State.IDLE;
                 }
 
+            }
+            if(Physics2D.Linecast((Vector2)this.transform.position, m_gPlayer.transform.position, m_WallLayer))
+            {
+                m_eState = State.ASTAR;
             }
             if (!m_bSeenPlayer)
             {

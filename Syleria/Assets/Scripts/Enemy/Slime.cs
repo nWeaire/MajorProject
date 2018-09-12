@@ -90,14 +90,12 @@ public class Slime : Enemy
         if (transform.position.x - m_gPlayer.transform.position.x >= 0)
         {
             // Face left 
-            m_bMovingLeft = true;
-            m_Animator.SetBool("MovingLeft", m_bMovingLeft);
+            m_Animator.SetBool("MovingLeft", true);
         }
         else
         {
             // Face right
-            m_bMovingLeft = false;
-            m_Animator.SetBool("MovingLeft", m_bMovingLeft);
+            m_Animator.SetBool("MovingLeft", false);
         }
         // If Slime can move
         if (!m_bCannotMove)
@@ -287,6 +285,7 @@ public class Slime : Enemy
             Vector3 dir = transform.position - collision.transform.position;
             dir.Normalize();
             transform.position += dir * 0.01f;
+            transform.position = (Vector2)transform.position;
             
         }
     }
