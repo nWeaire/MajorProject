@@ -328,11 +328,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a5756436d6638d4f86249cdf86fe81a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_nRoomCount: 0
+  m_nArrayHeight: 25
+  m_nArrayWidth: 25
+  m_nRoomCount: 20
+  m_nRoomsSpawned: 0
   m_gRoom: {fileID: 1026184642864566, guid: 4c67e0ebdcf73f145b8d7f7623ed8af9, type: 2}
   m_gStartRoom: {fileID: 1026184642864566, guid: 4c67e0ebdcf73f145b8d7f7623ed8af9,
     type: 2}
-  m_nRoomSize: {x: 0, y: 0}
+  m_v2RoomSize: {x: 41, y: 27}
+  m_v2CurrentIndex: {x: 0, y: 0}
 --- !u!156049354 &2139599637
 Grid:
   m_ObjectHideFlags: 0
