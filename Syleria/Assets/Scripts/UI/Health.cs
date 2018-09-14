@@ -17,7 +17,7 @@ public class Health : MonoBehaviour {
     private GameObject m_gPlayer; // Reference to player object
     
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
         m_gPlayer = GameObject.FindGameObjectWithTag("Player"); // Sets reference to player
         m_sHealthSlider.minValue = 0; // Sets minimum value of slider

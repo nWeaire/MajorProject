@@ -14,8 +14,9 @@ public class WorldGeneration : MonoBehaviour
     public int m_nRoomsSpawned;
     [SerializeField] private GameObject m_gRoom;
     [SerializeField] private GameObject m_gStartRoom;
-    [SerializeField] private Vector2 m_v2RoomSize;
+    [SerializeField] private GameObject m_gGameObjects;
     [SerializeField] private GameObject m_gA;
+    [SerializeField] private Vector2 m_v2RoomSize;
     public Vector2Int m_v2CurrentIndex;
     private bool m_bCorridors = false;
     private bool m_bAreRoomsSpawned = false;
@@ -41,7 +42,10 @@ public class WorldGeneration : MonoBehaviour
         m_v2StartRoom.y = (m_nArrayHeight - 1) / 2;
         m_v2CurrentIndex = m_v2StartRoom;
         m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y].isSpawn = true;
+        m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y].isRoom = true;
         m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room = Instantiate(m_gStartRoom, m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y].worldPosition, new Quaternion(), this.transform);
+        m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().isSpawn = true;
+        m_gGameObjects.transform.position = m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.transform.position + new Vector3(20.5f, -13.5f, 0);
     }
 
     // Update is called once per frame
@@ -55,6 +59,7 @@ public class WorldGeneration : MonoBehaviour
         {
             SpawnA();
             m_bASpawned = true;
+            m_gGameObjects.SetActive(true);
         }
 
 
@@ -81,6 +86,13 @@ public class WorldGeneration : MonoBehaviour
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomWall.SetActive(false);
                     m_nRoomsSpawned += 1;
                 }
+                else if(m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isSpawn)
+                {
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topCorridor.SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomCorridor.SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topWall.SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomWall.SetActive(false);
+                }
                 else
                 {
 
@@ -97,6 +109,13 @@ public class WorldGeneration : MonoBehaviour
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topCorridor.SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topWall.SetActive(false);
                     m_nRoomsSpawned += 1;
+                }
+                else if (m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isSpawn)
+                {
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomCorridor.SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomWall.SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topCorridor.SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topWall.SetActive(false);
                 }
                 else
                 {
@@ -115,6 +134,13 @@ public class WorldGeneration : MonoBehaviour
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightWall.SetActive(false);
                     m_nRoomsSpawned += 1;
                 }
+                else if (m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isSpawn)
+                {
+                    m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftCorridor.SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightCorridor.SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftWall.SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightWall.SetActive(false);
+                }
                 else
                 {
 
@@ -131,6 +157,13 @@ public class WorldGeneration : MonoBehaviour
                     m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightWall.SetActive(false);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftWall.SetActive(false);
                     m_nRoomsSpawned += 1;
+                }
+                else if (m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isSpawn)
+                {
+                    m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightCorridor.SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftCorridor.SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightWall.SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftWall.SetActive(false);
                 }
                 else
                 {

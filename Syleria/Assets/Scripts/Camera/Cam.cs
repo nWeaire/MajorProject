@@ -18,7 +18,7 @@ public class Cam : MonoBehaviour {
     [SerializeField] private float m_fSpeed; // Max speed camera can move towards target 0-1
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
         m_oPlayer = GameObject.FindGameObjectWithTag("Player"); // Sets reference to player object
 	}
