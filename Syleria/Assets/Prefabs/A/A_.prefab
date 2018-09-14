@@ -69,3 +69,4 @@ MonoBehaviour:
   m_WalkableLayer:
     serializedVersion: 2
     m_Bits: 1024
+  m_gNode: {fileID: 1085766854477492, guid: 76c8515e6c540fd45b184dfd8a4466c1, type: 2}

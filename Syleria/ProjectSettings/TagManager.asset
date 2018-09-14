@@ -9,6 +9,11 @@ TagManager:
   - Walkable
   - A*
   - Companion
+  - LeftCorridor
+  - BottomCorridor
+  - RightCorridor
+  - TopCorridor
+  - Room
   layers:
   - Default
   - TransparentFX

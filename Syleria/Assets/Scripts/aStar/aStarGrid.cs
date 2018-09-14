@@ -24,6 +24,7 @@ public class aStarGrid : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        SetPosition(); // Sets position of grid based on rooms positions
         CreateGrid(); // creates grid on wake up
     }
 
@@ -174,5 +175,56 @@ public class aStarGrid : MonoBehaviour
             }
             return tempNode;
         }
+    }
+    void SetPosition()
+    {
+        float highX = Mathf.NegativeInfinity;
+        float highY = Mathf.NegativeInfinity;
+        float lowX = Mathf.Infinity;
+        float lowY = Mathf.Infinity;
+        GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
+        for (int i = 0; i < rooms.Length; i++)
+        {
+            float tempX = rooms[i].transform.position.x;
+            float tempY = rooms[i].transform.position.y;
+            if(tempX > highX)
+            {
+                highX = tempX;
+            }
+            else if(tempX < lowX)
+            {
+                lowX = tempX;
+            }
+            else
+            {
+
+            }
+
+            if(tempY > highY)
+            {
+                highY = tempY;
+            }
+            else if(tempY < lowY)
+            {
+                lowY = tempY;
+            }
+            else
+            {
+
+            }
+        }
+        lowX = lowX - 50.0f;
+        lowY = lowY - 50.0f;
+        highX = highX + 150.0f;
+        highY = highY + 150.0f;
+
+        this.transform.position = new Vector2(lowX - 50f, lowY - 50f);
+        m_nGridHeight = (int)Vector2.Distance(new Vector2(0,lowY), new Vector2(0, highY));
+        m_nGridWidth = (int)Vector2.Distance(new Vector2(lowX, 0), new Vector2(highX, 0));
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(this.transform.position, (Vector2)this.transform.position + new Vector2(m_nGridWidth, 0));
+        Gizmos.DrawLine(this.transform.position, (Vector2)this.transform.position + new Vector2(0, m_nGridHeight));
     }
 }

@@ -336,6 +336,7 @@ MonoBehaviour:
   m_gStartRoom: {fileID: 1026184642864566, guid: 4c67e0ebdcf73f145b8d7f7623ed8af9,
     type: 2}
   m_v2RoomSize: {x: 41, y: 27}
+  m_gA: {fileID: 1741485387019662, guid: 61c9e4c3a895c9a4a9837ee678da9cdc, type: 2}
   m_v2CurrentIndex: {x: 0, y: 0}
 --- !u!156049354 &2139599637
 Grid:

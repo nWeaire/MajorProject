@@ -15,15 +15,16 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private GameObject m_gRoom;
     [SerializeField] private GameObject m_gStartRoom;
     [SerializeField] private Vector2 m_v2RoomSize;
+    [SerializeField] private GameObject m_gA;
     public Vector2Int m_v2CurrentIndex;
     private bool m_bCorridors = false;
     private bool m_bAreRoomsSpawned = false;
+    private bool m_bASpawned = false;
 
     // Use this for initialization
     void Start()
     {
         CreateGrid();
-
     }
 
     private void CreateGrid()
@@ -33,7 +34,7 @@ public class WorldGeneration : MonoBehaviour
         {
             for (int j = 0; j < m_nArrayHeight; j++)
             {
-                m_aRoomArray[i, j] = new Room(i, j , new Vector2(i * m_v2RoomSize.x, j * m_v2RoomSize.y));
+                m_aRoomArray[i, j] = new Room(i, j, new Vector2(i * m_v2RoomSize.x, j * m_v2RoomSize.y));
             }
         }
         m_v2StartRoom.x = (m_nArrayWidth - 1) / 2;
@@ -50,24 +51,13 @@ public class WorldGeneration : MonoBehaviour
         {
             SpawnRooms();
         }
-        if (!m_bCorridors && m_bAreRoomsSpawned)
+        else if (!m_bASpawned)
         {
-            for (int i = 0; i < m_nArrayWidth; i++)
-            {
-                for (int j = 0; j < m_nArrayHeight; j++)
-                {
-                    if (m_aRoomArray[i, j].isRoom)
-                    {
-                        
-                    }
-                    else
-                    {
-
-                    }
-                }
-            }
-            m_bCorridors = true;
+            SpawnA();
+            m_bASpawned = true;
         }
+
+
     }
 
     private void SpawnRooms()
@@ -151,5 +141,10 @@ public class WorldGeneration : MonoBehaviour
                 break;
         }
         m_bAreRoomsSpawned = true;
+    }
+
+    void SpawnA()
+    {
+        Instantiate(m_gA);
     }
 }
