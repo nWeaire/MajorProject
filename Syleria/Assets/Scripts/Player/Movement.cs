@@ -21,6 +21,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private Sprite m_sprFront; // Sprite facing player
     [SerializeField] private Sprite m_sprBack; // Sprite facing away
     [SerializeField] private Sprite m_sprSide; // Side on sprite
+    private Animator m_Animator;
     #endregion
 
     #region Dash Variables
@@ -53,6 +54,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         m_gPlayer = GameObject.FindGameObjectWithTag("Player"); // Gets reference to player
+        m_Animator = m_gSprite.GetComponent<Animator>();
         m_fRadius = GetComponent<CircleCollider2D>().radius; // Gets radius of player
         m_v2Offset = GetComponent<CircleCollider2D>().offset;
     }
@@ -61,15 +63,14 @@ public class Movement : MonoBehaviour
     void Update()
     {
         m_v2StickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // Gets the left stick input of controller
+        
         m_fSpeed = m_gPlayer.GetComponent<Player>().GetMoveSpeed(); // Gets player movement speed
         tempDir = dir; // Saves direction player is moving
         Move(); // Calls move function to check for collision and move Player
         Direction(); // Changes the direction character is facing
         Dash(); // Player dash ability
-        if (dir != tempDir) // If the direction is different to the saved direction
-        { 
-            UpdateModel(); // Update model to face correct direction
-        }
+
+        UpdateModel(); // Update model to face correct direction
     }
 
     //--------------------------------------------------------------------------------------
@@ -233,25 +234,19 @@ public class Movement : MonoBehaviour
     //--------------------------------------------------------------------------------------
     public void UpdateModel()
     {
-        switch (dir) // Checks each direction
+        // If the player is inputting movement
+        if (m_v2StickInput.x < -0.2f || m_v2StickInput.y < -0.2f || m_v2StickInput.x > 0.2f || m_v2StickInput.y > 0.2f)
         {
-            case MoveDirection.UP: // If facing up
-                m_gSprite.GetComponent<SpriteRenderer>().sprite = m_sprBack; // Sets sprite to face up
-                break;
-            case MoveDirection.DOWN: // If facing down
-                m_gSprite.GetComponent<SpriteRenderer>().sprite = m_sprFront; // Sets sprite to face forward
-                break;
-            case MoveDirection.LEFT: // If facing left
-                m_gSprite.GetComponent<SpriteRenderer>().sprite = m_sprSide; // Sets sprite to face left
-                m_gSprite.GetComponent<SpriteRenderer>().flipX = true; // Flips sprite
-                break;
-            case MoveDirection.RIGHT: // If facing right
-                m_gSprite.GetComponent<SpriteRenderer>().sprite = m_sprSide; // Sets sprite to face right
-                m_gSprite.GetComponent<SpriteRenderer>().flipX = false; // Flips sprite back
-                break;
-            default:
-                break;
+            // Moving is true
+            m_Animator.SetBool("isMoving", true);
         }
+        else
+        {
+            // Moving is false
+            m_Animator.SetBool("isMoving", false);
+        }
+        // Set animator direction to the direction the player is moving
+        m_Animator.SetInteger("Direction", (int)dir);
     }
 
     //--------------------------------------------------------------------------------------

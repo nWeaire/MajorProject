@@ -32,9 +32,12 @@ public class Companion : MonoBehaviour
     [SerializeField] private int m_nAttackPercentage = 40;
     [SerializeField] private int m_nDamage;
     private bool m_bAttackOnCD = false;
+
+    private Animator m_Animator;
     // Use this for initialization
     void Start()
     {
+        m_Animator = GetComponent<Animator>();
         m_eState = State.IDLE;
         m_aStar = m_aStar.GetComponent<Pathing>(); // Gets pathing component
         m_Path = m_aStar.FindPath(this.transform.position, m_gPlayer.transform.position); // Finds starting path to player
@@ -48,6 +51,7 @@ public class Companion : MonoBehaviour
         {
             StartCoroutine("UpdateState");
         }
+        UpdateAnimation();
     }
 
     public IEnumerator UpdateState()
@@ -60,7 +64,7 @@ public class Companion : MonoBehaviour
         {
             m_eState = State.PATH; // Sets state to AStar
         }
-        if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= 1.4f) // Checks if companion is within 1.4 unit of player 
+        if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= 1.7f) // Checks if companion is within 1.4 unit of player 
         {
             m_eState = State.IDLE; // Sets state to idle
         }
@@ -177,4 +181,47 @@ public class Companion : MonoBehaviour
         yield return new WaitForSeconds(10.0f);
     }
 
+    public void UpdateAnimation()
+    {
+        // Boolean setting for the sprite
+        if (transform.position.x - m_gPlayer.transform.position.x >= 0 && m_eState != State.ATTACK)
+        {
+            // Face left 
+            m_Animator.SetBool("isLeft", true);
+        }
+        else if (m_eState == State.ATTACK)
+        {
+            if (transform.position.x - m_gTarget.transform.position.x >= 0)
+            {
+                // Face left 
+                m_Animator.SetBool("isLeft", true);
+            }
+        }
+        else
+        {
+            // Face right
+            m_Animator.SetBool("isLeft", false);
+        }
+
+      
+
+        if(m_eState == State.IDLE)
+        {
+            m_Animator.SetBool("isMoving", false);
+        }
+        else
+        {
+            m_Animator.SetBool("isMoving", true);
+        }
+
+        if(m_eState == State.ATTACK)
+        {
+            m_Animator.SetBool("isAttacking", true);
+        }
+        else
+        {
+            m_Animator.SetBool("isAttacking", false);
+        }
+
+    }
 }

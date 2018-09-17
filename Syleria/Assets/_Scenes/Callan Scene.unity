@@ -152,6 +152,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1960623517545722, guid: 004c25975eb50d3409df5cef1557414f, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 004c25975eb50d3409df5cef1557414f, type: 2}
   m_IsPrefabParent: 0
@@ -666,33 +670,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4811030494631650, guid: 61c9e4c3a895c9a4a9837ee678da9cdc,
     type: 2}
   m_PrefabInternal: {fileID: 616702138}
---- !u!1 &515396643 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1600492242142028, guid: b6b16f3ce002d8443a8dd4728eadf79f,
-    type: 2}
-  m_PrefabInternal: {fileID: 828276239}
 --- !u!4 &515396648 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4607744799300708, guid: b6b16f3ce002d8443a8dd4728eadf79f,
     type: 2}
   m_PrefabInternal: {fileID: 828276239}
---- !u!95 &515396649
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 515396643}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1cda54b2bcd56324dbce9ab189586838, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &602826282
 GameObject:
   m_ObjectHideFlags: 0
@@ -36285,40 +36267,6 @@ Prefab:
       propertyPath: m_gPlayer
       value: 
       objectReference: {fileID: 29046704}
-    - target: {fileID: 212892495640741508, guid: b6b16f3ce002d8443a8dd4728eadf79f,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: fb7e674fec0864542aff0dc22f398a95,
-        type: 3}
-    - target: {fileID: 58585133134209126, guid: b6b16f3ce002d8443a8dd4728eadf79f,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1600492242142028, guid: b6b16f3ce002d8443a8dd4728eadf79f, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1600492242142028, guid: b6b16f3ce002d8443a8dd4728eadf79f, type: 2}
-      propertyPath: m_TagString
-      value: Companion
-      objectReference: {fileID: 0}
-    - target: {fileID: 114724498092864868, guid: b6b16f3ce002d8443a8dd4728eadf79f,
-        type: 2}
-      propertyPath: m_fFollowSpeed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114724498092864868, guid: b6b16f3ce002d8443a8dd4728eadf79f,
-        type: 2}
-      propertyPath: m_fAStarSpeed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114724498092864868, guid: b6b16f3ce002d8443a8dd4728eadf79f,
-        type: 2}
-      propertyPath: m_nAttackPercentage
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b6b16f3ce002d8443a8dd4728eadf79f, type: 2}
   m_IsPrefabParent: 0
@@ -48151,6 +48099,11 @@ Prefab:
       propertyPath: m_fBulletSpeed
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 95672122874954886, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+        type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e9996c362a447254da205fd75a10f225, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb2b31551868fea4b9a649f7dc4bff3d, type: 2}
   m_IsPrefabParent: 0

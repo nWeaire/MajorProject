@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212892495640741508}
   - component: {fileID: 58175079519032990}
   - component: {fileID: 114724498092864868}
-  - component: {fileID: 95373556436169234}
+  - component: {fileID: 95624437362172744}
   m_Layer: 0
   m_Name: Fox
   m_TagString: Companion
@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1600492242142028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -177.95787, y: -329.18323, z: 18.232359}
+  m_LocalPosition: {x: -169.569, y: -331.807, z: 18.232359}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -58,7 +58,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 12
---- !u!95 &95373556436169234
+--- !u!95 &95624437362172744
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -67,7 +67,7 @@ Animator:
   m_GameObject: {fileID: 1600492242142028}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1cda54b2bcd56324dbce9ab189586838, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6560633fcc04c494aa014c3d545a5197, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -86,16 +86,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13024ecc83ee1a840a397daa5272a297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fAStarSpeed: 8
+  m_fAStarSpeed: 6
   m_aStar: {fileID: 0}
   m_gPlayer: {fileID: 0}
-  m_fFollowSpeed: 8
+  m_fFollowSpeed: 6
   m_eState: 2
   m_wallLayer:
     serializedVersion: 2
     m_Bits: 256
   m_fAttackCD: 1
-  m_nAttackPercentage: 40
+  m_nAttackPercentage: 0
   m_nDamage: 0
 --- !u!212 &212892495640741508
 SpriteRenderer:
