@@ -176,7 +176,7 @@ Prefab:
         type: 2}
       propertyPath: m_gStartRoom
       value: 
-      objectReference: {fileID: 1898255505505442, guid: a3d01f484ff30b448bf7bcf72a505410,
+      objectReference: {fileID: 1322201335172516, guid: 4c67e0ebdcf73f145b8d7f7623ed8af9,
         type: 2}
     - target: {fileID: 114654597185385810, guid: faa19a4a810337c448950edb79e7fbc6,
         type: 2}
@@ -188,7 +188,7 @@ Prefab:
         type: 2}
       propertyPath: m_agRooms.Array.data[0]
       value: 
-      objectReference: {fileID: 1959871731242022, guid: 4c67e0ebdcf73f145b8d7f7623ed8af9,
+      objectReference: {fileID: 1931236387099560, guid: 416d733f4f1b32644ba6bb54bff3730f,
         type: 2}
     - target: {fileID: 1045143489455922, guid: faa19a4a810337c448950edb79e7fbc6, type: 2}
       propertyPath: m_StaticEditorFlags
@@ -571,7 +571,7 @@ Animator:
   m_GameObject: {fileID: 708795187}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cb86b667a6e39004ab3c6f8ea6178946, type: 2}
+  m_Controller: {fileID: 9100000, guid: e9996c362a447254da205fd75a10f225, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

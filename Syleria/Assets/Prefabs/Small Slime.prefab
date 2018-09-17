@@ -53,7 +53,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1929228075560856}
-  m_LocalRotation: {x: -0, y: -0, z: -0.016984526, w: 0.99985576}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -149,8 +149,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fIdleDistance: 0
+  m_fAimDistance: 0
   m_aStar: {fileID: 0}
-  m_fAStarSpeed: 3
+  m_fAStarSpeed: 10
   m_gPlayer: {fileID: 0}
   m_eEnemyType: 0
   m_eState: 0
@@ -158,9 +159,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   m_bHit: 0
-  m_nHealth: 10
-  m_nCurrentHealth: 0
-  m_nDamage: 3
+  m_nHealth: 20
+  m_nCurrentHealth: 20
+  m_nDamage: 5
   m_fFlashTime: 0
   m_cFilter:
     useTriggers: 0
@@ -178,15 +179,15 @@ MonoBehaviour:
     maxNormalAngle: 0
   m_gCompanion: {fileID: 0}
   m_bCanShoot: 1
+  m_bMovingLeft: 0
   m_bTaunted: 0
-  m_fSeekSpeed: 3
   m_fFlashTimer: 0
   m_bBigSlime: 0
   m_nSmallSlimes: 0
   m_goSmallSlime: {fileID: 1986857641011166}
   m_bCannotMove: 1
   m_fSpawnTime: 2
-  m_fStunTime: 1.5
+  m_fStunTime: 0.5
   m_fMoveTime: 0.5
   m_fPauseTime: 0.1
   m_bSpawning: 1

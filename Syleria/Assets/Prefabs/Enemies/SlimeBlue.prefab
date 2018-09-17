@@ -159,9 +159,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   m_bHit: 0
-  m_nHealth: 20
-  m_nCurrentHealth: 20
-  m_nDamage: 5
+  m_nHealth: 40
+  m_nCurrentHealth: 40
+  m_nDamage: 15
   m_fFlashTime: 0.1
   m_cFilter:
     useTriggers: 0
@@ -188,7 +188,7 @@ MonoBehaviour:
     type: 2}
   m_bCannotMove: 1
   m_fSpawnTime: 0
-  m_fStunTime: 1.5
+  m_fStunTime: 0.5
   m_fMoveTime: 1
   m_fPauseTime: 0.25
   m_bSpawning: 0
