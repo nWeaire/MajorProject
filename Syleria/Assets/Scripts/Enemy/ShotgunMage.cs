@@ -54,9 +54,9 @@ public class ShotgunMage : Enemy
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
-    new void Start () 
+    new void Awake () 
     {
-        base.Start();
+        base.Awake();
         // Get Player.
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         m_v3Target = m_gPlayer.transform.position;

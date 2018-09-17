@@ -8,12 +8,15 @@ TagManager:
   - Enemy
   - Walkable
   - A*
-  - Companion
   - LeftCorridor
   - BottomCorridor
   - RightCorridor
   - TopCorridor
   - Room
+  - Fox
+  - Turtle
+  - Bird
+  - Companion
   layers:
   - Default
   - TransparentFX
@@ -26,7 +29,7 @@ TagManager:
   - Terrain
   - Enemy
   - Walkable
-  - 
+  - Trigger
   - 
   - 
   - 

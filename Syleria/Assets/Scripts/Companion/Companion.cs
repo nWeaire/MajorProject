@@ -21,6 +21,7 @@ public class Companion : MonoBehaviour
     public Pathing m_aStar;
     #endregion
 
+    public Ability m_gAbility;
     public GameObject m_gPlayer; // Reference to player
     [SerializeField] private float m_fFollowSpeed = 3.0f; // Follow move speed
     public State m_eState; // Starting state for companion
@@ -35,11 +36,11 @@ public class Companion : MonoBehaviour
 
     private Animator m_Animator;
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         m_Animator = GetComponent<Animator>();
         m_eState = State.IDLE;
-        m_aStar = m_aStar.GetComponent<Pathing>(); // Gets pathing component
+        m_aStar = GameObject.FindGameObjectWithTag("A*").GetComponent<Pathing>();
         m_Path = m_aStar.FindPath(this.transform.position, m_gPlayer.transform.position); // Finds starting path to player
     }
 
@@ -68,7 +69,7 @@ public class Companion : MonoBehaviour
         {
             m_eState = State.IDLE; // Sets state to idle
         }
-        
+
 
         yield return new WaitForSeconds(.1f); // Waits a tenth of a second to repeat this function
     }
@@ -83,7 +84,7 @@ public class Companion : MonoBehaviour
             case State.FOLLOW:
                 // Can directly see player so follows with basic obstacle avoidance 
                 Vector2 FollowTargetPos = m_gPlayer.transform.position + (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset;
-                AStar(FollowTargetPos);
+                Follow(FollowTargetPos);
                 break;
             case State.PATH:
                 // When following but walls are in way of target
@@ -91,13 +92,13 @@ public class Companion : MonoBehaviour
                 AStar(aStarTargetPos);
                 break;
             case State.ATTACK:
-                if(m_gTarget != null)
+                if (m_gTarget != null)
                 {
-                    if(Vector2.Distance(this.transform.position, m_gTarget.transform.position) >= 1.5f)
+                    if (Vector2.Distance(this.transform.position, m_gTarget.transform.position) >= 1.5f)
                     {
                         Follow((Vector2)m_gTarget.transform.position);
                     }
-                    else if(!m_bAttackOnCD)
+                    else if (!m_bAttackOnCD)
                     {
                         StartCoroutine("UpdateDamage");
                         m_gTarget.GetComponent<Enemy>().TakeDamage(m_nDamage);
@@ -106,7 +107,7 @@ public class Companion : MonoBehaviour
                     else
                     {
                         m_fAttackTimer += Time.deltaTime;
-                        if(m_fAttackTimer >= m_fAttackCD)
+                        if (m_fAttackTimer >= m_fAttackCD)
                         {
                             m_bAttackOnCD = false;
                             m_fAttackTimer = 0f;
@@ -183,6 +184,8 @@ public class Companion : MonoBehaviour
 
     public void UpdateAnimation()
     {
+
+
         // Boolean setting for the sprite
         if (transform.position.x - m_gPlayer.transform.position.x >= 0 && m_eState != State.ATTACK)
         {
@@ -203,9 +206,9 @@ public class Companion : MonoBehaviour
             m_Animator.SetBool("isLeft", false);
         }
 
-      
 
-        if(m_eState == State.IDLE)
+
+        if (m_eState == State.IDLE)
         {
             m_Animator.SetBool("isMoving", false);
         }
@@ -214,7 +217,7 @@ public class Companion : MonoBehaviour
             m_Animator.SetBool("isMoving", true);
         }
 
-        if(m_eState == State.ATTACK)
+        if (m_eState == State.ATTACK)
         {
             m_Animator.SetBool("isAttacking", true);
         }

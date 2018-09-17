@@ -71,10 +71,10 @@ public class Slime : Enemy
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
-    new void Start()
+    new void Awake()
     {
         m_Animator = GetComponentInChildren<Animator>();
-        base.Start();
+        base.Awake();
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         // Set current health to maxHealth.
         m_nCurrentHealth = m_nHealth;

@@ -81,7 +81,7 @@ public class Enemy : MonoBehaviour
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
-    public void Start()
+    public void Awake()
     {
         m_nCurrentHealth = m_nHealth;
         m_bTaunted = false;

@@ -21,7 +21,11 @@ public class Ability : MonoBehaviour
     
     #region Companion
     [SerializeField] CompanionSelected m_eCompanionSelected = CompanionSelected.FOX; // Current companion selected 
-    private GameObject m_gCompanion; // Reference to companion
+    //public GameObject m_gBird; // Reference to Bird
+    public GameObject m_gFox; // Reference to Fox
+    public GameObject m_gTurtle; // Reference to Turtle
+    public GameObject m_gTaunt; // Reference to taunt
+    public GameObject m_gSlash;
     #endregion
 
     #region Global
@@ -57,13 +61,13 @@ public class Ability : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        
-        m_gCompanion = GameObject.FindGameObjectWithTag("Companion");
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        ChangeCompanion();
         switch (m_eCompanionSelected)
         {
             case CompanionSelected.FOX:
@@ -72,12 +76,64 @@ public class Ability : MonoBehaviour
             case CompanionSelected.TURTLE:
                 Taunt();
                 break;
-            case CompanionSelected.BIRD:
+            //case CompanionSelected.BIRD:
 
-                break;
+            //    break;
             default:
                 break;
         }
+    }
+
+    private void ChangeCompanion()
+    {
+        if (Input.GetButtonDown("Fox") && m_eCompanionSelected != CompanionSelected.FOX)
+        {
+            if (m_eCompanionSelected == CompanionSelected.TURTLE)
+            {
+                m_gFox.transform.position = m_gTurtle.transform.position;
+            }
+            else
+            {
+               //m_gFox.transform.position = m_gBird.transform.position;
+            }
+            m_eCompanionSelected = CompanionSelected.FOX;
+            m_gFox.gameObject.SetActive(true);
+            m_gTurtle.gameObject.SetActive(false);
+            //m_gBird.gameObject.SetActive(false);
+            Debug.Log("fox");
+        }
+        if (Input.GetButtonDown("Turtle") && m_eCompanionSelected != CompanionSelected.TURTLE)
+        {
+            if (m_eCompanionSelected == CompanionSelected.FOX)
+            {
+                m_gTurtle.transform.position = m_gFox.transform.position;
+            }
+            else
+            {
+                //m_gTurtle.transform.position = m_gBird.transform.position;
+            }
+            m_eCompanionSelected = CompanionSelected.TURTLE;
+            m_gFox.gameObject.SetActive(false);
+            m_gTurtle.gameObject.SetActive(true);
+            //m_gBird.gameObject.SetActive(false);
+            Debug.Log("Turtle");
+        }
+        //if (Input.GetButtonDown("Bird") && m_eCompanionSelected != CompanionSelected.BIRD)
+        //{
+        //    if (m_eCompanionSelected == CompanionSelected.TURTLE)
+        //    {
+        //        m_gBird.transform.position = m_gTurtle.transform.position;
+        //    }
+        //    else
+        //    {
+        //        m_gBird.transform.position = m_gFox.transform.position;
+        //    }
+        //    m_eCompanionSelected = CompanionSelected.BIRD;
+        //    m_gFox.gameObject.SetActive(false);
+        //    m_gTurtle.gameObject.SetActive(false);
+        //    m_gBird.gameObject.SetActive(true);
+        //    Debug.Log("bird");
+        //}
     }
 
     public void Slash()
@@ -112,11 +168,14 @@ public class Ability : MonoBehaviour
             slashPoints[1] = new Vector2(m_v2rightPoint.x, m_v2rightPoint.y);
             slashPoints[2] = new Vector2(m_v2leftPoint.x, m_v2leftPoint.y);
             m_cSlashCollider.points = slashPoints;
-
+            m_gSlash.SetActive(true);
+            float m_fAngle = Mathf.Atan2(aimDirection.x, aimDirection.y) * Mathf.Rad2Deg; // Gets angle based on direction of the right stick input
+            m_gSlash.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -m_fAngle)); // Rotates retical
         }
         if (!m_bIsAbility)
         {
             m_fAbilityCDTimer += Time.deltaTime;
+            m_gSlash.SetActive(false);
         }
         if (m_fAbilityCDTimer >= m_fAbilityCD)
         {
@@ -130,7 +189,7 @@ public class Ability : MonoBehaviour
         m_aEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsAbility && m_bAbility && !m_bTriggerDown)
         {
-            m_gCompanion.transform.position = this.transform.position;
+            m_gTurtle.transform.position = this.transform.position;
             m_bIsAbility = true;
             m_bAbility = false;
             m_bTriggerDown = true;
@@ -146,10 +205,11 @@ public class Ability : MonoBehaviour
             {
                 m_aEnemies[i].GetComponent<Enemy>().m_bTaunted = false;
             }
+            m_gTaunt.SetActive(false);
         }
         if (m_bIsAbility)
         {
-            m_gCompanion.GetComponent<Companion>().m_eState = Companion.State.TAUNT;
+            m_gTurtle.GetComponent<Companion>().m_eState = Companion.State.TAUNT;
             m_fAbilityCDTimer = 0f;
             Vector2 aimDirection = m_Aim.transform.up;
             aimDirection.Normalize();
@@ -175,7 +235,7 @@ public class Ability : MonoBehaviour
             if (!m_bIsTaunting)
             {
 
-                m_gCompanion.transform.Translate(m_v2DirToEndPos * m_fTauntSpeed * Time.deltaTime);
+                m_gTurtle.transform.Translate(m_v2DirToEndPos * m_fTauntSpeed * Time.deltaTime);
             }
 
             if(Input.GetAxisRaw("Ability") < 0.2f)
@@ -183,13 +243,13 @@ public class Ability : MonoBehaviour
                 m_bTriggerDown = false;
             }
 
-            if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsTaunting && !m_bTriggerDown || Vector2.Distance(m_gCompanion.transform.position, m_v2EndPos) <= 0.8f && !m_bIsTaunting)
+            if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsTaunting && !m_bTriggerDown || Vector2.Distance(m_gTurtle.transform.position, m_v2EndPos) <= 0.8f && !m_bIsTaunting)
             {
                 m_bIsTaunting = true;
-
+                m_gTaunt.SetActive(true);
                 for (int i = 0; i < m_aEnemies.Length; i++)
                 {
-                    if (Vector2.Distance(m_aEnemies[i].transform.position, m_gCompanion.transform.position) <= m_fTauntRadius)
+                    if (Vector2.Distance(m_aEnemies[i].transform.position, m_gTurtle.transform.position) <= m_fTauntRadius)
                     {
                         m_aEnemies[i].GetComponent<Enemy>().m_bTaunted = true;
                     }

@@ -12,7 +12,7 @@ public class WorldGeneration : MonoBehaviour
 
     [SerializeField] private int m_nRoomCount;
     public int m_nRoomsSpawned;
-    [SerializeField] private GameObject m_gRoom;
+    [SerializeField] private GameObject[] m_agRooms;
     [SerializeField] private GameObject m_gStartRoom;
     [SerializeField] private GameObject m_gGameObjects;
     [SerializeField] private GameObject m_gA;
@@ -79,7 +79,7 @@ public class WorldGeneration : MonoBehaviour
                 if (m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isRoom != true)
                 {
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isRoom = true;
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room = Instantiate(m_gRoom, m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].worldPosition, new Quaternion(), this.transform);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room = Instantiate(m_agRooms[Random.Range(0,m_agRooms.Length)], m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].worldPosition, new Quaternion(), this.transform);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topCorridor.SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomCorridor.SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topWall.SetActive(false);
@@ -103,7 +103,7 @@ public class WorldGeneration : MonoBehaviour
                 if (m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isRoom != true)
                 {
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isRoom = true;
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room = Instantiate(m_gRoom, m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].worldPosition, new Quaternion(), this.transform);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room = Instantiate(m_agRooms[Random.Range(0, m_agRooms.Length)], m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].worldPosition, new Quaternion(), this.transform);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomCorridor.SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomWall.SetActive(false);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topCorridor.SetActive(true);
@@ -127,7 +127,7 @@ public class WorldGeneration : MonoBehaviour
                 if (m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isRoom != true)
                 {
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isRoom = true;
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room = Instantiate(m_gRoom, m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].worldPosition, new Quaternion(), this.transform);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room = Instantiate(m_agRooms[Random.Range(0, m_agRooms.Length)], m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].worldPosition, new Quaternion(), this.transform);
                     m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftCorridor.SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightCorridor.SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftWall.SetActive(false);
@@ -151,7 +151,7 @@ public class WorldGeneration : MonoBehaviour
                 if (m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isRoom != true)
                 {
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isRoom = true;
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room = Instantiate(m_gRoom, m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].worldPosition, new Quaternion(), this.transform);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room = Instantiate(m_agRooms[Random.Range(0, m_agRooms.Length)], m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].worldPosition, new Quaternion(), this.transform);
                     m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightCorridor.SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftCorridor.SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightWall.SetActive(false);

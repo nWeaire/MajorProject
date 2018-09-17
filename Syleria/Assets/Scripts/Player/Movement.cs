@@ -210,8 +210,7 @@ public class Movement : MonoBehaviour
             transform.position = Vector2.Lerp(m_v2StartDashPos, m_v2EndDashPos, m_fDashTimer); // Lerps to new position
             GetComponentInChildren<CapsuleCollider2D>().enabled = false; // Turns of the capsule collider to avoid enemy projectiles
             if (Vector2.Distance(this.transform.position, m_v2EndDashPos) <= 0.05f) // If with in 0.05f of the end dash position end dash 
-            {
-                GetComponentInChildren<CapsuleCollider2D>().enabled = true; // Turn collider back on
+            {          
                 m_bIsDashing = false; // Turn dashing to false
                 m_fDashTimer = 0; // Reset dash timer
                 m_bDash = false; // Dash off cooldown
@@ -220,6 +219,7 @@ public class Movement : MonoBehaviour
         }
         if (!m_bDash) // if dash on cooldown
         {
+            GetComponentInChildren<CapsuleCollider2D>().enabled = true; // Turn collider back on
             m_fDashCDTimer += Time.deltaTime; // Start cooldown timer
             if (m_fDashCDTimer >= m_fDashCD) // if cooldown timer greater then cooldown
             {

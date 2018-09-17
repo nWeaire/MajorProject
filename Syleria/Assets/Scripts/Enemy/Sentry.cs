@@ -50,9 +50,9 @@ public class Sentry : Enemy
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
-    new void Start()
+    new void Awake()
     {
-        base.Start();
+        base.Awake();
         // Get Player.
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         // Set the counter to max timer.
