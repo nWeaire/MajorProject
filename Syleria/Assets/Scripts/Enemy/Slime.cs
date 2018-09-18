@@ -127,13 +127,13 @@ public class Slime : Enemy
         {
           // increment Timer.
           m_fTimer += 1 * Time.deltaTime;
-            GetComponent<CircleCollider2D>().enabled = false;
+            //GetComponent<CircleCollider2D>().enabled = false;
             // When Timer is higher than spawnTime
             if (m_fTimer > m_fSpawnTime)
           {
                 // Slime can now move
                 m_bCannotMove = false;
-                GetComponent<CircleCollider2D>().enabled = true;
+                //GetComponent<CircleCollider2D>().enabled = true;
                 // Slime is no longer spawning.
                 m_bSpawning = false;
                 // Reset the timer.
