@@ -13,11 +13,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [Tooltip("How close the player must be before aggroing the enemy")]
     public float m_fIdleDistance;
 
     [Tooltip("How far the enemy will stay away from the player for shooting")]
     public float m_fAimDistance;
 
+    
     public enum State { IDLE, CHASE, ASTAR, ATTACK, TAUNTED }
 
     public enum EnemyType { SLIME, SHOTGUN, SENTRY, SWORD}
@@ -26,19 +28,20 @@ public class Enemy : MonoBehaviour
     public List<Node> m_Path;
     public Pathing m_aStar;
     [SerializeField] private float m_fAStarSpeed = 0.01f;
-    private float m_fDistToNode;
     #endregion
 
+    [Tooltip("Pointer to the Player")]
     public GameObject m_gPlayer; // Reference to player
 
+    // What enemy this one is.
+    [Tooltip("What Enemy is this")]
     public EnemyType m_eEnemyType;
-  
+
+    [Tooltip("What state this Enemy is currently in")]
     public State m_eState = State.IDLE; // Starting state for Enemy
 
+    // LayerMask for the objects the enemies can't go through
     public LayerMask m_WallLayer;
-
-    [HideInInspector]
-    public bool m_bHit;
 
     // Maximum health for the Enemy
     [Tooltip("Maximum health for this Enemy")]
@@ -55,27 +58,37 @@ public class Enemy : MonoBehaviour
     [Tooltip("Amount of seconds the slime will spend as red")]
     public float m_fFlashTime;
 
+    //Boolean for raycasts
+    [HideInInspector]
+    public bool m_bHit;
+
+    // A contact filter, so the raycasts can use the layerMask correctly.
     [HideInInspector]
     public ContactFilter2D m_cFilter;
 
+    // Pointer to the companion that taunts this enemy.
+    [HideInInspector]
     public GameObject m_gCompanion;
 
     [HideInInspector]
     public bool m_bCanShoot = true;
 
+    // If the enemy is currently moving left, mostly obsolete.
     [HideInInspector]
     public bool m_bMovingLeft;
 
+    // Boolean for if this enemy is being taunted currently.
     [HideInInspector]
     public bool m_bTaunted = false;
 
+    // Boolean for if this enemy has ever seen the player.
     private bool m_bSeenPlayer;
 
-    public float m_fFlashTimer = 0f;
+    // Timer for the flashing of the enemy when they take damage.
+    private float m_fFlashTimer = 0f;
 
+    // Pointer to this enemy's target.
     private Vector2 m_gTarget;
-
-
 
     //--------------------------------------------------------------------------------------
     // initialization.
@@ -87,7 +100,6 @@ public class Enemy : MonoBehaviour
         m_bTaunted = false;
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         m_aStar = GameObject.FindGameObjectWithTag("A*").GetComponent<Pathing>();
-        //m_gCompanion = GameObject.FindGameObjectWithTag("Turtle");
         m_aStar = m_aStar.GetComponent<Pathing>(); // Gets pathing component
         m_Path = m_aStar.FindPath(this.transform.position, m_gPlayer.transform.position); // Finds starting path to player
         m_cFilter.layerMask = m_WallLayer;
