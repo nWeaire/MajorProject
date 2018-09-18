@@ -830,6 +830,14 @@ Prefab:
       propertyPath: m_gTaunt
       value: 
       objectReference: {fileID: 478696156}
+    - target: {fileID: 1364705259972750, guid: cb2b31551868fea4b9a649f7dc4bff3d, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514878492236240, guid: cb2b31551868fea4b9a649f7dc4bff3d, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb2b31551868fea4b9a649f7dc4bff3d, type: 2}
   m_IsPrefabParent: 0

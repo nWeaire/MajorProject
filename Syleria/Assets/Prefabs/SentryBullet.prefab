@@ -178,8 +178,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fRange: 15
-  m_fSinMag: 2.5
-  m_fSinFreq: 4
+  m_fSinMag: 4
+  m_fSinFreq: 2
   m_bSerpentine: 1
   m_fMaxOffSet: 10
   m_fMinOffSet: 8

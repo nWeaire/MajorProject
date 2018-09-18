@@ -61,7 +61,8 @@ MonoBehaviour:
   - {fileID: 1092745654378962, guid: c30df3cc327662a47a25d23cf18f76a2, type: 2}
   - {fileID: 1389624681363128, guid: 2b4992475a8c09e41a947b44ae2cf686, type: 2}
   - {fileID: 1299363649423812, guid: 195ce456b3feeee47811c21cb07eb85a, type: 2}
-  - {fileID: 1978096722768016, guid: 998ba520f985d964984b26930e86296d, type: 2}
+  - {fileID: 1922391367154224, guid: 998ba520f985d964984b26930e86296d, type: 2}
+  - {fileID: 1297338041146750, guid: 8091b7e211d720a409f230440269e55a, type: 2}
   m_gStartRoom: {fileID: 1972281127177420, guid: 4c67e0ebdcf73f145b8d7f7623ed8af9,
     type: 2}
   m_gGameObjects: {fileID: 0}

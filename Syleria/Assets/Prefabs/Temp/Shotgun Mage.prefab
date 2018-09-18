@@ -121,18 +121,18 @@ MonoBehaviour:
   m_fIdleDistance: 20
   m_fAimDistance: 0
   m_aStar: {fileID: 0}
-  m_fAStarSpeed: 2
+  m_fAStarSpeed: 3
   m_gPlayer: {fileID: 0}
   m_eEnemyType: 1
   m_eState: 0
   m_WallLayer:
     serializedVersion: 2
     m_Bits: 256
-  m_bHit: 0
-  m_nHealth: 20
-  m_nCurrentHealth: 20
+  m_nHealth: 30
+  m_nCurrentHealth: 30
   m_nDamage: 5
   m_fFlashTime: 0.1
+  m_bHit: 0
   m_cFilter:
     useTriggers: 0
     useLayerMask: 0
@@ -151,16 +151,15 @@ MonoBehaviour:
   m_bCanShoot: 1
   m_bMovingLeft: 0
   m_bTaunted: 1
-  m_fFlashTimer: 0.2
   m_gProjectile: {fileID: 1668811833332258, guid: 03c10123d03caa04a973c9c4ca4c1b6b,
     type: 2}
   m_fBulletSpeed: 8
-  m_fFireRate: 4
+  m_fFireRate: 3
   m_fBurstTimer: 0.1
   m_nBurstAmount: 1
   m_nBulletAmount: 5
   m_fBulletSpread: 10
-  m_fSpawnTime: 1
+  m_fSpawnTime: 0.5
 --- !u!212 &212126311747756500
 SpriteRenderer:
   m_ObjectHideFlags: 1

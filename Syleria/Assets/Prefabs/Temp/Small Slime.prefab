@@ -158,11 +158,11 @@ MonoBehaviour:
   m_WallLayer:
     serializedVersion: 2
     m_Bits: 256
-  m_bHit: 0
   m_nHealth: 20
   m_nCurrentHealth: 20
   m_nDamage: 5
   m_fFlashTime: 0
+  m_bHit: 0
   m_cFilter:
     useTriggers: 0
     useLayerMask: 0
@@ -181,12 +181,11 @@ MonoBehaviour:
   m_bCanShoot: 1
   m_bMovingLeft: 0
   m_bTaunted: 0
-  m_fFlashTimer: 0
   m_bBigSlime: 0
   m_nSmallSlimes: 0
   m_goSmallSlime: {fileID: 1986857641011166}
   m_bCannotMove: 1
-  m_fSpawnTime: 1
+  m_fSpawnTime: 0.5
   m_fStunTime: 1
   m_fMoveTime: 0.5
   m_fPauseTime: 0.5
