@@ -73,6 +73,7 @@ public class Sentry : Enemy
     {
         if (!m_bSpawnStun)
         {
+            base.Update();
             // Boolean setting for the sprite
             if (transform.position.x - m_gPlayer.transform.position.x >= 0)
             {

@@ -140,14 +140,26 @@ public class Enemy : MonoBehaviour
     {
         if (!m_bTaunted)
         {
-            if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position - new Vector2(0,m_gPlayer.GetComponent<CapsuleCollider2D>().size.y * 0.4f), m_WallLayer) 
-                /*&& Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= 5f*/)
+            if (m_eEnemyType == EnemyType.SLIME)
             {
-                m_eState = State.CHASE;
+                if (!Physics2D.Linecast((Vector2)this.transform.position - new Vector2(0, GetComponent<CircleCollider2D>().radius), (Vector2)m_gPlayer.transform.position - new Vector2(0, m_gPlayer.GetComponent<CapsuleCollider2D>().size.y * 0.4f), m_WallLayer)
+                    /*&& Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= 5f*/)
+                {
+                    m_eState = State.CHASE;
+                }
+                else
+                    m_eState = State.ASTAR;
             }
-            else
-                m_eState = State.ASTAR;
-
+            else if(m_eEnemyType == EnemyType.SHOTGUN || m_eEnemyType == EnemyType.SHOTGUN)
+            {
+                if (!Physics2D.Linecast((Vector2)this.transform.position - new Vector2(0, GetComponent<CapsuleCollider2D>().size.y * 0.4f), (Vector2)m_gPlayer.transform.position - new Vector2(0, m_gPlayer.GetComponent<CapsuleCollider2D>().size.y * 0.4f), m_WallLayer)
+                    /*&& Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= 5f*/)
+                {
+                    m_eState = State.CHASE;
+                }
+                else
+                    m_eState = State.ASTAR;
+            }
             if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= m_fAimDistance)
             {
                 if (m_eEnemyType == EnemyType.SHOTGUN || m_eEnemyType == EnemyType.SWORD)
