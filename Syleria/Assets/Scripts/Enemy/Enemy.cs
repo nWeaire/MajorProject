@@ -150,7 +150,7 @@ public class Enemy : MonoBehaviour
                 else
                     m_eState = State.ASTAR;
             }
-            else if(m_eEnemyType == EnemyType.SHOTGUN || m_eEnemyType == EnemyType.SHOTGUN)
+            else if(m_eEnemyType == EnemyType.SHOTGUN || m_eEnemyType == EnemyType.SWORD)
             {
                 if (!Physics2D.Linecast((Vector2)this.transform.position - new Vector2(0, GetComponent<CapsuleCollider2D>().size.y * 0.4f), (Vector2)m_gPlayer.transform.position - new Vector2(0, m_gPlayer.GetComponent<CapsuleCollider2D>().size.y * 0.4f), m_WallLayer)
                     /*&& Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= 5f*/)
