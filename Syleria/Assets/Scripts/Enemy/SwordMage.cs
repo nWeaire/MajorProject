@@ -27,6 +27,9 @@ public class SwordMage : Enemy
     [Tooltip("Amount of shots per burst")]
     public int m_nBurstAmount;
 
+    [Tooltip("Time in Seconds that the enemy will sit still after spawn")]
+    public float m_fSpawnTime;
+
     // a timer for use in timing the shots
     private float m_fTimeBetweenShots = 0;
 
@@ -44,6 +47,9 @@ public class SwordMage : Enemy
 
     private bool m_bCanMove;
 
+    private float m_fSpawnTimer = 0.0f;
+
+    private bool m_bSpawnStun;
 
     //--------------------------------------------------------------------------------------
     // initialization.
@@ -52,6 +58,7 @@ public class SwordMage : Enemy
     {
         base.Awake();
         // Get Player.
+        m_bSpawnStun = true;
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         // Set the counter to max timer.
         m_fTimeBetweenShots = m_fFireRate;
@@ -62,71 +69,90 @@ public class SwordMage : Enemy
     //--------------------------------------------------------------------------------------
     new void Update()
     {
-        // increase timer
-        m_fTimeBetweenShots += Time.deltaTime;
-        m_fTimeBetweenShots = m_fTimeBetweenShots % 60;
-        if(m_bFinishedFiring)
+        if (!m_bSpawnStun)
         {
-            m_fMoveTimer += Time.deltaTime;
-            m_fMoveTimer = m_fMoveTimer % 60;
-            if(m_fMoveTimer >= m_fMoveDelay)
+            // increase timer
+            m_fTimeBetweenShots += Time.deltaTime;
+            m_fTimeBetweenShots = m_fTimeBetweenShots % 60;
+            if (m_bFinishedFiring)
             {
-                m_bCanMove = true;
-                m_fMoveTimer = 0f;
-            }
-          if(m_bCanMove)
-            {
-                base.Update();
-            }
-        }
-
-        // if timer has reached the limit,
-        if (m_fTimeBetweenShots >= m_fFireRate)
-        {
-            // if burst amount is less than the amount of shots wanted,
-            if (m_nBurstCount < m_nBurstAmount)
-            {
-                // Fire a shot.
-                if (!m_bTaunted)
+                m_fMoveTimer += Time.deltaTime;
+                m_fMoveTimer = m_fMoveTimer % 60;
+                if (m_fMoveTimer >= m_fMoveDelay)
                 {
-                    if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position, m_WallLayer))
-                    {
-                        Fire();
-                    }
+                    m_bCanMove = true;
+                    m_fMoveTimer = 0f;
                 }
-                else
-                {
-                    if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gCompanion.transform.position, m_WallLayer))
-                    {
-                        Fire();
-                    }
-                }
-            }
-            // if BurstCount has added up to the amount of shots wanted,
-            else
-            {
-                m_bFinishedFiring = true;
                 if (m_bCanMove)
                 {
-                    // Increment Counter.
-                    m_fTimeBetweenBursts += Time.deltaTime;
-                    // Make counter in seconds.
-                    m_fTimeBetweenBursts = m_fTimeBetweenBursts % 60;
-                }
-                // If counter has reacher the timer.
-                if (m_fTimeBetweenBursts >= m_fBurstTimer)
-                {
-                    // Reset timer.
-                    m_fTimeBetweenBursts = 0.0f;
-                    // Reset Counter.
-                    m_nBurstCount = 0;
+                    base.Update();
                 }
             }
+
+            // if timer has reached the limit,
+            if (m_fTimeBetweenShots >= m_fFireRate)
+            {
+                // if burst amount is less than the amount of shots wanted,
+                if (m_nBurstCount < m_nBurstAmount)
+                {
+                    // Fire a shot.
+                    if (!m_bTaunted)
+                    {
+                        if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position, m_WallLayer))
+                        {
+                            Fire();
+                        }
+                    }
+                    else
+                    {
+                        if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gCompanion.transform.position, m_WallLayer))
+                        {
+                            Fire();
+                        }
+                    }
+                }
+                // if BurstCount has added up to the amount of shots wanted,
+                else
+                {
+                    m_bFinishedFiring = true;
+                    if (m_bCanMove)
+                    {
+                        // Increment Counter.
+                        m_fTimeBetweenBursts += Time.deltaTime;
+                        // Make counter in seconds.
+                        m_fTimeBetweenBursts = m_fTimeBetweenBursts % 60;
+                    }
+                    // If counter has reacher the timer.
+                    if (m_fTimeBetweenBursts >= m_fBurstTimer)
+                    {
+                        // Reset timer.
+                        m_fTimeBetweenBursts = 0.0f;
+                        // Reset Counter.
+                        m_nBurstCount = 0;
+                    }
+                }
+            }
+            // If health is less than or equal to zero
+            if (m_nCurrentHealth <= 0)
+            {
+                Die();
+            }
         }
-        // If health is less than or equal to zero
-        if (m_nCurrentHealth <= 0)
+        else
         {
-            Die();
+            // Increment timer.
+            m_fSpawnTimer += 1 * Time.deltaTime;
+            m_fSpawnTimer = m_fSpawnTimer % 60;
+
+            // When timer reaches stun time.
+            if (m_fSpawnTimer > m_fSpawnTime)
+            {
+
+                // Unstun the Slime.
+                m_bSpawnStun = false;
+                // Reset the Timer.
+                m_fSpawnTimer = 0;
+            }
         }
     }
     //--------------------------------------------------------------------------------------

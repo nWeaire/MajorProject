@@ -40,6 +40,9 @@ public class ShotgunMage : Enemy
     [Tooltip("Amount of spread between the bullets in a burst")]
     public float m_fBulletSpread = 10;
 
+    [Tooltip("Time in Seconds that the enemy will sit still after spawn")]
+    public float m_fSpawnTime;
+
     // a timer for use in timing the shots
     private float m_fTimeBetweenShots = 0;
 
@@ -51,6 +54,10 @@ public class ShotgunMage : Enemy
 
     private Vector3 m_v3Target;
 
+    private float m_fSpawnTimer = 0.0f;
+
+    private bool m_bSpawnStun;
+
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
@@ -58,6 +65,7 @@ public class ShotgunMage : Enemy
     {
         base.Awake();
         // Get Player.
+        m_bSpawnStun = true;
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         m_v3Target = m_gPlayer.transform.position;
         // Set the counter to max timer.
@@ -70,68 +78,86 @@ public class ShotgunMage : Enemy
     //--------------------------------------------------------------------------------------
     new void Update ()
     {
-        // increase timer
-        m_fTimeBetweenShots += Time.deltaTime;
-        m_fTimeBetweenShots = m_fTimeBetweenShots % 60;
+        if (!m_bSpawnStun)
+        {
+            // increase timer
+            m_fTimeBetweenShots += Time.deltaTime;
+            m_fTimeBetweenShots = m_fTimeBetweenShots % 60;
 
-        // If health is less than or equal to zero
-        if (m_nCurrentHealth <= 0)
-        {
-            Die();
-        }
-        // if timer has reached the limit,
-        if (m_fTimeBetweenShots >= m_fFireRate)
-        {
-            // if burst amount is less than the amount of shots wanted,
-            if (m_nBurstCount < m_nBurstAmount)
+            // If health is less than or equal to zero
+            if (m_nCurrentHealth <= 0)
             {
-                // Fire a shot.
-                if (!m_bTaunted)
+                Die();
+            }
+            // if timer has reached the limit,
+            if (m_fTimeBetweenShots >= m_fFireRate)
+            {
+                // if burst amount is less than the amount of shots wanted,
+                if (m_nBurstCount < m_nBurstAmount)
                 {
-                    if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position, m_WallLayer))
+                    // Fire a shot.
+                    if (!m_bTaunted)
                     {
-                        Fire();
+                        if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position, m_WallLayer))
+                        {
+                            Fire();
+                        }
+                    }
+                    else
+                    {
+                        if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gCompanion.transform.position, m_WallLayer))
+                        {
+                            Fire();
+                        }
                     }
                 }
+                // if BurstCount has added up to the amount of shots wanted,
                 else
                 {
-                    if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gCompanion.transform.position, m_WallLayer))
+                    // Increment Counter.
+                    m_fTimeBetweenBursts += Time.deltaTime;
+                    // Make counter in seconds.
+                    m_fTimeBetweenBursts = m_fTimeBetweenBursts % 60;
+                    // If counter has reacher the timer.
+                    if (m_fTimeBetweenBursts >= m_fBurstTimer)
                     {
-                        Fire();
+                        // Reset timer.
+                        m_fTimeBetweenBursts = 0.0f;
+                        // Reset Counter.
+                        m_nBurstCount = 0;
                     }
                 }
             }
-            // if BurstCount has added up to the amount of shots wanted,
+            base.Update();
+
+            // Boolean setting for the sprite
+            if (transform.position.x - m_gPlayer.transform.position.x >= 0)
+            {
+                // Face left if the sprite is facing right by default
+                m_bMovingLeft = true;
+            }
             else
             {
-                // Increment Counter.
-                m_fTimeBetweenBursts += Time.deltaTime;
-                // Make counter in seconds.
-                m_fTimeBetweenBursts = m_fTimeBetweenBursts % 60;
-                // If counter has reacher the timer.
-                if (m_fTimeBetweenBursts >= m_fBurstTimer)
-                {
-                    // Reset timer.
-                    m_fTimeBetweenBursts = 0.0f;
-                    // Reset Counter.
-                    m_nBurstCount = 0;
-                }
+                // Face right if the sprite is facing right by default
+                m_bMovingLeft = false;
             }
-        }
-        base.Update();
-
-        // Boolean setting for the sprite
-        if (transform.position.x - m_gPlayer.transform.position.x >= 0)
-        {
-            // Face left if the sprite is facing right by default
-            m_bMovingLeft = true;
         }
         else
         {
-            // Face right if the sprite is facing right by default
-            m_bMovingLeft = false;
-        }
+            // Increment timer.
+            m_fSpawnTimer += 1 * Time.deltaTime;
+            m_fSpawnTimer = m_fSpawnTimer % 60;
 
+            // When timer reaches stun time.
+            if (m_fSpawnTimer > m_fSpawnTime)
+            {
+
+                // Unstun the Slime.
+                m_bSpawnStun = false;
+                // Reset the Timer.
+                m_fSpawnTimer = 0;
+            }
+        }
     }
 
     //--------------------------------------------------------------------------------------

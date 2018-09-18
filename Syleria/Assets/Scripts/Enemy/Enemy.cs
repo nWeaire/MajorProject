@@ -88,7 +88,7 @@ public class Enemy : MonoBehaviour
         m_bTaunted = false;
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         m_aStar = GameObject.FindGameObjectWithTag("A*").GetComponent<Pathing>();
-        m_gCompanion = GameObject.FindGameObjectWithTag("Turtle");
+        m_gCompanion = GameObject.FindGameObjectWithTag("Companion");
         m_aStar = m_aStar.GetComponent<Pathing>(); // Gets pathing component
         m_Path = m_aStar.FindPath(this.transform.position, m_gPlayer.transform.position); // Finds starting path to player
         m_cFilter.layerMask = m_WallLayer;
@@ -129,8 +129,7 @@ public class Enemy : MonoBehaviour
     {
         if (!m_bTaunted)
         {
-            
-            if (!Physics2D.Raycast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset, m_WallLayer) 
+            if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position - new Vector2(0,m_gPlayer.GetComponent<CapsuleCollider2D>().size.y), m_WallLayer) 
                 && Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= 5f)
             {
                 m_eState = State.CHASE;
@@ -145,10 +144,6 @@ public class Enemy : MonoBehaviour
                     m_eState = State.IDLE;
                 }
 
-            }
-            if(Physics2D.Linecast((Vector2)this.transform.position, m_gPlayer.transform.position, m_WallLayer))
-            {
-                m_eState = State.ASTAR;
             }
             if (!m_bSeenPlayer)
             {
