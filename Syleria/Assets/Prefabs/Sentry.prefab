@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fIdleDistance: 0
+  m_fAimDistance: 0
   m_aStar: {fileID: 0}
   m_fAStarSpeed: 0.01
   m_gPlayer: {fileID: 0}
@@ -137,9 +138,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   m_bHit: 0
-  m_nHealth: 25
-  m_nCurrentHealth: 10
-  m_nDamage: 9
+  m_nHealth: 20
+  m_nCurrentHealth: 20
+  m_nDamage: 5
   m_fFlashTime: 0
   m_cFilter:
     useTriggers: 0
@@ -159,14 +160,15 @@ MonoBehaviour:
   m_bCanShoot: 1
   m_bMovingLeft: 0
   m_bTaunted: 0
-  m_fSeekSpeed: 3
   m_fFlashTimer: 0.2
   m_gProjectile: {fileID: 1668811833332258, guid: 8e64c03dce7bb644ba59767d9dfa3bda,
     type: 2}
-  m_fBulletSpeed: 4
-  m_fFireRate: 0.5
-  m_fBurstTimer: 2.5
-  m_nBurstAmount: 5
+  m_fBulletSpeed: 5
+  m_fFireRate: 0.4
+  m_fBurstTimer: 3
+  m_nBurstAmount: 3
+  m_gEye: {fileID: 1726342528046264}
+  m_fSpawnTime: 1
 --- !u!212 &212598843437073056
 SpriteRenderer:
   m_ObjectHideFlags: 1

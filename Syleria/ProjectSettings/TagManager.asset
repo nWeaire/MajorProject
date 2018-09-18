@@ -17,6 +17,11 @@ TagManager:
   - Turtle
   - Bird
   - Companion
+  - Room
+  - LeftCorridor
+  - BottomCorridor
+  - RightCorridor
+  - TopCorridor
   layers:
   - Default
   - TransparentFX

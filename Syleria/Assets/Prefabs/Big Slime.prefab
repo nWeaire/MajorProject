@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1884396772128378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -32.311028, y: -46.241062, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4539837808739424}
@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fIdleDistance: 20
+  m_fAimDistance: 0
   m_aStar: {fileID: 0}
   m_fAStarSpeed: 6
   m_gPlayer: {fileID: 0}
@@ -180,7 +181,6 @@ MonoBehaviour:
   m_bCanShoot: 1
   m_bMovingLeft: 0
   m_bTaunted: 0
-  m_fSeekSpeed: 0
   m_fFlashTimer: 0
   m_bBigSlime: 1
   m_nSmallSlimes: 4

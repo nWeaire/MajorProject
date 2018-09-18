@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fIdleDistance: 20
+  m_fAimDistance: 0
   m_aStar: {fileID: 0}
   m_fAStarSpeed: 2
   m_gPlayer: {fileID: 0}
@@ -148,8 +149,8 @@ MonoBehaviour:
     maxNormalAngle: 0
   m_gCompanion: {fileID: 0}
   m_bCanShoot: 1
+  m_bMovingLeft: 0
   m_bTaunted: 1
-  m_fSeekSpeed: 3
   m_fFlashTimer: 0.2
   m_gProjectile: {fileID: 1668811833332258, guid: 03c10123d03caa04a973c9c4ca4c1b6b,
     type: 2}
@@ -159,6 +160,7 @@ MonoBehaviour:
   m_nBurstAmount: 1
   m_nBulletAmount: 5
   m_fBulletSpread: 10
+  m_fSpawnTime: 1
 --- !u!212 &212126311747756500
 SpriteRenderer:
   m_ObjectHideFlags: 1

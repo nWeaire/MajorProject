@@ -56,8 +56,13 @@ MonoBehaviour:
   m_nArrayWidth: 20
   m_nRoomCount: 8
   m_nRoomsSpawned: 0
-  m_gRoom: {fileID: 1026184642864566, guid: b8637cbe654649c4cbda867dfc11bb58, type: 2}
-  m_gStartRoom: {fileID: 1026184642864566, guid: 4c67e0ebdcf73f145b8d7f7623ed8af9,
+  m_agRooms:
+  - {fileID: 1931236387099560, guid: 416d733f4f1b32644ba6bb54bff3730f, type: 2}
+  - {fileID: 1092745654378962, guid: c30df3cc327662a47a25d23cf18f76a2, type: 2}
+  - {fileID: 1389624681363128, guid: 2b4992475a8c09e41a947b44ae2cf686, type: 2}
+  - {fileID: 1299363649423812, guid: 195ce456b3feeee47811c21cb07eb85a, type: 2}
+  - {fileID: 1978096722768016, guid: 998ba520f985d964984b26930e86296d, type: 2}
+  m_gStartRoom: {fileID: 1972281127177420, guid: 4c67e0ebdcf73f145b8d7f7623ed8af9,
     type: 2}
   m_gGameObjects: {fileID: 0}
   m_gA: {fileID: 1741485387019662, guid: 61c9e4c3a895c9a4a9837ee678da9cdc, type: 2}
