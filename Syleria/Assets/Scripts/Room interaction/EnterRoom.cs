@@ -27,7 +27,8 @@ public class EnterRoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(m_bRoomActive && !m_bSpawned)
+        m_enemy = GameObject.FindGameObjectsWithTag("Enemy");
+        if (m_bRoomActive)
         {
             for (int i = 0; i < m_Door.Length; i++)
             {
@@ -40,7 +41,7 @@ public class EnterRoom : MonoBehaviour
         }
         for (int i = 0; i < m_aSpawnPoints.Length; i++)
         {
-            if (m_aSpawnPoints[i].GetComponent<SpawnPoints>().m_bDone == true)
+            if (m_aSpawnPoints[i].GetComponent<SpawnPoints>().m_bDone == true && m_enemy.Length <= 0)
             {
                 for (int j = 0; j < m_Door.Length; j++)
                 {
