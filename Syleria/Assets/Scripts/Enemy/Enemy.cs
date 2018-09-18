@@ -58,7 +58,6 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public ContactFilter2D m_cFilter;
 
-    [HideInInspector]
     public GameObject m_gCompanion;
 
     [HideInInspector]
@@ -88,7 +87,7 @@ public class Enemy : MonoBehaviour
         m_bTaunted = false;
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         m_aStar = GameObject.FindGameObjectWithTag("A*").GetComponent<Pathing>();
-        m_gCompanion = GameObject.FindGameObjectWithTag("Companion");
+        //m_gCompanion = GameObject.FindGameObjectWithTag("Turtle");
         m_aStar = m_aStar.GetComponent<Pathing>(); // Gets pathing component
         m_Path = m_aStar.FindPath(this.transform.position, m_gPlayer.transform.position); // Finds starting path to player
         m_cFilter.layerMask = m_WallLayer;
@@ -179,7 +178,18 @@ public class Enemy : MonoBehaviour
                 // Enemy is being taunted
                 // When following but walls are in way of target
                 if(m_eEnemyType != EnemyType.SENTRY)
-                AStar(m_gCompanion.transform.position);
+                {
+                    m_gCompanion = GameObject.FindGameObjectWithTag("Turtle");
+                    if(m_gCompanion)
+                    {
+                        AStar(m_gCompanion.transform.position);
+                    }
+                    else
+                    {
+                        m_bTaunted = false;
+                    }
+                }
+
                 break;
             default:
                 break;

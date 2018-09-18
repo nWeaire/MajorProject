@@ -16,31 +16,30 @@ public class Companion : MonoBehaviour
     public enum State { IDLE, FOLLOW, PATH, ATTACK, TAUNT } // Enum controlling states of companion
 
     #region AStar
-    [SerializeField] private float m_fAStarSpeed = 0.01f;
-    public List<Node> m_Path;
-    public Pathing m_aStar;
+    [SerializeField] private float m_fAStarSpeed = 0.01f; // Speed the companions aStar
+    public List<Node> m_Path; // Path they aStar on
+    public Pathing m_aStar; // Reference to pathing script
     #endregion
 
-    public Ability m_gAbility;
+    public Ability m_gAbility; // Reference to ability script
     public GameObject m_gPlayer; // Reference to player
     [SerializeField] private float m_fFollowSpeed = 3.0f; // Follow move speed
     public State m_eState; // Starting state for companion
     public LayerMask m_wallLayer; // LayerMask for sight check
-    private bool isAttacking = false;
-    private GameObject m_gTarget;
-    private float m_fAttackTimer = 0;
-    [SerializeField] private float m_fAttackCD = 1.0f;
-    [SerializeField] private int m_nAttackPercentage = 40;
-    [SerializeField] private int m_nDamage;
-    private bool m_bAttackOnCD = false;
+    private bool isAttacking = false; // Bool for Companion attacking
+    private GameObject m_gTarget; // Current target of companion
+    private float m_fAttackTimer = 0; // Timer for attack rate
+    [SerializeField] private float m_fAttackCD = 1.0f; // Attack cooldown
+    [SerializeField] private int m_nAttackPercentage = 40; // Percentage of player damage that companion deals
+    [SerializeField] private int m_nDamage; // Damage the companion will deal
+    private bool m_bAttackOnCD = false; // bool for attack availbility
+    private Animator m_Animator; // Reference to animator
 
-    private Animator m_Animator;
-    // Use this for initialization
     void Awake()
     {
-        m_Animator = GetComponent<Animator>();
-        m_eState = State.IDLE;
-        m_aStar = GameObject.FindGameObjectWithTag("A*").GetComponent<Pathing>();
+        m_Animator = GetComponent<Animator>(); // Gets animator component
+        m_eState = State.IDLE; // Sets state to idle by default
+        m_aStar = GameObject.FindGameObjectWithTag("A*").GetComponent<Pathing>(); // Finds pathing script
         m_Path = m_aStar.FindPath(this.transform.position, m_gPlayer.transform.position); // Finds starting path to player
     }
 
@@ -48,11 +47,11 @@ public class Companion : MonoBehaviour
     void Update()
     {
         StateMachine(); // Calls state machine
-        if (!isAttacking)
+        if (!isAttacking) // Companion not attacking
         {
-            StartCoroutine("UpdateState");
+            StartCoroutine("UpdateState"); // Check for new state
         }
-        UpdateAnimation();
+        UpdateAnimation(); // updates animations
     }
 
     public IEnumerator UpdateState()
@@ -91,37 +90,38 @@ public class Companion : MonoBehaviour
                 Vector2 aStarTargetPos = m_gPlayer.transform.position + (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset;
                 AStar(aStarTargetPos);
                 break;
-            case State.ATTACK:
-                if (m_gTarget != null)
+            case State.ATTACK: 
+                // When attacking
+                if (m_gTarget != null) // If target isn't null
                 {
-                    if (Vector2.Distance(this.transform.position, m_gTarget.transform.position) >= 1.5f)
+                    if (Vector2.Distance(this.transform.position, m_gTarget.transform.position) >= 1.5f) // Checks if companion is further than 1.5f of enemy
                     {
-                        Follow((Vector2)m_gTarget.transform.position);
+                        Follow((Vector2)m_gTarget.transform.position); // If further then 1.5 units moves to enemy
                     }
-                    else if (!m_bAttackOnCD)
+                    else if (!m_bAttackOnCD) // If attack isnt on cooldown
                     {
-                        StartCoroutine("UpdateDamage");
-                        m_gTarget.GetComponent<Enemy>().TakeDamage(m_nDamage);
-                        m_bAttackOnCD = true;
+                        StartCoroutine("UpdateDamage"); // Updates damage
+                        m_gTarget.GetComponent<Enemy>().TakeDamage(m_nDamage); // Deals damage to enemy
+                        m_bAttackOnCD = true; // Puts attack on cooldown
                     }
                     else
                     {
-                        m_fAttackTimer += Time.deltaTime;
-                        if (m_fAttackTimer >= m_fAttackCD)
+                        m_fAttackTimer += Time.deltaTime; // Updates attack timer
+                        if (m_fAttackTimer >= m_fAttackCD) // If attack timer greater then cooldown time
                         {
-                            m_bAttackOnCD = false;
-                            m_fAttackTimer = 0f;
+                            m_bAttackOnCD = false; // Attack off cooldown
+                            m_fAttackTimer = 0f; // Attack timer back to 0
                         }
                     }
                 }
                 else
                 {
-                    isAttacking = false;
+                    isAttacking = false; // If no target, stop attacking
                 }
 
                 break;
             case State.TAUNT:
-
+                // If in taunt state don't do anything
                 break;
             default:
                 break;
