@@ -104,6 +104,7 @@ public class Sentry : Enemy
                     }
                     else
                     {
+                        m_gCompanion = GameObject.FindGameObjectWithTag("Turtle");
                         if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gCompanion.transform.position, m_WallLayer))
                         {
                             Fire();
@@ -161,7 +162,7 @@ public class Sentry : Enemy
 
         if (m_bTaunted)
         {
-            m_gCompanion = GameObject.FindGameObjectWithTag("Turtle");
+            
             m_v3Target = m_gCompanion.transform.position - transform.position;
             m_v3Target.Normalize();
         }
