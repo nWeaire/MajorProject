@@ -102,6 +102,11 @@ public class SwordMage : Enemy
                         {
                             Fire();
                         }
+                        else
+                        {
+                            m_bCanMove = true;
+                            m_bFinishedFiring = true;
+                        }
                     }
                     else
                     {

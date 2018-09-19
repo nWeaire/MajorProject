@@ -95,8 +95,20 @@ public class Sentry : Enemy
                 // if burst amount is less than the amount of shots wanted,
                 if (m_nBurstCount < m_nBurstAmount)
                 {
-                    // Fire a shot.
-                    Fire();
+                    if (!m_bTaunted)
+                    {
+                        if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position, m_WallLayer))
+                        {
+                            Fire();
+                        }
+                    }
+                    else
+                    {
+                        if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gCompanion.transform.position, m_WallLayer))
+                        {
+                            Fire();
+                        }
+                    }
                 }
                 // if BurstCount has added up to the amount of shots wanted,
                 else
