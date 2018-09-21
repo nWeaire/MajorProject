@@ -804,8 +804,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2129044438}
   - component: {fileID: 2129044437}
-  - component: {fileID: 2129044436}
   - component: {fileID: 2129044435}
+  - component: {fileID: 2129044439}
   m_Layer: 0
   m_Name: Scroll of Range
   m_TagString: Untagged
@@ -828,20 +828,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.3
---- !u!114 &2129044436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2129044434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0c0348a2f1c9b45a5ccd5d2a3d80bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_eStatToChange: 2
-  m_nStatChange: 10
-  m_bPickUp: 0
 --- !u!212 &2129044437
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -899,3 +885,16 @@ Transform:
   m_Father: {fileID: 1968196706}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2129044439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2129044434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 281256b946dda2143b5448d5a1b421c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bPickUp: 0
+  m_eUpgrade: 0

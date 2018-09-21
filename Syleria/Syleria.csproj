@@ -304,6 +304,7 @@
     <Compile Include="Assets\Scripts\Enemy\Slime.cs" />
     <Compile Include="Assets\Scripts\Enemy\SwordMage.cs" />
     <Compile Include="Assets\Scripts\Game Manager\GM.cs" />
+    <Compile Include="Assets\Scripts\Items\ProjectileItem.cs" />
     <Compile Include="Assets\Scripts\Items\StatItem.cs" />
     <Compile Include="Assets\Scripts\Player\Ability.cs" />
     <Compile Include="Assets\Scripts\Player\Aim.cs" />

@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour {
         transform.position += transform.up * m_fSpeed * Time.deltaTime;
         // Check Range for deletion
         CheckRange();
-        if(m_bDoneDamage)
+        if(m_bDoneDamage && m_gPlayer.GetComponent<Player>().m_bPierce == false)
         {
             Destroy(this.gameObject);
         }
@@ -45,11 +45,10 @@ public class Bullet : MonoBehaviour {
         {
             Destroy(this.gameObject); // Deletes bullet
         }
-        if (collision.tag == "Enemy" && !m_bDoneDamage) // If collision with enemy
+        if (collision.tag == "Enemy" && !m_bDoneDamage || collision.tag == "Enemy" && m_gPlayer.GetComponent<Player>().m_bPierce) // If collision with enemy
         {
             collision.GetComponent<Enemy>().TakeDamage(m_gPlayer.GetComponent<Player>().GetDamage()); // Deals damage to enemy based on players damage stat
             m_bDoneDamage = true;
-
         }
     }
 

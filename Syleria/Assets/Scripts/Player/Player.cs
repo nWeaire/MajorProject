@@ -47,6 +47,22 @@ public class Player : MonoBehaviour
     public void AddMoveSpeed(float speed) { this.m_fSpeed += speed; } // Adds value to speed stat
     #endregion
 
+    #region Upgrades
+    public bool m_bPierce = false;
+    public bool m_bTri = false;
+    public bool m_bSplit = false;
+    public bool m_bExpand = false;
+    public bool m_bExplode = false;
+    #endregion
+
+    #region Upgrade Setters
+    public void Pierce(bool True) { this.m_bPierce = True; }
+    public void Tri(bool True) { this.m_bTri = True; }
+    public void Split(bool True) { this.m_bSplit = True; }
+    public void Expand(bool True) { this.m_bExpand = True; }
+    public void Explode(bool True) { this.m_bExplode = True; }
+    #endregion
+
     // Use this for initialization
     void Start ()
     {
