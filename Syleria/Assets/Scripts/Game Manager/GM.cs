@@ -41,7 +41,7 @@ public class GM : MonoBehaviour {
         if(m_Player.GetCurrentHealth() <= 0)
         {
             m_EndGameUI.SetActive(true);
-            m_runTimeObjects.SetActive(false);
+            Time.timeScale = 0;
         }
         yield return new WaitForSeconds(.3f);
     }

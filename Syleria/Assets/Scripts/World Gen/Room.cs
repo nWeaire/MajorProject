@@ -1,21 +1,29 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------------
+// Purpose: Handles all room logic
+//
+// Description:  Handles room logic for world generation
+//
+// Author: Nicholas Weaire
+//--------------------------------------------------------------------------------------
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room : MonoBehaviour
+public class Room
 {
 
-    public int indexX;
-    public int indexY;
-    public Vector2 worldPosition;
-    public bool isBoss = false;
-    public bool isShop = false;
-    public bool isRoom = false;
-    public bool isSpawn = false;
+    public int indexX; // X index in array
+    public int indexY; // Y index in array
+    public Vector2 worldPosition; // World position of room
+    public bool isBoss = false; // Is boss room
+    public bool isShop = false; // Is shop room
+    public bool isRoom = false; // Is a room
+    public bool isSpawn = false; // Is spawn room
 
-    public GameObject room;
+    public GameObject room; // GameObject for room
 
-    public Room(int indX, int indY, Vector2 worldpos)
+    public Room(int indX, int indY, Vector2 worldpos) // base constructor
     {
         indexX = indX;
         indexY = indY;
