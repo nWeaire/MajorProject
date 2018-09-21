@@ -897,4 +897,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bPickUp: 0
-  m_eUpgrade: 0
+  m_eUpgrade: 1

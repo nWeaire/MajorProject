@@ -15,6 +15,7 @@ public class Aim : MonoBehaviour
     #region Bullet Variables
     [SerializeField] private GameObject m_gBullet; // reference to Bullet gameObject
     [SerializeField] private float m_fBulletSpeed = 20; // Bullet speed
+    [SerializeField] private float m_fTriSpread = 20;
     #endregion
 
     #region Retical Variables
@@ -72,8 +73,20 @@ public class Aim : MonoBehaviour
 
             if (m_fTimeBetweenShots >= m_fFireRate) // If firing is possible
             {
-                GameObject newBullet = Instantiate(m_gBullet, this.transform.position, Quaternion.Euler(0, 0, -m_fAngle)) as GameObject; // Instantiate bullet
-                newBullet.GetComponent<Bullet>().m_fSpeed = m_fBulletSpeed; // Set bullet speed
+                if(m_gPlayer.GetComponent<Player>().m_bTri)
+                {
+                    GameObject newBullet = Instantiate(m_gBullet, this.transform.position, Quaternion.Euler(0, 0, -m_fAngle)) as GameObject; // Instantiate bullet
+                    GameObject newBullet1 = Instantiate(m_gBullet, this.transform.position, Quaternion.Euler(0, 0, -m_fAngle + m_fTriSpread)) as GameObject; // Instantiate bullet
+                    GameObject newBullet2 = Instantiate(m_gBullet, this.transform.position, Quaternion.Euler(0, 0, -m_fAngle - m_fTriSpread)) as GameObject; // Instantiate bullet
+                    newBullet.GetComponent<Bullet>().m_fSpeed = m_fBulletSpeed; // Set bullet speed
+                    newBullet1.GetComponent<Bullet>().m_fSpeed = m_fBulletSpeed; // Set bullet speed
+                    newBullet2.GetComponent<Bullet>().m_fSpeed = m_fBulletSpeed; // Set bullet speed
+                }
+                else
+                {
+                    GameObject newBullet = Instantiate(m_gBullet, this.transform.position, Quaternion.Euler(0, 0, -m_fAngle)) as GameObject; // Instantiate bullet
+                    newBullet.GetComponent<Bullet>().m_fSpeed = m_fBulletSpeed; // Set bullet speed
+                }
                 m_fTimeBetweenShots = 0; // Sets time between shots to 0
             }
         }

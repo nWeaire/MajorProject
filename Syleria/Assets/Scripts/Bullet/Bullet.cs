@@ -26,12 +26,17 @@ public class Bullet : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        if(m_gPlayer.GetComponent<Player>().m_bExpand)
+        {
+                transform.localScale = new Vector2(1 + Vector2.Distance(this.transform.position, m_gPlayer.transform.position) / 4, 1 + Vector2.Distance(this.transform.position, m_gPlayer.transform.position) / 4);    
+        }
+
         // Move forward by speed * deltaTime
         transform.position += transform.up * m_fSpeed * Time.deltaTime;
         // Check Range for deletion
         CheckRange();
         if(m_bDoneDamage && m_gPlayer.GetComponent<Player>().m_bPierce == false)
-        {
+        {    
             Destroy(this.gameObject);
         }
 	}
