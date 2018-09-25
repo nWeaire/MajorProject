@@ -10,36 +10,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour {
-
+public class Bullet : MonoBehaviour
+{
+    bool m_bBounced = false;
     public float m_fSpeed; // Speed of bullet
     private GameObject m_gPlayer; // Reference to player object
     private Vector2 m_v2StartPos; // Start position of bullet
     private bool m_bDoneDamage = false;
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         m_gPlayer = GameObject.FindGameObjectWithTag("Player"); // Sets reference to player object
         m_v2StartPos = this.transform.position; // Sets start position to player position
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    }
+
+    // Update is called once per frame
+    void Update()
     {
-        if(m_gPlayer.GetComponent<Player>().m_bExpand)
+        if (m_gPlayer.GetComponent<Player>().m_bExpand)
         {
-                transform.localScale = new Vector2(1 + Vector2.Distance(this.transform.position, m_gPlayer.transform.position) / 4, 1 + Vector2.Distance(this.transform.position, m_gPlayer.transform.position) / 4);    
+            transform.localScale = new Vector2(1 + Vector2.Distance(this.transform.position, m_gPlayer.transform.position) / 4, 1 + Vector2.Distance(this.transform.position, m_gPlayer.transform.position) / 4);
         }
 
         // Move forward by speed * deltaTime
         transform.position += transform.up * m_fSpeed * Time.deltaTime;
         // Check Range for deletion
         CheckRange();
-        if(m_bDoneDamage && m_gPlayer.GetComponent<Player>().m_bPierce == false)
-        {    
+        if (m_bDoneDamage && m_gPlayer.GetComponent<Player>().m_bPierce == false)
+        {
             Destroy(this.gameObject);
         }
-	}
+    }
 
     //--------------------------------------------------------------------------------------
     // If bullet collides with any trigger colliders
@@ -63,7 +64,7 @@ public class Bullet : MonoBehaviour {
     //--------------------------------------------------------------------------------------
     void CheckRange()
     {
-        if(Vector2.Distance(this.transform.position, m_v2StartPos) >= m_gPlayer.GetComponent<Player>().GetRange()) // If distance from bullet to start position is greater then player range stat
+        if (Vector2.Distance(this.transform.position, m_v2StartPos) >= m_gPlayer.GetComponent<Player>().GetRange()) // If distance from bullet to start position is greater then player range stat
         {
             Destroy(this.gameObject); // Destroys bullet object
         }

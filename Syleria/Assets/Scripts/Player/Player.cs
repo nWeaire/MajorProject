@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
     public bool m_bTri = false;
     public bool m_bSplit = false;
     public bool m_bExpand = false;
-    public bool m_bExplode = false;
+    public bool m_bBounce = false;
     #endregion
 
     #region Upgrade Setters
@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
     public void Tri(bool True) { this.m_bTri = True; }
     public void Split(bool True) { this.m_bSplit = True; }
     public void Expand(bool True) { this.m_bExpand = True; }
-    public void Explode(bool True) { this.m_bExplode = True; }
+    public void Bounce(bool True) { this.m_bBounce = True; }
     #endregion
 
     // Use this for initialization

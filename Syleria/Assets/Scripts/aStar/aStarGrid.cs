@@ -100,46 +100,46 @@ public class aStarGrid : MonoBehaviour
                 NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
             }
         }
-        //Check the Bottom Left side of the current node.
-        icheckX = a_NeighborNode.IndexX - 1;
-        icheckY = a_NeighborNode.IndexY - 1;
-        if (icheckX >= 0 && icheckX < m_nGridWidth)//If the XPosition is in range of the array
-        {
-            if (icheckY >= 0 && icheckY < m_nGridHeight)//If the YPosition is in range of the array
-            {
-                NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
-            }
-        }
-        //Check the Bottom Right side of the current node.
-        icheckX = a_NeighborNode.IndexX + 1;
-        icheckY = a_NeighborNode.IndexY - 1;
-        if (icheckX >= 0 && icheckX < m_nGridWidth)//If the XPosition is in range of the array
-        {
-            if (icheckY >= 0 && icheckY < m_nGridHeight)//If the YPosition is in range of the array
-            {
-                NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
-            }
-        }
-        //Check the Top Left side of the current node.
-        icheckX = a_NeighborNode.IndexX - 1;
-        icheckY = a_NeighborNode.IndexY + 1;
-        if (icheckX >= 0 && icheckX < m_nGridWidth)//If the XPosition is in range of the array
-        {
-            if (icheckY >= 0 && icheckY < m_nGridHeight)//If the YPosition is in range of the array
-            {
-                NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
-            }
-        }
-        //Check the Top Right side of the current node.
-        icheckX = a_NeighborNode.IndexX + 1;
-        icheckY = a_NeighborNode.IndexY + 1;
-        if (icheckX >= 0 && icheckX < m_nGridWidth)//If the XPosition is in range of the array
-        {
-            if (icheckY >= 0 && icheckY < m_nGridHeight)//If the YPosition is in range of the array
-            {
-                NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
-            }
-        }
+        ////Check the Bottom Left side of the current node.
+        //icheckX = a_NeighborNode.IndexX - 1;
+        //icheckY = a_NeighborNode.IndexY - 1;
+        //if (icheckX >= 0 && icheckX < m_nGridWidth)//If the XPosition is in range of the array
+        //{
+        //    if (icheckY >= 0 && icheckY < m_nGridHeight)//If the YPosition is in range of the array
+        //    {
+        //        NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
+        //    }
+        //}
+        ////Check the Bottom Right side of the current node.
+        //icheckX = a_NeighborNode.IndexX + 1;
+        //icheckY = a_NeighborNode.IndexY - 1;
+        //if (icheckX >= 0 && icheckX < m_nGridWidth)//If the XPosition is in range of the array
+        //{
+        //    if (icheckY >= 0 && icheckY < m_nGridHeight)//If the YPosition is in range of the array
+        //    {
+        //        NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
+        //    }
+        //}
+        ////Check the Top Left side of the current node.
+        //icheckX = a_NeighborNode.IndexX - 1;
+        //icheckY = a_NeighborNode.IndexY + 1;
+        //if (icheckX >= 0 && icheckX < m_nGridWidth)//If the XPosition is in range of the array
+        //{
+        //    if (icheckY >= 0 && icheckY < m_nGridHeight)//If the YPosition is in range of the array
+        //    {
+        //        NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
+        //    }
+        //}
+        ////Check the Top Right side of the current node.
+        //icheckX = a_NeighborNode.IndexX + 1;
+        //icheckY = a_NeighborNode.IndexY + 1;
+        //if (icheckX >= 0 && icheckX < m_nGridWidth)//If the XPosition is in range of the array
+        //{
+        //    if (icheckY >= 0 && icheckY < m_nGridHeight)//If the YPosition is in range of the array
+        //    {
+        //        NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
+        //    }
+        //}
 
         return NeighborList;//Return the neighbors list.
     }
