@@ -19,10 +19,10 @@ public class Enemy : MonoBehaviour
     [Tooltip("How far the enemy will stay away from the player for shooting")]
     public float m_fAimDistance;
 
-    
+
     public enum State { IDLE, CHASE, ASTAR, ATTACK, TAUNTED }
 
-    public enum EnemyType { SLIME, SHOTGUN, SENTRY, SWORD}
+    public enum EnemyType { SLIME, SHOTGUN, SENTRY, SWORD }
 
     #region AStar
     public List<Node> m_Path;
@@ -95,7 +95,7 @@ public class Enemy : MonoBehaviour
     //--------------------------------------------------------------------------------------
     public void Awake()
     {
-        
+
         m_nCurrentHealth = m_nHealth;
         m_bTaunted = false;
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
@@ -112,12 +112,12 @@ public class Enemy : MonoBehaviour
     //--------------------------------------------------------------------------------------
     public void Update()
     {
-        if(Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position - new Vector2(0,m_gPlayer.GetComponent<CapsuleCollider2D>().size.y)) <= m_fIdleDistance)
+        if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position - new Vector2(0, m_gPlayer.GetComponent<CapsuleCollider2D>().size.y)) <= m_fIdleDistance)
         {
             m_bSeenPlayer = true;
         }
         StateMachine(); // Calls state machine
-        
+
         StartCoroutine("UpdateState");
         SetTarget((Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset);
 
@@ -126,7 +126,7 @@ public class Enemy : MonoBehaviour
             m_fFlashTimer += Time.deltaTime;
             m_fFlashTimer %= 60;
 
-            if(m_fFlashTimer > m_fFlashTime)
+            if (m_fFlashTimer > m_fFlashTime)
             {
                 GetComponentInChildren<SpriteRenderer>().color = Color.white;
                 m_bHit = false;
@@ -140,14 +140,16 @@ public class Enemy : MonoBehaviour
     {
         if (!m_bTaunted)
         {
-            
-          if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position - new Vector2(0, m_gPlayer.GetComponent<CapsuleCollider2D>().size.y * 0.4f), m_WallLayer)
-                    /*&& Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= 5f*/)
-          {
-                    m_eState = State.CHASE;
-          }
-                else
-                    m_eState = State.ASTAR;
+
+            if (!Physics2D.Linecast((Vector2)this.transform.position - new Vector2(0, 0.8f), (Vector2)m_gPlayer.transform.position - new Vector2(0, m_gPlayer.GetComponent<CapsuleCollider2D>().size.y * 0.4f), m_WallLayer))
+            {
+                m_eState = State.CHASE;
+            }
+            else
+            {
+                m_eState = State.ASTAR;
+            }   
+
             if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= m_fAimDistance)
             {
                 if (m_eEnemyType == EnemyType.SHOTGUN || m_eEnemyType == EnemyType.SWORD)
@@ -189,10 +191,10 @@ public class Enemy : MonoBehaviour
             case State.TAUNTED:
                 // Enemy is being taunted
                 // When following but walls are in way of target
-                if(m_eEnemyType != EnemyType.SENTRY)
+                if (m_eEnemyType != EnemyType.SENTRY)
                 {
                     m_gCompanion = GameObject.FindGameObjectWithTag("Turtle");
-                    if(m_gCompanion)
+                    if (m_gCompanion)
                     {
                         AStar(m_gCompanion.transform.position);
                     }

@@ -56,7 +56,7 @@ public class Companion : MonoBehaviour
 
     public IEnumerator UpdateState()
     {
-        if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset, m_wallLayer)) // Checks if companion can direction see player
+        if (!Physics2D.Linecast((Vector2)this.transform.position - new Vector2(0, 0.5f), (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset, m_wallLayer)) // Checks if companion can direction see player
         {
             m_eState = State.FOLLOW; // Sets state to follow
         }
@@ -96,7 +96,7 @@ public class Companion : MonoBehaviour
                 {
                     if (Vector2.Distance(this.transform.position, m_gTarget.transform.position) >= 1.5f) // Checks if companion is further than 1.5f of enemy
                     {
-                        if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset, m_wallLayer)) // Checks if companion can direction see player
+                        if (!Physics2D.Linecast((Vector2)this.transform.position - new Vector2(0, 0.5f), (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset, m_wallLayer)) // Checks if companion can direction see player
                         {
                             Follow((Vector2)m_gTarget.transform.position); // If further then 1.5 units moves to enemy
                         }
