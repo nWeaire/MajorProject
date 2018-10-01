@@ -22,6 +22,8 @@ public class WorldGeneration : MonoBehaviour
     public int m_nRoomsSpawned; // Number of rooms spawned
     [SerializeField] private GameObject[] m_agRooms; // list of rooms possible to spawn
     [SerializeField] private GameObject m_gStartRoom; // Start room prefab
+    [SerializeField] private GameObject m_gBossRoom; // Start room prefab
+    [SerializeField] private GameObject m_gItemRoom; // Start room prefab
     [SerializeField] private GameObject m_gGameObjects; // All gameobjects in scene
     [SerializeField] private GameObject m_gA; // A star game object
     [SerializeField] private Vector2 m_v2RoomSize; // Size of room
@@ -29,6 +31,9 @@ public class WorldGeneration : MonoBehaviour
     private bool m_bCorridors = false; // if corridors
     private bool m_bAreRoomsSpawned = false; // if all rooms spawned
     private bool m_bASpawned = false; // If astar spawned
+
+    private Room m_rBossRoom = null;
+    private Room m_rItemRoom = null;
 
     // Use this for initialization
     void Start()
@@ -62,9 +67,13 @@ public class WorldGeneration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_nRoomsSpawned < m_nRoomCount - 1) // Untill rooms spawned is greater than room count
+        if (m_nRoomsSpawned < m_nRoomCount - 3) // Until rooms spawned is greater than room count
         {
             SpawnRooms(); // Spawn rooms
+        }
+        else if (m_nRoomsSpawned >= m_nRoomCount - 3 && m_nRoomsSpawned <= m_nRoomCount)
+        {
+            SpawnSpecialRooms();
         }
         else if (!m_bASpawned) // If all rooms spawned
         {
@@ -91,7 +100,7 @@ public class WorldGeneration : MonoBehaviour
                 {
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isRoom = true; // Sets to room
                     // Instantiate random room from list of rooms
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room = Instantiate(m_agRooms[Random.Range(0,m_agRooms.Length)], m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].worldPosition, new Quaternion(), this.transform);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room = Instantiate(m_agRooms[Random.Range(0, m_agRooms.Length)], m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].worldPosition, new Quaternion(), this.transform);
                     // Sets corridors and doors active states
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topCorridor.SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomCorridor.SetActive(true);
@@ -99,7 +108,7 @@ public class WorldGeneration : MonoBehaviour
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomWall.SetActive(false);
                     m_nRoomsSpawned += 1; // Rooms spawned + 1
                 }
-                else if(m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isSpawn) // If current index is spawn room
+                else if (m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isSpawn) // If current index is spawn room
                 {
                     // Set active states of corridors and doors
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topCorridor.SetActive(true);
@@ -197,6 +206,89 @@ public class WorldGeneration : MonoBehaviour
                 break;
         }
         m_bAreRoomsSpawned = true; // if rooms spawned
+    }
+
+    private void SpawnSpecialRooms()
+    {
+        m_rBossRoom = m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y];
+        m_rItemRoom = m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y];
+        Debug.Log("Boss and item room");
+        for (int i = 0; i < m_nArrayWidth; i++)
+        {
+            for (int j = 0; j < m_nArrayHeight; j++)
+            {
+                if (m_aRoomArray[i, j].isRoom)
+                {
+                    float tempDist = Vector2.Distance(m_aRoomArray[i, j].worldPosition, m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y].worldPosition);
+                    if (tempDist > Vector2.Distance(m_rBossRoom.worldPosition, m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y].worldPosition))
+                    {
+                        m_rBossRoom = m_aRoomArray[i, j];
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < m_nArrayWidth; i++)
+        {
+            for (int j = 0; j < m_nArrayHeight; j++)
+            {
+                if (m_aRoomArray[i, j].isRoom)
+                {
+                    float tempDistToCenter = Vector2.Distance(m_aRoomArray[i, j].worldPosition, m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y].worldPosition);
+                    float tempDistToBoss = Vector2.Distance(m_aRoomArray[i, j].worldPosition, m_rBossRoom.worldPosition);
+                    if (tempDistToBoss > Vector2.Distance(m_rItemRoom.worldPosition, m_rBossRoom.worldPosition) && tempDistToCenter > Vector2.Distance(m_rItemRoom.worldPosition, m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y].worldPosition))
+                    {
+                        m_rItemRoom = m_aRoomArray[i, j];
+                    }
+                }
+            }
+        }
+        Debug.Log(m_rBossRoom.worldPosition);
+        if (!m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].isRoom)
+        {
+            m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].room = Instantiate(m_gBossRoom, m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].worldPosition, new Quaternion(), this.transform);
+            m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftCorridor.SetActive(true);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightCorridor.SetActive(true);
+            m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftWall.SetActive(false);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightWall.SetActive(false);
+        }
+        else if(!m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].isRoom)
+        {
+            m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].room = Instantiate(m_gBossRoom, m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].worldPosition, new Quaternion(), this.transform);
+        }
+        else if(!m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].isRoom)
+        {
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].room = Instantiate(m_gBossRoom, m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].worldPosition, new Quaternion(), this.transform);
+        }
+        else if(!m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].isRoom)
+        {
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].room = Instantiate(m_gBossRoom, m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].worldPosition, new Quaternion(), this.transform);
+        }
+        else
+        {
+            Debug.Log("Bad World Generation");
+        }
+
+        if (!m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].isRoom)
+        {
+            m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].room = Instantiate(m_gItemRoom, m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].worldPosition, new Quaternion(), this.transform);
+        }
+        else if (!m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].isRoom)
+        {
+            m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].room = Instantiate(m_gItemRoom, m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].worldPosition, new Quaternion(), this.transform);
+        }
+        else if (!m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].isRoom)
+        {
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].room = Instantiate(m_gItemRoom, m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].worldPosition, new Quaternion(), this.transform);
+        }
+        else if (!m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].isRoom)
+        {
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].room = Instantiate(m_gItemRoom, m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].worldPosition, new Quaternion(), this.transform);
+        }
+        else
+        {
+            Debug.Log("Bad World Generation");
+        }
+        m_nRoomsSpawned += 4;
     }
 
     void SpawnA()

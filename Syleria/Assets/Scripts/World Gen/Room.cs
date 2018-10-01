@@ -17,9 +17,10 @@ public class Room
     public int indexY; // Y index in array
     public Vector2 worldPosition; // World position of room
     public bool isBoss = false; // Is boss room
-    public bool isShop = false; // Is shop room
+    public bool isItem = false; // Is shop room
     public bool isRoom = false; // Is a room
     public bool isSpawn = false; // Is spawn room
+
 
     public GameObject room; // GameObject for room
 
