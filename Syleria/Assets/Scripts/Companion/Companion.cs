@@ -155,8 +155,15 @@ public class Companion : MonoBehaviour
     }
     public void AStar(Vector2 TargetPosition)
     {
-        m_Path = m_aStar.FindPath(this.transform.position, TargetPosition); // Finds path to target
-        if (m_Path.Count > 1)
+        if(TargetPosition != null)
+        {
+            m_Path = m_aStar.FindPath(this.transform.position, TargetPosition); // Finds path to target
+        }
+        else
+        {
+            m_Path = null;
+        }
+        if (m_Path.Count > 1 && m_Path != null)
         {
             Vector2 dirToNextNode = m_Path[0].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
             dirToNextNode.Normalize(); // Normalize direction
