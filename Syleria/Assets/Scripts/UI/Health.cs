@@ -15,12 +15,13 @@ public class Health : MonoBehaviour {
 
     [SerializeField]private Slider m_sHealthSlider; // Reference to health slider
     private GameObject m_gPlayer; // Reference to player object
+    public int m_nSliderMinimumValue;
     
 	// Use this for initialization
 	void Awake ()
     {
         m_gPlayer = GameObject.FindGameObjectWithTag("Player"); // Sets reference to player
-        m_sHealthSlider.minValue = 0; // Sets minimum value of slider
+        m_sHealthSlider.minValue = m_nSliderMinimumValue; // Sets minimum value of slider
     }
 	
 	// Update is called once per frame
