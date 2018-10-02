@@ -96,13 +96,19 @@ public class Companion : MonoBehaviour
                 {
                     if (Vector2.Distance(this.transform.position, m_gTarget.transform.position) >= 1.5f) // Checks if companion is further than 1.5f of enemy
                     {
-                        if (!Physics2D.Linecast((Vector2)this.transform.position /*- new Vector2(0, 0.4f)*/, (Vector2)m_gTarget.transform.position - new Vector2(0, 0.3f)/*+ m_gPlayer.GetComponent<CircleCollider2D>().offset*/, m_wallLayer)) // Checks if companion can direction see player
+                        if (!Physics2D.Linecast((Vector2)this.transform.position - new Vector2(0, -0.2f), (Vector2)m_gTarget.transform.position, m_wallLayer)) // Checks if companion can direction see player
                         {
                             Follow((Vector2)m_gTarget.transform.position); // If further then 1.5 units moves to enemy
                         }
                         else
                         {
-                            AStar((Vector2)m_gTarget.transform.position);
+                            bool temp = AStar((Vector2)m_gTarget.transform.position);
+                            if(temp == false)
+                            {
+                                Debug.Log("chasing");
+                                Debug.DrawLine((Vector2)this.transform.position - new Vector2(0, -0.2f), (Vector2)m_gTarget.transform.position, Color.red, 2);
+                                Follow((Vector2)m_gTarget.transform.position);
+                            }
                         }
                     }
                     else if (!m_bAttackOnCD) // If attack isn't on cooldown
@@ -153,7 +159,7 @@ public class Companion : MonoBehaviour
         DirToTarget.Normalize();
         this.transform.Translate((DirToTarget) * m_fFollowSpeed * Time.deltaTime);
     }
-    public void AStar(Vector2 TargetPosition)
+    public bool AStar(Vector2 TargetPosition)
     {
         if (TargetPosition != null)
         {
@@ -169,13 +175,14 @@ public class Companion : MonoBehaviour
             {
                 Vector2 dirToNextNode = m_Path[0].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
                 dirToNextNode.Normalize(); // Normalize direction
+                Debug.DrawLine(this.transform.position, m_Path[0].WorldPosition, Color.cyan, 5);
                 transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node
             }
-
+            return true;
         }
         else
         {
-
+            return false;
         }
     }
     private void OnTriggerStay2D(Collider2D collision)

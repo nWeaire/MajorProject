@@ -141,8 +141,8 @@ public class Enemy : MonoBehaviour
         if (!m_bTaunted)
         {
 
-            if (!Physics2D.Linecast((Vector2)this.transform.position - new Vector2(0, 0.8f), (Vector2)m_gPlayer.transform.position - new Vector2(0, m_gPlayer.GetComponent<CapsuleCollider2D>().size.y * 0.4f), m_WallLayer))
-            {
+            if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position - new Vector2(0, 0.59f), m_WallLayer))
+            {               
                 m_eState = State.CHASE;
             }
             else

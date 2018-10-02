@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------------
+// Purpose: To update the players current Stat upgrades, and control the item which contains the upgrade
+// Author: Nicholas Weaire
+//--------------------------------------------------------------------------------------
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

@@ -12,10 +12,16 @@ using UnityEngine;
 public class Pathing : MonoBehaviour {
 
     public aStarGrid m_grid; // Reference to a* grid
+    public List<Node> FinalPath;
+    List<Node> OpenList;
+    HashSet<Node> ClosedList;
 
     // Use this for initialization
-    void Start ()
+    void Awake ()
     {
+        OpenList = new List<Node>(1);
+        FinalPath = new List<Node>(1);
+        ClosedList = new HashSet<Node>();
         m_grid = GetComponent<aStarGrid>(); // Gets reference to grid
 	}
 	
@@ -30,8 +36,8 @@ public class Pathing : MonoBehaviour {
         Node StartNode = m_grid.NodeFromWorldPoint(a_StartPos);//Gets the node closest to the starting position
         Node TargetNode = m_grid.NodeFromWorldPoint(a_TargetPos);//Gets the node closest to the target position
 
-        List<Node> OpenList = new List<Node>();//List of nodes for the open list
-        HashSet<Node> ClosedList = new HashSet<Node>();//Hashset of nodes for the closed list
+        OpenList.Clear();
+        ClosedList.Clear();
 
         OpenList.Add(StartNode);//Add the starting node to the open list to begin the program
 
@@ -80,7 +86,6 @@ public class Pathing : MonoBehaviour {
 
     List<Node> GetFinalPath(Node a_StartingNode, Node a_EndNode)
     {
-        List<Node> FinalPath = new List<Node>();//List to hold the path sequentially 
         Node CurrentNode = a_EndNode;//Node to store the current node being checked
 
         while (CurrentNode != a_StartingNode)//While loop to work through each node going through the parents to the beginning of the path
