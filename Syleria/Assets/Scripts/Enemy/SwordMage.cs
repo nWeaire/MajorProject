@@ -193,6 +193,7 @@ public class SwordMage : Enemy
 
         if (m_bTaunted)
         {
+            m_gCompanion = GameObject.FindGameObjectWithTag("Turtle");
             m_v3Target = m_gCompanion.transform.position - transform.position;
             m_v3Target.Normalize();
         }

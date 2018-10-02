@@ -13,12 +13,12 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Base Enemy Variables")]
     [Tooltip("How close the player must be before aggroing the enemy")]
     public float m_fIdleDistance;
 
     [Tooltip("How far the enemy will stay away from the player for shooting")]
     public float m_fAimDistance;
-
 
     public enum State { IDLE, CHASE, ASTAR, ATTACK, TAUNTED }
 
