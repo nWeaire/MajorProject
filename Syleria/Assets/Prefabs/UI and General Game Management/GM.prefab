@@ -34,7 +34,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1159694782897834}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -67,3 +67,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_sHealthSlider: {fileID: 0}
+  m_nSliderMinimumValue: -27
+  m_fSliderLerpAmount: 0.3
+  m_fColourLerpAmount: 0.04
+  m_cStandardColour: {r: 0, g: 1, b: 0, a: 1}
+  m_cFlashColour: {r: 0.39215687, g: 1, b: 0.39215687, a: 1}
+  m_cCurrentColour: {r: 1, g: 1, b: 1, a: 1}

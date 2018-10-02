@@ -236,6 +236,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
+        type: 2}
+      propertyPath: m_sHealthSlider
+      value: 
+      objectReference: {fileID: 820864813}
     - target: {fileID: 114301330221344906, guid: 94e47a55aa70e1547a4068f13bb084b1,
         type: 2}
       propertyPath: m_gPlayer
@@ -246,11 +251,6 @@ Prefab:
       propertyPath: m_EndGameUI
       value: 
       objectReference: {fileID: 1846980250}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: m_sHealthSlider
-      value: 
-      objectReference: {fileID: 820864813}
     - target: {fileID: 114301330221344906, guid: 94e47a55aa70e1547a4068f13bb084b1,
         type: 2}
       propertyPath: m_runTimeObjects
@@ -258,63 +258,23 @@ Prefab:
       objectReference: {fileID: 1968196705}
     - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
         type: 2}
-      propertyPath: m_nSliderMinimumValue
-      value: -27
+      propertyPath: m_cFlashColour.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
         type: 2}
-      propertyPath: lerpAmount
-      value: 0.2
+      propertyPath: m_cFlashColour.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
+        type: 2}
+      propertyPath: m_cFlashColour.b
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
         type: 2}
       propertyPath: m_fColourLerpAmount
-      value: 0.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: m_fSliderLerpAmount
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: standardColour.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: standardColour.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: standardColour.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: standardColour.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: flashColour.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: flashColour.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: flashColour.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: flashColour.a
-      value: 1
+      value: 0.08
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 94e47a55aa70e1547a4068f13bb084b1, type: 2}
