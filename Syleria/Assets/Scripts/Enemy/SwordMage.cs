@@ -181,11 +181,11 @@ public class SwordMage : Enemy
         Vector3 m_V3Spawn = Vector3.zero;
         if (m_bMovingLeft)
         {
-            m_V3Spawn = new Vector3(transform.position.x - (GetComponent<CapsuleCollider2D>().size.x * 0.5f), transform.position.y + (GetComponent<CapsuleCollider2D>().size.y * 0.1f), 1);
+            m_V3Spawn = new Vector3(transform.position.x - (GetComponent<CapsuleCollider2D>().size.x * 0.5f), transform.position.y - (GetComponent<CapsuleCollider2D>().size.y * 0.1f), 1);
         }
         else
         {
-            m_V3Spawn = new Vector3(transform.position.x + (GetComponent<CapsuleCollider2D>().size.x * 0.5f), transform.position.y + (GetComponent<CapsuleCollider2D>().size.y * 0.1f), 1);
+            m_V3Spawn = new Vector3(transform.position.x + (GetComponent<CapsuleCollider2D>().size.x * 0.5f), transform.position.y - (GetComponent<CapsuleCollider2D>().size.y * 0.1f), 1);
         }
         // Instantiate a bullet.
         GameObject newBullet = Instantiate(m_gProjectile, m_V3Spawn, Quaternion.Euler(0, 0, 0)) as GameObject;

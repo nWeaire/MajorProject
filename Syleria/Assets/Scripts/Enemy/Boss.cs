@@ -109,6 +109,7 @@ public class Boss : Enemy
 
     #endregion
 
+    [Header("Misc. Variables")]
     [Tooltip("Time in Seconds that the enemy will sit still after spawn")]
     public float m_fSpawnTime;
 
@@ -134,6 +135,10 @@ public class Boss : Enemy
     {
         if(!m_bSpawnStun)
         {
+            if(m_nCurrentHealth <= 0)
+            {
+                Die();
+            }
             //TODO: Setup logic for choosing what shots to fire and so on
             //if(Shotgun should fire)
             //{
@@ -175,7 +180,6 @@ public class Boss : Enemy
             }
             #endregion
             //}
-
 
             //if(Spiral should fire)
             //{
@@ -310,6 +314,6 @@ public class Boss : Enemy
         // Destroy this object.
         Destroy(gameObject);
 
-        // Player wins game!
+        // Player wins game! da da dunnn
     }
 }

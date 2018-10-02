@@ -207,21 +207,7 @@ public class ShotgunMage : Enemy
     { 
         if (collision.tag == "Enemy")
         {
-            if (collision.GetComponent<Enemy>().m_eEnemyType == EnemyType.SLIME)
-            {
-                Vector3 dir = transform.position - collision.transform.position;
-                dir.Normalize();
-                transform.position += dir * 0.01f;
-                transform.position = (Vector2)transform.position;
-            }
-            else if(collision.GetComponent<Enemy>().m_eEnemyType == EnemyType.SWORD)
-            {
-                Vector3 dir = transform.position - collision.transform.position;
-                dir.Normalize();
-                transform.position += dir * 0.1f;
-                transform.position = (Vector2)transform.position;
-            }
-
+           
         }
     }
 }
