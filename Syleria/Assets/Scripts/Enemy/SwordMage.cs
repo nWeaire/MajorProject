@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SwordMage : Enemy
 {
-
     // Projectile for the Sentry
     [Tooltip("Put Enemy Bullet prefab here")]
     public GameObject m_gProjectile;
@@ -69,9 +68,21 @@ public class SwordMage : Enemy
     //--------------------------------------------------------------------------------------
     new void Update()
     {
+        // Boolean setting for the sprite.
+        if (transform.position.x - m_gPlayer.transform.position.x >= 0)
+        {
+            // Face left.
+            m_bMovingLeft = true;
+        }
+        else
+        {
+            // Face right.
+            m_bMovingLeft = false;
+        }
+
         if (!m_bSpawnStun)
         {
-            // increase timer
+            // Increase timer.
             m_fTimeBetweenShots += Time.deltaTime;
             m_fTimeBetweenShots = m_fTimeBetweenShots % 60;
             if (m_bFinishedFiring)
@@ -89,10 +100,10 @@ public class SwordMage : Enemy
                 }
             }
 
-            // if timer has reached the limit,
+            // If timer has reached the limit,
             if (m_fTimeBetweenShots >= m_fFireRate)
             {
-                // if burst amount is less than the amount of shots wanted,
+                // If burst amount is less than the amount of shots wanted,
                 if (m_nBurstCount < m_nBurstAmount)
                 {
                     // Fire a shot.
@@ -116,7 +127,7 @@ public class SwordMage : Enemy
                         }
                     }
                 }
-                // if BurstCount has added up to the amount of shots wanted,
+                // If BurstCount has added up to the amount of shots wanted,
                 else
                 {
                     m_bFinishedFiring = true;
@@ -127,7 +138,7 @@ public class SwordMage : Enemy
                         // Make counter in seconds.
                         m_fTimeBetweenBursts = m_fTimeBetweenBursts % 60;
                     }
-                    // If counter has reacher the timer.
+                    // If counter has reacher the timer,
                     if (m_fTimeBetweenBursts >= m_fBurstTimer)
                     {
                         // Reset timer.
@@ -137,7 +148,7 @@ public class SwordMage : Enemy
                     }
                 }
             }
-            // If health is less than or equal to zero
+            // If health is less than or equal to zero,
             if (m_nCurrentHealth <= 0)
             {
                 Die();
@@ -149,11 +160,11 @@ public class SwordMage : Enemy
             m_fSpawnTimer += 1 * Time.deltaTime;
             m_fSpawnTimer = m_fSpawnTimer % 60;
 
-            // When timer reaches stun time.
+            // When timer reaches stun time,
             if (m_fSpawnTimer > m_fSpawnTime)
             {
 
-                // Unstun the Slime.
+                // Unstun this enemy.
                 m_bSpawnStun = false;
                 // Reset the Timer.
                 m_fSpawnTimer = 0;
@@ -167,8 +178,17 @@ public class SwordMage : Enemy
     {
         m_bFinishedFiring = false;
         m_bCanMove = false;
-        // Instantiate a bullet
-        GameObject newBullet = Instantiate(m_gProjectile, this.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+        Vector3 m_V3Spawn = Vector3.zero;
+        if (m_bMovingLeft)
+        {
+            m_V3Spawn = new Vector3(transform.position.x - (GetComponent<CapsuleCollider2D>().size.x * 0.5f), transform.position.y + (GetComponent<CapsuleCollider2D>().size.y * 0.1f), 1);
+        }
+        else
+        {
+            m_V3Spawn = new Vector3(transform.position.x + (GetComponent<CapsuleCollider2D>().size.x * 0.5f), transform.position.y + (GetComponent<CapsuleCollider2D>().size.y * 0.1f), 1);
+        }
+        // Instantiate a bullet.
+        GameObject newBullet = Instantiate(m_gProjectile, m_V3Spawn, Quaternion.Euler(0, 0, 0)) as GameObject;
         m_nBurstCount++;
 
         if (m_bTaunted)
@@ -178,21 +198,21 @@ public class SwordMage : Enemy
         }
         else
         {
-            // Get the target position
+            // Get the target position.
             m_v3Target = m_gPlayer.transform.position - transform.position;
             m_v3Target.Normalize();
         }
-        // Calculate rotation needed to face Player
+        // Calculate rotation needed to face Player.
         float angle = Mathf.Atan2(m_v3Target.y, m_v3Target.x) * Mathf.Rad2Deg;
         // Set bullets rotation to face Player.
         newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
 
-        // Set bullets damage to this Sentrys damage value
+        // Set bullets damage to this Sentrys damage value.
         newBullet.GetComponent<EnemyBullet>().m_nDam = m_nDamage;
-        // Set bullets damage to this Sentrys bullet speed
+        // Set bullets damage to this Sentrys bullet speed.
         newBullet.GetComponent<EnemyBullet>().m_fSpeed = m_fBulletSpeed;
 
-        // Reset timer
+        // Reset timer.
         m_fTimeBetweenShots = 0.0f;
     }
 
@@ -204,5 +224,18 @@ public class SwordMage : Enemy
     {
         // Destroy this object.
         Destroy(gameObject);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+
+        if (collision.tag == "Enemy")
+        {
+            //Vector3 dir = transform.position - collision.transform.position;
+            //dir.Normalize();
+            //transform.position += dir * 0.01f;
+            //transform.position = (Vector2)transform.position;
+
+        }
     }
 }

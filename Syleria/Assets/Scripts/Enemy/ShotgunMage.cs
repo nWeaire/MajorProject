@@ -61,7 +61,7 @@ public class ShotgunMage : Enemy
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
-    new void Awake () 
+    new void Awake()
     {
         base.Awake();
         // Get Player.
@@ -76,7 +76,7 @@ public class ShotgunMage : Enemy
     //--------------------------------------------------------------------------------------
     // Update: Function that calls each frame to update game objects.
     //--------------------------------------------------------------------------------------
-    new void Update ()
+    new void Update()
     {
         if (!m_bSpawnStun)
         {
@@ -183,7 +183,7 @@ public class ShotgunMage : Enemy
             // Calculate rotation needed to face Player
             float angle = Mathf.Atan2(m_v3Target.y, m_v3Target.x) * Mathf.Rad2Deg;
             // Set bullets rotation to face Player.
-            newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90 - (((float)m_nBulletAmount - 1) * 0.5f)*m_fBulletSpread + (i * m_fBulletSpread)));
+            newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90 - (((float)m_nBulletAmount - 1) * 0.5f) * m_fBulletSpread + (i * m_fBulletSpread)));
             // Set bullets damage to this damage value
             newBullet.GetComponent<EnemyBullet>().m_nDam = m_nDamage;
             // Set bullets damage to this  bullet speed
@@ -202,5 +202,26 @@ public class ShotgunMage : Enemy
     {
         // Destroy this object.
         Destroy(gameObject);
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    { 
+        if (collision.tag == "Enemy")
+        {
+            if (collision.GetComponent<Enemy>().m_eEnemyType == EnemyType.SLIME)
+            {
+                Vector3 dir = transform.position - collision.transform.position;
+                dir.Normalize();
+                transform.position += dir * 0.01f;
+                transform.position = (Vector2)transform.position;
+            }
+            else if(collision.GetComponent<Enemy>().m_eEnemyType == EnemyType.SWORD)
+            {
+                Vector3 dir = transform.position - collision.transform.position;
+                dir.Normalize();
+                transform.position += dir * 0.1f;
+                transform.position = (Vector2)transform.position;
+            }
+
+        }
     }
 }

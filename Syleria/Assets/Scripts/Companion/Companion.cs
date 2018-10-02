@@ -90,13 +90,13 @@ public class Companion : MonoBehaviour
                 Vector2 aStarTargetPos = m_gPlayer.transform.position + (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset;
                 AStar(aStarTargetPos);
                 break;
-            case State.ATTACK: 
+            case State.ATTACK:
                 // When attacking
                 if (m_gTarget != null) // If target isn't null
                 {
                     if (Vector2.Distance(this.transform.position, m_gTarget.transform.position) >= 1.5f) // Checks if companion is further than 1.5f of enemy
                     {
-                        if (!Physics2D.Linecast((Vector2)this.transform.position - new Vector2(0, 0.5f), (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset, m_wallLayer)) // Checks if companion can direction see player
+                        if (!Physics2D.Linecast((Vector2)this.transform.position /*- new Vector2(0, 0.4f)*/, (Vector2)m_gTarget.transform.position - new Vector2(0, 0.3f)/*+ m_gPlayer.GetComponent<CircleCollider2D>().offset*/, m_wallLayer)) // Checks if companion can direction see player
                         {
                             Follow((Vector2)m_gTarget.transform.position); // If further then 1.5 units moves to enemy
                         }
@@ -105,7 +105,7 @@ public class Companion : MonoBehaviour
                             AStar((Vector2)m_gTarget.transform.position);
                         }
                     }
-                    else if (!m_bAttackOnCD) // If attack isnt on cooldown
+                    else if (!m_bAttackOnCD) // If attack isn't on cooldown
                     {
                         StartCoroutine("UpdateDamage"); // Updates damage
                         m_gTarget.GetComponent<Enemy>().TakeDamage(m_nDamage); // Deals damage to enemy
@@ -155,7 +155,7 @@ public class Companion : MonoBehaviour
     }
     public void AStar(Vector2 TargetPosition)
     {
-        if(TargetPosition != null)
+        if (TargetPosition != null)
         {
             m_Path = m_aStar.FindPath(this.transform.position, TargetPosition); // Finds path to target
         }
@@ -163,11 +163,15 @@ public class Companion : MonoBehaviour
         {
             m_Path = null;
         }
-        if (m_Path.Count > 1 && m_Path != null)
+        if (m_Path != null)
         {
-            Vector2 dirToNextNode = m_Path[0].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
-            dirToNextNode.Normalize(); // Normalize direction
-            transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node
+            if (m_Path.Count > 1)
+            {
+                Vector2 dirToNextNode = m_Path[0].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
+                dirToNextNode.Normalize(); // Normalize direction
+                transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node
+            }
+
         }
         else
         {
@@ -185,6 +189,7 @@ public class Companion : MonoBehaviour
                     isAttacking = true;
                     m_eState = State.ATTACK;
                     m_gTarget = collision.gameObject;
+
                 }
             }
         }
@@ -206,21 +211,24 @@ public class Companion : MonoBehaviour
             // Face left 
             m_Animator.SetBool("isLeft", true);
         }
-        else if (m_eState == State.ATTACK)
+        else if (m_eState != State.ATTACK)
+        {
+            // Face right
+            m_Animator.SetBool("isLeft", false);
+        }
+        if (m_eState == State.ATTACK)
         {
             if (transform.position.x - m_gTarget.transform.position.x >= 0)
             {
                 // Face left 
                 m_Animator.SetBool("isLeft", true);
             }
+            else
+            {
+                // Face right
+                m_Animator.SetBool("isLeft", false);
+            }
         }
-        else
-        {
-            // Face right
-            m_Animator.SetBool("isLeft", false);
-        }
-
-
 
         if (m_eState == State.IDLE)
         {

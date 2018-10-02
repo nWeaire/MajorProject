@@ -251,7 +251,7 @@ public class Slime : Enemy
     {
         Vector3 dir = transform.position - collision.transform.position;
         dir.Normalize();
-        // If the Slime has collided with the Player.
+        // If the Slime has collided with the Player,
         if (collision.tag == "Player" && !m_bCannotMove)
         {
             // Slime has been stunned.

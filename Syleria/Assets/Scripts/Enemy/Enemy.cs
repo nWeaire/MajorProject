@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
 
     public enum State { IDLE, CHASE, ASTAR, ATTACK, TAUNTED }
 
-    public enum EnemyType { SLIME, SHOTGUN, SENTRY, SWORD }
+    public enum EnemyType { SLIME, SHOTGUN, SENTRY, SWORD, BOSS }
 
     #region AStar
     public List<Node> m_Path;
@@ -152,11 +152,13 @@ public class Enemy : MonoBehaviour
 
             if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= m_fAimDistance)
             {
-                if (m_eEnemyType == EnemyType.SHOTGUN || m_eEnemyType == EnemyType.SWORD)
+                if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position - new Vector2(0,0.2f), m_WallLayer))
                 {
-                    m_eState = State.IDLE;
+                    if (m_eEnemyType == EnemyType.SHOTGUN || m_eEnemyType == EnemyType.SWORD)
+                    {
+                        m_eState = State.IDLE;
+                    }
                 }
-
             }
             if (!m_bSeenPlayer)
             {
