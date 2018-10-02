@@ -5,9 +5,9 @@ using UnityEngine;
 public class StatItem : MonoBehaviour {
 
     enum Stat{ATTACK_DAMAGE, ATTACK_RANGE, ATTACK_FIRERATE, MOVE_SPEED, HEALTH_CURRENT, HEALTH_MAX }
-    [SerializeField] private Stat m_eStatToChange;
+    [SerializeField] private Stat[] m_eStatToChange;
     private GameObject m_gPlayer;
-    public int m_nStatChange = 0;
+    public int[] m_nStatChange;
     public bool m_bPickUp = false;
 	// Use this for initialization
 	void Awake ()
@@ -34,28 +34,31 @@ public class StatItem : MonoBehaviour {
     {
         if(Input.GetButtonDown("Interact") && m_bPickUp)
         {
-            switch (m_eStatToChange)
+            for (int i = 0; i < m_eStatToChange.Length; i++)
             {
-                case Stat.ATTACK_DAMAGE:
-                    m_gPlayer.GetComponent<Player>().AddDamage(m_nStatChange);
-                    break;
-                case Stat.ATTACK_RANGE:
-                    m_gPlayer.GetComponent<Player>().AddRange(m_nStatChange);
-                    break;
-                case Stat.ATTACK_FIRERATE:
-                    m_gPlayer.GetComponent<Player>().AddFireRate(m_nStatChange);
-                    break;
-                case Stat.MOVE_SPEED:
-                    m_gPlayer.GetComponent<Player>().AddMoveSpeed(m_nStatChange);
-                    break;
-                case Stat.HEALTH_CURRENT:
-                    m_gPlayer.GetComponent<Player>().AddCurrentHealth(m_nStatChange);
-                    break;
-                case Stat.HEALTH_MAX:
-                    m_gPlayer.GetComponent<Player>().AddMaxHealth(m_nStatChange);
-                    break;
-                default:
-                    break;
+                switch (m_eStatToChange[i])
+                {
+                    case Stat.ATTACK_DAMAGE:
+                        m_gPlayer.GetComponent<Player>().AddDamage(m_nStatChange[i]);
+                        break;
+                    case Stat.ATTACK_RANGE:
+                        m_gPlayer.GetComponent<Player>().AddRange(m_nStatChange[i]);
+                        break;
+                    case Stat.ATTACK_FIRERATE:
+                        m_gPlayer.GetComponent<Player>().AddFireRate(m_nStatChange[i]);
+                        break;
+                    case Stat.MOVE_SPEED:
+                        m_gPlayer.GetComponent<Player>().AddMoveSpeed(m_nStatChange[i]);
+                        break;
+                    case Stat.HEALTH_CURRENT:
+                        m_gPlayer.GetComponent<Player>().AddCurrentHealth(m_nStatChange[i]);
+                        break;
+                    case Stat.HEALTH_MAX:
+                        m_gPlayer.GetComponent<Player>().AddMaxHealth(m_nStatChange[i]);
+                        break;
+                    default:
+                        break;
+                }
             }
             Destroy(this.gameObject);
         }

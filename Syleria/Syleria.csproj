@@ -311,6 +311,7 @@
     <Compile Include="Assets\Scripts\Camera\Cam.cs" />
     <Compile Include="Assets\Scripts\Companion\Companion.cs" />
     <Compile Include="Assets\Scripts\Companion\Taunt.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Boss.cs" />
     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scripts\Enemy\LockRot.cs" />
     <Compile Include="Assets\Scripts\Enemy\Sentry.cs" />
