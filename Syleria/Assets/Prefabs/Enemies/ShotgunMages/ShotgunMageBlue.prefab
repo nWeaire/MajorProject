@@ -130,7 +130,7 @@ MonoBehaviour:
     m_Bits: 256
   m_nHealth: 30
   m_nCurrentHealth: 30
-  m_nDamage: 5
+  m_nDamage: 15
   m_fFlashTime: 0.1
   m_bHit: 0
   m_cFilter:
@@ -153,12 +153,12 @@ MonoBehaviour:
   m_bTaunted: 1
   m_gProjectile: {fileID: 1668811833332258, guid: 03c10123d03caa04a973c9c4ca4c1b6b,
     type: 2}
-  m_fBulletSpeed: 8
-  m_fFireRate: 3
-  m_fBurstTimer: 0.1
+  m_fBulletSpeed: 10
+  m_fFireRate: 4
+  m_fBurstTimer: 0.2
   m_nBurstAmount: 1
   m_nBulletAmount: 5
-  m_fBulletSpread: 10
+  m_fBulletSpread: 12
   m_fSpawnTime: 0.5
 --- !u!212 &212126311747756500
 SpriteRenderer:

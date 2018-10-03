@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 58125035560186378}
   - component: {fileID: 50469585438963480}
   m_Layer: 9
-  m_Name: SlimeBlue
+  m_Name: SlimeRed
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +118,7 @@ Animator:
   m_GameObject: {fileID: 1692952937756138}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1e2db80ae3c44d442850258ada01f845, type: 2}
+  m_Controller: {fileID: 9100000, guid: ae4d41d7dad64eb4c9f5b5353b802957, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -158,9 +158,9 @@ MonoBehaviour:
   m_WallLayer:
     serializedVersion: 2
     m_Bits: 256
-  m_nHealth: 30
-  m_nCurrentHealth: 30
-  m_nDamage: 15
+  m_nHealth: 50
+  m_nCurrentHealth: 50
+  m_nDamage: 25
   m_fFlashTime: 0.1
   m_bHit: 0
   m_cFilter:
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_bMovingLeft: 0
   m_bTaunted: 0
   m_bBigSlime: 1
-  m_nSmallSlimes: 2
+  m_nSmallSlimes: 4
   m_goSmallSlime: {fileID: 1986857641011166, guid: f7b0b487ad13d2542a34307a7099a986,
     type: 2}
   m_bCannotMove: 1
@@ -226,7 +226,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 138
-  m_Sprite: {fileID: 21300000, guid: ae7f036e4646f4e41aa3d5b573c54d6e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f8101dce2f43bd74693e4fd6e34b9f02, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
