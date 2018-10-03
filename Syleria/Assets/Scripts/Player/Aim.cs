@@ -73,6 +73,7 @@ public class Aim : MonoBehaviour
 
             if (m_fTimeBetweenShots >= m_fFireRate) // If firing is possible
             {
+                SetAnimation();
                 if(m_gPlayer.GetComponent<Player>().m_bTri)
                 {
                     GameObject newBullet = Instantiate(m_gBullet, this.transform.position, Quaternion.Euler(0, 0, -m_fAngle)) as GameObject; // Instantiate bullet
@@ -90,9 +91,36 @@ public class Aim : MonoBehaviour
                 m_fTimeBetweenShots = 0; // Sets time between shots to 0
             }
         }
-        else // if unable to shoot, nothing happens
+    }
+
+    //--------------------------------------------------------------------------------------
+    // Sets a boolean in the player's animator so it will do a fire animation in the right direction.
+    //--------------------------------------------------------------------------------------
+    void SetAnimation()
+    {
+
+        if (transform.forward.x > 0.0f && transform.forward.y > 0.0f)
         {
-            
+            //Animate North-West
+            //Debug.Log("NW");
+        }
+        else if (transform.forward.x > 0.0f && transform.forward.y < 0.0f)
+        {
+            //Animate South-West
+            //Debug.Log("SW");
+
+        }
+        else if (transform.forward.x < 0.0f && transform.forward.y < 0.0f)
+        {
+            //Animate North-East
+            //Debug.Log("NE");
+
+        }
+        else if (transform.forward.x < 0.0f && transform.forward.y > 0.0f)
+        {
+            //Animate South-East.
+            //Debug.Log("SE");
+
         }
 
     }

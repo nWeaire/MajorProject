@@ -94,12 +94,12 @@ public class Boss : Enemy
     // How long the laser will last, dealing damage and such.
     public float m_fLaserBlastTime;
 
-    // Timer between shots
-    [Tooltip("Seconds between Laser shots")]
-    public float m_fTimeBetweenLasers;
-
     // a timer for use in timing the shots
-    private float m_fLaserTimer = 0;
+    [Tooltip("Seconds between Laser shots")]
+    public float m_fLaserFireRate;
+
+    // Timer between shots
+    private float m_fTimeBetweenLasers = 0;
 
     // a timer for use in the telegraph
     private float m_fLaserChargeTimer = 0;
@@ -140,8 +140,8 @@ public class Boss : Enemy
                 Die();
             }
             //TODO: Setup logic for choosing what shots to fire and so on
-            //if(Shotgun should fire)
-            //{
+            if(m_fTimeBetweenShotguns <= m_fShotgunFireRate)
+            {
             #region Shotgun Calculations and Timers
             // if burst amount is less than the amount of shots wanted,
             if (m_nBurstCount < m_nBurstAmount)
@@ -176,24 +176,26 @@ public class Boss : Enemy
                     m_fTimeBetweenBursts = 0.0f;
                     // Reset Counter.
                     m_nBurstCount = 0;
+                    // Reset Shotgun counter.
+                    m_fTimeBetweenShotguns = 0.0f;
                 }
             }
             #endregion
-            //}
+            }
 
-            //if(Spiral should fire)
-            //{
-            #region Spiral Calculations and Timers
-
+            if(m_fTimeBetweenSpirals >= m_fSpiralFireRate)
+            {
+                #region Spiral Calculations and Timers
+                Debug.Log("Spiral Shot");
             #endregion
-            //}
+            }
 
-            //if(Laser should fire)
-            //{
-            #region Laser Calculations and Timers
-
+            if(m_fTimeBetweenLasers >= m_fLaserFireRate)
+            {
+                #region Laser Calculations and Timers
+                Debug.Log("Laser Charge up");
             #endregion
-            //}
+            }
 
             #region Timers
             // Increase Shotgun timer.
@@ -203,8 +205,8 @@ public class Boss : Enemy
             m_fTimeBetweenSpirals += Time.deltaTime;
             m_fTimeBetweenSpirals = m_fTimeBetweenSpirals % 60;
             // Increase Laser timer.
-            m_fLaserTimer += Time.deltaTime;
-            m_fLaserTimer = m_fLaserTimer % 60;
+            m_fTimeBetweenLasers += Time.deltaTime;
+            m_fTimeBetweenLasers = m_fLaserFireRate % 60;
             #endregion
         }
         else

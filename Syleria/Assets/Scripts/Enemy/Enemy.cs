@@ -227,10 +227,6 @@ public class Enemy : MonoBehaviour
             dirToNextNode.Normalize(); // Normalize direction
             transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node
         }
-        else
-        {
-
-        }
     }
 
     //--------------------------------------------------------------------------------------
