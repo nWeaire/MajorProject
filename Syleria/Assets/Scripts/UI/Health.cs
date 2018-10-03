@@ -17,12 +17,12 @@ public class Health : MonoBehaviour {
 
     [SerializeField]private Slider m_sHealthSlider; // Reference to health slider
     private GameObject m_gPlayer; // Reference to player object
-    public int m_nSliderMinimumValue;
+    public int m_nSliderMinimumValue; //Value to set minimum slider value to
 
-    public float m_fSliderLerpAmount;
-    public float m_fColourLerpAmount;
+    public float m_fSliderLerpAmount; //Value copntrolling Lerp on Slider
+    public float m_fColourLerpAmount; //Value controlling transition between colours
 
-    private int m_nPreviousHealth;
+    private int m_nPreviousHealth; //Tracking the previous health value
 
     public Color m_cStandardColour = Color.white;
     public Color m_cFlashColour = Color.white;
@@ -43,11 +43,13 @@ public class Health : MonoBehaviour {
         //m_sHealthSlider.value = m_gPlayer.GetComponent<Player>().GetCurrentHealth(); // Sets value of helath slider based on player current health stat
         m_sHealthSlider.value = Mathf.Lerp(m_sHealthSlider.value, m_gPlayer.GetComponent<Player>().GetCurrentHealth(), m_fSliderLerpAmount);
 
-        if(m_nPreviousHealth!= m_gPlayer.GetComponent<Player>().GetCurrentHealth()){
+        if (m_gPlayer.GetComponent<Player>().GetCurrentHealth() != m_nPreviousHealth){ //Checks if the player has lost health
             m_nPreviousHealth = m_gPlayer.GetComponent<Player>().GetCurrentHealth();
             m_cCurrentColour.r = m_cFlashColour.r;
             m_cCurrentColour.g = m_cFlashColour.g;
             m_cCurrentColour.b = m_cFlashColour.b;
+            Camera.main.GetComponent<BenShake>().Shake(0.05f, 0.1f);
+            m_sHealthSlider.gameObject.GetComponent<UIShake>().Shake(0.05f,3f);
         }
 
         m_cCurrentColour.r = Mathf.Lerp(m_cCurrentColour.r, m_cStandardColour.r, m_fColourLerpAmount);

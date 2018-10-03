@@ -297,6 +297,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\3rd Party\Scripts\BenShake.cs" />
+    <Compile Include="Assets\3rd Party\Scripts\UIShake.cs" />
     <Compile Include="Assets\3rd Party\Tilemap\Tiles\Animated Tile\Scripts\AnimatedTile.cs" />
     <Compile Include="Assets\3rd Party\Tilemap\Tiles\Pipeline Tile\Scripts\PipelineTile.cs" />
     <Compile Include="Assets\3rd Party\Tilemap\Tiles\Random Tile\Scripts\RandomTile.cs" />
