@@ -61,7 +61,7 @@ public class ShotgunMage : Enemy
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
-    new void Awake()
+    void Awake()
     {
         base.Awake();
         // Get Player.
@@ -76,7 +76,7 @@ public class ShotgunMage : Enemy
     //--------------------------------------------------------------------------------------
     // Update: Function that calls each frame to update game objects.
     //--------------------------------------------------------------------------------------
-    new void Update()
+    void Update()
     {
         if (!m_bSpawnStun)
         {
