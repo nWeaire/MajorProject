@@ -1725,6 +1725,8 @@ MonoBehaviour:
   - {fileID: 1554892407080924}
   rightWall:
   - {fileID: 1252903699089208}
+  Layers:
+  - {fileID: 1289415692878232}
   isSpawn: 0
 --- !u!114 &114676515824090986
 MonoBehaviour:
