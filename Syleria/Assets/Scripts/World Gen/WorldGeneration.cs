@@ -35,6 +35,9 @@ public class WorldGeneration : MonoBehaviour
     private Room m_rBossRoom = null;
     private Room m_rItemRoom = null;
 
+    [SerializeField] private int m_nFloorNum = 0;
+
+
     // Use this for initialization
     void Start()
     {
@@ -68,7 +71,7 @@ public class WorldGeneration : MonoBehaviour
     void Update()
     {
         if (m_nRoomsSpawned < m_nRoomCount - 3) // Until rooms spawned is greater than room count
-        {
+        {          
             SpawnRooms(); // Spawn rooms
         }
         else if (m_nRoomsSpawned >= m_nRoomCount - 3 && m_nRoomsSpawned <= m_nRoomCount)
@@ -102,19 +105,19 @@ public class WorldGeneration : MonoBehaviour
                     // Instantiate random room from list of rooms
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room = Instantiate(m_agRooms[Random.Range(0, m_agRooms.Length)], m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].worldPosition, new Quaternion(), this.transform);
                     // Sets corridors and doors active states
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topCorridor.SetActive(true);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomCorridor.SetActive(true);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topWall.SetActive(false);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomWall.SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topCorridor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomCorridor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
                     m_nRoomsSpawned += 1; // Rooms spawned + 1
                 }
                 else if (m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isSpawn) // If current index is spawn room
                 {
                     // Set active states of corridors and doors
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topCorridor.SetActive(true);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomCorridor.SetActive(true);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topWall.SetActive(false);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomWall.SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topCorridor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomCorridor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
                 }
                 else
                 {
@@ -129,19 +132,19 @@ public class WorldGeneration : MonoBehaviour
                     // Instantiate random room from list of rooms
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room = Instantiate(m_agRooms[Random.Range(0, m_agRooms.Length)], m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].worldPosition, new Quaternion(), this.transform);
                     // Set active states of corridors and doors
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomCorridor.SetActive(true);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomWall.SetActive(false);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topCorridor.SetActive(true);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topWall.SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomCorridor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topCorridor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
                     m_nRoomsSpawned += 1;
                 }
                 else if (m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isSpawn) // If current index is spawn room
                 {
                     // Set active states of corridors and doors
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomCorridor.SetActive(true);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomWall.SetActive(false);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topCorridor.SetActive(true);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topWall.SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomCorridor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topCorridor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
                 }
                 else
                 {
@@ -156,19 +159,19 @@ public class WorldGeneration : MonoBehaviour
                     // Instantiate random room from list of rooms
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room = Instantiate(m_agRooms[Random.Range(0, m_agRooms.Length)], m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].worldPosition, new Quaternion(), this.transform);
                     // Set active states of corridors and doors
-                    m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftCorridor.SetActive(true);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightCorridor.SetActive(true);
-                    m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftWall.SetActive(false);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightWall.SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftCorridor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightCorridor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
                     m_nRoomsSpawned += 1;
                 }
                 else if (m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isSpawn) // If current index is spawn room
                 {
                     // Set active states of corridors and doors
-                    m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftCorridor.SetActive(true);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightCorridor.SetActive(true);
-                    m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftWall.SetActive(false);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightWall.SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftCorridor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightCorridor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
                 }
                 else
                 {
@@ -183,19 +186,19 @@ public class WorldGeneration : MonoBehaviour
                     // Instantiate random room from list of rooms
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room = Instantiate(m_agRooms[Random.Range(0, m_agRooms.Length)], m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].worldPosition, new Quaternion(), this.transform);
                     // Set active states of corridors and doors
-                    m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightCorridor.SetActive(true);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftCorridor.SetActive(true);
-                    m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightWall.SetActive(false);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftWall.SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightCorridor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftCorridor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
                     m_nRoomsSpawned += 1;
                 }
                 else if (m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isSpawn) // If current index is spawn room
                 {
                     // Set active states of corridors and doors
-                    m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightCorridor.SetActive(true);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftCorridor.SetActive(true);
-                    m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightWall.SetActive(false);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftWall.SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightCorridor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftCorridor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
                 }
                 else
                 {
@@ -246,34 +249,34 @@ public class WorldGeneration : MonoBehaviour
         if (!m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].isRoom)
         {
             m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].room = Instantiate(m_gBossRoom, m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].worldPosition, new Quaternion(), this.transform);
-            m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftCorridor.SetActive(true);
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightCorridor.SetActive(true);
-            m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftWall.SetActive(false);
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightWall.SetActive(false);
+            m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftCorridor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightCorridor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
         }
         else if(!m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].isRoom)
         {
             m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].room = Instantiate(m_gBossRoom, m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].worldPosition, new Quaternion(), this.transform);
-            m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightCorridor.SetActive(true);
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftCorridor.SetActive(true);
-            m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightWall.SetActive(false);
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftWall.SetActive(false);
+            m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightCorridor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftCorridor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
         }
         else if(!m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].isRoom)
         {
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].room = Instantiate(m_gBossRoom, m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].worldPosition, new Quaternion(), this.transform);
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].room.GetComponent<Corridors>().bottomCorridor.SetActive(true);
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().topCorridor.SetActive(true);
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].room.GetComponent<Corridors>().bottomWall.SetActive(false);
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().topWall.SetActive(false);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].room.GetComponent<Corridors>().bottomCorridor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().topCorridor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
         }
         else if(!m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].isRoom)
         {
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].room = Instantiate(m_gBossRoom, m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].worldPosition, new Quaternion(), this.transform);
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].room.GetComponent<Corridors>().topCorridor.SetActive(true);
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().bottomCorridor.SetActive(true);
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].room.GetComponent<Corridors>().topWall.SetActive(false);
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().bottomWall.SetActive(false);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].room.GetComponent<Corridors>().topCorridor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().bottomCorridor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
         }
         else
         {
@@ -283,34 +286,34 @@ public class WorldGeneration : MonoBehaviour
         if (!m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].isRoom)
         {
             m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].room = Instantiate(m_gItemRoom, m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].worldPosition, new Quaternion(), this.transform);
-            m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftCorridor.SetActive(true);
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightCorridor.SetActive(true);
-            m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftWall.SetActive(false);
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightWall.SetActive(false);
+            m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftCorridor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightCorridor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
         }
         else if (!m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].isRoom)
         {
             m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].room = Instantiate(m_gItemRoom, m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].worldPosition, new Quaternion(), this.transform);
-            m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightCorridor.SetActive(true);
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftCorridor.SetActive(true);
-            m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightWall.SetActive(false);
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftWall.SetActive(false);
+            m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightCorridor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftCorridor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
         }
         else if (!m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].isRoom)
         {
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].room = Instantiate(m_gItemRoom, m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].worldPosition, new Quaternion(), this.transform);
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].room.GetComponent<Corridors>().bottomCorridor.SetActive(true);
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().topCorridor.SetActive(true);
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].room.GetComponent<Corridors>().bottomWall.SetActive(false);
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().topWall.SetActive(false);
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].room.GetComponent<Corridors>().bottomCorridor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().topCorridor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
         }
         else if (!m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].isRoom)
         {
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].room = Instantiate(m_gItemRoom, m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].worldPosition, new Quaternion(), this.transform);
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].room.GetComponent<Corridors>().topCorridor.SetActive(true);
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().bottomCorridor.SetActive(true);
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].room.GetComponent<Corridors>().topWall.SetActive(false);
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().bottomWall.SetActive(false);
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].room.GetComponent<Corridors>().topCorridor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().bottomCorridor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
         }
         else
         {
