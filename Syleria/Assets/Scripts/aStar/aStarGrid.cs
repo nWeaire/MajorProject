@@ -19,18 +19,19 @@ public class aStarGrid : MonoBehaviour
     public int m_nGridWidth = 1; // Grid width
     public LayerMask m_WalkableLayer; // Layers of all walkable tiles
     public GameObject m_gNode;
-    private List<Node> m_lWalkable;
-
+    private List<Node> NeighborList;
+    private Vector2 m_nStartPos;
     // Use this for initialization
     void Awake()
     {
         SetPosition(); // Sets position of grid based on rooms positions
         CreateGrid(); // creates grid on wake up
+        NeighborList = new List<Node>(1);
+        m_nStartPos = new Vector2();
     }
 
     public void CreateGrid()
     {
-        m_lWalkable = new List<Node>();
         m_grid = new Node[m_nGridWidth, m_nGridHeight];
         for (int i = 0; i < m_nGridWidth; i++)
         {
@@ -46,7 +47,6 @@ public class aStarGrid : MonoBehaviour
                 if (m_grid[i, j].Walkable)
                 {
                     //Instantiate(m_gNode, (this.transform.position + new Vector3(i, j) + new Vector3(0.5f, 0.5f, 0)), new Quaternion());
-                    m_lWalkable.Add(m_grid[i, j]);
                 }
             }
         }
@@ -56,7 +56,7 @@ public class aStarGrid : MonoBehaviour
     //Function that gets the neighboring nodes of the given node.
     public List<Node> GetNeighboringNodes(Node a_NeighborNode)
     {
-        List<Node> NeighborList = new List<Node>(); //Make a new list of all available neighbors.
+        NeighborList.Clear();
         int icheckX; // Variable to check if the XPosition is within range of the node array to avoid out of range errors.
         int icheckY; // Variable to check if the YPosition is within range of the node array to avoid out of range errors.
 
@@ -100,46 +100,6 @@ public class aStarGrid : MonoBehaviour
                 NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
             }
         }
-        ////Check the Bottom Left side of the current node.
-        //icheckX = a_NeighborNode.IndexX - 1;
-        //icheckY = a_NeighborNode.IndexY - 1;
-        //if (icheckX >= 0 && icheckX < m_nGridWidth)//If the XPosition is in range of the array
-        //{
-        //    if (icheckY >= 0 && icheckY < m_nGridHeight)//If the YPosition is in range of the array
-        //    {
-        //        NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
-        //    }
-        //}
-        ////Check the Bottom Right side of the current node.
-        //icheckX = a_NeighborNode.IndexX + 1;
-        //icheckY = a_NeighborNode.IndexY - 1;
-        //if (icheckX >= 0 && icheckX < m_nGridWidth)//If the XPosition is in range of the array
-        //{
-        //    if (icheckY >= 0 && icheckY < m_nGridHeight)//If the YPosition is in range of the array
-        //    {
-        //        NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
-        //    }
-        //}
-        ////Check the Top Left side of the current node.
-        //icheckX = a_NeighborNode.IndexX - 1;
-        //icheckY = a_NeighborNode.IndexY + 1;
-        //if (icheckX >= 0 && icheckX < m_nGridWidth)//If the XPosition is in range of the array
-        //{
-        //    if (icheckY >= 0 && icheckY < m_nGridHeight)//If the YPosition is in range of the array
-        //    {
-        //        NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
-        //    }
-        //}
-        ////Check the Top Right side of the current node.
-        //icheckX = a_NeighborNode.IndexX + 1;
-        //icheckY = a_NeighborNode.IndexY + 1;
-        //if (icheckX >= 0 && icheckX < m_nGridWidth)//If the XPosition is in range of the array
-        //{
-        //    if (icheckY >= 0 && icheckY < m_nGridHeight)//If the YPosition is in range of the array
-        //    {
-        //        NeighborList.Add(m_grid[icheckX, icheckY]);//Add the grid to the available neighbors list
-        //    }
-        //}
 
         return NeighborList;//Return the neighbors list.
     }
@@ -217,14 +177,11 @@ public class aStarGrid : MonoBehaviour
         lowY = lowY - 50.0f;
         highX = highX + 150.0f;
         highY = highY + 150.0f;
-
-        this.transform.position = new Vector2(lowX - 50f, lowY - 50f);
+        m_nStartPos.x = lowX - 50f;
+        m_nStartPos.y = lowY - 50f;
+        this.transform.position = m_nStartPos;
         m_nGridHeight = (int)Vector2.Distance(new Vector2(0,lowY), new Vector2(0, highY));
         m_nGridWidth = (int)Vector2.Distance(new Vector2(lowX, 0), new Vector2(highX, 0));
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(this.transform.position, (Vector2)this.transform.position + new Vector2(m_nGridWidth, 0));
-        Gizmos.DrawLine(this.transform.position, (Vector2)this.transform.position + new Vector2(0, m_nGridHeight));
-    }
+
 }
