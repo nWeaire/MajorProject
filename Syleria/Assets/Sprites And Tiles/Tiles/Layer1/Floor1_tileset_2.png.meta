@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 7b1aa319b2a85d84ca0d4e8e92b55023
-timeCreated: 1534826227
+guid: cf78ee01910336a4dbd7bf582fa5b207
+timeCreated: 1538956626
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -16,8 +16,6 @@ TextureImporter:
     21300018: Floor1_tileset_2_9
     21300020: Floor1_tileset_2_10
     21300022: Floor1_tileset_2_11
-    21300024: Floor1_tileset_2_12
-    21300026: Floor1_tileset_2_13
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -74,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -84,7 +82,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -94,7 +92,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -104,7 +102,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -114,7 +112,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -239,7 +237,7 @@ TextureImporter:
       name: Floor1_tileset_2_8
       rect:
         serializedVersion: 2
-        x: 0
+        x: 64
         y: 32
         width: 32
         height: 32
@@ -253,7 +251,7 @@ TextureImporter:
       name: Floor1_tileset_2_9
       rect:
         serializedVersion: 2
-        x: 32
+        x: 96
         y: 32
         width: 32
         height: 32
@@ -268,34 +266,6 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Floor1_tileset_2_11
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Floor1_tileset_2_12
-      rect:
-        serializedVersion: 2
-        x: 64
         y: 0
         width: 32
         height: 32
@@ -306,7 +276,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Floor1_tileset_2_13
+      name: Floor1_tileset_2_11
       rect:
         serializedVersion: 2
         x: 96
