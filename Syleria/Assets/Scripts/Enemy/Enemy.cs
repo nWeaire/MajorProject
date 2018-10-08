@@ -185,6 +185,7 @@ public class Enemy : MonoBehaviour
                 break;
             case State.ASTAR:
                 // When following but walls are in way of target
+                Vector2 aStarTargetPos = m_gPlayer.transform.position + (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset;
                 AStar(m_gTarget);
                 break;
             case State.ATTACK:
@@ -218,14 +219,30 @@ public class Enemy : MonoBehaviour
         DirToTarget.Normalize();
         this.transform.Translate((DirToTarget) * m_fAStarSpeed * Time.deltaTime);
     }
-    public void AStar(Vector2 TargetPosition)
+    public bool AStar(Vector2 TargetPosition)
     {
-        m_Path = m_aStar.FindPath(this.transform.position, TargetPosition); // Finds path to target
-        if (m_Path.Count > 1)
+        if (TargetPosition != null)
         {
-            Vector2 dirToNextNode = m_Path[0].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
-            dirToNextNode.Normalize(); // Normalize direction
-            transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node
+            m_Path = m_aStar.FindPath(this.transform.position, TargetPosition); // Finds path to target
+        }
+        else
+        {
+            m_Path = null;
+        }
+        if (m_Path != null)
+        {
+            if (m_Path.Count > 1)
+            {
+                Vector2 dirToNextNode = m_Path[0].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
+                dirToNextNode.Normalize(); // Normalize direction
+                Debug.DrawLine(this.transform.position, m_Path[0].WorldPosition, Color.cyan, 5);
+                transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node
+            }
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
