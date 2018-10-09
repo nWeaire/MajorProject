@@ -18,7 +18,6 @@ public class Companion : MonoBehaviour
     #region AStar
     [SerializeField] private float m_fAStarSpeed = 0.01f; // Speed the companions aStar
     public List<Node> m_Path; // Path they aStar on
-    public Pathing m_aStar; // Reference to pathing script
     #endregion
 
     public Ability m_gAbility; // Reference to ability script
@@ -38,9 +37,7 @@ public class Companion : MonoBehaviour
     void Awake()
     {
         m_Animator = GetComponent<Animator>(); // Gets animator component
-        m_eState = State.IDLE; // Sets state to idle by default
-        m_aStar = GameObject.FindGameObjectWithTag("A*").GetComponent<Pathing>(); // Finds pathing script
-        m_Path = m_aStar.FindPath(this.transform.position, m_gPlayer.transform.position); // Finds starting path to player
+        m_eState = State.IDLE; // Sets state to idle by default      
     }
 
     // Update is called once per frame
@@ -163,7 +160,7 @@ public class Companion : MonoBehaviour
     {
         if (TargetPosition != null)
         {
-            m_Path = m_aStar.FindPath(this.transform.position, TargetPosition); // Finds path to target
+            m_Path = GameObject.FindGameObjectWithTag("A*").GetComponent<Pathing>().FindPath(this.transform.position, TargetPosition); // Finds path to target
         }
         else
         {

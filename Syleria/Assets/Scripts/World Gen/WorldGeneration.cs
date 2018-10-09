@@ -32,10 +32,10 @@ public class WorldGeneration : MonoBehaviour
     private bool m_bAreRoomsSpawned = false; // if all rooms spawned
     private bool m_bASpawned = false; // If astar spawned
 
-    private Room m_rBossRoom = null;
-    private Room m_rItemRoom = null;
+    private Room m_rBossRoom = null; // Reference to boss room
+    private Room m_rItemRoom = null; // Reference to item room
 
-    [SerializeField] private int m_nFloorNum = 0;
+    [SerializeField] private int m_nFloorNum = 0; // Current floor 
 
 
     // Use this for initialization
@@ -43,6 +43,14 @@ public class WorldGeneration : MonoBehaviour
     {
         Time.timeScale = 1; // Time scale set to 1
         CreateGrid(); // Creates grid
+    }
+
+    public void CreateWorld()
+    {
+        m_nRoomsSpawned = 0;
+        m_bASpawned = false;
+        Time.timeScale = 1; // Time scale set to 1
+        CreateGrid(); // Creates grid    
     }
 
     private void CreateGrid()
@@ -88,6 +96,12 @@ public class WorldGeneration : MonoBehaviour
 
     }
 
+    //-----------------------------------------------------------------
+    // Handles spawning of Rooms, corridors and walls
+    // Selects a direction to move a current index in room array to
+    // Checks if index has a room, if not place a room and continue moving
+    // If there is a room continues picking a direction and moves untill there is a spot available
+    //-----------------------------------------------------------------
     private void SpawnRooms()
     {
         // 0 = center, 1 = up, 2 = down, 3 = left, 4 = right
@@ -216,21 +230,27 @@ public class WorldGeneration : MonoBehaviour
         m_bAreRoomsSpawned = true; // if rooms spawned
     }
 
+    //-----------------------------------------------------------------
+    // Handles spawning of boss and item rooms
+    // Selects suitable rooms based on distance from center of floor and other rooms
+    // Finds an avaiable spot for room
+    // Instaniates room based on public reference set in inspector
+    //-----------------------------------------------------------------
     private void SpawnSpecialRooms()
     {
-        m_rBossRoom = m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y];
-        m_rItemRoom = m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y];
-        Debug.Log("Boss and item room");
+        m_rBossRoom = m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y]; // Sets starting location for bossRoom
+        m_rItemRoom = m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y]; // Sets starting location for itemRoom
         for (int i = 0; i < m_nArrayWidth; i++)
         {
             for (int j = 0; j < m_nArrayHeight; j++)
             {
                 if (m_aRoomArray[i, j].isRoom)
                 {
+                    // Checks all rooms distances from the starting room and find the room furtherest from the center
                     float tempDist = Vector2.Distance(m_aRoomArray[i, j].worldPosition, m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y].worldPosition);
                     if (tempDist > Vector2.Distance(m_rBossRoom.worldPosition, m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y].worldPosition))
                     {
-                        m_rBossRoom = m_aRoomArray[i, j];
+                        m_rBossRoom = m_aRoomArray[i, j]; // Boss room set to room furtherest away
                     }
                 }
             }
@@ -241,18 +261,18 @@ public class WorldGeneration : MonoBehaviour
             {
                 if (m_aRoomArray[i, j].isRoom)
                 {
-                    float tempDistToCenter = Vector2.Distance(m_aRoomArray[i, j].worldPosition, m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y].worldPosition);
-                    float tempDistToBoss = Vector2.Distance(m_aRoomArray[i, j].worldPosition, m_rBossRoom.worldPosition);
+                    float tempDistToCenter = Vector2.Distance(m_aRoomArray[i, j].worldPosition, m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y].worldPosition); // Checks distance from start room
+                    float tempDistToBoss = Vector2.Distance(m_aRoomArray[i, j].worldPosition, m_rBossRoom.worldPosition); // Checks distance from boss room
                     if (tempDistToBoss > Vector2.Distance(m_rItemRoom.worldPosition, m_rBossRoom.worldPosition) && tempDistToCenter > Vector2.Distance(m_rItemRoom.worldPosition, m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y].worldPosition))
                     {
-                        m_rItemRoom = m_aRoomArray[i, j];
+                        m_rItemRoom = m_aRoomArray[i, j]; // Sets item room to room furtherest away from boss room and start room
                     }
                 }
             }
         }
-        Debug.Log(m_rBossRoom.worldPosition);
-        if (!m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].isRoom)
+        if (!m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].isRoom) // If the index to the right of the boss room is free
         {
+            // Spawns boss room and sets corridors and walls to active and inactive
             m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].room = Instantiate(m_gBossRoom, m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].worldPosition, new Quaternion(), this.transform);
             m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().Layers[m_nFloorNum].SetActive(true);
             m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftCorridor[m_nFloorNum].SetActive(true);
@@ -260,8 +280,9 @@ public class WorldGeneration : MonoBehaviour
             m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
         }
-        else if(!m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].isRoom)
+        else if(!m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].isRoom) // If the index to the left of the boss room is free
         {
+            // Spawns boss room and sets corridors and walls to active and inactive
             m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].room = Instantiate(m_gBossRoom, m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].worldPosition, new Quaternion(), this.transform);
             m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().Layers[m_nFloorNum].SetActive(true);
             m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightCorridor[m_nFloorNum].SetActive(true);
@@ -269,8 +290,9 @@ public class WorldGeneration : MonoBehaviour
             m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
         }
-        else if(!m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].isRoom)
+        else if(!m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].isRoom) // If the index to the top of the boss room is free
         {
+            // Spawns boss room and sets corridors and walls to active and inactive
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].room = Instantiate(m_gBossRoom, m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].worldPosition, new Quaternion(), this.transform);
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].room.GetComponent<Corridors>().Layers[m_nFloorNum].SetActive(true);
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].room.GetComponent<Corridors>().bottomCorridor[m_nFloorNum].SetActive(true);
@@ -278,8 +300,9 @@ public class WorldGeneration : MonoBehaviour
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
         }
-        else if(!m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].isRoom)
+        else if(!m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].isRoom) // If the index to the bottom of the boss room is free
         {
+            // Spawns boss room and sets corridors and walls to active and inactive
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].room = Instantiate(m_gBossRoom, m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].worldPosition, new Quaternion(), this.transform);
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].room.GetComponent<Corridors>().Layers[m_nFloorNum].SetActive(true);
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].room.GetComponent<Corridors>().topCorridor[m_nFloorNum].SetActive(true);
@@ -287,13 +310,10 @@ public class WorldGeneration : MonoBehaviour
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
         }
-        else
-        {
-            Debug.Log("Bad World Generation");
-        }
 
-        if (!m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].isRoom)
+        if (!m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].isRoom) // If the index to the right of the item room is free
         {
+            // Spawns item room and handles logic for corridors and walls
             m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].room = Instantiate(m_gItemRoom, m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].worldPosition, new Quaternion(), this.transform);
             m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().Layers[m_nFloorNum].SetActive(true);
             m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftCorridor[m_nFloorNum].SetActive(true);
@@ -301,8 +321,9 @@ public class WorldGeneration : MonoBehaviour
             m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
         }
-        else if (!m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].isRoom)
+        else if (!m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].isRoom) // If the index to the left of the item room is free
         {
+            // Spawns item room and handles logic for corridors and walls
             m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].room = Instantiate(m_gItemRoom, m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].worldPosition, new Quaternion(), this.transform);
             m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().Layers[m_nFloorNum].SetActive(true);
             m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightCorridor[m_nFloorNum].SetActive(true);
@@ -310,8 +331,9 @@ public class WorldGeneration : MonoBehaviour
             m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
         }
-        else if (!m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].isRoom)
+        else if (!m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].isRoom) // If the index to the top of the item room is free
         {
+            // Spawns item room and handles logic for corridors and walls
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].room = Instantiate(m_gItemRoom, m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].worldPosition, new Quaternion(), this.transform);
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].room.GetComponent<Corridors>().Layers[m_nFloorNum].SetActive(true);
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].room.GetComponent<Corridors>().bottomCorridor[m_nFloorNum].SetActive(true);
@@ -319,7 +341,8 @@ public class WorldGeneration : MonoBehaviour
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
         }
-        else if (!m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].isRoom)
+        // Spawns item room and handles logic for corridors and walls
+        else if (!m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].isRoom) // If the index to the bottom of the item room is free
         {
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].room = Instantiate(m_gItemRoom, m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].worldPosition, new Quaternion(), this.transform);
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].room.GetComponent<Corridors>().Layers[m_nFloorNum].SetActive(true);
@@ -328,13 +351,11 @@ public class WorldGeneration : MonoBehaviour
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
         }
-        else
-        {
-            Debug.Log("Bad World Generation");
-        }
-        m_nRoomsSpawned += 4;
+        m_nRoomsSpawned += 4; // Updates number of rooms
     }
-
+    //-----------------------------------------------------------------
+    // Spawns the AStar object into the scene on completion of world generation                
+    //-----------------------------------------------------------------
     void SpawnA()
     {
         Instantiate(m_gA); // Instantiates a Star

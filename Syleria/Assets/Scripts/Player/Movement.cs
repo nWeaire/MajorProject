@@ -18,9 +18,6 @@ public class Movement : MonoBehaviour
 
     #region Sprites
     [SerializeField] private GameObject m_gSprite; // Reference to player sprite
-    [SerializeField] private Sprite m_sprFront; // Sprite facing player
-    [SerializeField] private Sprite m_sprBack; // Sprite facing away
-    [SerializeField] private Sprite m_sprSide; // Side on sprite
     private Animator m_Animator;
     #endregion
 
