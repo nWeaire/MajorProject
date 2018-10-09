@@ -111,7 +111,7 @@ public class Ability : MonoBehaviour
     //--------------------------------------------------------------------------------------
     public void Slash()
     {
-        if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsAbility && m_bAbility) // Checks for slash input, and ability is available
+        if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsAbility && m_bAbility || Input.GetKey(KeyCode.Space) && !m_bIsAbility && m_bAbility) // Checks for slash input, and ability is available
         {
             m_bIsAbility = true; // Ability in use to true
             m_bAbility = false; // Ability available to false

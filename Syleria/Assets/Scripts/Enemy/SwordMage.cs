@@ -50,6 +50,8 @@ public class SwordMage : Enemy
 
     private bool m_bSpawnStun;
 
+    private Vector2 m_v2Offset;
+
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
@@ -61,6 +63,7 @@ public class SwordMage : Enemy
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         // Set the counter to max timer.
         m_fTimeBetweenShots = m_fFireRate;
+        //m_v2Offset = new Vector2(GetComponent<CapsuleCollider2D>().size.x * 0.5f, GetComponent<CapsuleCollider2D>().size.y * 0.1f);
     }
 
     //--------------------------------------------------------------------------------------
@@ -109,7 +112,8 @@ public class SwordMage : Enemy
                     // Fire a shot.
                     if (!m_bTaunted)
                     {
-                        if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position, m_WallLayer))
+                        if (!Physics2D.Linecast((Vector2)this.transform.position + new Vector2(0, GetComponent<CapsuleCollider2D>().offset.y), (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset, m_WallLayer) 
+                            || !Physics2D.OverlapCircle((Vector2)this.transform.position, 4f,m_WallLayer))
                         {
                             Fire();
                         }
@@ -117,6 +121,7 @@ public class SwordMage : Enemy
                         {
                             m_bCanMove = true;
                             m_bFinishedFiring = true;
+                            m_fTimeBetweenShots = m_fFireRate;
                         }
                     }
                     else
@@ -124,6 +129,12 @@ public class SwordMage : Enemy
                         if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gCompanion.transform.position, m_WallLayer))
                         {
                             Fire();
+                        }
+                        else
+                        {
+                            m_bCanMove = true;
+                            m_bFinishedFiring = true;
+                            m_fTimeBetweenShots = m_fFireRate;
                         }
                     }
                 }
@@ -181,14 +192,14 @@ public class SwordMage : Enemy
         Vector3 m_V3Spawn = Vector3.zero;
         if (m_bMovingLeft)
         {
-            m_V3Spawn = new Vector3(transform.position.x - (GetComponent<CapsuleCollider2D>().size.x * 0.5f), transform.position.y - (GetComponent<CapsuleCollider2D>().size.y * 0.1f), 1);
+            //m_V3Spawn = new Vector3(transform.position.x - (GetComponent<CapsuleCollider2D>().size.x * 0.5f), transform.position.y - (GetComponent<CapsuleCollider2D>().size.y * 0.1f), 1);
         }
         else
         {
-            m_V3Spawn = new Vector3(transform.position.x + (GetComponent<CapsuleCollider2D>().size.x * 0.5f), transform.position.y - (GetComponent<CapsuleCollider2D>().size.y * 0.1f), 1);
+            //m_V3Spawn = new Vector3(transform.position.x + (GetComponent<CapsuleCollider2D>().size.x * 0.5f), transform.position.y - (GetComponent<CapsuleCollider2D>().size.y * 0.1f), 1);
         }
         // Instantiate a bullet.
-        GameObject newBullet = Instantiate(m_gProjectile, m_V3Spawn, Quaternion.Euler(0, 0, 0)) as GameObject;
+        GameObject newBullet = Instantiate(m_gProjectile, transform.position + new Vector3(0, GetComponent<CapsuleCollider2D>().offset.y), Quaternion.Euler(0, 0, 0)) as GameObject;
         m_nBurstCount++;
 
         if (m_bTaunted)

@@ -101,7 +101,7 @@ public class Sentry : Enemy
                     else
                     {
                         // Find the taunting turtle
-                        m_gCompanion = GameObject.FindGameObjectWithTag("Turtle");
+                        m_gCompanion = GameObject.FindGameObjectWithTag("Companion");
                         // If the Sentry can see the turtle.
                         if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gCompanion.transform.position, m_WallLayer))
                         {

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 95710397278287312}
   m_Layer: 9
   m_Name: sprite
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,7 +37,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4354438159275670}
   - component: {fileID: 114503724850381958}
-  - component: {fileID: 70803505290038798}
+  - component: {fileID: 70706667198553044}
+  - component: {fileID: 50262700563636048}
   m_Layer: 9
   m_Name: SwordMageBlue
   m_TagString: Enemy
@@ -52,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1960623517545722}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -31.88, y: -46.99, z: 0}
+  m_LocalPosition: {x: 2027.3922, y: 1334.9634, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4818050944886968}
@@ -66,13 +67,33 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111632490492534}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4354438159275670}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &70803505290038798
+--- !u!50 &50262700563636048
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1960623517545722}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!70 &70706667198553044
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -81,11 +102,11 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
+  m_IsTrigger: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.95, y: 1.97}
+  m_Offset: {x: 0, y: 0.5}
+  m_Size: {x: 1, y: 1.8488525}
   m_Direction: 0
 --- !u!95 &95710397278287312
 Animator:
@@ -129,6 +150,7 @@ MonoBehaviour:
   m_nCurrentHealth: 40
   m_nDamage: 18
   m_fFlashTime: 0.2
+  m_fOffset: {x: 0, y: 0}
   m_bHit: 0
   m_cFilter:
     useTriggers: 0

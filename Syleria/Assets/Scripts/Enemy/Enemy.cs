@@ -58,6 +58,8 @@ public class Enemy : MonoBehaviour
     [Tooltip("Amount of seconds the slime will spend as red")]
     public float m_fFlashTime;
 
+    public Vector2 m_fOffset;
+
     //Boolean for raycasts
     [HideInInspector]
     public bool m_bHit;
@@ -150,9 +152,10 @@ public class Enemy : MonoBehaviour
                 m_eState = State.ASTAR;
             }   
 
-            if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= m_fAimDistance)
+            if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset) <= m_fAimDistance)
             {
-                if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position - new Vector2(0,0.2f), m_WallLayer))
+                if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position - new Vector2(0,0.2f), m_WallLayer) && !Physics2D.OverlapCircle((Vector2)this.transform.position, 0.2f, m_WallLayer)
+                    && !Physics2D.OverlapCircle((Vector2)this.transform.position, 4f, m_WallLayer))
                 {
                     if (m_eEnemyType == EnemyType.SHOTGUN || m_eEnemyType == EnemyType.SWORD)
                     {
@@ -196,7 +199,7 @@ public class Enemy : MonoBehaviour
                 // When following but walls are in way of target
                 if (m_eEnemyType != EnemyType.SENTRY)
                 {
-                    m_gCompanion = GameObject.FindGameObjectWithTag("Turtle");
+                    m_gCompanion = GameObject.FindGameObjectWithTag("Companion");
                     if (m_gCompanion)
                     {
                         AStar(m_gCompanion.transform.position);

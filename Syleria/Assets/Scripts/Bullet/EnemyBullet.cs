@@ -37,6 +37,8 @@ public class EnemyBullet : MonoBehaviour
     [HideInInspector]
     public float m_fSpeed;
 
+    public float m_fActiTimer;
+
     // A reference to the player for damaging it.
     private GameObject m_gPlayer;
 
@@ -67,7 +69,7 @@ public class EnemyBullet : MonoBehaviour
         // Delete bullet if it reaches its max range
         if (m_bSerpentine && Vector2.Distance(this.transform.position, m_v2StartPos) >= 0.5f)
         {
-            transform.position += transform.right * Mathf.Sin(Time.time * m_fOffset)* m_fSinMag * (m_fSinFreq * 0.01f);
+            transform.position += transform.right * Mathf.Sin(Time.time * m_fOffset)* m_fSinMag * (m_fSinFreq * 0.01f) * Time.deltaTime;
         }
         CheckRange();
     }
