@@ -480,6 +480,34 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1720229300}
   m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!1 &843893982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 843893983}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &843893983
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 843893982}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2019.9878, y: 1340.9336, z: -0.11268784}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &861646381 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114665709949736518, guid: 6e721c1253449f342ab8a7d330fcef22,
@@ -552,11 +580,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4042969057688520, guid: cb2b31551868fea4b9a649f7dc4bff3d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3.43
       objectReference: {fileID: 0}
     - target: {fileID: 4042969057688520, guid: cb2b31551868fea4b9a649f7dc4bff3d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 4042969057688520, guid: cb2b31551868fea4b9a649f7dc4bff3d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -597,9 +625,8 @@ Prefab:
       propertyPath: m_gTaunt
       value: 
       objectReference: {fileID: 478696156}
-    - target: {fileID: 58575408354280168, guid: cb2b31551868fea4b9a649f7dc4bff3d,
-        type: 2}
-      propertyPath: m_Enabled
+    - target: {fileID: 1849293272539402, guid: cb2b31551868fea4b9a649f7dc4bff3d, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -657,7 +684,7 @@ Prefab:
     - target: {fileID: 114983273073023588, guid: b6b16f3ce002d8443a8dd4728eadf79f,
         type: 2}
       propertyPath: m_nAttackPercentage
-      value: 0
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b6b16f3ce002d8443a8dd4728eadf79f, type: 2}

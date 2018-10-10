@@ -154,8 +154,8 @@ public class Enemy : MonoBehaviour
 
             if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset) <= m_fAimDistance)
             {
-                if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position - new Vector2(0,0.2f), m_WallLayer) && !Physics2D.OverlapCircle((Vector2)this.transform.position, 0.2f, m_WallLayer)
-                    && !Physics2D.OverlapCircle((Vector2)this.transform.position, 4f, m_WallLayer))
+                if (!Physics2D.Linecast((Vector2)this.transform.position + new Vector2(0, GetComponent<CapsuleCollider2D>().offset.y), (Vector2)m_gPlayer.transform.position - new Vector2(0,0.2f), m_WallLayer) && !Physics2D.OverlapCircle((Vector2)this.transform.position, 0.2f, m_WallLayer)
+                    || !Physics2D.OverlapCircle((Vector2)this.transform.position, 4f, m_WallLayer))
                 {
                     if (m_eEnemyType == EnemyType.SHOTGUN || m_eEnemyType == EnemyType.SWORD)
                     {
@@ -268,4 +268,6 @@ public class Enemy : MonoBehaviour
     {
         m_gTarget = gTarget;
     }
+
+
 }

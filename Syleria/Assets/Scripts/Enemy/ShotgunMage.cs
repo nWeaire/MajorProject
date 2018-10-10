@@ -58,10 +58,27 @@ public class ShotgunMage : Enemy
 
     private bool m_bSpawnStun;
 
+    //Timer for knockback lerp
+    private float m_fKnockTimer = 0;
+
+    // Speed for knockback lerp
+    private float m_fKnockSpeed = 5f;
+
+    // Position knockback will end in 
+    private Vector2 m_v2EndKnockPos;
+
+    // Position knockback starts in
+    private Vector2 m_v2StartKnockPos;
+
+    // Total knockback distance
+    [SerializeField] private float m_fKnockDistance = 3;
+
+    private bool m_bKnockBack;
+
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
-    void Awake()
+    new void Awake()
     {
         base.Awake();
         // Get Player.
@@ -76,7 +93,7 @@ public class ShotgunMage : Enemy
     //--------------------------------------------------------------------------------------
     // Update: Function that calls each frame to update game objects.
     //--------------------------------------------------------------------------------------
-    void Update()
+    new void Update()
     {
         if (!m_bSpawnStun)
         {
@@ -158,6 +175,17 @@ public class ShotgunMage : Enemy
                 m_fSpawnTimer = 0;
             }
         }
+        if (m_bKnockBack)
+        {
+            m_fKnockTimer += Time.deltaTime * m_fKnockSpeed;
+            m_gPlayer.transform.parent.position = Vector2.Lerp(m_v2StartKnockPos, m_v2EndKnockPos + m_gPlayer.GetComponentInParent<CircleCollider2D>().offset, m_fKnockTimer);
+
+            if (Vector2.Distance(m_gPlayer.transform.parent.position, m_v2EndKnockPos + m_gPlayer.GetComponentInParent<CircleCollider2D>().offset) <= 0.1f)
+            {
+                m_bKnockBack = false;
+                m_fKnockTimer = 0.0f;
+            }
+        }
     }
 
     //--------------------------------------------------------------------------------------
@@ -203,11 +231,49 @@ public class ShotgunMage : Enemy
         // Destroy this object.
         Destroy(gameObject);
     }
-    private void OnTriggerStay2D(Collider2D collision)
-    { 
-        if (collision.tag == "Enemy")
+    //--------------------------------------------------------------------------------------
+    // OnTriggerEnter2D: A function called when the trigger on this object collides with 
+    //                   another object.
+    //
+    // Parameters:
+    //      Collider2D collision: The collider that this has collided with.
+    //--------------------------------------------------------------------------------------
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Vector3 dir = transform.position - collision.transform.position;
+        dir.Normalize();
+        // If the Slime has collided with the Player,
+        if (collision.tag == "Player")
         {
-           
+            // Damage the player.
+            m_gPlayer.GetComponent<Player>().AddCurrentHealth(-m_nDamage);
+
+            if (!m_bKnockBack)
+            {
+                KnockPlayer(dir);
+            }
         }
+    }
+    void KnockPlayer(Vector3 dir)
+    {
+        // Knockback the player.
+        m_bKnockBack = true;
+        int count = 0; // Count of collisions detected
+        RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of objects the ray collides with
+        Vector2 rayOrigin = (Vector2)m_gPlayer.transform.parent.position - new Vector2(m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.x, m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.y); // Gets ray origin based on player position and collider offset
+        count = Physics2D.Raycast(rayOrigin, (Vector2)(m_gPlayer.transform.parent.position - transform.position), m_cFilter, Hit, m_fKnockDistance); // Ray casts in direction of movement
+        Debug.DrawRay(rayOrigin, m_gPlayer.transform.parent.position - transform.position, Color.magenta, m_fKnockDistance);
+        if (count > 0) // Checks if anything collided with the ray
+        {
+            m_v2EndKnockPos.x = Hit[0].point.x + dir.x;
+            m_v2EndKnockPos.y = Hit[0].point.y + dir.y;
+        }
+        else // If nothing hit
+        {
+
+            m_v2EndKnockPos = (Vector2)m_gPlayer.transform.position + (Vector2)(m_gPlayer.transform.parent.position - transform.position); // End position of dash set based on dash distance
+        }
+
+        m_v2StartKnockPos = m_gPlayer.transform.parent.position;
     }
 }
