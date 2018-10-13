@@ -69,4 +69,5 @@ MonoBehaviour:
   m_WalkableLayer:
     serializedVersion: 2
     m_Bits: 1024
-  m_gNode: {fileID: 1085766854477492, guid: 76c8515e6c540fd45b184dfd8a4466c1, type: 2}
+  m_MinimapSprite: {fileID: 1711854251079428, guid: f48504194a7bc354e8f918381da0ab1a,
+    type: 2}
