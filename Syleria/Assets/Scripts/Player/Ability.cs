@@ -16,9 +16,9 @@ public class Ability : MonoBehaviour
     enum CompanionSelected { FOX, TURTLE, BIRD } // Enum containing all possible companions
 
     public GameObject m_Aim; // Reference to aiming retical on player
-
+    private GameObject m_gPlayer; // Reference to playerStats
     public ContactFilter2D m_wallLayer; // Contact Filter for wall layer
-    
+
     #region Companion
     [SerializeField] CompanionSelected m_eCompanionSelected = CompanionSelected.FOX; // Current companion selected 
     //public GameObject m_gBird; // Reference to Bird
@@ -39,6 +39,7 @@ public class Ability : MonoBehaviour
     #region Slash
     [SerializeField] private PolygonCollider2D m_cSlashCollider; // Polygon collisder for slash
     [SerializeField] private float m_fSlashRange; // Range of slash
+    [SerializeField] private float m_fWhirlWindRadius = 3f; // Range of slash
     [SerializeField] private float m_fSlashWidth = 3; // Width of slash
     [SerializeField] private float m_fSlashDuration = 0.1f; // Duration slash exists
     [SerializeField] private int m_nSlashDamage = 50; // Slash damage
@@ -56,22 +57,35 @@ public class Ability : MonoBehaviour
     private GameObject[] m_aEnemies; // List of enemies
     private Vector2 m_v2EndPos; // End position of taunt
     private Vector2 m_v2DirToEndPos; // Direction to end position
+    public int m_nAfterShockDamage = 10; // Damage for aftershock
     #endregion
+
+    private void Awake()
+    {
+        m_gPlayer = GameObject.FindGameObjectWithTag("Player");
+    }
 
     // Update is called once per frame
     void Update()
     {
+        m_aEnemies = GameObject.FindGameObjectsWithTag("Enemy"); // Finds all game objects with enemy tag
         ChangeCompanion(); // Check which companion is selected
         switch (m_eCompanionSelected) // Switch statement based on companion picked
         {
             case CompanionSelected.FOX:
-                Slash(); // Check if slashing
+                if (m_gPlayer.GetComponent<Player>().m_bWhirlwind)
+                {
+                    Whirlwind();
+                }
+                else
+                {
+                    Slash(); // Check if slashing
+                }
                 break;
             case CompanionSelected.TURTLE:
                 Taunt(); // Check if taunting
                 break;
-            //case CompanionSelected.BIRD:
-
+            //case CompanionSelected.BIRD:          
             //    break;
             default:
                 break;
@@ -84,25 +98,28 @@ public class Ability : MonoBehaviour
     //--------------------------------------------------------------------------------------
     private void ChangeCompanion()
     {
-        if (Input.GetButtonDown("Fox") && m_eCompanionSelected != CompanionSelected.FOX) // If fox button down
+        if (!m_bIsAbility)
         {
-            if (m_eCompanionSelected == CompanionSelected.TURTLE) // If current companion is the turtle
+            if (Input.GetButtonDown("Fox") && m_eCompanionSelected != CompanionSelected.FOX) // If fox button down
             {
-                m_gFox.transform.position = m_gTurtle.transform.position; // Sets transform for fox to turtle position
+                if (m_eCompanionSelected == CompanionSelected.TURTLE) // If current companion is the turtle
+                {
+                    m_gFox.transform.position = m_gTurtle.transform.position; // Sets transform for fox to turtle position
+                }
+                m_eCompanionSelected = CompanionSelected.FOX; // Sets selected companion to fox
+                m_gFox.gameObject.SetActive(true); // Sets fox to active
+                m_gTurtle.gameObject.SetActive(false); // Sets turtle to inactive
             }
-            m_eCompanionSelected = CompanionSelected.FOX; // Sets selected companion to fox
-            m_gFox.gameObject.SetActive(true); // Sets fox to active
-            m_gTurtle.gameObject.SetActive(false); // Sets turtle to inactive
-        }
-        if (Input.GetButtonDown("Turtle") && m_eCompanionSelected != CompanionSelected.TURTLE) // If turtle button down
-        {
-            if (m_eCompanionSelected == CompanionSelected.FOX) // If current companion is fox
+            if (Input.GetButtonDown("Turtle") && m_eCompanionSelected != CompanionSelected.TURTLE) // If turtle button down
             {
-                m_gTurtle.transform.position = m_gFox.transform.position; // Sets turtle position to fox position
+                if (m_eCompanionSelected == CompanionSelected.FOX) // If current companion is fox
+                {
+                    m_gTurtle.transform.position = m_gFox.transform.position; // Sets turtle position to fox position
+                }
+                m_eCompanionSelected = CompanionSelected.TURTLE; // Sets selected companion to turtle
+                m_gFox.gameObject.SetActive(false); // Sets fox to inactive
+                m_gTurtle.gameObject.SetActive(true); // Sets turtle to active
             }
-            m_eCompanionSelected = CompanionSelected.TURTLE; // Sets selected companion to turtle
-            m_gFox.gameObject.SetActive(false); // Sets fox to inactive
-            m_gTurtle.gameObject.SetActive(true); // Sets turtle to active
         }
     }
 
@@ -125,6 +142,7 @@ public class Ability : MonoBehaviour
         }
         if (m_bIsAbility) // If Slashing
         {
+
             m_fSlashDurationTimer += Time.deltaTime; // slash duration timer increased
             Vector2 aimDirection = m_Aim.transform.up; // Sets aim direction
             aimDirection.Normalize(); // Normalize aim direction
@@ -132,7 +150,7 @@ public class Ability : MonoBehaviour
             Vector2[] slashPoints = new Vector2[3]; // Array of slash points for polygon collider
 
             Vector2 m_v2leftPoint = aimDirection * m_fSlashRange; // Left points starting point set
-            // Left point sets width of polygon slash point
+                                                                  // Left point sets width of polygon slash point
             m_v2leftPoint += new Vector2(-aimDirection.y, aimDirection.x) / Mathf.Sqrt((aimDirection.x * aimDirection.x) + (aimDirection.y * aimDirection.y)) * m_fSlashWidth;
 
             Vector2 m_v2rightPoint = aimDirection * m_fSlashRange; // Right points set for polygon collider
@@ -145,6 +163,7 @@ public class Ability : MonoBehaviour
             m_gSlash.SetActive(true); // Sets slash sprite to true
             float m_fAngle = Mathf.Atan2(aimDirection.x, aimDirection.y) * Mathf.Rad2Deg; // Gets angle based on direction of the right stick input
             m_gSlash.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -m_fAngle)); // Rotates retical
+
         }
         if (!m_bAbility) // If ability isn't available
         {
@@ -163,7 +182,6 @@ public class Ability : MonoBehaviour
     //--------------------------------------------------------------------------------------
     public void Taunt()
     {
-        m_aEnemies = GameObject.FindGameObjectsWithTag("Enemy"); // Finds all game objects with enemy tag
         if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsAbility && m_bAbility && !m_bTriggerDown) // Checks for taunt button and ability available
         {
             m_gTurtle.transform.position = this.transform.position; // Sets turtle position to player position
@@ -179,6 +197,10 @@ public class Ability : MonoBehaviour
             m_fTauntDurationTimer = 0; // Taunt duration time set to 0
             for (int i = 0; i < m_aEnemies.Length; i++) // For every enemy
             {
+                if (m_gPlayer.GetComponent<Player>().m_bAfterShock) // If aftershock is active
+                {
+                    m_aEnemies[i].GetComponent<Enemy>().TakeDamage(m_nAfterShockDamage); // Deals damage to enemies
+                }
                 m_aEnemies[i].GetComponent<Enemy>().m_bTaunted = false; // Sets all enemies to be untaunted
             }
             m_gTaunt.SetActive(false); // Taunt to false
@@ -214,7 +236,7 @@ public class Ability : MonoBehaviour
                 m_gTurtle.transform.Translate(m_v2DirToEndPos * m_fTauntSpeed * Time.deltaTime); // Translates turtle position towards end points
             }
 
-            if(Input.GetAxisRaw("Ability") < 0.2f) // If ability button not down
+            if (Input.GetAxisRaw("Ability") < 0.2f) // If ability button not down
             {
                 m_bTriggerDown = false; // Trigger down to false
             }
@@ -258,5 +280,33 @@ public class Ability : MonoBehaviour
         {
             collision.gameObject.GetComponent<Enemy>().TakeDamage(m_nSlashDamage); // Deals damage to enemies
         }
+    }
+
+    void Whirlwind()
+    {
+        if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsAbility && m_bAbility)
+        {
+            m_bIsAbility = true; // Ability in use to true
+            m_bAbility = false; // Ability available to false
+            for (int i = 0; i < m_aEnemies.Length; i++) // For all enemies
+            {
+                if (Vector2.Distance(m_aEnemies[i].transform.position, this.transform.position) <= m_fWhirlWindRadius) // Checks if enemies are within taunt radius
+                {
+                    m_aEnemies[i].GetComponent<Enemy>().TakeDamage(m_nSlashDamage);
+                }
+            }
+        }
+
+        if (!m_bAbility) // If ability isn't available
+        {
+            m_fAbilityCDTimer += Time.deltaTime; // ability cool down timer active
+        }
+
+        if (m_fAbilityCDTimer >= m_fAbilityCD) // If ability cool down timer greater then cooldown
+        {
+            m_bAbility = true; // Ability available
+            m_fAbilityCDTimer = 0; // Cooldown timer set to 0
+        }
+
     }
 }

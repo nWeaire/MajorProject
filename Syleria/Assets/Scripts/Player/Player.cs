@@ -53,6 +53,8 @@ public class Player : MonoBehaviour
     public bool m_bSplit = false;
     public bool m_bExpand = false;
     public bool m_bBounce = false;
+    public bool m_bAfterShock = false;
+    public bool m_bWhirlwind = false;
     #endregion
 
     #region Upgrade Setters
@@ -61,6 +63,8 @@ public class Player : MonoBehaviour
     public void Split(bool True) { this.m_bSplit = True; }
     public void Expand(bool True) { this.m_bExpand = True; }
     public void Bounce(bool True) { this.m_bBounce = True; }
+    public void AfterShock(bool True) { this.m_bAfterShock = True; }
+    public void Whirlwind(bool True) { this.m_bWhirlwind = True; }    
     #endregion
 
     // Use this for initialization

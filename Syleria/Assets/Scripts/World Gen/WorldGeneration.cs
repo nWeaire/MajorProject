@@ -71,6 +71,7 @@ public class WorldGeneration : MonoBehaviour
         // Instantiates start room
         m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room = Instantiate(m_gStartRoom, m_aRoomArray[m_v2StartRoom.x, m_v2StartRoom.y].worldPosition, new Quaternion(), this.transform);
         m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().isSpawn = true;
+        m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().Layers[m_nFloorNum].SetActive(true);
         // Sets gameObjects transform to middle of array 
         m_gGameObjects.transform.position = m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.transform.position + new Vector3(20.5f, -13.5f, 0);
     }

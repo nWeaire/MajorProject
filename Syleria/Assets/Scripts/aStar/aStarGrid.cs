@@ -18,7 +18,7 @@ public class aStarGrid : MonoBehaviour
     public int m_nGridHeight = 1; // Grid height
     public int m_nGridWidth = 1; // Grid width
     public LayerMask m_WalkableLayer; // Layers of all walkable tiles
-    public GameObject m_gNode;
+    public GameObject m_MinimapSprite;
     private List<Node> NeighborList;
     private Vector2 m_nStartPos;
     // Use this for initialization
@@ -46,7 +46,7 @@ public class aStarGrid : MonoBehaviour
 
                 if (m_grid[i, j].Walkable)
                 {
-                    //Instantiate(m_gNode, (this.transform.position + new Vector3(i, j) + new Vector3(0.5f, 0.5f, 0)), new Quaternion());
+                    Instantiate(m_MinimapSprite, (this.transform.position + new Vector3(i, j) + new Vector3(0.5f, 0.5f, 0)), new Quaternion());
                 }
             }
         }

@@ -14,6 +14,7 @@ public class GM : MonoBehaviour {
     [SerializeField] private GameObject m_gPlayer;
     private Player m_Player;
 
+    public GameObject m_gPauseMenu;
     public GameObject m_EndGameUI;
     public GameObject m_runTimeObjects;
 	// Use this for initialization
@@ -34,6 +35,16 @@ public class GM : MonoBehaviour {
         {
             m_Player.SetCurrentHealth(0);
         }
+        if(Input.GetButtonDown("Start"))
+        {
+            Pause();
+        }
+    }
+
+    public void Pause()
+    {
+        m_EndGameUI.SetActive(true);
+        Time.timeScale = 0;
     }
 
     public IEnumerator EndGame()
