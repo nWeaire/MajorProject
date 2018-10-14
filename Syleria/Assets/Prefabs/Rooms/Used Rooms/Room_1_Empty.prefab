@@ -524,7 +524,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1491864926548352
 GameObject:
   m_ObjectHideFlags: 1
@@ -617,7 +617,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1577564212199558
 GameObject:
   m_ObjectHideFlags: 1
@@ -731,7 +731,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1667486033776336
 GameObject:
   m_ObjectHideFlags: 1
@@ -821,7 +821,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1720561789843686
 GameObject:
   m_ObjectHideFlags: 1
@@ -836,7 +836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1738123610940540
 GameObject:
   m_ObjectHideFlags: 1
@@ -1076,7 +1076,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4001137729168160
 Transform:
   m_ObjectHideFlags: 1
@@ -2797,10 +2797,10 @@ CompositeCollider2D:
   m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
-    - - {x: 22, y: -23}
-      - {x: 19, y: -23}
-      - {x: 19, y: -23.3125}
-      - {x: 22, y: -23.3125}
+    - - {x: 0.5, y: 0.5}
+      - {x: -0.5, y: 0.5}
+      - {x: -0.5, y: 0.1875}
+      - {x: 0.5, y: 0.1875}
   m_VertexDistance: 0.0005
 --- !u!66 &66202770109023440
 CompositeCollider2D:
@@ -2973,10 +2973,10 @@ CompositeCollider2D:
   m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
-    - - {x: 4, y: -12}
-      - {x: 3.6875, y: -12}
-      - {x: 3.6875, y: -15}
-      - {x: 4, y: -15}
+    - - {x: 0.5, y: 0.5}
+      - {x: 0.1875, y: 0.5}
+      - {x: 0.1875, y: -0.5}
+      - {x: 0.5, y: -0.5}
   m_VertexDistance: 0.0005
 --- !u!66 &66434927632437044
 CompositeCollider2D:
@@ -3033,10 +3033,10 @@ CompositeCollider2D:
   m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
-    - - {x: 22, y: -1.6875}
-      - {x: 19, y: -1.6875}
-      - {x: 19, y: -4}
-      - {x: 22, y: -4}
+    - - {x: 0.5, y: 0.5}
+      - {x: -0.5, y: 0.5}
+      - {x: -0.5, y: -0.5}
+      - {x: 0.5, y: -0.5}
   m_VertexDistance: 0.0005
 --- !u!66 &66464365651930450
 CompositeCollider2D:
@@ -3145,34 +3145,10 @@ CompositeCollider2D:
   m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
-    - - {x: 37.3125, y: -1.75}
-      - {x: 37.25, y: -1.6875}
-      - {x: 22, y: -1.6875}
-      - {x: 22, y: -4}
-      - {x: 37, y: -4}
-      - {x: 37, y: -12}
-      - {x: 37.3125, y: -12}
-    - - {x: 4, y: -4}
-      - {x: 19, y: -4}
-      - {x: 19, y: -1.6875}
-      - {x: 3.75, y: -1.6875}
-      - {x: 3.6875, y: -1.75}
-      - {x: 3.6875, y: -12}
-      - {x: 4, y: -12}
-    - - {x: 37.3125, y: -23.25}
-      - {x: 37.3125, y: -15}
-      - {x: 37, y: -15}
-      - {x: 37, y: -23}
-      - {x: 22, y: -23}
-      - {x: 22, y: -23.3125}
-      - {x: 37.25, y: -23.3125}
-    - - {x: 19, y: -23}
-      - {x: 4, y: -23}
-      - {x: 4, y: -15}
-      - {x: 3.6875, y: -15}
-      - {x: 3.6875, y: -23.25}
-      - {x: 3.75, y: -23.3125}
-      - {x: 19, y: -23.3125}
+    - - {x: 0.5, y: 0.5}
+      - {x: -0.5, y: 0.5}
+      - {x: -0.5, y: -0.5}
+      - {x: 0.5, y: -0.5}
   m_VertexDistance: 0.0005
 --- !u!66 &66580080535514820
 CompositeCollider2D:
@@ -3217,10 +3193,10 @@ CompositeCollider2D:
   m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
-    - - {x: 37.3125, y: -12}
-      - {x: 37, y: -12}
-      - {x: 37, y: -15}
-      - {x: 37.3125, y: -15}
+    - - {x: -0.1875, y: 0.5}
+      - {x: -0.5, y: 0.5}
+      - {x: -0.5, y: -0.5}
+      - {x: -0.1875, y: -0.5}
   m_VertexDistance: 0.0005
 --- !u!66 &66626081367121704
 CompositeCollider2D:

@@ -238,7 +238,6 @@ public class Enemy : MonoBehaviour
             {
                 Vector2 dirToNextNode = m_Path[0].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
                 dirToNextNode.Normalize(); // Normalize direction
-                Debug.DrawLine(this.transform.position, m_Path[0].WorldPosition, Color.cyan, 5);
                 transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node
             }
             return true;

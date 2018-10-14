@@ -203,7 +203,7 @@ public class Ability : MonoBehaviour
                 }
                 m_aEnemies[i].GetComponent<Enemy>().m_bTaunted = false; // Sets all enemies to be untaunted
             }
-            m_gTaunt.SetActive(false); // Taunt to false
+            //m_gTaunt.SetActive(false); // Taunt to false
         }
         if (m_bIsAbility) // Is ability in use
         {
@@ -286,7 +286,6 @@ public class Ability : MonoBehaviour
     {
         if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsAbility && m_bAbility)
         {
-            m_bIsAbility = true; // Ability in use to true
             m_bAbility = false; // Ability available to false
             for (int i = 0; i < m_aEnemies.Length; i++) // For all enemies
             {

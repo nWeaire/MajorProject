@@ -50,7 +50,6 @@ public class aStarGrid : MonoBehaviour
                 }
             }
         }
-        Debug.Log("Created");
     }
 
     //Function that gets the neighboring nodes of the given node.

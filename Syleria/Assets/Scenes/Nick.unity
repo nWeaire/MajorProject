@@ -226,6 +226,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114654597185385810, guid: faa19a4a810337c448950edb79e7fbc6,
+        type: 2}
+      propertyPath: m_agRooms.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4214231182426990, guid: faa19a4a810337c448950edb79e7fbc6, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -267,7 +272,7 @@ Prefab:
         type: 2}
       propertyPath: m_gBossRoom
       value: 
-      objectReference: {fileID: 1972281127177420, guid: 4c67e0ebdcf73f145b8d7f7623ed8af9,
+      objectReference: {fileID: 1193470686912068, guid: 10d8034d9a3be2c48b24e3e5f1ee1f30,
         type: 2}
     - target: {fileID: 114654597185385810, guid: faa19a4a810337c448950edb79e7fbc6,
         type: 2}
@@ -288,13 +293,55 @@ Prefab:
         type: 2}
       propertyPath: m_gItemRoom
       value: 
-      objectReference: {fileID: 1972281127177420, guid: 4c67e0ebdcf73f145b8d7f7623ed8af9,
+      objectReference: {fileID: 1193470686912068, guid: 10d8034d9a3be2c48b24e3e5f1ee1f30,
         type: 2}
     - target: {fileID: 114654597185385810, guid: faa19a4a810337c448950edb79e7fbc6,
         type: 2}
       propertyPath: m_nFloorNum
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114654597185385810, guid: faa19a4a810337c448950edb79e7fbc6,
+        type: 2}
+      propertyPath: m_gStartRoom
+      value: 
+      objectReference: {fileID: 1113244868998602, guid: a17c74dd64cbc3249aaa22b7300bf363,
+        type: 2}
+    - target: {fileID: 114654597185385810, guid: faa19a4a810337c448950edb79e7fbc6,
+        type: 2}
+      propertyPath: m_agRooms.Array.data[6]
+      value: 
+      objectReference: {fileID: 1931236387099560, guid: 0f4ba475527ad0342a6547e4396d7fc4,
+        type: 2}
+    - target: {fileID: 114654597185385810, guid: faa19a4a810337c448950edb79e7fbc6,
+        type: 2}
+      propertyPath: m_agRooms.Array.data[7]
+      value: 
+      objectReference: {fileID: 1931236387099560, guid: 0f4ba475527ad0342a6547e4396d7fc4,
+        type: 2}
+    - target: {fileID: 114654597185385810, guid: faa19a4a810337c448950edb79e7fbc6,
+        type: 2}
+      propertyPath: m_agRooms.Array.data[8]
+      value: 
+      objectReference: {fileID: 1193470686912068, guid: 10d8034d9a3be2c48b24e3e5f1ee1f30,
+        type: 2}
+    - target: {fileID: 114654597185385810, guid: faa19a4a810337c448950edb79e7fbc6,
+        type: 2}
+      propertyPath: m_agRooms.Array.data[9]
+      value: 
+      objectReference: {fileID: 1193470686912068, guid: 10d8034d9a3be2c48b24e3e5f1ee1f30,
+        type: 2}
+    - target: {fileID: 114654597185385810, guid: faa19a4a810337c448950edb79e7fbc6,
+        type: 2}
+      propertyPath: m_agRooms.Array.data[0]
+      value: 
+      objectReference: {fileID: 1691086696968718, guid: d0f69b4d62fad6e49a1809c103d0c29f,
+        type: 2}
+    - target: {fileID: 114654597185385810, guid: faa19a4a810337c448950edb79e7fbc6,
+        type: 2}
+      propertyPath: m_agRooms.Array.data[1]
+      value: 
+      objectReference: {fileID: 1691086696968718, guid: d0f69b4d62fad6e49a1809c103d0c29f,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: faa19a4a810337c448950edb79e7fbc6, type: 2}
   m_IsPrefabParent: 0
@@ -1907,7 +1954,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2119967784
 GameObject:

@@ -101,9 +101,7 @@ public class Companion : MonoBehaviour
                         {
                             bool temp = AStar((Vector2)m_gTarget.transform.position);
                             if(temp == false)
-                            {
-                                Debug.Log("chasing");
-                                Debug.DrawLine((Vector2)this.transform.position - new Vector2(0, -0.2f), (Vector2)m_gTarget.transform.position, Color.red, 2);
+                            {                             
                                 Follow((Vector2)m_gTarget.transform.position);
                             }
                         }
@@ -172,7 +170,6 @@ public class Companion : MonoBehaviour
             {
                 Vector2 dirToNextNode = m_Path[0].WorldPosition - (Vector2)this.transform.position; // Sets direction to next node in list
                 dirToNextNode.Normalize(); // Normalize direction
-                Debug.DrawLine(this.transform.position, m_Path[0].WorldPosition, Color.cyan, 5);
                 transform.Translate(dirToNextNode * m_fAStarSpeed * Time.deltaTime); // translate to next node
             }
             return true;
