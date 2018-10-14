@@ -66,6 +66,7 @@
      <Compile Include="Assets\Scripts\Bullet\EnemyBullet.cs" />
      <Compile Include="Assets\Scripts\Camera\Cam.cs" />
      <Compile Include="Assets\Scripts\Companion\Companion.cs" />
+     <Compile Include="Assets\Scripts\Companion\Slash.cs" />
      <Compile Include="Assets\Scripts\Companion\Taunt.cs" />
      <Compile Include="Assets\Scripts\Enemy\Boss.cs" />
      <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
@@ -75,6 +76,7 @@
      <Compile Include="Assets\Scripts\Enemy\Slime.cs" />
      <Compile Include="Assets\Scripts\Enemy\SwordMage.cs" />
      <Compile Include="Assets\Scripts\Game Manager\GM.cs" />
+     <Compile Include="Assets\Scripts\Game Manager\SceneTransition.cs" />
      <Compile Include="Assets\Scripts\Items\ProjectileItem.cs" />
      <Compile Include="Assets\Scripts\Items\StatItem.cs" />
      <Compile Include="Assets\Scripts\Player\Ability.cs" />
