@@ -13,10 +13,10 @@ using UnityEngine;
 public class SpawnPoints : MonoBehaviour {
 
     public GameObject[] m_aEnemies; // Enemies to spawn
-    public int m_nWaveNumber = 0; // Number of waves
-    public int m_nCurrentWave = 0; // Current wave
-    public bool m_bDone; // Checks if done
-    GameObject m_gEnemy; // Current enemy
+    private int m_nWaveNumber = 0; // Number of waves
+    [HideInInspector] public int m_nCurrentWave = 0; // Current wave
+    [HideInInspector] public bool m_bDone; // Checks if done
+    private GameObject m_gEnemy; // Current enemy
     private void Awake()
     {
         m_nWaveNumber = m_aEnemies.Length; // Wave number set to number of enemies in array
@@ -35,9 +35,6 @@ public class SpawnPoints : MonoBehaviour {
         if(m_nCurrentWave >= m_nWaveNumber) // If current wave is above wave number
         { 
             m_bDone = true; // Sets to done
-        }
-        
-
+        }       
     }
-
 }
