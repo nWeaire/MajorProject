@@ -3726,7 +3726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Door:
-  - {fileID: 1021467646595834}
+  - {fileID: 1428421431841130}
   m_aSpawnPoints:
   - {fileID: 1930601118271438}
   - {fileID: 1243799398029036}
