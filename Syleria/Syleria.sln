@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syleria", "Syleria.csproj", "{7A0D547A-EB02-A4F5-F20B-65E8A2325693}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syleria.Editor", "Syleria.Editor.csproj", "{FCE3E6C5-E79C-97C5-6B2D-033FA728B760}"

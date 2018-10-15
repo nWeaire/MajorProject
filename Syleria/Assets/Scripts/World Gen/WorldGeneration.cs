@@ -127,8 +127,8 @@ public class WorldGeneration : MonoBehaviour
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomCorridor[m_nFloorNum].SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topDoor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomDoor[m_nFloorNum].SetActive(true);
 
                     m_nRoomsSpawned += 1; // Rooms spawned + 1
                 }
@@ -139,8 +139,8 @@ public class WorldGeneration : MonoBehaviour
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomCorridor[m_nFloorNum].SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topDoor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomDoor[m_nFloorNum].SetActive(true);
                 }
                 else
                 {
@@ -160,8 +160,8 @@ public class WorldGeneration : MonoBehaviour
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topCorridor[m_nFloorNum].SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomDoor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topDoor[m_nFloorNum].SetActive(true);
                     m_nRoomsSpawned += 1;
                 }
                 else if (m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isSpawn) // If current index is spawn room
@@ -171,8 +171,8 @@ public class WorldGeneration : MonoBehaviour
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topCorridor[m_nFloorNum].SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1].room.GetComponent<Corridors>().bottomDoor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().topDoor[m_nFloorNum].SetActive(true);
                 }
                 else
                 {
@@ -192,8 +192,8 @@ public class WorldGeneration : MonoBehaviour
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightCorridor[m_nFloorNum].SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
-                    m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
+                    m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftDoor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightDoor[m_nFloorNum].SetActive(true);
                     m_nRoomsSpawned += 1;
                 }
                 else if (m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isSpawn) // If current index is spawn room
@@ -203,8 +203,8 @@ public class WorldGeneration : MonoBehaviour
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightCorridor[m_nFloorNum].SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
-                    m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
+                    m_aRoomArray[m_v2CurrentIndex.x + 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftDoor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightDoor[m_nFloorNum].SetActive(true);
                 }
                 else
                 {
@@ -224,8 +224,8 @@ public class WorldGeneration : MonoBehaviour
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftCorridor[m_nFloorNum].SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
-                    m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
+                    m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightDoor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftDoor[m_nFloorNum].SetActive(true);
                     m_nRoomsSpawned += 1;
                 }
                 else if (m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isSpawn) // If current index is spawn room
@@ -235,8 +235,8 @@ public class WorldGeneration : MonoBehaviour
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftCorridor[m_nFloorNum].SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
-                    m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
-                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
+                    m_aRoomArray[m_v2CurrentIndex.x - 1, m_v2CurrentIndex.y].room.GetComponent<Corridors>().rightDoor[m_nFloorNum].SetActive(true);
+                    m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().leftDoor[m_nFloorNum].SetActive(true);
                 }
                 else
                 {
@@ -298,8 +298,8 @@ public class WorldGeneration : MonoBehaviour
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightCorridor[m_nFloorNum].SetActive(true);
             m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
-            m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
+            m_aRoomArray[m_rBossRoom.indexX + 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftDoor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightDoor[m_nFloorNum].SetActive(true);
         }
         else if(!m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].isRoom) // If the index to the left of the boss room is free
         {
@@ -310,8 +310,8 @@ public class WorldGeneration : MonoBehaviour
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftCorridor[m_nFloorNum].SetActive(true);
             m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
-            m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
+            m_aRoomArray[m_rBossRoom.indexX - 1, m_rBossRoom.indexY].room.GetComponent<Corridors>().rightDoor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().leftDoor[m_nFloorNum].SetActive(true);
         }
         else if(!m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].isRoom) // If the index to the top of the boss room is free
         {
@@ -322,8 +322,8 @@ public class WorldGeneration : MonoBehaviour
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().topCorridor[m_nFloorNum].SetActive(true);
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].room.GetComponent<Corridors>().bottomDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().topWall[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY + 1].room.GetComponent<Corridors>().bottomDoor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(true);
         }
         else if(!m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].isRoom) // If the index to the bottom of the boss room is free
         {
@@ -334,8 +334,8 @@ public class WorldGeneration : MonoBehaviour
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().bottomCorridor[m_nFloorNum].SetActive(true);
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
             m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].room.GetComponent<Corridors>().topWall[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
-            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY - 1].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rBossRoom.indexX, m_rBossRoom.indexY].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(true);
         }
 
         if (!m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].isRoom) // If the index to the right of the item room is free
@@ -347,8 +347,8 @@ public class WorldGeneration : MonoBehaviour
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightCorridor[m_nFloorNum].SetActive(true);
             m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
-            m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
+            m_aRoomArray[m_rItemRoom.indexX + 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftDoor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightDoor[m_nFloorNum].SetActive(true);
 
         }
         else if (!m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].isRoom) // If the index to the left of the item room is free
@@ -360,8 +360,8 @@ public class WorldGeneration : MonoBehaviour
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftCorridor[m_nFloorNum].SetActive(true);
             m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightWall[m_nFloorNum].SetActive(false);
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftWall[m_nFloorNum].SetActive(false);
-            m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftDoor[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
+            m_aRoomArray[m_rItemRoom.indexX - 1, m_rItemRoom.indexY].room.GetComponent<Corridors>().rightDoor[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().leftDoor[m_nFloorNum].SetActive(true);
         }
         else if (!m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].isRoom) // If the index to the top of the item room is free
         {
@@ -372,8 +372,8 @@ public class WorldGeneration : MonoBehaviour
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().topCorridor[m_nFloorNum].SetActive(true);
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().topWall[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY + 1].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(true);
         }
         // Spawns item room and handles logic for corridors and walls
         else if (!m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].isRoom) // If the index to the bottom of the item room is free
@@ -384,8 +384,8 @@ public class WorldGeneration : MonoBehaviour
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().bottomCorridor[m_nFloorNum].SetActive(true);
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
             m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(false);
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].room.GetComponent<Corridors>().topWall[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
-            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].GetComponent<Door>().m_bIsUsed = true;
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY - 1].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(true);
+            m_aRoomArray[m_rItemRoom.indexX, m_rItemRoom.indexY].room.GetComponent<Corridors>().bottomWall[m_nFloorNum].SetActive(true);
         }
         m_nRoomsSpawned += 4; // Updates number of rooms
     }
