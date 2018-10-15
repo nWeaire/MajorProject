@@ -185,7 +185,6 @@ MonoBehaviour:
   m_fMinOffSet: 8
   m_nDam: 0
   m_fSpeed: 0
-  m_fActiTimer: 0.35
 --- !u!212 &212508175955866226
 SpriteRenderer:
   m_ObjectHideFlags: 1

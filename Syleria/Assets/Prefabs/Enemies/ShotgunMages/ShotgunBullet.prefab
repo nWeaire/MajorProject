@@ -89,6 +89,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f73a80eea986c4aa617b2450989a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_DestroyLayer:
+    serializedVersion: 2
+    m_Bits: 0
   m_fRange: 15
   m_fSinMag: 4
   m_fSinFreq: 20
@@ -97,6 +100,7 @@ MonoBehaviour:
   m_fMinOffSet: 0
   m_nDam: 0
   m_fSpeed: 0
+  m_fActiTimer: 0
 --- !u!212 &212508175955866226
 SpriteRenderer:
   m_ObjectHideFlags: 1

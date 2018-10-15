@@ -48,7 +48,7 @@ public class Slash : MonoBehaviour
             m_bSpawnedSlash = true;
         }
         gSlash.transform.RotateAround(m_gPlayer.transform.position, new Vector3(0, 0, -1), m_fSlashSpeed * Time.deltaTime);
-        Vector3 desiredPosition = (gSlash.transform.position - m_gPlayer.transform.position).normalized * 2 + m_gPlayer.transform.position;
+        Vector3 desiredPosition = (gSlash.transform.position - m_gPlayer.transform.position).normalized * 4 + m_gPlayer.transform.position;
         gSlash.transform.position = Vector3.MoveTowards(gSlash.transform.position, desiredPosition, Time.deltaTime * m_fSlashSpeed);
         m_fSlashTimer += Time.deltaTime; // Updates timer 
         m_fSlashTimer = m_fSlashTimer % 60;

@@ -30,6 +30,13 @@ public class Aim : MonoBehaviour
     private Vector3 m_v3Aim; // Aiming for shooting
     #endregion
 
+    #region Animation Variables
+    public Animator m_AAnim;
+    public float m_fShootAnimTime = 0.1f; // Time which sprite is visable
+    private float m_fTimer = 0; // Timer
+    private bool m_bShooting = false;
+    #endregion
+
     // Use this for initialization
     void Start ()
     { 
@@ -46,6 +53,18 @@ public class Aim : MonoBehaviour
             m_fFireRate = 60.0f / (m_gPlayer.GetComponent<Player>().GetFireRate() * 60.0f); // Updates fire Rate
             Rotate(); // Rotates the retical
             Shoot(); // Shoots based on the retical aim
+
+            if(m_bShooting)
+            {
+                m_fTimer += Time.deltaTime; // Updates timer 
+                m_fTimer = m_fTimer % 60;
+                if (m_fTimer >= m_fShootAnimTime) // If timer > sprite length
+                {
+                    m_AAnim.SetBool("isAttacking", false);
+                    m_bShooting = false;
+                    m_fTimer = 0.0f;
+                }
+            }
         }
     }
 
@@ -76,6 +95,7 @@ public class Aim : MonoBehaviour
 
             if (m_fTimeBetweenShots >= m_fFireRate) // If firing is possible
             {
+                m_AAnim.SetBool("isAttacking", true);
                 SetAnimation();
                 if(m_gPlayer.GetComponent<Player>().m_bTri)
                 {
@@ -91,6 +111,7 @@ public class Aim : MonoBehaviour
                     GameObject newBullet = Instantiate(m_gBullet, this.transform.position, Quaternion.Euler(0, 0, -m_fAngle)) as GameObject; // Instantiate bullet
                     newBullet.GetComponent<Bullet>().m_fSpeed = m_fBulletSpeed; // Set bullet speed
                 }
+                m_bShooting = true;
                 m_fTimeBetweenShots = 0; // Sets time between shots to 0
             }
         }
@@ -101,28 +122,31 @@ public class Aim : MonoBehaviour
     //--------------------------------------------------------------------------------------
     void SetAnimation()
     {
-
-        if (transform.forward.x > 0.0f && transform.forward.y > 0.0f)
-        {
-            //Animate North-West
-            //Debug.Log("NW");
-        }
-        else if (transform.forward.x > 0.0f && transform.forward.y < 0.0f)
-        {
-            //Animate South-West
-            //Debug.Log("SW");
-
-        }
-        else if (transform.forward.x < 0.0f && transform.forward.y < 0.0f)
+        if (m_fAngle >= 0.0f && m_fAngle < 90.0f)
         {
             //Animate North-East
-            //Debug.Log("NE");
+            m_AAnim.SetInteger("AttackingDirection", 0);
+            Debug.Log("NE");
+        }
+        else if (m_fAngle >= 90.0f && m_fAngle < 180.0f)
+        {
+            //Animate South-East
+            m_AAnim.SetInteger("AttackingDirection", 1);
+            Debug.Log("SE");
 
         }
-        else if (transform.forward.x < 0.0f && transform.forward.y > 0.0f)
+        else if (m_fAngle < 0.0f && m_fAngle <= -90.0f)
         {
-            //Animate South-East.
-            //Debug.Log("SE");
+            //Animate South-West
+            m_AAnim.SetInteger("AttackingDirection", 2);
+            Debug.Log("SW");
+
+        }
+        else if (m_fAngle < 0.0f && m_fAngle > -90.0f)
+        {
+            //Animate North-West
+            m_AAnim.SetInteger("AttackingDirection", 3);
+            Debug.Log("NW");
 
         }
 
