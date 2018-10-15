@@ -28,6 +28,7 @@ public class SceneTransition : MonoBehaviour {
             {
                 Destroy(rooms[i]);
             }
+            m_gWorldGeneration.GetComponent<WorldGeneration>().m_nFloorNum += 1;
             m_gWorldGeneration.GetComponent<WorldGeneration>().CreateWorld();
             Destroy(this.gameObject);
         }

@@ -12,8 +12,12 @@ using UnityEngine;
 
 public class EnterRoom : MonoBehaviour
 {
-    public GameObject[] m_Door; // List of doors to turn on
+    private GameObject[] m_atDoors; // List of doors to turn on
+    private GameObject[] m_abDoors;
+    private GameObject[] m_alDoors;
+    private GameObject[] m_arDoors;
     public GameObject[] m_aSpawnPoints; // List of spawn points to interact with
+    private GameObject[] m_aRooms;
     public bool m_bRoomActive = false; // If the room is active
     public bool m_bSpawned = false; // If the room was spawned
     private GameObject[] m_enemy; // List of enemies to check
@@ -26,12 +30,28 @@ public class EnterRoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        m_atDoors = this.GetComponentInParent<Corridors>().topDoor;
+        m_abDoors = this.GetComponentInParent<Corridors>().bottomDoor;
+        m_alDoors = this.GetComponentInParent<Corridors>().leftDoor;
+        m_arDoors = this.GetComponentInParent<Corridors>().rightDoor;
         m_enemy = GameObject.FindGameObjectsWithTag("Enemy"); // Finds all enemies in scene
         if (m_bRoomActive) // If room is active
         {
-            for (int i = 0; i < m_Door.Length; i++) // Loops through list of doors
+            for (int i = 0; i < m_atDoors.Length; i++) // Loops through list of doors
             {
-                m_Door[i].SetActive(true); // Sets doors to active
+                m_atDoors[i].SetActive(true); // Sets doors to active
+            }
+            for (int i = 0; i < m_abDoors.Length; i++) // Loops through list of doors
+            {
+                m_abDoors[i].SetActive(true); // Sets doors to active
+            }
+            for (int i = 0; i < m_alDoors.Length; i++) // Loops through list of doors
+            {
+                m_alDoors[i].SetActive(true); // Sets doors to active
+            }
+            for (int i = 0; i < m_arDoors.Length; i++) // Loops through list of doors
+            {
+                m_arDoors[i].SetActive(true); // Sets doors to active
             }
             for (int i = 0; i < m_aSpawnPoints.Length; i++) // Loops through spawn points
             {
@@ -42,9 +62,21 @@ public class EnterRoom : MonoBehaviour
         {
             if (m_aSpawnPoints[i].GetComponent<SpawnPoints>().m_bDone == true && m_enemy.Length <= 0) // Checks if rooms are done and there are no enemies
             {
-                for (int j = 0; j < m_Door.Length; j++) // Loops through doors
+                for (int j = 0; j < m_atDoors.Length; j++) // Loops through list of doors
                 {
-                    m_Door[j].SetActive(false); // Turns doors off
+                    m_atDoors[j].SetActive(false); // Sets doors to active
+                }
+                for (int j = 0; j < m_abDoors.Length; j++) // Loops through list of doors
+                {
+                    m_abDoors[j].SetActive(false); // Sets doors to active
+                }
+                for (int j = 0; j < m_alDoors.Length; j++) // Loops through list of doors
+                {
+                    m_alDoors[j].SetActive(false); // Sets doors to active
+                }
+                for (int j = 0; j < m_arDoors.Length; j++) // Loops through list of doors
+                {
+                    m_arDoors[j].SetActive(false); // Sets doors to active
                 }
                 Destroy(this.gameObject); // Deletes this game object
             }

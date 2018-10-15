@@ -35,7 +35,7 @@ public class WorldGeneration : MonoBehaviour
     private Room m_rBossRoom = null; // Reference to boss room
     private Room m_rItemRoom = null; // Reference to item room
 
-    [SerializeField] private int m_nFloorNum = 0; // Current floor 
+    [SerializeField] public int m_nFloorNum = 0; // Current floor 
 
 
     // Use this for initialization
@@ -116,12 +116,15 @@ public class WorldGeneration : MonoBehaviour
                 m_v2CurrentIndex = new Vector2Int(m_v2CurrentIndex.x, m_v2CurrentIndex.y + 1); // Sets current index to 1 above the current index
                 if (m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isRoom != true) // If current index isn't a room
                 {
+
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isRoom = true; // Sets to room
                     // Instantiate random room from list of rooms
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room = Instantiate(m_agRooms[Random.Range(0, m_agRooms.Length)], m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].worldPosition, new Quaternion(), this.transform);
                     // Turn on rooms layer based on floor number
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().Layers[m_nFloorNum].SetActive(true);
                     // Sets corridors and doors active states
+                    Destroy(m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topDoor[m_nFloorNum]);
+                    Destroy(m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomDoor[m_nFloorNum]);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topCorridor[m_nFloorNum].SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomCorridor[m_nFloorNum].SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
@@ -131,6 +134,8 @@ public class WorldGeneration : MonoBehaviour
                 else if (m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].isSpawn) // If current index is spawn room
                 {
                     // Set active states of corridors and doors
+                    Destroy(m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topDoor[m_nFloorNum]);
+                    Destroy(m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomDoor[m_nFloorNum]);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topCorridor[m_nFloorNum].SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y].room.GetComponent<Corridors>().bottomCorridor[m_nFloorNum].SetActive(true);
                     m_aRoomArray[m_v2CurrentIndex.x, m_v2CurrentIndex.y - 1].room.GetComponent<Corridors>().topWall[m_nFloorNum].SetActive(false);
