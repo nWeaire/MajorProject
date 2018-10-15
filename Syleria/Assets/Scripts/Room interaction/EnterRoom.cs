@@ -30,6 +30,7 @@ public class EnterRoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        int floorNum = this.GetComponentInParent<WorldGeneration>().m_nFloorNum;
         m_atDoors = this.GetComponentInParent<Corridors>().topDoor;
         m_abDoors = this.GetComponentInParent<Corridors>().bottomDoor;
         m_alDoors = this.GetComponentInParent<Corridors>().leftDoor;
@@ -37,22 +38,27 @@ public class EnterRoom : MonoBehaviour
         m_enemy = GameObject.FindGameObjectsWithTag("Enemy"); // Finds all enemies in scene
         if (m_bRoomActive) // If room is active
         {
-            for (int i = 0; i < m_atDoors.Length; i++) // Loops through list of doors
+
+            if (m_atDoors[floorNum].GetComponent<Door>().m_bIsUsed)
             {
-                m_atDoors[i].SetActive(true); // Sets doors to active
+                m_atDoors[floorNum].SetActive(true); // Sets doors to active
             }
-            for (int i = 0; i < m_abDoors.Length; i++) // Loops through list of doors
+
+
+            if (m_abDoors[floorNum].GetComponent<Door>().m_bIsUsed)
             {
-                m_abDoors[i].SetActive(true); // Sets doors to active
+                m_abDoors[floorNum].SetActive(true); // Sets doors to active
             }
-            for (int i = 0; i < m_alDoors.Length; i++) // Loops through list of doors
+
+            if (m_alDoors[floorNum].GetComponent<Door>().m_bIsUsed)
             {
-                m_alDoors[i].SetActive(true); // Sets doors to active
+                m_alDoors[floorNum].SetActive(true); // Sets doors to active
             }
-            for (int i = 0; i < m_arDoors.Length; i++) // Loops through list of doors
+            if (m_arDoors[floorNum].GetComponent<Door>().m_bIsUsed)
             {
-                m_arDoors[i].SetActive(true); // Sets doors to active
+                m_arDoors[floorNum].SetActive(true); // Sets doors to active
             }
+
             for (int i = 0; i < m_aSpawnPoints.Length; i++) // Loops through spawn points
             {
                 m_aSpawnPoints[i].SetActive(true); // Sets spawn points to true
