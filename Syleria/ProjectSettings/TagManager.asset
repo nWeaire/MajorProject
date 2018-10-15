@@ -16,6 +16,9 @@ TagManager:
   - RightCorridor
   - TopCorridor
   - GM
+  - Bird
+  - Turtle
+  - Door
   layers:
   - Default
   - TransparentFX

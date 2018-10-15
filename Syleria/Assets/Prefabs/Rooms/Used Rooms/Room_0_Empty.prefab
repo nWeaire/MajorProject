@@ -355,7 +355,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1233991395677440
 GameObject:
   m_ObjectHideFlags: 1
@@ -375,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1244353867389458
 GameObject:
   m_ObjectHideFlags: 1
@@ -450,7 +450,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1280305289051172
 GameObject:
   m_ObjectHideFlags: 1
@@ -592,7 +592,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1398156701860068
 GameObject:
   m_ObjectHideFlags: 1
@@ -684,7 +684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1474290098577780
 GameObject:
   m_ObjectHideFlags: 1
@@ -734,7 +734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1502106760221454
 GameObject:
   m_ObjectHideFlags: 1
@@ -873,7 +873,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1690778175846358
 GameObject:
   m_ObjectHideFlags: 1
@@ -923,7 +923,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1716897195428978
 GameObject:
   m_ObjectHideFlags: 1
@@ -1037,7 +1037,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1826836130425018
 GameObject:
   m_ObjectHideFlags: 1
@@ -1091,7 +1091,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1918595251848036
 GameObject:
   m_ObjectHideFlags: 1
@@ -3853,6 +3853,9 @@ MonoBehaviour:
   rightWall:
   - {fileID: 1008275292596308}
   - {fileID: 1174339141774416}
+  Door:
+  - {fileID: 1706623100115132}
+  - {fileID: 1371035363949592}
   topDoor:
   - {fileID: 1470271545084938}
   - {fileID: 1132783724515618}
@@ -3880,8 +3883,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b1183e1f85c397468980f52770d4a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Door:
-  - {fileID: 0}
   m_aSpawnPoints: []
   m_bRoomActive: 0
   m_bSpawned: 0
@@ -3896,8 +3897,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b1183e1f85c397468980f52770d4a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Door:
-  - {fileID: 0}
   m_aSpawnPoints: []
   m_bRoomActive: 0
   m_bSpawned: 0

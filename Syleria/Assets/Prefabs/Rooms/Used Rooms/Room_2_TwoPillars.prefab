@@ -25,7 +25,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1036886732189902
 GameObject:
   m_ObjectHideFlags: 1
@@ -146,7 +146,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1123009502946342
 GameObject:
   m_ObjectHideFlags: 1
@@ -4207,6 +4207,9 @@ MonoBehaviour:
   rightWall:
   - {fileID: 1182506869219258}
   - {fileID: 1036886732189902}
+  Door:
+  - {fileID: 1102438951723056}
+  - {fileID: 1003053258079906}
   topDoor:
   - {fileID: 1423157929797772}
   - {fileID: 1616903892144264}
@@ -4266,8 +4269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b1183e1f85c397468980f52770d4a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Door:
-  - {fileID: 0}
   m_aSpawnPoints:
   - {fileID: 1088441541355020}
   - {fileID: 1658330762245222}
@@ -4319,8 +4320,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b1183e1f85c397468980f52770d4a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Door:
-  - {fileID: 0}
   m_aSpawnPoints:
   - {fileID: 1093298347833210}
   - {fileID: 1218271362843350}
