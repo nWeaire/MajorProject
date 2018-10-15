@@ -16,13 +16,14 @@ public class StatItem : MonoBehaviour {
 	// Use this for initialization
 	void Awake ()
     {
-        m_gPlayer = GameObject.FindGameObjectWithTag("Player");
+        //m_gPlayer = GameObject.FindGameObjectWithTag("Player");
 	}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Player")
         {
+            m_gPlayer = GameObject.FindGameObjectWithTag("Player");
             m_bPickUp = true;
         }
     }
@@ -30,6 +31,7 @@ public class StatItem : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
+            m_gPlayer = GameObject.FindGameObjectWithTag("Player");
             m_bPickUp = false;
         }
     }
@@ -64,7 +66,7 @@ public class StatItem : MonoBehaviour {
                         break;
                 }
             }
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

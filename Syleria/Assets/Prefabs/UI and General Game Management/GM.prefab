@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114640157414326988}
   m_Layer: 0
   m_Name: GM
-  m_TagString: Untagged
+  m_TagString: GM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,6 +53,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_gPlayer: {fileID: 0}
+  isPaused: 0
+  isGameOver: 0
+  m_gPauseMenu: {fileID: 0}
   m_EndGameUI: {fileID: 0}
   m_runTimeObjects: {fileID: 0}
 --- !u!114 &114640157414326988
@@ -67,9 +70,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_sHealthSlider: {fileID: 0}
-  m_nSliderMinimumValue: -27
+  m_nSliderMinimumValue: 0
   m_fSliderLerpAmount: 0.3
-  m_fColourLerpAmount: 0.04
+  m_fColourLerpAmount: 0.08
   m_cStandardColour: {r: 0, g: 1, b: 0, a: 1}
-  m_cFlashColour: {r: 0.39215687, g: 1, b: 0.39215687, a: 1}
+  m_cFlashColour: {r: 1, g: 1, b: 1, a: 1}
   m_cCurrentColour: {r: 1, g: 1, b: 1, a: 1}

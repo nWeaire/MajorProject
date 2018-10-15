@@ -44,7 +44,7 @@ public class ProjectileItem : MonoBehaviour {
                 default:
                     break;
             }
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
         }
     }
 
