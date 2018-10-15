@@ -196,12 +196,6 @@ public class Slime : Enemy
             m_goSmallSlime.GetComponent<Slime>().m_bSpawning = true;
             m_goSmallSlime.GetComponent<Slime>().m_gPlayer = m_gPlayer;
 
-            //for(int i = 0; i < m_nSmallSlimes; ++i)
-            //{
-
-            //    Instantiate(m_goSmallSlime, new Vector2(transform.position.x + i, transform.position.y), transform.rotation);
-
-            //}
             Instantiate(m_goSmallSlime, new Vector2(transform.position.x - m_goSmallSlime.GetComponent<CircleCollider2D>().radius, transform.position.y), transform.rotation);
             Instantiate(m_goSmallSlime, new Vector2(transform.position.x + m_goSmallSlime.GetComponent<CircleCollider2D>().radius, transform.position.y), transform.rotation);
             Instantiate(m_goSmallSlime, new Vector2(transform.position.x, transform.position.y - m_goSmallSlime.GetComponent<CircleCollider2D>().radius), transform.rotation);

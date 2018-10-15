@@ -92,6 +92,8 @@ public class Enemy : MonoBehaviour
     // Pointer to this enemy's target.
     private Vector2 m_gTarget;
 
+    private Vector2 m_v2PlayerOffset;
+
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
@@ -101,6 +103,7 @@ public class Enemy : MonoBehaviour
         m_nCurrentHealth = m_nHealth;
         m_bTaunted = false;
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
+        m_v2PlayerOffset = new Vector2(0, m_gPlayer.GetComponent<CapsuleCollider2D>().size.y);
         m_aStar = GameObject.FindGameObjectWithTag("A*").GetComponent<Pathing>();
         m_aStar = m_aStar.GetComponent<Pathing>(); // Gets pathing component
         m_Path = m_aStar.FindPath(this.transform.position, m_gPlayer.transform.position); // Finds starting path to player
@@ -114,7 +117,7 @@ public class Enemy : MonoBehaviour
     //--------------------------------------------------------------------------------------
     public void Update()
     {
-        if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position - new Vector2(0, m_gPlayer.GetComponent<CapsuleCollider2D>().size.y)) <= m_fIdleDistance)
+        if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position - m_v2PlayerOffset) <= m_fIdleDistance)
         {
             m_bSeenPlayer = true;
         }
@@ -143,7 +146,7 @@ public class Enemy : MonoBehaviour
         if (!m_bTaunted)
         {
 
-            if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position - new Vector2(0, 0.59f), m_WallLayer))
+            if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gPlayer.transform.position - m_v2PlayerOffset/*new Vector2(0, 0.59f)*/, m_WallLayer))
             {               
                 m_eState = State.CHASE;
             }

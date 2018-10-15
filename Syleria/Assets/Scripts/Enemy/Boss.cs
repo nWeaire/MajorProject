@@ -6,7 +6,7 @@
 //
 // Author: Callan Davies
 //--------------------------------------------------------------------------------------
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -319,3 +319,4 @@ public class Boss : Enemy
         // Player wins game! da da dunnn
     }
 }
+*/

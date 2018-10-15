@@ -37,8 +37,6 @@ public class EnemyBullet : MonoBehaviour
     [HideInInspector]
     public float m_fSpeed;
 
-    public float m_fActiTimer;
-
     // A reference to the player for damaging it.
     private GameObject m_gPlayer;
 
@@ -84,7 +82,7 @@ public class EnemyBullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // If the collision is on the 8th layer(Terrain).
-        if (collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Terrain"))
         {
             // Destroy this object.
             Destroy(this.gameObject);
