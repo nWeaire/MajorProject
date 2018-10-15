@@ -95,7 +95,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1040845448912006
 GameObject:
   m_ObjectHideFlags: 1
@@ -222,7 +222,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1178030165239258
 GameObject:
   m_ObjectHideFlags: 1
@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 66861268052329990}
   m_Layer: 8
   m_Name: 2DoorsUp
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 66185009014982976}
   m_Layer: 8
   m_Name: 1DoorsRight
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -533,7 +533,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1461681543746180
 GameObject:
   m_ObjectHideFlags: 1
@@ -572,7 +572,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1497934270473954
 GameObject:
   m_ObjectHideFlags: 1
@@ -622,7 +622,7 @@ GameObject:
   - component: {fileID: 66133232145911392}
   m_Layer: 8
   m_Name: 1DoorsLeft
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -642,7 +642,7 @@ GameObject:
   - component: {fileID: 66451235761377572}
   m_Layer: 8
   m_Name: 1DoorsUp
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -911,7 +911,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1672131582809844
 GameObject:
   m_ObjectHideFlags: 1
@@ -979,7 +979,7 @@ GameObject:
   - component: {fileID: 66886361777000024}
   m_Layer: 8
   m_Name: 2DoorsDown
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1098,7 +1098,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1826461139816492
 GameObject:
   m_ObjectHideFlags: 1
@@ -1129,7 +1129,7 @@ GameObject:
   - component: {fileID: 66216984754399656}
   m_Layer: 8
   m_Name: 1DoorsDown
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1164,7 +1164,7 @@ GameObject:
   - component: {fileID: 4473493829463560}
   - component: {fileID: 114886959000015718}
   m_Layer: 0
-  m_Name: NRoom_U
+  m_Name: Room_5_UShape
   m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1221,7 +1221,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1915478835740472
 GameObject:
   m_ObjectHideFlags: 1
@@ -1237,7 +1237,7 @@ GameObject:
   - component: {fileID: 66738235990831324}
   m_Layer: 8
   m_Name: 2DoorsRight
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1328,7 +1328,7 @@ GameObject:
   - component: {fileID: 66326835894665194}
   m_Layer: 8
   m_Name: 2DoorsLeft
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1352,7 +1352,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1995582475896242
 GameObject:
   m_ObjectHideFlags: 0
@@ -2031,7 +2031,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1923567563138192}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4635081879217934}
@@ -4416,22 +4416,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topCorridor:
   - {fileID: 1721346984979994}
+  - {fileID: 1009913646279118}
   bottomCorridor:
   - {fileID: 1785041904735032}
+  - {fileID: 1264624810368944}
   leftCorridor:
   - {fileID: 1060923159384616}
+  - {fileID: 1454096409840222}
   rightCorridor:
   - {fileID: 1749034466174220}
+  - {fileID: 1592775838960246}
   topWall:
   - {fileID: 1891631251373412}
+  - {fileID: 1817662456045838}
   bottomWall:
   - {fileID: 1665443457278984}
+  - {fileID: 1969343021183338}
   leftWall:
   - {fileID: 1459605573942908}
+  - {fileID: 1139692420350932}
   rightWall:
   - {fileID: 1036649775377192}
+  - {fileID: 1494312791316442}
+  topDoor:
+  - {fileID: 1537280251893992}
+  - {fileID: 1215666739399902}
+  bottomDoor:
+  - {fileID: 1840036728935256}
+  - {fileID: 1731153071500936}
+  leftDoor:
+  - {fileID: 1528984423448528}
+  - {fileID: 1966910327624776}
+  rightDoor:
+  - {fileID: 1456167882078584}
+  - {fileID: 1915478835740472}
   Layers:
   - {fileID: 1995582475896242}
+  - {fileID: 1568680303150398}
   isSpawn: 0
 --- !u!212 &212357248149463956
 SpriteRenderer:
