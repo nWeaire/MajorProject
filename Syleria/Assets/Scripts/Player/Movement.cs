@@ -59,15 +59,18 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_v2StickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // Gets the left stick input of controller
-        
-        m_fSpeed = m_gPlayer.GetComponent<Player>().GetMoveSpeed(); // Gets player movement speed
-        tempDir = dir; // Saves direction player is moving
-        Move(); // Calls move function to check for collision and move Player
-        Direction(); // Changes the direction character is facing
-        Dash(); // Player dash ability
+        if (GameObject.FindGameObjectWithTag("GM").GetComponent<GM>().isPaused == false)
+        {
+            m_v2StickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // Gets the left stick input of controller
 
-        UpdateModel(); // Update model to face correct direction
+            m_fSpeed = m_gPlayer.GetComponent<Player>().GetMoveSpeed(); // Gets player movement speed
+            tempDir = dir; // Saves direction player is moving
+            Move(); // Calls move function to check for collision and move Player
+            Direction(); // Changes the direction character is facing
+            Dash(); // Player dash ability
+
+            UpdateModel(); // Update model to face correct direction
+        }
     }
 
     //--------------------------------------------------------------------------------------

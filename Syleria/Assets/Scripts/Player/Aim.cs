@@ -41,9 +41,12 @@ public class Aim : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        m_fFireRate = 60.0f / (m_gPlayer.GetComponent<Player>().GetFireRate() * 60.0f); // Updates fire Rate
-        Rotate(); // Rotates the retical
-        Shoot(); // Shoots based on the retical aim
+        if(GameObject.FindGameObjectWithTag("GM").GetComponent<GM>().isPaused == false)
+        {
+            m_fFireRate = 60.0f / (m_gPlayer.GetComponent<Player>().GetFireRate() * 60.0f); // Updates fire Rate
+            Rotate(); // Rotates the retical
+            Shoot(); // Shoots based on the retical aim
+        }
     }
 
     //--------------------------------------------------------------------------------------

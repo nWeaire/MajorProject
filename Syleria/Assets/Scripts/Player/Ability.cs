@@ -68,27 +68,34 @@ public class Ability : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_aEnemies = GameObject.FindGameObjectsWithTag("Enemy"); // Finds all game objects with enemy tag
-        ChangeCompanion(); // Check which companion is selected
-        switch (m_eCompanionSelected) // Switch statement based on companion picked
+        if (GameObject.FindGameObjectWithTag("GM").GetComponent<GM>().isPaused == false)
         {
-            case CompanionSelected.FOX:
-                if (m_gPlayer.GetComponent<Player>().m_bWhirlwind)
-                {
-                    Whirlwind();
-                }
-                else
-                {
-                    Slash(); // Check if slashing
-                }
-                break;
-            case CompanionSelected.TURTLE:
-                Taunt(); // Check if taunting
-                break;
-            //case CompanionSelected.BIRD:          
-            //    break;
-            default:
-                break;
+            m_aEnemies = GameObject.FindGameObjectsWithTag("Enemy"); // Finds all game objects with enemy tag
+            if (m_aEnemies.Length == 0)
+            {
+                m_aEnemies = null;
+            }
+            ChangeCompanion(); // Check which companion is selected
+            switch (m_eCompanionSelected) // Switch statement based on companion picked
+            {
+                case CompanionSelected.FOX:
+                    if (m_gPlayer.GetComponent<Player>().m_bWhirlwind)
+                    {
+                        Whirlwind();
+                    }
+                    else
+                    {
+                        Slash(); // Check if slashing
+                    }
+                    break;
+                case CompanionSelected.TURTLE:
+                    Taunt(); // Check if taunting
+                    break;
+                //case CompanionSelected.BIRD:          
+                //    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -142,7 +149,6 @@ public class Ability : MonoBehaviour
         }
         if (m_bIsAbility) // If Slashing
         {
-
             m_fSlashDurationTimer += Time.deltaTime; // slash duration timer increased
             Vector2 aimDirection = m_Aim.transform.up; // Sets aim direction
             aimDirection.Normalize(); // Normalize aim direction
@@ -195,13 +201,16 @@ public class Ability : MonoBehaviour
             m_bIsAbility = false; // Ability not in use
             m_bIsTaunting = false; // Is taunt is false
             m_fTauntDurationTimer = 0; // Taunt duration time set to 0
-            for (int i = 0; i < m_aEnemies.Length; i++) // For every enemy
+            if (m_aEnemies != null)
             {
-                if (m_gPlayer.GetComponent<Player>().m_bAfterShock) // If aftershock is active
+                for (int i = 0; i < m_aEnemies.Length; i++) // For every enemy
                 {
-                    m_aEnemies[i].GetComponent<Enemy>().TakeDamage(m_nAfterShockDamage); // Deals damage to enemies
+                    if (m_gPlayer.GetComponent<Player>().m_bAfterShock) // If aftershock is active
+                    {
+                        m_aEnemies[i].GetComponent<Enemy>().TakeDamage(m_nAfterShockDamage); // Deals damage to enemies
+                    }
+                    m_aEnemies[i].GetComponent<Enemy>().m_bTaunted = false; // Sets all enemies to be untaunted
                 }
-                m_aEnemies[i].GetComponent<Enemy>().m_bTaunted = false; // Sets all enemies to be untaunted
             }
             //m_gTaunt.SetActive(false); // Taunt to false
         }
@@ -245,11 +254,14 @@ public class Ability : MonoBehaviour
             {
                 m_bIsTaunting = true; // Taunting set to true
                 m_gTaunt.SetActive(true); // Taunt sprite set to true
-                for (int i = 0; i < m_aEnemies.Length; i++) // For all enemies
+                if (m_aEnemies != null)
                 {
-                    if (Vector2.Distance(m_aEnemies[i].transform.position, m_gTurtle.transform.position) <= m_fTauntRadius) // Checks if enemies are within taunt radius
+                    for (int i = 0; i < m_aEnemies.Length; i++) // For all enemies
                     {
-                        m_aEnemies[i].GetComponent<Enemy>().m_bTaunted = true; // Sets enemies state to taunted
+                        if (Vector2.Distance(m_aEnemies[i].transform.position, m_gTurtle.transform.position) <= m_fTauntRadius) // Checks if enemies are within taunt radius
+                        {
+                            m_aEnemies[i].GetComponent<Enemy>().m_bTaunted = true; // Sets enemies state to taunted
+                        }
                     }
                 }
             }

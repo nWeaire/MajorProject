@@ -13,7 +13,8 @@ public class GM : MonoBehaviour {
 
     [SerializeField] private GameObject m_gPlayer;
     private Player m_Player;
-
+    public bool isPaused = false;
+    public bool isGameOver = false;
     public GameObject m_gPauseMenu;
     public GameObject m_EndGameUI;
     public GameObject m_runTimeObjects;
@@ -37,14 +38,31 @@ public class GM : MonoBehaviour {
         }
         if(Input.GetButtonDown("Start"))
         {
-            Pause();
+            if(isPaused && isGameOver == false)
+            {
+                Unpause();
+            }
+            else
+            {
+                Pause();
+            }
         }
     }
 
     public void Pause()
     {
+        //m_runTimeObjects.SetActive(false);
         m_EndGameUI.SetActive(true);
         Time.timeScale = 0;
+        isPaused = true;
+    }
+
+    public void Unpause()
+    {
+        //m_runTimeObjects.SetActive(true);
+        m_EndGameUI.SetActive(false);
+        Time.timeScale = 1;
+        isPaused = false;
     }
 
     public IEnumerator EndGame()
@@ -53,6 +71,8 @@ public class GM : MonoBehaviour {
         {
             m_EndGameUI.SetActive(true);
             Time.timeScale = 0;
+            isPaused = true;
+            isGameOver = true;
         }
         yield return new WaitForSeconds(.3f);
     }

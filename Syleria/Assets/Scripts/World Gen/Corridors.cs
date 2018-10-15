@@ -22,6 +22,11 @@ public class Corridors : MonoBehaviour
     public GameObject[] leftWall; // Reference to left wall
     public GameObject[] rightWall; // Reference to right wall
 
+    public GameObject[] topDoor;
+    public GameObject[] bottomDoor;
+    public GameObject[] leftDoor;
+    public GameObject[] rightDoor;
+
     public GameObject[] Layers;
     
     public bool isSpawn; // if spawn room

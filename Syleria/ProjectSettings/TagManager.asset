@@ -8,20 +8,14 @@ TagManager:
   - Enemy
   - Walkable
   - A*
-  - LeftCorridor
-  - BottomCorridor
-  - RightCorridor
-  - TopCorridor
   - Room
-  - Fox
-  - Turtle
-  - Bird
   - Companion
   - Room
   - LeftCorridor
   - BottomCorridor
   - RightCorridor
   - TopCorridor
+  - GM
   layers:
   - Default
   - TransparentFX

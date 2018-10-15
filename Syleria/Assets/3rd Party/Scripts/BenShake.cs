@@ -9,8 +9,7 @@ public class BenShake : MonoBehaviour {
     public void Shake(float duration, float amount)
     {
         this.StopAllCoroutines();
-
-        this.StartCoroutine(cShake(duration, amount));
+        this.StartCoroutine(cShake(duration, amount));    
     }
 
     public IEnumerator cShake(float duration, float amount)

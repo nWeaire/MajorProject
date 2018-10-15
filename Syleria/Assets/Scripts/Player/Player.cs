@@ -76,7 +76,10 @@ public class Player : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        Clamp(); // Clamp all stats to there maximum or minimum
+        if (GameObject.FindGameObjectWithTag("GM").GetComponent<GM>().isPaused == false)
+        {
+            Clamp(); // Clamp all stats to there maximum or minimum
+        }
     }
 
     //----------------------------------------------------------------------------------
