@@ -195,11 +195,26 @@ public class Slime : Enemy
             // Spawn Slimes (temp) replace with array spawning x amount of smallSlime .
             m_goSmallSlime.GetComponent<Slime>().m_bSpawning = true;
             m_goSmallSlime.GetComponent<Slime>().m_gPlayer = m_gPlayer;
-
-            Instantiate(m_goSmallSlime, new Vector2(transform.position.x - m_goSmallSlime.GetComponent<CircleCollider2D>().radius, transform.position.y), transform.rotation);
-            Instantiate(m_goSmallSlime, new Vector2(transform.position.x + m_goSmallSlime.GetComponent<CircleCollider2D>().radius, transform.position.y), transform.rotation);
-            Instantiate(m_goSmallSlime, new Vector2(transform.position.x, transform.position.y - m_goSmallSlime.GetComponent<CircleCollider2D>().radius), transform.rotation);
-            Instantiate(m_goSmallSlime, new Vector2(transform.position.x, transform.position.y + m_goSmallSlime.GetComponent<CircleCollider2D>().radius), transform.rotation);
+            for(int i = 0; i < m_nSmallSlimes; ++i)
+            {
+                if (i == 0)
+                {
+                    Instantiate(m_goSmallSlime, new Vector2(transform.position.x - m_goSmallSlime.GetComponent<CircleCollider2D>().radius, transform.position.y), transform.rotation);
+                }
+                else if (i == 1)
+                {
+                    Instantiate(m_goSmallSlime, new Vector2(transform.position.x + m_goSmallSlime.GetComponent<CircleCollider2D>().radius, transform.position.y), transform.rotation);
+                }
+                else if (i == 2)
+                {
+                    Instantiate(m_goSmallSlime, new Vector2(transform.position.x, transform.position.y - m_goSmallSlime.GetComponent<CircleCollider2D>().radius), transform.rotation);
+                }
+                else if (i == 3)
+                {
+                    Instantiate(m_goSmallSlime, new Vector2(transform.position.x, transform.position.y + m_goSmallSlime.GetComponent<CircleCollider2D>().radius), transform.rotation);
+                }
+            }
+           
             // Destroy this object.
             Destroy(gameObject);
         }
