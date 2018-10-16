@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class StatItem : MonoBehaviour {
 
-    enum Stat{ATTACK_DAMAGE, ATTACK_RANGE, ATTACK_FIRERATE, MOVE_SPEED, HEALTH_CURRENT, HEALTH_MAX }
+    enum Stat{ATTACK_DAMAGE, ATTACK_RANGE, ATTACK_FIRERATE, MOVE_SPEED, HEALTH_CURRENT, HEALTH_MAX, SHOT_PIERCE, SHOT_TRI, SHOT_SPLIT, SHOT_EXPAND, SHOT_BOUNCE }
     [SerializeField] private Stat[] m_eStatToChange;
     private GameObject m_gPlayer;
     public int[] m_nStatChange;
@@ -61,6 +61,21 @@ public class StatItem : MonoBehaviour {
                         break;
                     case Stat.HEALTH_MAX:
                         m_gPlayer.GetComponent<Player>().AddMaxHealth(m_nStatChange[i]);
+                        break;
+                    case Stat.SHOT_PIERCE:
+                        m_gPlayer.GetComponent<Player>().Pierce(true);
+                        break;
+                    case Stat.SHOT_TRI:
+                        m_gPlayer.GetComponent<Player>().Tri(true);
+                        break;
+                    case Stat.SHOT_SPLIT:
+                        m_gPlayer.GetComponent<Player>().Split(true);
+                        break;
+                    case Stat.SHOT_EXPAND:
+                        m_gPlayer.GetComponent<Player>().Expand(true);
+                        break;
+                    case Stat.SHOT_BOUNCE:
+                        m_gPlayer.GetComponent<Player>().Bounce(true);
                         break;
                     default:
                         break;
