@@ -68,6 +68,8 @@ public class Slime : Enemy
 
     private bool m_bKnockBack;
 
+    private bool m_bCanKnockback;
+
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
@@ -180,7 +182,10 @@ public class Slime : Enemy
                 m_fKnockTimer = 0.0f;
             }
         }
-
+        if(m_bCannotMove && m_bCanKnockback)
+        {
+            m_bCanKnockback = false;
+        }
     }
 
     //--------------------------------------------------------------------------------------
@@ -258,19 +263,22 @@ public class Slime : Enemy
     //--------------------------------------------------------------------------------------
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Vector3 dir = transform.position - collision.transform.position;
-        dir.Normalize();
-        // If the Slime has collided with the Player,
-        if (collision.tag == "Player" && !m_bCannotMove)
+        if (!m_bCanKnockback)
         {
-            // Slime has been stunned.
-            m_bCannotMove = true;
-            // Damage the player.
-            m_gPlayer.GetComponent<Player>().AddCurrentHealth(-m_nDamage);
-
-            if (!m_bKnockBack)
+            Vector3 dir = transform.position - collision.transform.position;
+            dir.Normalize();
+            // If the Slime has collided with the Player,
+            if (collision.tag == "Player" && !m_bCannotMove)
             {
-                KnockPlayer(dir);
+                // Slime has been stunned.
+                m_bCannotMove = true;
+                // Damage the player.
+                m_gPlayer.GetComponent<Player>().AddCurrentHealth(-m_nDamage);
+
+                if (!m_bKnockBack)
+                {
+                    KnockPlayer(dir);
+                }
             }
         }
     }
