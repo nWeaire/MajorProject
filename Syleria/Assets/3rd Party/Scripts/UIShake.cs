@@ -7,6 +7,11 @@ public class UIShake : MonoBehaviour {
 
     private Vector3 _originalPos;
 
+    private void Start()
+    {
+        _originalPos = GetComponent<RectTransform>().localPosition;
+    }
+
     public void Shake(float duration, float amount)
     {
         this.StopAllCoroutines();
@@ -16,7 +21,7 @@ public class UIShake : MonoBehaviour {
 
     public IEnumerator cShake(float duration, float amount)
     {
-        _originalPos = GetComponent<RectTransform>().localPosition;
+        //_originalPos = GetComponent<RectTransform>().localPosition;
         float endTime = Time.time + duration;
 
         while (Time.time < endTime)

@@ -17,6 +17,7 @@ public class Health : MonoBehaviour
 {
 
     [SerializeField] private Slider m_sHealthSlider; // Reference to health slider
+    [SerializeField] private Text m_tHealthNumber; // Reference to health text
     private GameObject m_gPlayer; // Reference to player object
     public int m_nSliderMinimumValue; //Value to set minimum slider value to
 
@@ -29,16 +30,23 @@ public class Health : MonoBehaviour
     public Color m_cFlashColour = Color.white;
     public Color m_cCurrentColour = Color.white;
 
+    public float m_fHealthBarShakeIntensity;
+    public float m_fHealthBarShakeDuration;
+    public float m_fCameraShakeIntensity;
+    public float m_fCameraShakeDuration;
+
     // Use this for initialization
     void Awake()
     {
         m_gPlayer = GameObject.FindGameObjectWithTag("Player"); // Sets reference to player
         m_sHealthSlider.minValue = m_nSliderMinimumValue; // Sets minimum value of slider
+        m_tHealthNumber = m_sHealthSlider.GetComponentInChildren<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        m_tHealthNumber.text = m_gPlayer.GetComponent<Player>().GetCurrentHealth().ToString() + "/" + m_gPlayer.GetComponent<Player>().GetMaxHealth().ToString();
         m_sHealthSlider.maxValue = m_gPlayer.GetComponent<Player>().GetMaxHealth(); // Sets max value of health slider based on player max health stat
                                                                                     //m_sHealthSlider.value = m_gPlayer.GetComponent<Player>().GetCurrentHealth(); // Sets value of helath slider based on player current health stat
         m_sHealthSlider.value = Mathf.Lerp(m_sHealthSlider.value, m_gPlayer.GetComponent<Player>().GetCurrentHealth(), m_fSliderLerpAmount);
@@ -49,9 +57,9 @@ public class Health : MonoBehaviour
             m_cCurrentColour.r = m_cFlashColour.r;
             m_cCurrentColour.g = m_cFlashColour.g;
             m_cCurrentColour.b = m_cFlashColour.b;
-            Camera.main.GetComponent<BenShake>().Shake(0.05f, 0.1f);
+            Camera.main.GetComponent<BenShake>().Shake(m_fCameraShakeDuration, m_fCameraShakeIntensity);
 
-            m_sHealthSlider.gameObject.GetComponent<UIShake>().Shake(0.05f, 3f);
+            m_sHealthSlider.gameObject.GetComponent<UIShake>().Shake(m_fHealthBarShakeDuration, m_fHealthBarShakeIntensity);
 
         }
 
