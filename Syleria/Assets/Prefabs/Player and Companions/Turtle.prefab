@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 95809458729084198}
   m_Layer: 0
   m_Name: Turtle
-  m_TagString: Turtle
+  m_TagString: Companion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 212224035019990062}
   - component: {fileID: 58500599578183186}
   - component: {fileID: 114741091146662532}
+  - component: {fileID: 95216447273610720}
   m_Layer: 0
   m_Name: Taunt
   m_TagString: Untagged
@@ -105,6 +106,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 5
+--- !u!95 &95216447273610720
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1912742704733820}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 04c78c7e1ee6b6945ae6e338471c9999, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95809458729084198
 Animator:
   serializedVersion: 3
@@ -134,7 +152,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fAStarSpeed: 5
-  m_aStar: {fileID: 0}
   m_gAbility: {fileID: 0}
   m_gPlayer: {fileID: 0}
   m_fFollowSpeed: 5
@@ -156,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a84f8b1de048824c8fec5bbfe89b5d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fTauntSpriteLength: 0.1
+  m_fTauntSpriteLength: 2.5
 --- !u!212 &212224035019990062
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -199,7 +216,7 @@ SpriteRenderer:
   m_Size: {x: 11.52, y: 11.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!212 &212310735937034612
 SpriteRenderer:
