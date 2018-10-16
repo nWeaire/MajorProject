@@ -375,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1244353867389458
 GameObject:
   m_ObjectHideFlags: 1
@@ -450,7 +450,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1280305289051172
 GameObject:
   m_ObjectHideFlags: 1
@@ -684,7 +684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1474290098577780
 GameObject:
   m_ObjectHideFlags: 1
@@ -1037,7 +1037,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1826836130425018
 GameObject:
   m_ObjectHideFlags: 1
@@ -3884,8 +3884,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_aSpawnPoints: []
+  m_gLadder: {fileID: 0}
   m_bRoomActive: 0
   m_bSpawned: 0
+  m_bIsBoss: 0
 --- !u!114 &114422458330137096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3898,8 +3900,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_aSpawnPoints: []
+  m_gLadder: {fileID: 0}
   m_bRoomActive: 0
   m_bSpawned: 0
+  m_bIsBoss: 0
 --- !u!114 &114993955048160660
 MonoBehaviour:
   m_ObjectHideFlags: 1

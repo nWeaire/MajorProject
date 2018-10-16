@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eStatToChange: 0700000001000000
-  m_nStatChange: 0000000004000000
+  m_nStatChange: 00000000fcffffff
   m_bPickUp: 0
 --- !u!212 &212396285892992964
 SpriteRenderer:
@@ -114,7 +114,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: e8408a83e3a280247b0f19bde6c59942, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

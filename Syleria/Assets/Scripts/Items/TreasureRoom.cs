@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TreasureRoom : MonoBehaviour {
+    public float verticalOffset;
     public float horizontalOffest;
     public List<GameObject> treasuresList = new List<GameObject>();
 
@@ -16,7 +17,7 @@ public class TreasureRoom : MonoBehaviour {
     {
         for(int i = 0; i < 3; i++)
         {
-            GameObject GO = Instantiate(treasuresList[Random.Range(0, treasuresList.Count)],transform.position+Vector3.zero+(Vector3.right*(-horizontalOffest+(horizontalOffest*i))),Quaternion.identity,this.transform) as GameObject;
+            GameObject GO = Instantiate(treasuresList[Random.Range(0, treasuresList.Count)],transform.position+(Vector3.down*verticalOffset)+(Vector3.right*(-horizontalOffest+(horizontalOffest*i))),Quaternion.identity,this.transform) as GameObject;
             roomTreasures.Add(GO);
         }
     }

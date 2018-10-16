@@ -40,8 +40,7 @@ public class Bullet : MonoBehaviour
         CheckRange();
         if (m_bDoneDamage && m_gPlayer.GetComponent<Player>().m_bPierce == false)
         {
-            GameObject GO = Instantiate(m_gDestroyedProjectile, transform.position, Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z + 90f)) as GameObject;
-            Destroy(GO,0.5f);
+            
             Destroy(this.gameObject);
         }
     }
@@ -53,10 +52,14 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.layer == 8) // If colliding with terrain
         {
+            GameObject GO = Instantiate(m_gDestroyedProjectile, transform.position, Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z + 90f)) as GameObject;
+            Destroy(GO, 0.5f);
             Destroy(this.gameObject); // Deletes bullet
         }
         if (collision.tag == "Enemy" && !m_bDoneDamage || collision.tag == "Enemy" && m_gPlayer.GetComponent<Player>().m_bPierce) // If collision with enemy
         {
+            GameObject GO = Instantiate(m_gDestroyedProjectile, transform.position, Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z + 90f)) as GameObject;
+            Destroy(GO, 0.5f);
             collision.GetComponent<Enemy>().TakeDamage(m_gPlayer.GetComponent<Player>().GetDamage()); // Deals damage to enemy based on players damage stat
             m_bDoneDamage = true;
         }

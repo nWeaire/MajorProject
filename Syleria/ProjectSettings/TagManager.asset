@@ -20,6 +20,7 @@ TagManager:
   - Turtle
   - Door
   - SceneObjects
+  - Minimap
   layers:
   - Default
   - TransparentFX

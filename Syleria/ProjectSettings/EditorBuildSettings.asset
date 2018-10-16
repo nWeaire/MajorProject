@@ -8,6 +8,3 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Nick.unity
     guid: d685586f50872b04d9973bddfb017726
-  - enabled: 1
-    path: Assets/Scenes/Nick1.unity
-    guid: 8ba2d4440b246984487c9847341b6748

@@ -311,7 +311,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 40
+  orthographic size: 42
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -481,7 +481,7 @@ MonoBehaviour:
   m_fBulletSpeed: 30
   m_fTriSpread: 20
   m_AAnim: {fileID: 95147217371658058}
-  m_fShootTimer: 0.1
+  m_fShootAnimTime: 0.1
 --- !u!114 &114256015525893256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -498,7 +498,7 @@ MonoBehaviour:
   m_nMaxHealth: 300
   m_nRange: 10
   m_nFireRate: 2.5
-  m_fSpeed: 10
+  m_fSpeed: 8
   m_bPierce: 0
   m_bTri: 0
   m_bSplit: 0
