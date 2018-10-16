@@ -286,17 +286,20 @@ public class SwordMage : Enemy
     //--------------------------------------------------------------------------------------
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Vector3 dir = transform.position - collision.transform.position;
-        dir.Normalize();
-        // If the Slime has collided with the Player,
-        if (collision.tag == "Player")
+        if (!m_bSpawnStun)
         {
-            // Damage the player.
-            m_gPlayer.GetComponent<Player>().AddCurrentHealth(-m_nDamage);
-
-            if (!m_bKnockBack)
+            Vector3 dir = transform.position - collision.transform.position;
+            dir.Normalize();
+            // If the Slime has collided with the Player,
+            if (collision.tag == "Player")
             {
-                KnockPlayer(dir);
+                // Damage the player.
+                m_gPlayer.GetComponent<Player>().AddCurrentHealth(-m_nDamage);
+
+                if (!m_bKnockBack)
+                {
+                    KnockPlayer(dir);
+                }
             }
         }
     }
