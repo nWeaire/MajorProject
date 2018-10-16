@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4042271579868096}
   - component: {fileID: 212434224638915510}
-  - component: {fileID: 114981677279871070}
   - component: {fileID: 114424124401359124}
+  - component: {fileID: 61872837881996636}
   m_Layer: 0
   m_Name: piercingshot
   m_TagString: Untagged
@@ -36,12 +36,37 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1449541703869572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.842992, y: -1.4622926, z: 0}
+  m_LocalPosition: {x: 1.6700001, y: -1.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61872837881996636
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1449541703869572}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.2}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.1, y: 1.35}
+  m_EdgeRadius: 0
 --- !u!114 &114424124401359124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,22 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d0c0348a2f1c9b45a5ccd5d2a3d80bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_eStatToChange: 0200000000000000
-  m_nStatChange: ffffffff0a000000
+  m_eStatToChange: 060000000200000000000000
+  m_nStatChange: 00000000ffffffff0a000000
   m_bPickUp: 0
---- !u!114 &114981677279871070
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1449541703869572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 281256b946dda2143b5448d5a1b421c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_bPickUp: 0
-  m_eUpgrade: 0
 --- !u!212 &212434224638915510
 SpriteRenderer:
   m_ObjectHideFlags: 1
