@@ -7,7 +7,7 @@ using UnityEngine;
 public class SceneTransition : MonoBehaviour {
 
     public GameObject m_gSceneObjects;
-    public GameObject m_gWorldGeneration;
+    public WorldGeneration m_gWorldGeneration;
     private void Start()
     {
        
@@ -17,7 +17,8 @@ public class SceneTransition : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Player")
         {
-
+            m_gSceneObjects = GameObject.FindGameObjectWithTag("SceneObjects");
+            m_gWorldGeneration = GameObject.FindObjectOfType<WorldGeneration>();
             GameObject player = GameObject.Find("Player");
             player.transform.localPosition = Vector2.zero;
             m_gSceneObjects.SetActive(false);
@@ -28,8 +29,8 @@ public class SceneTransition : MonoBehaviour {
             {
                 Destroy(rooms[i]);
             }
-            m_gWorldGeneration.GetComponent<WorldGeneration>().m_nFloorNum += 1;
-            m_gWorldGeneration.GetComponent<WorldGeneration>().CreateWorld();
+            m_gWorldGeneration.m_nFloorNum += 1;
+            m_gWorldGeneration.CreateWorld();
             Destroy(this.gameObject);
         }
     }
