@@ -4138,8 +4138,10 @@ MonoBehaviour:
   - {fileID: 1148767453623850}
   - {fileID: 1938743070157998}
   - {fileID: 1753292431172060}
+  m_gLadder: {fileID: 0}
   m_bRoomActive: 0
   m_bSpawned: 0
+  m_bIsBoss: 0
 --- !u!114 &114066610960246398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4244,8 +4246,10 @@ MonoBehaviour:
   - {fileID: 1103632338109324}
   - {fileID: 1249074972827886}
   - {fileID: 1574080577627354}
+  m_gLadder: {fileID: 0}
   m_bRoomActive: 0
   m_bSpawned: 0
+  m_bIsBoss: 0
 --- !u!114 &114408273807293556
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -4,6 +4,7 @@
 // Description:  Handles all collision, movement and interaction with bullets
 //
 // Author: Nicholas Weaire
+// Contributor: Hamish Smithers
 //--------------------------------------------------------------------------------------
 
 using System.Collections;
@@ -17,6 +18,7 @@ public class Bullet : MonoBehaviour
     private GameObject m_gPlayer; // Reference to player object
     private Vector2 m_v2StartPos; // Start position of bullet
     private bool m_bDoneDamage = false;
+    public GameObject m_gDestroyedProjectile; //Sprite to replace bullet
     // Use this for initialization
     void Start()
     {
@@ -38,6 +40,8 @@ public class Bullet : MonoBehaviour
         CheckRange();
         if (m_bDoneDamage && m_gPlayer.GetComponent<Player>().m_bPierce == false)
         {
+            GameObject GO = Instantiate(m_gDestroyedProjectile, transform.position, Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z + 90f)) as GameObject;
+            Destroy(GO,0.5f);
             Destroy(this.gameObject);
         }
     }
@@ -66,6 +70,7 @@ public class Bullet : MonoBehaviour
     {
         if (Vector2.Distance(this.transform.position, m_v2StartPos) >= m_gPlayer.GetComponent<Player>().GetRange()) // If distance from bullet to start position is greater then player range stat
         {
+
             Destroy(this.gameObject); // Destroys bullet object
         }
     }

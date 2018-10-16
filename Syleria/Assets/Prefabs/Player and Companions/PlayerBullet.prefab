@@ -90,6 +90,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fSpeed: 2
+  m_gDestroyedProjectile: {fileID: 1387709706381430, guid: fa1381380543e8846b79e1bfe1a609de,
+    type: 2}
 --- !u!212 &212508175955866226
 SpriteRenderer:
   m_ObjectHideFlags: 1
