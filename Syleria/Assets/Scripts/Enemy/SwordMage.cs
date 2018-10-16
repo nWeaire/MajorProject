@@ -140,6 +140,7 @@ public class SwordMage : Enemy
                     }
                     else
                     {
+                        m_gCompanion = GameObject.FindGameObjectWithTag("Companion");
                         if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gCompanion.transform.position, m_WallLayer))
                         {
                             Fire();
@@ -229,7 +230,6 @@ public class SwordMage : Enemy
 
         if (m_bTaunted)
         {
-            m_gCompanion = GameObject.FindGameObjectWithTag("Companion");
             m_v3Target = m_gCompanion.transform.position - transform.position;
             m_v3Target.Normalize();
         }
@@ -316,7 +316,6 @@ public class SwordMage : Enemy
         }
         else // If nothing hit
         {
-
             m_v2EndKnockPos = (Vector2)m_gPlayer.transform.position + (Vector2)(m_gPlayer.transform.parent.position - transform.position); // End position of dash set based on dash distance
         }
 

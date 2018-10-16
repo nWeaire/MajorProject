@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4818050944886968}
   - component: {fileID: 212264031626756362}
   - component: {fileID: 95710397278287312}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: sprite
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,6 +178,7 @@ MonoBehaviour:
   m_fBurstTimer: 2
   m_nBurstAmount: 5
   m_fSpawnTime: 0.5
+  m_fKnockDistance: 3
 --- !u!212 &212264031626756362
 SpriteRenderer:
   m_ObjectHideFlags: 1

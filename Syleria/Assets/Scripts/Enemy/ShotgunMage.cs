@@ -122,6 +122,7 @@ public class ShotgunMage : Enemy
                     }
                     else
                     {
+                        m_gCompanion = GameObject.FindGameObjectWithTag("Companion");
                         if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gCompanion.transform.position, m_WallLayer))
                         {
                             Fire();
