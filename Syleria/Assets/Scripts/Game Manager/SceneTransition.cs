@@ -8,6 +8,7 @@ public class SceneTransition : MonoBehaviour {
 
     public GameObject m_gSceneObjects;
     public WorldGeneration m_gWorldGeneration;
+    private GameObject[] m_aMinimapTiles;
     private void Start()
     {
        
@@ -17,6 +18,11 @@ public class SceneTransition : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Player")
         {
+            m_aMinimapTiles = GameObject.FindGameObjectsWithTag("Minimap");
+            for (int i = 0; i < m_aMinimapTiles.Length; i++)
+            {
+                Destroy(m_aMinimapTiles[i]);
+            }
             m_gSceneObjects = GameObject.FindGameObjectWithTag("SceneObjects");
             m_gWorldGeneration = GameObject.FindObjectOfType<WorldGeneration>();
             GameObject player = GameObject.Find("Player");
