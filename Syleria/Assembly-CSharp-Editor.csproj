@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{BDCA68CE-DC54-645E-85A2-8D3A6BDB5C27}</ProjectGuid>
+    <ProjectGuid>{83374888-B19E-328A-FA38-FA12BC9DB0D8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -51,45 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\3rd Party\Scripts\BenShake.cs" />
-     <Compile Include="Assets\3rd Party\Scripts\UIShake.cs" />
-     <Compile Include="Assets\3rd Party\Tilemap\Tiles\Animated Tile\Scripts\AnimatedTile.cs" />
-     <Compile Include="Assets\3rd Party\Tilemap\Tiles\Pipeline Tile\Scripts\PipelineTile.cs" />
-     <Compile Include="Assets\3rd Party\Tilemap\Tiles\Random Tile\Scripts\RandomTile.cs" />
-     <Compile Include="Assets\3rd Party\Tilemap\Tiles\Terrain Tile\Scripts\TerrainTile.cs" />
-     <Compile Include="Assets\3rd Party\Tilemap\Tiles\Weighted Random Tile\Scripts\WeightedRandomTile.cs" />
-     <Compile Include="Assets\Scripts\aStar\aStarGrid.cs" />
-     <Compile Include="Assets\Scripts\aStar\Node.cs" />
-     <Compile Include="Assets\Scripts\aStar\Pathing.cs" />
-     <Compile Include="Assets\Scripts\Bullet\Barrage.cs" />
-     <Compile Include="Assets\Scripts\Bullet\Bullet.cs" />
-     <Compile Include="Assets\Scripts\Bullet\EnemyBullet.cs" />
-     <Compile Include="Assets\Scripts\Camera\Cam.cs" />
-     <Compile Include="Assets\Scripts\Companion\Companion.cs" />
-     <Compile Include="Assets\Scripts\Companion\Slash.cs" />
-     <Compile Include="Assets\Scripts\Companion\Taunt.cs" />
-     <Compile Include="Assets\Scripts\Enemy\Boss.cs" />
-     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
-     <Compile Include="Assets\Scripts\Enemy\LockRot.cs" />
-     <Compile Include="Assets\Scripts\Enemy\Sentry.cs" />
-     <Compile Include="Assets\Scripts\Enemy\ShotgunMage.cs" />
-     <Compile Include="Assets\Scripts\Enemy\Slime.cs" />
-     <Compile Include="Assets\Scripts\Enemy\SwordMage.cs" />
-     <Compile Include="Assets\Scripts\Game Manager\GM.cs" />
-     <Compile Include="Assets\Scripts\Game Manager\SceneTransition.cs" />
-     <Compile Include="Assets\Scripts\Items\ProjectileItem.cs" />
-     <Compile Include="Assets\Scripts\Items\StatItem.cs" />
-     <Compile Include="Assets\Scripts\Items\TreasureRoom.cs" />
-     <Compile Include="Assets\Scripts\Player\Ability.cs" />
-     <Compile Include="Assets\Scripts\Player\Aim.cs" />
-     <Compile Include="Assets\Scripts\Player\Movement.cs" />
-     <Compile Include="Assets\Scripts\Player\Player.cs" />
-     <Compile Include="Assets\Scripts\Room interaction\EnterRoom.cs" />
-     <Compile Include="Assets\Scripts\Room interaction\SpawnPoints.cs" />
-     <Compile Include="Assets\Scripts\UI\Health.cs" />
-     <Compile Include="Assets\Scripts\World Gen\Corridors.cs" />
-     <Compile Include="Assets\Scripts\World Gen\Room.cs" />
-     <Compile Include="Assets\Scripts\World Gen\WorldGeneration.cs" />
+     <Compile Include="Assets\Editor\LockInspector.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -183,6 +145,16 @@
  <Reference Include="UnityEngine.StandardEvents">
  <HintPath>C:/Users/s171009/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.iOS.Extensions.Common">
+ <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp.csproj">
+      <Project>{BDCA68CE-DC54-645E-85A2-8D3A6BDB5C27}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
