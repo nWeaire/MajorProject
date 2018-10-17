@@ -87,7 +87,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fAStarSpeed: 8
-  m_aStar: {fileID: 0}
   m_gAbility: {fileID: 0}
   m_gPlayer: {fileID: 0}
   m_fFollowSpeed: 8

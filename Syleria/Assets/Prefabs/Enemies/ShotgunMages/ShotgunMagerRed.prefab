@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4525452734709288}
   - component: {fileID: 212126311747756500}
+  - component: {fileID: 95733485814199092}
   m_Layer: 0
   m_Name: sprite
   m_TagString: Untagged
@@ -107,6 +108,23 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.62}
   m_Size: {x: 0.8, y: 1.8}
   m_Direction: 0
+--- !u!95 &95733485814199092
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1864916873159662}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ea540cb36246a724cb4ff89b8b617be2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114561609737836964
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -161,6 +179,7 @@ MonoBehaviour:
   m_nBulletAmount: 7
   m_fBulletSpread: 12
   m_fSpawnTime: 0.5
+  m_fKnockDistance: 3
 --- !u!212 &212126311747756500
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -195,7 +214,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 11
-  m_Sprite: {fileID: 21300000, guid: 4a760cae14c471344be49169b8c5acc1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 89d1143618dea4148a07fc22d144eeb1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
