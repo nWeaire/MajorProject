@@ -24,6 +24,7 @@ public class EnterRoom : MonoBehaviour
     private int m_nPointsCompleted = 0;
     private int m_nWavesCompleted = 0;
     private bool m_bWaveSpawned;
+    public GameObject m_gRoomCompleted;
     private GameObject[] m_enemy; // List of enemies to check
     // Use this for initialization
     void Start()
@@ -99,6 +100,7 @@ public class EnterRoom : MonoBehaviour
         {
             m_aDoors[j].SetActive(false); // Sets doors to active
         }
+        m_gRoomCompleted.SetActive(true);
         if(m_bIsBoss)
         {
             m_gLadder.SetActive(true);
