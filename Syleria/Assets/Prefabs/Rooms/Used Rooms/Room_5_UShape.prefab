@@ -75,7 +75,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1036649775377192
 GameObject:
   m_ObjectHideFlags: 1
@@ -111,7 +111,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1041474188711848
 GameObject:
   m_ObjectHideFlags: 1
@@ -272,7 +272,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1215666739399902
 GameObject:
   m_ObjectHideFlags: 1
@@ -377,7 +377,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1299646373656888
 GameObject:
   m_ObjectHideFlags: 1
@@ -393,7 +393,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1303334360997384
 GameObject:
   m_ObjectHideFlags: 1
@@ -448,7 +448,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1351875792108854
 GameObject:
   m_ObjectHideFlags: 1
@@ -716,7 +716,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1568680303150398
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,7 +766,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1592775838960246
 GameObject:
   m_ObjectHideFlags: 1
@@ -852,7 +852,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1623848036321264
 GameObject:
   m_ObjectHideFlags: 1
@@ -1048,7 +1048,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1785041904735032
 GameObject:
   m_ObjectHideFlags: 1
@@ -1201,7 +1201,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1891631251373412
 GameObject:
   m_ObjectHideFlags: 1
@@ -1272,7 +1272,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1957220656133702
 GameObject:
   m_ObjectHideFlags: 1
@@ -4183,7 +4183,6 @@ MonoBehaviour:
   - {fileID: 1198049203941808, guid: c29e54dfcfdabe94bb3bb2ce5aaa0031, type: 2}
   - {fileID: 1198049203941808, guid: c29e54dfcfdabe94bb3bb2ce5aaa0031, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114083736867885274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4199,7 +4198,6 @@ MonoBehaviour:
   - {fileID: 1884396772128378, guid: d489ff8b9306dd444922760db44034b8, type: 2}
   - {fileID: 1884396772128378, guid: d489ff8b9306dd444922760db44034b8, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114173765319216842
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4215,7 +4213,6 @@ MonoBehaviour:
   - {fileID: 1931324696854696, guid: a65e8dd3f54932e4396b0fb0e4cf71f1, type: 2}
   - {fileID: 1960623517545722, guid: 004c25975eb50d3409df5cef1557414f, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114183400607854228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4230,7 +4227,6 @@ MonoBehaviour:
   m_aEnemies:
   - {fileID: 1198049203941808, guid: afe7f6d62b141074c94df55e75341a12, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114269387070310402
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4246,7 +4242,6 @@ MonoBehaviour:
   - {fileID: 1884396772128378, guid: d489ff8b9306dd444922760db44034b8, type: 2}
   - {fileID: 1884396772128378, guid: d489ff8b9306dd444922760db44034b8, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114282909044550158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4262,7 +4257,6 @@ MonoBehaviour:
   - {fileID: 1198049203941808, guid: afe7f6d62b141074c94df55e75341a12, type: 2}
   - {fileID: 1884396772128378, guid: 9184af0662c088745a4828db94489e01, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114305782734071284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4278,7 +4272,6 @@ MonoBehaviour:
   - {fileID: 1931324696854696, guid: a23727e678727274bbcb2eaaefcd32a1, type: 2}
   - {fileID: 1960623517545722, guid: 059ec7ee98018fb4589e0fd00ce7d722, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114364946854131500
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4294,7 +4287,6 @@ MonoBehaviour:
   - {fileID: 1198049203941808, guid: c29e54dfcfdabe94bb3bb2ce5aaa0031, type: 2}
   - {fileID: 1884396772128378, guid: d489ff8b9306dd444922760db44034b8, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114375706803704908
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4310,7 +4302,6 @@ MonoBehaviour:
   - {fileID: 1931324696854696, guid: a23727e678727274bbcb2eaaefcd32a1, type: 2}
   - {fileID: 1960623517545722, guid: 059ec7ee98018fb4589e0fd00ce7d722, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114645764969811512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4348,7 +4339,6 @@ MonoBehaviour:
   - {fileID: 1931324696854696, guid: a65e8dd3f54932e4396b0fb0e4cf71f1, type: 2}
   - {fileID: 1960623517545722, guid: 004c25975eb50d3409df5cef1557414f, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114693645307304332
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4386,7 +4376,6 @@ MonoBehaviour:
   - {fileID: 1884396772128378, guid: 9184af0662c088745a4828db94489e01, type: 2}
   - {fileID: 1884396772128378, guid: 9184af0662c088745a4828db94489e01, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114716833499055560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4402,7 +4391,6 @@ MonoBehaviour:
   - {fileID: 1884396772128378, guid: 9184af0662c088745a4828db94489e01, type: 2}
   - {fileID: 1884396772128378, guid: 9184af0662c088745a4828db94489e01, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114886959000015718
 MonoBehaviour:
   m_ObjectHideFlags: 1

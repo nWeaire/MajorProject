@@ -145,7 +145,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1123742584874860
 GameObject:
   m_ObjectHideFlags: 1
@@ -286,7 +286,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1213930243801130
 GameObject:
   m_ObjectHideFlags: 1
@@ -426,7 +426,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1363215292464854
 GameObject:
   m_ObjectHideFlags: 1
@@ -461,7 +461,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1405189459880076
 GameObject:
   m_ObjectHideFlags: 1
@@ -533,7 +533,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1527213450072546
 GameObject:
   m_ObjectHideFlags: 1
@@ -623,7 +623,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1578939972800924
 GameObject:
   m_ObjectHideFlags: 1
@@ -1006,7 +1006,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1803138032869114
 GameObject:
   m_ObjectHideFlags: 1
@@ -1115,7 +1115,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1839915886228852
 GameObject:
   m_ObjectHideFlags: 1
@@ -1240,7 +1240,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1948646855109960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1271,7 +1271,7 @@ GameObject:
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1962811557503098
 GameObject:
   m_ObjectHideFlags: 1
@@ -4109,8 +4109,10 @@ MonoBehaviour:
   - {fileID: 1961653164332958}
   - {fileID: 1798964218310350}
   - {fileID: 1173785117418104}
+  m_gLadder: {fileID: 0}
   m_bRoomActive: 0
   m_bSpawned: 0
+  m_bIsBoss: 0
 --- !u!114 &114035692025454488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4128,8 +4130,10 @@ MonoBehaviour:
   - {fileID: 1838049731716374}
   - {fileID: 1356399252845660}
   - {fileID: 1369181014043946}
+  m_gLadder: {fileID: 0}
   m_bRoomActive: 0
   m_bSpawned: 0
+  m_bIsBoss: 0
 --- !u!114 &114259550355384334
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4145,7 +4149,6 @@ MonoBehaviour:
   - {fileID: 1198049203941808, guid: afe7f6d62b141074c94df55e75341a12, type: 2}
   - {fileID: 1198049203941808, guid: afe7f6d62b141074c94df55e75341a12, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114324134865385888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4161,7 +4164,6 @@ MonoBehaviour:
   - {fileID: 1884396772128378, guid: 9184af0662c088745a4828db94489e01, type: 2}
   - {fileID: 1884396772128378, guid: 9184af0662c088745a4828db94489e01, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114334171102039912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4177,7 +4179,6 @@ MonoBehaviour:
   - {fileID: 1884396772128378, guid: 9184af0662c088745a4828db94489e01, type: 2}
   - {fileID: 1884396772128378, guid: 9184af0662c088745a4828db94489e01, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114344266578867040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4247,7 +4248,6 @@ MonoBehaviour:
   - {fileID: 1198049203941808, guid: afe7f6d62b141074c94df55e75341a12, type: 2}
   - {fileID: 1198049203941808, guid: afe7f6d62b141074c94df55e75341a12, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114372066871225474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4263,7 +4263,6 @@ MonoBehaviour:
   - {fileID: 1884396772128378, guid: 9184af0662c088745a4828db94489e01, type: 2}
   - {fileID: 1884396772128378, guid: 9184af0662c088745a4828db94489e01, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114380534494300904
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4279,7 +4278,6 @@ MonoBehaviour:
   - {fileID: 1931324696854696, guid: a65e8dd3f54932e4396b0fb0e4cf71f1, type: 2}
   - {fileID: 1960623517545722, guid: 004c25975eb50d3409df5cef1557414f, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114636204043718516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4295,7 +4293,6 @@ MonoBehaviour:
   - {fileID: 1198049203941808, guid: afe7f6d62b141074c94df55e75341a12, type: 2}
   - {fileID: 1198049203941808, guid: afe7f6d62b141074c94df55e75341a12, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114657461657167810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4311,7 +4308,6 @@ MonoBehaviour:
   - {fileID: 1198049203941808, guid: afe7f6d62b141074c94df55e75341a12, type: 2}
   - {fileID: 1198049203941808, guid: afe7f6d62b141074c94df55e75341a12, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114738888542240148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4327,7 +4323,6 @@ MonoBehaviour:
   - {fileID: 1931324696854696, guid: a65e8dd3f54932e4396b0fb0e4cf71f1, type: 2}
   - {fileID: 1960623517545722, guid: 004c25975eb50d3409df5cef1557414f, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114903656179781062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4343,7 +4338,6 @@ MonoBehaviour:
   - {fileID: 1884396772128378, guid: 9184af0662c088745a4828db94489e01, type: 2}
   - {fileID: 1884396772128378, guid: 9184af0662c088745a4828db94489e01, type: 2}
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!212 &212664257339764820
 SpriteRenderer:
   m_ObjectHideFlags: 1

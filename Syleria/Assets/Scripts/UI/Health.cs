@@ -46,14 +46,15 @@ public class Health : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         m_tHealthNumber.text = m_gPlayer.GetComponent<Player>().GetCurrentHealth().ToString() + "/" + m_gPlayer.GetComponent<Player>().GetMaxHealth().ToString();
         m_sHealthSlider.maxValue = m_gPlayer.GetComponent<Player>().GetMaxHealth(); // Sets max value of health slider based on player max health stat
                                                                                     //m_sHealthSlider.value = m_gPlayer.GetComponent<Player>().GetCurrentHealth(); // Sets value of helath slider based on player current health stat
         m_sHealthSlider.value = Mathf.Lerp(m_sHealthSlider.value, m_gPlayer.GetComponent<Player>().GetCurrentHealth(), m_fSliderLerpAmount);
 
-        if (m_gPlayer.GetComponent<Player>().GetCurrentHealth() != m_nPreviousHealth && m_gPlayer.GetComponent<Player>().GetCurrentHealth() > 0)
+        if (m_gPlayer.GetComponent<Player>().GetCurrentHealth() < m_nPreviousHealth && m_gPlayer.GetComponent<Player>().GetCurrentHealth() > 0)
         { //Checks if the player has lost health
-            m_nPreviousHealth = m_gPlayer.GetComponent<Player>().GetCurrentHealth();
+            
             m_cCurrentColour.r = m_cFlashColour.r;
             m_cCurrentColour.g = m_cFlashColour.g;
             m_cCurrentColour.b = m_cFlashColour.b;
@@ -67,6 +68,6 @@ public class Health : MonoBehaviour
         m_cCurrentColour.g = Mathf.Lerp(m_cCurrentColour.g, m_cStandardColour.g, m_fColourLerpAmount);
         m_cCurrentColour.b = Mathf.Lerp(m_cCurrentColour.b, m_cStandardColour.b, m_fColourLerpAmount);
         m_sHealthSlider.targetGraphic.color = m_cCurrentColour;
-
+        m_nPreviousHealth = m_gPlayer.GetComponent<Player>().GetCurrentHealth();
     }
 }
