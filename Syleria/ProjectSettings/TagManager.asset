@@ -11,13 +11,9 @@ TagManager:
   - Room
   - Companion
   - Room
-  - LeftCorridor
-  - BottomCorridor
-  - RightCorridor
-  - TopCorridor
   - GM
-  - Bird
-  - Turtle
+  - Door
+  - SceneObjects
   - Door
   - SceneObjects
   - Minimap

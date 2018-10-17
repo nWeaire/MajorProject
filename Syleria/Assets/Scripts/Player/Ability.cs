@@ -205,11 +205,14 @@ public class Ability : MonoBehaviour
             {
                 for (int i = 0; i < m_aEnemies.Length; i++) // For every enemy
                 {
-                    if (m_gPlayer.GetComponent<Player>().m_bAfterShock) // If aftershock is active
+                    if (m_aEnemies[i] != null)
                     {
-                        m_aEnemies[i].GetComponent<Enemy>().TakeDamage(m_nAfterShockDamage); // Deals damage to enemies
+                        if (m_gPlayer.GetComponent<Player>().m_bAfterShock) // If aftershock is active
+                        {
+                            m_aEnemies[i].GetComponent<Enemy>().TakeDamage(m_nAfterShockDamage); // Deals damage to enemies
+                        }
+                        m_aEnemies[i].GetComponent<Enemy>().m_bTaunted = false; // Sets all enemies to be untaunted
                     }
-                    m_aEnemies[i].GetComponent<Enemy>().m_bTaunted = false; // Sets all enemies to be untaunted
                 }
             }
             //m_gTaunt.SetActive(false); // Taunt to false

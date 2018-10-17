@@ -32,6 +32,9 @@ public class Movement : MonoBehaviour
     [SerializeField] private float m_fDashDistance = 3; // Total dash distance
     [SerializeField] private float m_fDashSpeed = 8; // Speed of dash
     [SerializeField] private float m_fDashCD = 0.5f; // Cooldown of dash
+    [SerializeField] private float m_fImmunityTime = 1f;
+    private float m_fITimer = 0;
+    private bool m_bImmunity = false;
     #endregion
 
     #region Movement Variables
@@ -204,28 +207,44 @@ public class Movement : MonoBehaviour
                 m_v2StartDashPos = transform.position; // Sets start dash position based on player position
             }
         }
+
         if (m_bIsDashing) // If dashing
         {
             m_fDashTimer += Time.deltaTime * m_fDashSpeed; // Updates dash timer
-            transform.position = Vector2.Lerp(m_v2StartDashPos, m_v2EndDashPos, m_fDashTimer); // Lerps to new position
-            GetComponentInChildren<CapsuleCollider2D>().enabled = false; // Turns of the capsule collider to avoid enemy projectiles
+            transform.position = Vector2.Lerp(m_v2StartDashPos, m_v2EndDashPos, m_fDashTimer); // Lerps to new position    
+            m_bImmunity = true;
             if (Vector2.Distance(this.transform.position, m_v2EndDashPos) <= 0.05f) // If with in 0.05f of the end dash position end dash 
-            {          
+            {
                 m_bIsDashing = false; // Turn dashing to false
                 m_fDashTimer = 0; // Reset dash timer
                 m_bDash = false; // Dash off cooldown
                 m_fDashCDTimer = 0; // Dash cooldown timer to 0
             }
+
         }
+
+        if(m_bImmunity)
+        {
+            GetComponentInChildren<CapsuleCollider2D>().enabled = false; // Turns of the capsule collider to avoid enemy projectiles
+            m_fITimer += Time.deltaTime;
+            if(m_fITimer >= m_fImmunityTime)
+            {
+                GetComponentInChildren<CapsuleCollider2D>().enabled = true; // Turns of the capsule collider to avoid enemy projectiles
+                m_bImmunity = false;
+                m_fITimer = 0;
+            }
+        }
+
         if (!m_bDash) // if dash on cooldown
         {
-            GetComponentInChildren<CapsuleCollider2D>().enabled = true; // Turn collider back on
             m_fDashCDTimer += Time.deltaTime; // Start cooldown timer
             if (m_fDashCDTimer >= m_fDashCD) // if cooldown timer greater then cooldown
             {
                 m_bDash = true; // Sets dash to true or available
             }
         }
+
+
     }
 
     //--------------------------------------------------------------------------------------
@@ -255,13 +274,13 @@ public class Movement : MonoBehaviour
     //--------------------------------------------------------------------------------------
     void Rotate()
     {
-            m_v2StickInput.Normalize(); // Normalize left analog input
-            m_v2leftPoint = this.transform.position; // Left point set to player position
-            m_v2leftPoint += GetComponent<CircleCollider2D>().offset; // Adds offset to the left point position
-            m_v2leftPoint += new Vector2(-m_v2StickInput.y, m_v2StickInput.x) / Mathf.Sqrt((m_v2StickInput.x * m_v2StickInput.x) + (m_v2StickInput.y * m_v2StickInput.y)) * m_fRadius; // Sets left point for collision
-            m_v2rightPoint = this.transform.position; // Right point set to player position
-            m_v2rightPoint += GetComponent<CircleCollider2D>().offset; // Adds offset to the right point position
-            m_v2rightPoint -= new Vector2(-m_v2StickInput.y, m_v2StickInput.x) / Mathf.Sqrt((m_v2StickInput.x * m_v2StickInput.x) + (m_v2StickInput.y * m_v2StickInput.y)) * m_fRadius; // Sets right point for collision
+        m_v2StickInput.Normalize(); // Normalize left analog input
+        m_v2leftPoint = this.transform.position; // Left point set to player position
+        m_v2leftPoint += GetComponent<CircleCollider2D>().offset; // Adds offset to the left point position
+        m_v2leftPoint += new Vector2(-m_v2StickInput.y, m_v2StickInput.x) / Mathf.Sqrt((m_v2StickInput.x * m_v2StickInput.x) + (m_v2StickInput.y * m_v2StickInput.y)) * m_fRadius; // Sets left point for collision
+        m_v2rightPoint = this.transform.position; // Right point set to player position
+        m_v2rightPoint += GetComponent<CircleCollider2D>().offset; // Adds offset to the right point position
+        m_v2rightPoint -= new Vector2(-m_v2StickInput.y, m_v2StickInput.x) / Mathf.Sqrt((m_v2StickInput.x * m_v2StickInput.x) + (m_v2StickInput.y * m_v2StickInput.y)) * m_fRadius; // Sets right point for collision
     }
 
     //--------------------------------------------------------------------------------------
@@ -272,18 +291,18 @@ public class Movement : MonoBehaviour
     //--------------------------------------------------------------------------------------
     public void Move()
     {
-    if (m_v2StickInput.x >= 0.2f || m_v2StickInput.x <= -0.2f || m_v2StickInput.y >= 0.2f || m_v2StickInput.y <= -0.2f) // Checks for left analog stick input
-    {
-        Rotate(); // Rotates the left and right positions for collision detection
-        Vector2 rayOrigin = (Vector2)transform.position + new Vector2(GetComponent<CircleCollider2D>().offset.x, GetComponent<CircleCollider2D>().offset.y); // Gets ray origin based on player position and collider offset
-        RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of collisions detected
-        int mCount = 0; // Middle ray count
-        int lCount = 0; // Left ray count
-        int rCount = 0; // Right ray count 
-        m_v2StickInput.Normalize(); // Normalise stick input 
-        mCount = Physics2D.Raycast(rayOrigin, m_v2StickInput, m_cfFilter, Hit, m_fRadius + 0.1f); // Middle ray cast
-        lCount += Physics2D.Raycast(m_v2leftPoint, m_v2StickInput, m_cfFilter, Hit, m_fRadius + 0.1f); // Left ray cast
-        rCount += Physics2D.Raycast(m_v2rightPoint, m_v2StickInput, m_cfFilter, Hit, m_fRadius + 0.1f); // Right ray cast
+        if (m_v2StickInput.x >= 0.2f || m_v2StickInput.x <= -0.2f || m_v2StickInput.y >= 0.2f || m_v2StickInput.y <= -0.2f) // Checks for left analog stick input
+        {
+            Rotate(); // Rotates the left and right positions for collision detection
+            Vector2 rayOrigin = (Vector2)transform.position + new Vector2(GetComponent<CircleCollider2D>().offset.x, GetComponent<CircleCollider2D>().offset.y); // Gets ray origin based on player position and collider offset
+            RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of collisions detected
+            int mCount = 0; // Middle ray count
+            int lCount = 0; // Left ray count
+            int rCount = 0; // Right ray count 
+            m_v2StickInput.Normalize(); // Normalise stick input 
+            mCount = Physics2D.Raycast(rayOrigin, m_v2StickInput, m_cfFilter, Hit, m_fRadius + 0.1f); // Middle ray cast
+            lCount += Physics2D.Raycast(m_v2leftPoint, m_v2StickInput, m_cfFilter, Hit, m_fRadius + 0.1f); // Left ray cast
+            rCount += Physics2D.Raycast(m_v2rightPoint, m_v2StickInput, m_cfFilter, Hit, m_fRadius + 0.1f); // Right ray cast
             if (mCount > 0 && rCount <= 0 && lCount <= 0) // if only the middle ray hits
             {
             }
@@ -297,7 +316,7 @@ public class Movement : MonoBehaviour
                 {
                     transform.Translate(Vector2.down * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
-                else if(Hit[0].normal.y > 0) // Checks normal for sliding direction
+                else if (Hit[0].normal.y > 0) // Checks normal for sliding direction
                 {
                     transform.Translate(Vector2.left * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
@@ -306,7 +325,7 @@ public class Movement : MonoBehaviour
                     transform.Translate(Vector2.right * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
             }
-            else if(rCount > 0 && lCount <= 0 && mCount <= 0) // if only the right ray hits
+            else if (rCount > 0 && lCount <= 0 && mCount <= 0) // if only the right ray hits
             {
                 if (Hit[0].normal.x > 0) // Checks normal for sliding direction
                 {
@@ -325,14 +344,14 @@ public class Movement : MonoBehaviour
                     transform.Translate(Vector2.left * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
             }
-            else if(rCount > 0 && lCount <= 0 && mCount > 0) // If middle and right rays hit
+            else if (rCount > 0 && lCount <= 0 && mCount > 0) // If middle and right rays hit
             {
                 if (Hit[0].normal.x > 0) // Checks normal for sliding direction
                 {
                     transform.Translate(Vector2.down * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
                 else if (Hit[0].normal.x < 0) // Checks normal for sliding direction
-                { 
+                {
                     transform.Translate(Vector2.up * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
                 else if (Hit[0].normal.y > 0) // Checks normal for sliding direction
@@ -363,10 +382,10 @@ public class Movement : MonoBehaviour
                     transform.Translate(Vector2.right * (Time.deltaTime * m_fSpeed)); // Slides against wall
                 }
             }
-            else if(mCount > 0 && lCount > 0 && rCount > 0) // If all rays hit
+            else if (mCount > 0 && lCount > 0 && rCount > 0) // If all rays hit
             {
             }
-            else if(rCount > 0 && lCount > 0 && mCount <= 0) // If right and left ray hit but not middle
+            else if (rCount > 0 && lCount > 0 && mCount <= 0) // If right and left ray hit but not middle
             {
             }
             else

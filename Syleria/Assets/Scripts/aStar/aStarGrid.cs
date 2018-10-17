@@ -21,6 +21,7 @@ public class aStarGrid : MonoBehaviour
     public GameObject m_MinimapSprite;
     private List<Node> NeighborList;
     private Vector2 m_nStartPos;
+    private GameObject m_gMinimapParent;
     // Use this for initialization
     void Awake()
     {
@@ -33,6 +34,7 @@ public class aStarGrid : MonoBehaviour
     public void CreateGrid()
     {
         m_grid = new Node[m_nGridWidth, m_nGridHeight];
+        m_gMinimapParent = new GameObject("MinimapTiles");
         for (int i = 0; i < m_nGridWidth; i++)
         {
             for (int j = 0; j < m_nGridHeight; j++)
@@ -45,8 +47,8 @@ public class aStarGrid : MonoBehaviour
                 //Debug.DrawRay((this.transform.position + new Vector3(i, j)) + new Vector3(0.5f, 0.5f, -1), Vector3.forward, Color.red, 10.0f);
 
                 if (m_grid[i, j].Walkable)
-                {
-                    Instantiate(m_MinimapSprite, (this.transform.position + new Vector3(i, j) + new Vector3(0.5f, 0.5f, 0)), new Quaternion());
+                {                   
+                    Instantiate(m_MinimapSprite, (this.transform.position + new Vector3(i, j) + new Vector3(0.5f, 0.5f, 0)), new Quaternion(), m_gMinimapParent.transform);
                 }
             }
         }
