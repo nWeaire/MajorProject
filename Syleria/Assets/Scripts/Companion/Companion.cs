@@ -13,7 +13,7 @@ using UnityEngine;
 public class Companion : MonoBehaviour
 {
 
-    public enum State { IDLE, FOLLOW, PATH, ATTACK, TAUNT } // Enum controlling states of companion
+    public enum State { IDLE, FOLLOW, FOLLOW_OUTOFRANGE, PATH, ATTACK, TAUNT } // Enum controlling states of companion
 
     #region AStar
     [SerializeField] private float m_fAStarSpeed = 0.01f; // Speed the companions aStar
@@ -33,6 +33,9 @@ public class Companion : MonoBehaviour
     [SerializeField] private int m_nDamage; // Damage the companion will deal
     private bool m_bAttackOnCD = false; // bool for attack availbility
     private Animator m_Animator; // Reference to animator
+    public float m_fMaxFollowRange = 4.0f;
+    private float m_fCurrentFollowRange = 0f;
+
 
     void Awake()
     {
@@ -55,10 +58,20 @@ public class Companion : MonoBehaviour
     {
         if (!Physics2D.Linecast((Vector2)this.transform.position - new Vector2(0, 0.5f), (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset, m_wallLayer)) // Checks if companion can direction see player
         {
-            m_eState = State.FOLLOW; // Sets state to follow
+
+            if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) >= m_fMaxFollowRange)
+            {
+                m_eState = State.FOLLOW; // Sets state to follow
+            }
+            else
+            {
+                m_eState = State.FOLLOW_OUTOFRANGE;
+            }
         }
         else
         {
+            Debug.DrawLine((Vector2)this.transform.position - new Vector2(0, 0.5f), (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset, Color.red, 1);
+            Vector2 position = m_gPlayer.GetComponent<CircleCollider2D>().offset;
             m_eState = State.PATH; // Sets state to AStar
         }
         if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset) <= 1.7f) // Checks if companion is within 1.4 unit of player 
@@ -81,6 +94,17 @@ public class Companion : MonoBehaviour
                 // Can directly see player so follows with basic obstacle avoidance 
                 Vector2 FollowTargetPos = m_gPlayer.transform.position + (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset;
                 Follow(FollowTargetPos);
+                break;
+            case State.FOLLOW_OUTOFRANGE:
+                // Can directly see player so follows with basic obstacle avoidance 
+                FollowTargetPos = m_gPlayer.transform.position + (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset;
+                m_fCurrentFollowRange = Vector2.Distance(this.transform.position, FollowTargetPos);
+                float speed = (m_fCurrentFollowRange / m_fMaxFollowRange) * m_fFollowSpeed;
+                if(speed < 2f)
+                {
+                    speed = 0f;
+                }
+                Follow(FollowTargetPos, speed);
                 break;
             case State.PATH:
                 // When following but walls are in way of target
@@ -154,6 +178,12 @@ public class Companion : MonoBehaviour
         DirToTarget.Normalize();
         this.transform.Translate((DirToTarget) * m_fFollowSpeed * Time.deltaTime);
     }
+    public void Follow(Vector2 TargetPosition, float Speed)
+    {
+        Vector2 DirToTarget = (TargetPosition) - (Vector2)this.transform.position;
+        DirToTarget.Normalize();
+        this.transform.Translate((DirToTarget) * Speed * Time.deltaTime);
+    }
     public bool AStar(Vector2 TargetPosition)
     {
         if (TargetPosition != null)
@@ -219,15 +249,18 @@ public class Companion : MonoBehaviour
         }
         if (m_eState == State.ATTACK)
         {
-            if (transform.position.x - m_gTarget.transform.position.x >= 0)
+            if(m_gTarget != null)
             {
-                // Face left 
-                m_Animator.SetBool("isLeft", true);
-            }
-            else
-            {
-                // Face right
-                m_Animator.SetBool("isLeft", false);
+                if (transform.position.x - m_gTarget.transform.position.x >= 0)
+                {
+                    // Face left 
+                    m_Animator.SetBool("isLeft", true);
+                }
+                else
+                {
+                    // Face right
+                    m_Animator.SetBool("isLeft", false);
+                }
             }
         }
 
