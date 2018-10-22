@@ -3469,12 +3469,10 @@ CompositeCollider2D:
   m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
-    - - {x: 37.3125, y: -15.25}
-      - {x: 37.3125, y: -9.75}
-      - {x: 37.25, y: -9.6875}
-      - {x: 37, y: -9.6875}
-      - {x: 37, y: -15.312499}
-      - {x: 37.25, y: -15.312499}
+    - - {x: 38, y: -9}
+      - {x: 37, y: -9}
+      - {x: 37, y: -16}
+      - {x: 38, y: -16}
   m_VertexDistance: 0.0005
 --- !u!66 &66052834034132626
 CompositeCollider2D:
@@ -3893,12 +3891,10 @@ CompositeCollider2D:
   m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
-    - - {x: 4, y: -9.6875}
-      - {x: 3.75, y: -9.6875}
-      - {x: 3.6875, y: -9.75}
-      - {x: 3.6875, y: -15.25}
-      - {x: 3.75, y: -15.312499}
-      - {x: 4, y: -15.312499}
+    - - {x: 4, y: -9}
+      - {x: 3, y: -9}
+      - {x: 3, y: -16}
+      - {x: 4, y: -16}
   m_VertexDistance: 0.0005
 --- !u!66 &66646572752416086
 CompositeCollider2D:
@@ -4006,24 +4002,18 @@ CompositeCollider2D:
     - - {x: 15, y: -10}
       - {x: 19, y: -10}
       - {x: 19, y: -2}
-      - {x: 18.687502, y: -2}
-      - {x: 18.687502, y: -7}
-      - {x: 18, y: -7.6875}
-      - {x: 14.75, y: -7.6875}
-      - {x: 14.687501, y: -7.75}
-      - {x: 14.687501, y: -9}
-      - {x: 14, y: -9.6875}
-      - {x: 4, y: -9.6875}
+      - {x: 18, y: -2}
+      - {x: 18, y: -7}
+      - {x: 14, y: -7}
+      - {x: 14, y: -9}
+      - {x: 4, y: -9}
       - {x: 4, y: -12}
       - {x: 15, y: -12}
-    - - {x: 37, y: -9.6875}
-      - {x: 27, y: -9.6875}
-      - {x: 26.3125, y: -9}
-      - {x: 26.3125, y: -7.75}
-      - {x: 26.25, y: -7.6875}
-      - {x: 23, y: -7.6875}
-      - {x: 22.3125, y: -7}
-      - {x: 22.3125, y: -2}
+    - - {x: 37, y: -9}
+      - {x: 27, y: -9}
+      - {x: 27, y: -7}
+      - {x: 23, y: -7}
+      - {x: 23, y: -2}
       - {x: 22, y: -2}
       - {x: 22, y: -10}
       - {x: 26, y: -10}
@@ -4033,28 +4023,22 @@ CompositeCollider2D:
       - {x: 15, y: -17}
       - {x: 15, y: -15}
       - {x: 4, y: -15}
-      - {x: 4, y: -15.312499}
-      - {x: 14, y: -15.312499}
-      - {x: 14.687501, y: -16}
-      - {x: 14.687501, y: -17.25}
-      - {x: 14.75, y: -17.3125}
-      - {x: 18, y: -17.3125}
-      - {x: 18.687502, y: -18}
-      - {x: 18.687502, y: -23}
+      - {x: 4, y: -16}
+      - {x: 14, y: -16}
+      - {x: 14, y: -18}
+      - {x: 18, y: -18}
+      - {x: 18, y: -23}
       - {x: 19, y: -23}
-    - - {x: 22.3125, y: -18}
-      - {x: 23, y: -17.3125}
-      - {x: 26.25, y: -17.3125}
-      - {x: 26.3125, y: -17.25}
-      - {x: 26.3125, y: -16}
-      - {x: 27, y: -15.312499}
-      - {x: 37, y: -15.312499}
+    - - {x: 23, y: -18}
+      - {x: 27, y: -18}
+      - {x: 27, y: -16}
+      - {x: 37, y: -16}
       - {x: 37, y: -15}
       - {x: 26, y: -15}
       - {x: 26, y: -17}
       - {x: 22, y: -17}
       - {x: 22, y: -23}
-      - {x: 22.3125, y: -23}
+      - {x: 23, y: -23}
   m_VertexDistance: 0.0005
 --- !u!66 &66756101583005110
 CompositeCollider2D:
@@ -4075,12 +4059,10 @@ CompositeCollider2D:
   m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
-    - - {x: 22.3125, y: -23.25}
-      - {x: 22.3125, y: -23}
-      - {x: 18.687502, y: -23}
-      - {x: 18.687502, y: -23.25}
-      - {x: 18.75, y: -23.3125}
-      - {x: 22.25, y: -23.3125}
+    - - {x: 23, y: -23}
+      - {x: 18, y: -23}
+      - {x: 18, y: -24}
+      - {x: 23, y: -24}
   m_VertexDistance: 0.0005
 --- !u!66 &66766138254549764
 CompositeCollider2D:
@@ -4230,12 +4212,10 @@ CompositeCollider2D:
   m_CompositePaths:
     m_Paths:
     - - {x: 22, y: -2}
-      - {x: 22.3125, y: -2}
-      - {x: 22.3125, y: -1.75}
-      - {x: 22.25, y: -1.6875}
-      - {x: 18.75, y: -1.6875}
-      - {x: 18.687502, y: -1.75}
-      - {x: 18.687502, y: -2}
+      - {x: 23, y: -2}
+      - {x: 23, y: -1}
+      - {x: 18, y: -1}
+      - {x: 18, y: -2}
       - {x: 19, y: -2}
       - {x: 19, y: -4}
       - {x: 22, y: -4}
@@ -4256,6 +4236,8 @@ MonoBehaviour:
   m_bRoomActive: 0
   m_bSpawned: 0
   m_bIsBoss: 0
+  m_gRoomCompleted: {fileID: 0}
+  m_gFOW: {fileID: 0}
 --- !u!114 &114144934027546044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4272,6 +4254,8 @@ MonoBehaviour:
   m_bRoomActive: 0
   m_bSpawned: 0
   m_bIsBoss: 0
+  m_gRoomCompleted: {fileID: 0}
+  m_gFOW: {fileID: 0}
 --- !u!114 &114197709113570966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4285,7 +4269,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_aEnemies: []
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114250027307910398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4299,7 +4282,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_aEnemies: []
   m_nCurrentWave: 0
-  m_bDone: 0
 --- !u!114 &114424734471605390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4376,6 +4358,8 @@ MonoBehaviour:
   - {fileID: 1449541703869572, guid: aa5fac1a791e58a439997a72eab7dd68, type: 2}
   - {fileID: 1390359761545686, guid: 9485940d249243742b46a5a3409c2aa8, type: 2}
   - {fileID: 1511457735183878, guid: b5e3ceac61888ce4a8b4a5de1d06c675, type: 2}
+  treasureDespawnDelay: 0
+  destroyEffect: {fileID: 0}
 --- !u!114 &114994236293370274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4400,6 +4384,9 @@ MonoBehaviour:
   - {fileID: 1449541703869572, guid: aa5fac1a791e58a439997a72eab7dd68, type: 2}
   - {fileID: 1390359761545686, guid: 9485940d249243742b46a5a3409c2aa8, type: 2}
   - {fileID: 1511457735183878, guid: b5e3ceac61888ce4a8b4a5de1d06c675, type: 2}
+  treasureDespawnDelay: 0
+  destroyEffect: {fileID: 1872410016359022, guid: 64384bdeb7d2cdd4f97b1f2ca98011d1,
+    type: 2}
 --- !u!212 &212029223768898228
 SpriteRenderer:
   m_ObjectHideFlags: 1

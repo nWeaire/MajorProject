@@ -229,6 +229,7 @@ public class ShotgunMage : Enemy
     //--------------------------------------------------------------------------------------
     void Die()
     {
+        OnDeath();
         // Destroy this object.
         Destroy(gameObject);
     }

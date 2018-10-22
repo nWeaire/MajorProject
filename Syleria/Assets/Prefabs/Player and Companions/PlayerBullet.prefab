@@ -92,6 +92,8 @@ MonoBehaviour:
   m_fSpeed: 2
   m_gDestroyedProjectile: {fileID: 1387709706381430, guid: fa1381380543e8846b79e1bfe1a609de,
     type: 2}
+  m_gHitSlash: {fileID: 1123829261211454, guid: 1c104879563b6634a833a68d1a8ce343,
+    type: 2}
 --- !u!212 &212508175955866226
 SpriteRenderer:
   m_ObjectHideFlags: 1

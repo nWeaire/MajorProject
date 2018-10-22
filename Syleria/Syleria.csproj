@@ -321,6 +321,7 @@
     <Compile Include="Assets\Scripts\Enemy\ShotgunMage.cs" />
     <Compile Include="Assets\Scripts\Enemy\Slime.cs" />
     <Compile Include="Assets\Scripts\Enemy\SwordMage.cs" />
+    <Compile Include="Assets\Scripts\FX\HitSlash.cs" />
     <Compile Include="Assets\Scripts\Game Manager\GM.cs" />
     <Compile Include="Assets\Scripts\Game Manager\SceneTransition.cs" />
     <Compile Include="Assets\Scripts\Items\ProjectileItem.cs" />
@@ -337,6 +338,9 @@
     <Compile Include="Assets\Scripts\World Gen\Door.cs" />
     <Compile Include="Assets\Scripts\World Gen\Room.cs" />
     <Compile Include="Assets\Scripts\World Gen\WorldGeneration.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\3rd Party\Fonts\LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

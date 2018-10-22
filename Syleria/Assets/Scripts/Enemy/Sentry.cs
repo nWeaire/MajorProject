@@ -129,6 +129,7 @@ public class Sentry : Enemy
             // If health is less than or equal to zero
             if (m_nCurrentHealth <= 0)
             {
+                OnDeath();
                 Die();
             }
         }

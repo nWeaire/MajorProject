@@ -168,6 +168,7 @@ public class Slime : Enemy
         // If slime have no health, die.
         if (m_nCurrentHealth <= 0)
         {
+            OnDeath();
             Die();
         }
 

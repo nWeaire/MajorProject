@@ -162,6 +162,10 @@ MonoBehaviour:
   m_nCurrentHealth: 20
   m_nDamage: 5
   m_fFlashTime: 0
+  m_gSpawnParticle: {fileID: 1035855390878196, guid: b23363c08023df74ebce192283cf3bd8,
+    type: 2}
+  m_gHitSlash: {fileID: 1123829261211454, guid: 1c104879563b6634a833a68d1a8ce343,
+    type: 2}
   m_fOffset: {x: 0, y: 0}
   m_bHit: 0
   m_cFilter:
