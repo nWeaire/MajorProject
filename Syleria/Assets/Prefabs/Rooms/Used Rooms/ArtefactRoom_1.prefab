@@ -4236,8 +4236,8 @@ MonoBehaviour:
   m_bRoomActive: 0
   m_bSpawned: 0
   m_bIsBoss: 0
+  m_bIsFinalRoom: 0
   m_gRoomCompleted: {fileID: 0}
-  m_gFOW: {fileID: 0}
 --- !u!114 &114144934027546044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4254,8 +4254,8 @@ MonoBehaviour:
   m_bRoomActive: 0
   m_bSpawned: 0
   m_bIsBoss: 0
+  m_bIsFinalRoom: 0
   m_gRoomCompleted: {fileID: 0}
-  m_gFOW: {fileID: 0}
 --- !u!114 &114197709113570966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4360,6 +4360,7 @@ MonoBehaviour:
   - {fileID: 1511457735183878, guid: b5e3ceac61888ce4a8b4a5de1d06c675, type: 2}
   treasureDespawnDelay: 0
   destroyEffect: {fileID: 0}
+  obtainEffect: {fileID: 0}
 --- !u!114 &114994236293370274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4386,6 +4387,8 @@ MonoBehaviour:
   - {fileID: 1511457735183878, guid: b5e3ceac61888ce4a8b4a5de1d06c675, type: 2}
   treasureDespawnDelay: 0
   destroyEffect: {fileID: 1872410016359022, guid: 64384bdeb7d2cdd4f97b1f2ca98011d1,
+    type: 2}
+  obtainEffect: {fileID: 1409013004726284, guid: d10b737f762c0774781ef916417c1971,
     type: 2}
 --- !u!212 &212029223768898228
 SpriteRenderer:

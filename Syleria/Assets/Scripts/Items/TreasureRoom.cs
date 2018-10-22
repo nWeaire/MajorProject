@@ -13,6 +13,7 @@ public class TreasureRoom : MonoBehaviour {
     public float treasureDespawnDelay;
     private List<GameObject> roomTreasures = new List<GameObject>();
     public GameObject destroyEffect;
+    public GameObject obtainEffect;
     private bool active = true;
     private void Start()
     {
@@ -40,6 +41,11 @@ public class TreasureRoom : MonoBehaviour {
                         if (roomTreasures[j].activeInHierarchy==true)
                         {
                             GameObject GO = Instantiate(destroyEffect, roomTreasures[j].gameObject.transform.position, Quaternion.identity);
+                            Destroy(GO, 2f);
+                        }
+                        else
+                        {
+                            GameObject GO = Instantiate(obtainEffect, roomTreasures[j].gameObject.transform.position, Quaternion.identity);
                             Destroy(GO, 2f);
                         }
                     }
