@@ -17,6 +17,12 @@ TagManager:
   - Door
   - SceneObjects
   - Minimap
+  - RightCorridor
+  - LeftCorridor
+  - TopCorridor
+  - BottomCorridor
+  - Bird
+  - FOW
   layers:
   - Default
   - TransparentFX

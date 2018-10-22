@@ -35,7 +35,7 @@ public class Companion : MonoBehaviour
     private Animator m_Animator; // Reference to animator
     public float m_fMaxFollowRange = 4.0f;
     private float m_fCurrentFollowRange = 0f;
-
+    public float m_fAttackRange = 5f;
 
     void Awake()
     {
@@ -100,7 +100,7 @@ public class Companion : MonoBehaviour
                 FollowTargetPos = m_gPlayer.transform.position + (Vector3)m_gPlayer.GetComponent<CircleCollider2D>().offset;
                 m_fCurrentFollowRange = Vector2.Distance(this.transform.position, FollowTargetPos);
                 float speed = (m_fCurrentFollowRange / m_fMaxFollowRange) * m_fFollowSpeed;
-                if(speed < 2f)
+                if (speed < 2f)
                 {
                     speed = 0f;
                 }
@@ -113,6 +113,7 @@ public class Companion : MonoBehaviour
                 break;
             case State.ATTACK:
                 // When attacking
+
                 if (m_gTarget != null) // If target isn't null
                 {
                     if (Vector2.Distance(this.transform.position, m_gTarget.transform.position) >= 1.5f) // Checks if companion is further than 1.5f of enemy
@@ -124,8 +125,8 @@ public class Companion : MonoBehaviour
                         else
                         {
                             bool temp = AStar((Vector2)m_gTarget.transform.position);
-                            if(temp == false)
-                            {                             
+                            if (temp == false)
+                            {
                                 Follow((Vector2)m_gTarget.transform.position);
                             }
                         }
@@ -249,7 +250,7 @@ public class Companion : MonoBehaviour
         }
         if (m_eState == State.ATTACK)
         {
-            if(m_gTarget != null)
+            if (m_gTarget != null)
             {
                 if (transform.position.x - m_gTarget.transform.position.x >= 0)
                 {

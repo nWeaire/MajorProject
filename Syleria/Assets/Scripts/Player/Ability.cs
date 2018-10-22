@@ -9,15 +9,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Ability : MonoBehaviour
 {
 
     enum CompanionSelected { FOX, TURTLE, BIRD } // Enum containing all possible companions
-
     public GameObject m_Aim; // Reference to aiming retical on player
     private GameObject m_gPlayer; // Reference to playerStats
     public ContactFilter2D m_wallLayer; // Contact Filter for wall layer
+    public GameObject m_gFoxAbilityIcon;
+    public GameObject m_gTurtleAbilityIcon;
+    public GameObject m_gFoxCDAbilityIcon;
+    public GameObject m_gTurtleCDAbilityIcon;
 
     #region Companion
     [SerializeField] CompanionSelected m_eCompanionSelected = CompanionSelected.FOX; // Current companion selected 
@@ -76,6 +79,7 @@ public class Ability : MonoBehaviour
                 m_aEnemies = null;
             }
             ChangeCompanion(); // Check which companion is selected
+
             switch (m_eCompanionSelected) // Switch statement based on companion picked
             {
                 case CompanionSelected.FOX:
@@ -95,6 +99,19 @@ public class Ability : MonoBehaviour
                 //    break;
                 default:
                     break;
+            }
+
+            if (!m_bAbility) // If ability isn't available
+            {
+                m_fAbilityCDTimer += Time.deltaTime; // ability cool down timer active
+                UpdateCooldownIcon();
+            }
+            if (m_fAbilityCDTimer >= m_fAbilityCD) // If ability cool down timer greater then cooldown
+            {
+                m_bAbility = true; // Ability available
+                m_gTurtleCDAbilityIcon.SetActive(false);
+                m_gFoxCDAbilityIcon.SetActive(false);
+                m_fAbilityCDTimer = 0; // Cooldown timer set to 0
             }
         }
     }
@@ -116,6 +133,8 @@ public class Ability : MonoBehaviour
                 m_eCompanionSelected = CompanionSelected.FOX; // Sets selected companion to fox
                 m_gFox.gameObject.SetActive(true); // Sets fox to active
                 m_gTurtle.gameObject.SetActive(false); // Sets turtle to inactive
+                m_gFoxAbilityIcon.SetActive(true);
+                m_gTurtleAbilityIcon.SetActive(false);
             }
             if (Input.GetButtonDown("Turtle") && m_eCompanionSelected != CompanionSelected.TURTLE) // If turtle button down
             {
@@ -126,6 +145,8 @@ public class Ability : MonoBehaviour
                 m_eCompanionSelected = CompanionSelected.TURTLE; // Sets selected companion to turtle
                 m_gFox.gameObject.SetActive(false); // Sets fox to inactive
                 m_gTurtle.gameObject.SetActive(true); // Sets turtle to active
+                m_gFoxAbilityIcon.SetActive(false);
+                m_gTurtleAbilityIcon.SetActive(true);
             }
         }
     }
@@ -171,15 +192,6 @@ public class Ability : MonoBehaviour
             m_gSlash.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -m_fAngle)); // Rotates retical
 
         }
-        if (!m_bAbility) // If ability isn't available
-        {
-            m_fAbilityCDTimer += Time.deltaTime; // ability cool down timer active
-        }
-        if (m_fAbilityCDTimer >= m_fAbilityCD) // If ability cool down timer greater then cooldown
-        {
-            m_bAbility = true; // Ability available
-            m_fAbilityCDTimer = 0; // Cooldown timer set to 0
-        }
     }
 
     //--------------------------------------------------------------------------------------
@@ -215,6 +227,7 @@ public class Ability : MonoBehaviour
                     }
                 }
             }
+            m_bEndPosFound = false;
             //m_gTaunt.SetActive(false); // Taunt to false
         }
         if (m_bIsAbility) // Is ability in use
@@ -275,18 +288,6 @@ public class Ability : MonoBehaviour
         {
             m_fTauntDurationTimer += Time.deltaTime; // Taunt duration timer active
         }
-
-        if (!m_bAbility) // If ability not available
-        {
-            m_fAbilityCDTimer += Time.deltaTime; // Cooldown timer set to active
-        }
-
-        if (m_fAbilityCDTimer >= m_fAbilityCD) // Cooldown timer greater than cooldown
-        {
-            m_bAbility = true; // Set ability to available
-            m_bEndPosFound = false; // Sets end position to false
-            m_fAbilityCDTimer = 0; // Sets cooldown timer to 0
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -310,17 +311,47 @@ public class Ability : MonoBehaviour
                 }
             }
         }
+    }
 
-        if (!m_bAbility) // If ability isn't available
+    private void UpdateCooldownIcon()
+    {
+        if (m_eCompanionSelected == CompanionSelected.FOX)
         {
-            m_fAbilityCDTimer += Time.deltaTime; // ability cool down timer active
-        }
+            m_gFoxCDAbilityIcon.SetActive(true);
+            float iconFillAmount = ((m_fAbilityCDTimer / m_fAbilityCD) - 1) * -1;
+            m_gFoxCDAbilityIcon.GetComponent<Image>().fillAmount = iconFillAmount;
+            float fDashCD = (m_fAbilityCD - m_fAbilityCDTimer) * 10;
+            int nDashCD = (int)fDashCD;
+            fDashCD = nDashCD;
+            fDashCD = (fDashCD / 10f) + 0.1f;
+            if (fDashCD % 1 == 0)
+                m_gFoxCDAbilityIcon.GetComponentInChildren<Text>().text = fDashCD.ToString() + ".0";
+            else
+                m_gFoxCDAbilityIcon.GetComponentInChildren<Text>().text = fDashCD.ToString();
 
-        if (m_fAbilityCDTimer >= m_fAbilityCD) // If ability cool down timer greater then cooldown
+            if (m_gFoxCDAbilityIcon.GetComponent<Image>().fillAmount < 0.02)
+            {
+                m_gFoxCDAbilityIcon.GetComponent<Image>().fillAmount = 0;
+            }
+        }
+        else
         {
-            m_bAbility = true; // Ability available
-            m_fAbilityCDTimer = 0; // Cooldown timer set to 0
-        }
+            m_gTurtleCDAbilityIcon.SetActive(true);
+            float iconFillAmount = ((m_fAbilityCDTimer / m_fAbilityCD) - 1) * -1;
+            m_gTurtleCDAbilityIcon.GetComponent<Image>().fillAmount = iconFillAmount;
+            float fDashCD = (m_fAbilityCD - m_fAbilityCDTimer) * 10;
+            int nDashCD = (int)fDashCD;
+            fDashCD = nDashCD;
+            fDashCD = (fDashCD / 10f) + 0.1f;
+            if (fDashCD % 1 == 0)
+                m_gTurtleCDAbilityIcon.GetComponentInChildren<Text>().text = fDashCD.ToString() + ".0";
+            else
+                m_gTurtleCDAbilityIcon.GetComponentInChildren<Text>().text = fDashCD.ToString();
 
+            if (m_gTurtleCDAbilityIcon.GetComponent<Image>().fillAmount < 0.02)
+            {
+                m_gTurtleCDAbilityIcon.GetComponent<Image>().fillAmount = 0;
+            }
+        }
     }
 }

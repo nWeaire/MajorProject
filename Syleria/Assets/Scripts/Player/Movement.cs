@@ -6,10 +6,11 @@
 // Author: Nicholas Weaire
 //--------------------------------------------------------------------------------------
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Movement : MonoBehaviour
 {
     enum MoveDirection { UP, DOWN, LEFT, RIGHT }; // Enum for direction the player is moving
@@ -19,6 +20,7 @@ public class Movement : MonoBehaviour
     #region Sprites
     [SerializeField] private GameObject m_gSprite; // Reference to player sprite
     private Animator m_Animator;
+    public GameObject m_gDashIcon;
     #endregion
 
     #region Dash Variables
@@ -71,7 +73,6 @@ public class Movement : MonoBehaviour
             Move(); // Calls move function to check for collision and move Player
             Direction(); // Changes the direction character is facing
             Dash(); // Player dash ability
-
             UpdateModel(); // Update model to face correct direction
         }
     }
@@ -223,11 +224,11 @@ public class Movement : MonoBehaviour
 
         }
 
-        if(m_bImmunity)
+        if (m_bImmunity)
         {
             GetComponentInChildren<CapsuleCollider2D>().enabled = false; // Turns of the capsule collider to avoid enemy projectiles
             m_fITimer += Time.deltaTime;
-            if(m_fITimer >= m_fImmunityTime)
+            if (m_fITimer >= m_fImmunityTime)
             {
                 GetComponentInChildren<CapsuleCollider2D>().enabled = true; // Turns of the capsule collider to avoid enemy projectiles
                 m_bImmunity = false;
@@ -237,14 +238,36 @@ public class Movement : MonoBehaviour
 
         if (!m_bDash) // if dash on cooldown
         {
+            UpdateCooldownIcon();
             m_fDashCDTimer += Time.deltaTime; // Start cooldown timer
             if (m_fDashCDTimer >= m_fDashCD) // if cooldown timer greater then cooldown
             {
+                m_gDashIcon.SetActive(false);
                 m_bDash = true; // Sets dash to true or available
             }
         }
 
 
+    }
+
+    private void UpdateCooldownIcon()
+    {
+        m_gDashIcon.SetActive(true);
+        float iconFillAmount = ((m_fDashCDTimer / m_fDashCD) - 1) * -1;
+        m_gDashIcon.GetComponent<Image>().fillAmount = iconFillAmount;
+        float fDashCD = (m_fDashCD - m_fDashCDTimer) * 10;
+        int nDashCD = (int)fDashCD;
+        fDashCD = nDashCD;
+        fDashCD = (fDashCD / 10f) + 0.1f;
+        if (fDashCD % 1 == 0)
+            m_gDashIcon.GetComponentInChildren<Text>().text = fDashCD.ToString() + ".0";
+        else
+            m_gDashIcon.GetComponentInChildren<Text>().text = fDashCD.ToString();
+
+        if (m_gDashIcon.GetComponent<Image>().fillAmount < 0.02)
+        {
+            m_gDashIcon.GetComponent<Image>().fillAmount = 0;
+        }
     }
 
     //--------------------------------------------------------------------------------------
