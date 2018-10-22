@@ -37,7 +37,7 @@ public class TreasureRoom : MonoBehaviour {
                     Invoke("DeleteTreasure", treasureDespawnDelay);
                     for (int j = 0; j < roomTreasures.Count; j++)
                     {
-                        if (j != chosen)
+                        if (roomTreasures[j].activeInHierarchy==true)
                         {
                             GameObject GO = Instantiate(destroyEffect, roomTreasures[j].gameObject.transform.position, Quaternion.identity);
                             Destroy(GO, 2f);
