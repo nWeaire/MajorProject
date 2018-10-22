@@ -26,6 +26,8 @@ public class EnterRoom : MonoBehaviour
     private bool m_bWaveSpawned;
     public GameObject m_gRoomCompleted;
     private GameObject[] m_enemy; // List of enemies to check
+    public GameObject m_gFOW;
+
     // Use this for initialization
     void Start()
     {
@@ -42,6 +44,7 @@ public class EnterRoom : MonoBehaviour
         if (m_bRoomActive && !m_bWaveSpawned) // If room is active
         {
             TurnOnDoors();
+            RevealRoom();
             for (int i = 0; i < m_aSpawnPoints.Length; i++)
             {
                 m_aSpawnPoints[i].GetComponent<SpawnPoints>().SpawnWave(m_nWaveNum);
@@ -86,6 +89,14 @@ public class EnterRoom : MonoBehaviour
         }
     }
 
+    private void RevealRoom()
+    {
+        if(m_gFOW != null)
+        {
+            m_gFOW.SetActive(false);
+        }
+    }
+
     private void TurnOnDoors()
     {
         if (m_aDoors[m_nFloorNum])
@@ -100,7 +111,10 @@ public class EnterRoom : MonoBehaviour
         {
             m_aDoors[j].SetActive(false); // Sets doors to active
         }
-        m_gRoomCompleted.SetActive(true);
+        if(m_gRoomCompleted != null)
+        {
+            m_gRoomCompleted.SetActive(true);
+        }
         if(m_bIsBoss)
         {
             m_gLadder.SetActive(true);
