@@ -62,6 +62,7 @@ public class Aim : MonoBehaviour
                 if (m_fTimer >= m_fShootAnimTime) // If timer > sprite length
                 {
                     m_bShooting = false;
+                    m_AAnim.SetBool("isAttacking", false);
                     m_fTimer = 0.0f;
                 }
             }
