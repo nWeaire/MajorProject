@@ -132,7 +132,6 @@ public class SwordMage : Enemy
                         if (!Physics2D.Linecast((Vector2)this.transform.position + new Vector2(0, GetComponent<CapsuleCollider2D>().offset.y), (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset, m_WallLayer) 
                             || !Physics2D.OverlapCircle((Vector2)this.transform.position, 4f,m_WallLayer))
                         {
-                            StartCoroutine(AnimatorSetFire(1.0f));
                             Fire();
                         }
                         else
@@ -213,6 +212,11 @@ public class SwordMage : Enemy
                 m_fKnockTimer = 0.0f;
             }
         }
+
+        if(!m_bFinishedFiring && m_fBurstTimer >= m_fTimeBetweenBursts * 0.5f)
+        {
+            StartCoroutine(AnimatorSetFire(1.0f));
+        }
     }
     //--------------------------------------------------------------------------------------
     // Fire: Spawn a projectile and fire it towards the player.
@@ -250,9 +254,9 @@ public class SwordMage : Enemy
         // Set bullets rotation to face Player.
         newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
 
-        // Set bullets damage to this Sentrys damage value.
+        // Set bullets damage to this SwordMage damage value.
         newBullet.GetComponent<EnemyBullet>().m_nDam = m_nDamage;
-        // Set bullets damage to this Sentrys bullet speed.
+        // Set bullets damage to this SwordMage bullet speed.
         newBullet.GetComponent<EnemyBullet>().m_fSpeed = m_fBulletSpeed;
 
         // Reset timer.

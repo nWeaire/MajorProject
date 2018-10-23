@@ -14,13 +14,20 @@ using UnityEngine.UI;
 public class Movement : MonoBehaviour
 {
     enum MoveDirection { UP, DOWN, LEFT, RIGHT }; // Enum for direction the player is moving
+    public Material m_mUpDash;
+    public Material m_mDownDash;
+    public Material m_mLeftDash;
+    public Material m_mRightDash;
+
     [SerializeField] private ContactFilter2D m_cfFilter; // Contact filter for collision detection
     private GameObject m_gPlayer; // Reference to player 
 
     #region Sprites
     [SerializeField] public GameObject m_gSprite; // Reference to player sprite
-    private Animator m_Animator;
     public GameObject m_gDashIcon;
+    private Animator m_Animator;
+    private ParticleSystem m_mParticleSystem;
+    private Renderer m_mRenderer;
     #endregion
 
     #region Dash Variables
@@ -57,6 +64,8 @@ public class Movement : MonoBehaviour
     {
         m_gPlayer = GameObject.FindGameObjectWithTag("Player"); // Gets reference to player
         m_Animator = m_gSprite.GetComponent<Animator>();
+        m_mParticleSystem = GetComponent<ParticleSystem>();
+        m_mRenderer = GetComponent<Renderer>();
         m_fRadius = GetComponent<CircleCollider2D>().radius; // Gets radius of player
         m_v2Offset = GetComponent<CircleCollider2D>().offset;
     }
@@ -211,6 +220,8 @@ public class Movement : MonoBehaviour
 
         if (m_bIsDashing) // If dashing
         {
+            UpdateDashParticle();
+            m_mParticleSystem.Play();
             m_fDashTimer += Time.deltaTime * m_fDashSpeed; // Updates dash timer
             transform.position = Vector2.Lerp(m_v2StartDashPos, m_v2EndDashPos, m_fDashTimer); // Lerps to new position    
             m_bImmunity = true;
@@ -245,6 +256,7 @@ public class Movement : MonoBehaviour
                 m_gDashIcon.SetActive(false);
                 m_bDash = true; // Sets dash to true or available
             }
+            GetComponent<ParticleSystem>().Stop();
         }
 
 
@@ -289,6 +301,34 @@ public class Movement : MonoBehaviour
         }
         // Set animator direction to the direction the player is moving
         m_Animator.SetInteger("Direction", (int)dir);
+    }
+
+    //--------------------------------------------------------------------------------------
+    // Checks the direction of movement
+    // Updates Material based on direction
+    //--------------------------------------------------------------------------------------
+    public void UpdateDashParticle()
+    {
+        if((int)dir == 0)
+        {
+            m_mRenderer.material = m_mUpDash;
+            m_mRenderer.sortingOrder = 6;
+        }
+        else if((int)dir == 1)
+        {
+            m_mRenderer.material = m_mDownDash;
+            m_mRenderer.sortingOrder = 4;
+        }
+        else if ((int)dir == 2)
+        {
+            m_mRenderer.material = m_mLeftDash;
+            m_mRenderer.sortingOrder = 4;
+        }
+        else if ((int)dir == 3)
+        {
+            m_mRenderer.material = m_mRightDash;
+            m_mRenderer.sortingOrder = 4;
+        }
     }
 
     //--------------------------------------------------------------------------------------
