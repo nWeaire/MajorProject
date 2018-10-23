@@ -59,7 +59,7 @@ public class Aim : MonoBehaviour
                 
                 m_fTimer += Time.deltaTime; // Updates timer 
                 m_fTimer = m_fTimer % 60;
-                if (m_fTimer >= m_fFireRate) // If timer > sprite length
+                if (m_fTimer >= m_fShootAnimTime) // If timer > sprite length
                 {
                     m_bShooting = false;
                     m_fTimer = 0.0f;
