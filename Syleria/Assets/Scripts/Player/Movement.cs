@@ -18,7 +18,7 @@ public class Movement : MonoBehaviour
     private GameObject m_gPlayer; // Reference to player 
 
     #region Sprites
-    [SerializeField] private GameObject m_gSprite; // Reference to player sprite
+    [SerializeField] public GameObject m_gSprite; // Reference to player sprite
     private Animator m_Animator;
     public GameObject m_gDashIcon;
     #endregion

@@ -35,12 +35,20 @@ public class Health : MonoBehaviour
     public float m_fCameraShakeIntensity;
     public float m_fCameraShakeDuration;
 
+
+    public Color flashColour = Color.white;
+    public SpriteRenderer m_gFlashSprite;
+
+    public float m_fFlashSpriteIntensity;
+    public float m_fFlashSpriteLerpAmount;
+
     // Use this for initialization
     void Awake()
     {
         m_gPlayer = GameObject.FindGameObjectWithTag("Player"); // Sets reference to player
         m_sHealthSlider.minValue = m_nSliderMinimumValue; // Sets minimum value of slider
         m_tHealthNumber = m_sHealthSlider.GetComponentInChildren<Text>();
+        //m_gFlashSprite = m_gPlayer.GetComponentInParent<Movement>().m_gSprite.GetComponentInChildren<SpriteMask>().gameObject.GetComponentInChildren<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -52,6 +60,7 @@ public class Health : MonoBehaviour
                                                                                     //m_sHealthSlider.value = m_gPlayer.GetComponent<Player>().GetCurrentHealth(); // Sets value of helath slider based on player current health stat
         m_sHealthSlider.value = Mathf.Lerp(m_sHealthSlider.value, m_gPlayer.GetComponent<Player>().GetCurrentHealth(), m_fSliderLerpAmount);
 
+
         if (m_gPlayer.GetComponent<Player>().GetCurrentHealth() < m_nPreviousHealth && m_gPlayer.GetComponent<Player>().GetCurrentHealth() > 0)
         { //Checks if the player has lost health
             
@@ -59,14 +68,20 @@ public class Health : MonoBehaviour
             m_cCurrentColour.g = m_cFlashColour.g;
             m_cCurrentColour.b = m_cFlashColour.b;
             Camera.main.GetComponent<BenShake>().Shake(m_fCameraShakeDuration, m_fCameraShakeIntensity);
-
+            
             m_sHealthSlider.gameObject.GetComponent<UIShake>().Shake(m_fHealthBarShakeDuration, m_fHealthBarShakeIntensity);
-
+            flashColour.a = m_fFlashSpriteIntensity;
         }
+
+        
 
         m_cCurrentColour.r = Mathf.Lerp(m_cCurrentColour.r, m_cStandardColour.r, m_fColourLerpAmount);
         m_cCurrentColour.g = Mathf.Lerp(m_cCurrentColour.g, m_cStandardColour.g, m_fColourLerpAmount);
         m_cCurrentColour.b = Mathf.Lerp(m_cCurrentColour.b, m_cStandardColour.b, m_fColourLerpAmount);
+        flashColour.a = Mathf.Lerp(flashColour.a, 0f, m_fFlashSpriteLerpAmount);
+        if (flashColour.a < (m_fFlashSpriteIntensity / 2)) { flashColour.a = 0; }
+        m_gFlashSprite.color = flashColour;
+        
         m_sHealthSlider.targetGraphic.color = m_cCurrentColour;
         m_nPreviousHealth = m_gPlayer.GetComponent<Player>().GetCurrentHealth();
     }
