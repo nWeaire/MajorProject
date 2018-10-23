@@ -89,7 +89,7 @@ public class Slime : Enemy
     {
 
         // Boolean setting for the sprite
-        if (transform.position.x - m_gPlayer.transform.position.x >= 0)
+        if (transform.position.x - m_gPlayer.transform.position.x >= 0 || m_bTaunted && transform.position.x - m_gCompanion.transform.position.x >= 0)
         {
             // Face left 
             m_Animator.SetBool("MovingLeft", true);

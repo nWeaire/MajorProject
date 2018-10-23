@@ -67,6 +67,8 @@ public class SwordMage : Enemy
 
     private bool m_bKnockBack;
 
+    private Animator m_Animator;
+
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
@@ -78,6 +80,7 @@ public class SwordMage : Enemy
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
         // Set the counter to max timer.
         m_fTimeBetweenShots = m_fFireRate;
+        m_Animator = GetComponentInChildren<Animator>();
     }
 
     //--------------------------------------------------------------------------------------
@@ -85,16 +88,16 @@ public class SwordMage : Enemy
     //--------------------------------------------------------------------------------------
     new void Update()
     {
-        // Boolean setting for the sprite.
-        if (transform.position.x - m_gPlayer.transform.position.x >= 0)
+        // Boolean setting for the animation.
+        if (transform.position.x - m_gPlayer.transform.position.x >= 0 || m_bTaunted && transform.position.x - m_gCompanion.transform.position.x >= 0)
         {
-            // Face left.
-            m_bMovingLeft = true;
+            // Face left 
+            m_Animator.SetBool("isLeft", false);
         }
         else
         {
-            // Face right.
-            m_bMovingLeft = false;
+            // Face right
+            m_Animator.SetBool("isLeft", true);
         }
 
         if (!m_bSpawnStun)
@@ -129,6 +132,7 @@ public class SwordMage : Enemy
                         if (!Physics2D.Linecast((Vector2)this.transform.position + new Vector2(0, GetComponent<CapsuleCollider2D>().offset.y), (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset, m_WallLayer) 
                             || !Physics2D.OverlapCircle((Vector2)this.transform.position, 4f,m_WallLayer))
                         {
+                            StartCoroutine(AnimatorSetFire(1.0f));
                             Fire();
                         }
                         else
@@ -143,6 +147,7 @@ public class SwordMage : Enemy
                         m_gCompanion = GameObject.FindGameObjectWithTag("Companion");
                         if (!Physics2D.Linecast((Vector2)this.transform.position, (Vector2)m_gCompanion.transform.position, m_WallLayer))
                         {
+                            
                             Fire();
                         }
                         else
@@ -324,5 +329,17 @@ public class SwordMage : Enemy
         }
 
         m_v2StartKnockPos = m_gPlayer.transform.parent.position;
+    }
+
+    //https://answers.unity.com/questions/1386501/set-animator-boolean-false-after-animation-conplet.html
+    //This gives you trigger like behavior from a bool
+    private IEnumerator AnimatorSetFire(float animationLength)
+    {
+        m_Animator.SetBool("isAttacking", true);
+
+        //You can wait for seconds, frames, other coroutines, whatever u need 
+       yield return new WaitForSeconds(animationLength);
+
+        m_Animator.SetBool("isAttacking", false);
     }
 }
