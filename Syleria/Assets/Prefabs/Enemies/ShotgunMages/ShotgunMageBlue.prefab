@@ -145,7 +145,7 @@ MonoBehaviour:
   m_eState: 0
   m_WallLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 16640
   m_nHealth: 30
   m_nCurrentHealth: 30
   m_nDamage: 15

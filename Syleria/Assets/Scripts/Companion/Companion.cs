@@ -70,7 +70,6 @@ public class Companion : MonoBehaviour
         }
         else
         {
-            Debug.DrawLine((Vector2)this.transform.position - new Vector2(0, 0.5f), (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset, Color.red, 1);
             Vector2 position = m_gPlayer.GetComponent<CircleCollider2D>().offset;
             m_eState = State.PATH; // Sets state to AStar
         }
