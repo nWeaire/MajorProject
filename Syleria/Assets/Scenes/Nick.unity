@@ -417,7 +417,7 @@ Prefab:
     - target: {fileID: 224511838753934586, guid: 6e721c1253449f342ab8a7d330fcef22,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224206687989481736, guid: 6e721c1253449f342ab8a7d330fcef22,
         type: 2}
@@ -437,7 +437,7 @@ Prefab:
     - target: {fileID: 224206687989481736, guid: 6e721c1253449f342ab8a7d330fcef22,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114665709949736518, guid: 6e721c1253449f342ab8a7d330fcef22,
         type: 2}
@@ -531,11 +531,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: m_sHealthSlider
-      value: 
-      objectReference: {fileID: 820864813}
     - target: {fileID: 114301330221344906, guid: 94e47a55aa70e1547a4068f13bb084b1,
         type: 2}
       propertyPath: m_gPlayer
@@ -553,79 +548,14 @@ Prefab:
       objectReference: {fileID: 1945510049}
     - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
         type: 2}
-      propertyPath: m_cFlashColour.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: m_cFlashColour.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: m_cFlashColour.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: m_fColourLerpAmount
-      value: 0.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: m_nSliderMinimumValue
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114301330221344906, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: m_gPauseMenu
+      propertyPath: m_sHealthSlider
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: m_fHealthBarShakeIntensity
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: m_fHealthBarShakeDuration
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: m_fCameraShakeIntensity
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: m_fCameraShakeDuration
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: m_cStandardColour.g
-      value: 0.88235295
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: m_fFlashSpriteIntensity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: m_fFlashSpriteLerpDuration
-      value: 0.5
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 820864813}
     - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
         type: 2}
       propertyPath: m_gFlashSprite
       value: 
       objectReference: {fileID: 180527677}
-    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
-        type: 2}
-      propertyPath: m_fFlashSpriteLerpAmount
-      value: 0.2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 94e47a55aa70e1547a4068f13bb084b1, type: 2}
   m_IsPrefabParent: 0

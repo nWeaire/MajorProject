@@ -193,7 +193,7 @@ MonoBehaviour:
   m_goSmallSlime: {fileID: 1986857641011166, guid: f7b0b487ad13d2542a34307a7099a986,
     type: 2}
   m_bCannotMove: 1
-  m_fSpawnTime: 0.5
+  m_fSpawnTime: 1
   m_fStunTime: 0.5
   m_fMoveTime: 0.8
   m_fPauseTime: 0.3

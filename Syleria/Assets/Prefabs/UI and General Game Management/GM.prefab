@@ -70,9 +70,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_sHealthSlider: {fileID: 0}
+  m_tHealthNumber: {fileID: 0}
   m_nSliderMinimumValue: 0
   m_fSliderLerpAmount: 0.3
   m_fColourLerpAmount: 0.08
-  m_cStandardColour: {r: 0, g: 1, b: 0, a: 1}
+  m_cStandardColour: {r: 0, g: 0.88235295, b: 0, a: 1}
   m_cFlashColour: {r: 1, g: 1, b: 1, a: 1}
   m_cCurrentColour: {r: 1, g: 1, b: 1, a: 1}
+  m_fHealthBarShakeIntensity: 10
+  m_fHealthBarShakeDuration: 0.2
+  m_fCameraShakeIntensity: 0.25
+  m_fCameraShakeDuration: 0.2
+  flashColour: {r: 1, g: 1, b: 1, a: 1}
+  m_gFlashSprite: {fileID: 0}
+  m_fFlashSpriteIntensity: 1
+  m_fFlashSpriteLerpAmount: 0.2

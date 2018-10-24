@@ -157,7 +157,7 @@ MonoBehaviour:
   m_eState: 0
   m_WallLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 16640
   m_nHealth: 25
   m_nCurrentHealth: 25
   m_nDamage: 10
@@ -192,7 +192,7 @@ MonoBehaviour:
   m_nSmallSlimes: 0
   m_goSmallSlime: {fileID: 1986857641011166}
   m_bCannotMove: 1
-  m_fSpawnTime: 0.5
+  m_fSpawnTime: 1
   m_fStunTime: 1
   m_fMoveTime: 0.5
   m_fPauseTime: 0.5

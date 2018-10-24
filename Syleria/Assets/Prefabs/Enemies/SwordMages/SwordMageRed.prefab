@@ -183,7 +183,7 @@ MonoBehaviour:
   m_fFireRate: 0.25
   m_fBurstTimer: 2
   m_nBurstAmount: 5
-  m_fSpawnTime: 0.5
+  m_fSpawnTime: 1
   m_fKnockDistance: 3
 --- !u!212 &212264031626756362
 SpriteRenderer:

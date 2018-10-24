@@ -56,6 +56,10 @@ public class Health : MonoBehaviour
     {
 
         m_tHealthNumber.text = m_gPlayer.GetComponent<Player>().GetCurrentHealth().ToString() + "/" + m_gPlayer.GetComponent<Player>().GetMaxHealth().ToString();
+        if (m_gPlayer.GetComponent<Player>().GetCurrentHealth() < 0)
+        {
+            m_tHealthNumber.text = "0";
+        }
         m_sHealthSlider.maxValue = m_gPlayer.GetComponent<Player>().GetMaxHealth(); // Sets max value of health slider based on player max health stat
                                                                                     //m_sHealthSlider.value = m_gPlayer.GetComponent<Player>().GetCurrentHealth(); // Sets value of helath slider based on player current health stat
         m_sHealthSlider.value = Mathf.Lerp(m_sHealthSlider.value, m_gPlayer.GetComponent<Player>().GetCurrentHealth(), m_fSliderLerpAmount);
