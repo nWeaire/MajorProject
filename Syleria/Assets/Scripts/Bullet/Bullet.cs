@@ -19,7 +19,10 @@ public class Bullet : MonoBehaviour
     private Vector2 m_v2StartPos; // Start position of bullet
     private bool m_bDoneDamage = false;
     public GameObject m_gDestroyedProjectile; //Sprite to replace bullet
-    public GameObject m_gHitSlash; //Spite to indicate damage
+    public GameObject m_gHitSlash; //Sprite to indicate damage
+
+    public AudioClip m_sHitWall;
+    public AudioClip m_sHitEnemy;
     // Use this for initialization
     void Start()
     {
@@ -55,7 +58,11 @@ public class Bullet : MonoBehaviour
         {
             GameObject GO = Instantiate(m_gDestroyedProjectile, transform.position, Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z + 90f)) as GameObject;
             GO.transform.localScale = transform.localScale;
-            Destroy(GO, 0.5f);
+            AudioSource audioSource = GO.GetComponent<AudioSource>();
+            audioSource.clip = m_sHitWall;
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            audioSource.Play();
+            Destroy(GO, 2f);
             
             Destroy(this.gameObject); // Deletes bullet
         }
@@ -63,11 +70,12 @@ public class Bullet : MonoBehaviour
         {
             GameObject GO = Instantiate(m_gDestroyedProjectile, transform.position, Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z + 90f)) as GameObject;
             GO.transform.localScale = transform.localScale;
-            Destroy(GO, 0.5f);
-            //GameObject GO2 = Instantiate(m_gHitSlash, collision.gameObject.GetComponentInChildren<SpriteRenderer>().bounds.center, Quaternion.identity) as GameObject;
-            //GO2.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
-            //GO2.GetComponent<HitSlash>().target = collision.GetComponent<Enemy>();
-            //Destroy(GO2, 0.5f);
+            AudioSource audioSource = GO.GetComponent<AudioSource>();
+            audioSource.clip = m_sHitEnemy;
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            audioSource.Play();
+            Destroy(GO, 2f);
+            
             collision.GetComponent<Enemy>().TakeDamage(m_gPlayer.GetComponent<Player>().GetDamage()); // Deals damage to enemy based on players damage stat
             m_bDoneDamage = true;
         }

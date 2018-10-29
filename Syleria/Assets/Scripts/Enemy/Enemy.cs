@@ -249,7 +249,9 @@ public class Enemy : MonoBehaviour
             GameObject gSFXPrefab = Instantiate(m_gSFXPrefab) as GameObject;
             gSFXPrefab.GetComponent<AudioSource>().clip = m_sDeathSFX;
             gSFXPrefab.GetComponent<AudioSource>().pitch = Random.Range(m_fAudioPitchOffset+ 0.9f, m_fAudioPitchOffset + 1.1f);
+            gSFXPrefab.GetComponent<AudioSource>().volume = 0.5f;
             gSFXPrefab.GetComponent<AudioSource>().Play();
+
             Destroy(gSFXPrefab, 2f);
 
             GameObject gDeathParticle = Instantiate(m_gDeathParticle, this.transform.position, Quaternion.identity) as GameObject;

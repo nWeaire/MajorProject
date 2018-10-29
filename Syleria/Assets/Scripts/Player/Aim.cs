@@ -114,7 +114,9 @@ public class Aim : MonoBehaviour
                     GameObject newBullet = Instantiate(m_gBullet, this.transform.position, Quaternion.Euler(0, 0, -m_fAngle)) as GameObject; // Instantiate bullet
                     newBullet.GetComponent<Bullet>().m_fSpeed = m_fBulletSpeed; // Set bullet speed
                 }
-                
+                GetComponent<AudioSource>().pitch = Random.Range(0.7f, 1.3f);
+                GetComponent<AudioSource>().Play();
+
                 m_fTimeBetweenShots = 0; // Sets time between shots to 0
             }
         }

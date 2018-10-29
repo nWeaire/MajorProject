@@ -148,9 +148,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243017025724490624, guid: d0c44e83bd918b648a68a143df297bd9,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: b0322f5de65be95478435fc3b1faa182, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 46db321be53f1a542b8d08d691364c74, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -253,7 +253,7 @@ MonoBehaviour:
   m_audioSource: {fileID: 0}
   m_gSFXPrefab: {fileID: 1354561584540784, guid: 4dbac8ca24301914eb68c709085e59c0,
     type: 2}
-  m_sDeathSFX: {fileID: 8300000, guid: fcd16ade66af83b46837cba594a7d171, type: 3}
+  m_sDeathSFX: {fileID: 8300000, guid: 5a1ba09119ea9044591cd6efc21ebef8, type: 3}
   m_fAudioPitchOffset: 0
   m_fOffset: {x: 0, y: 0}
   m_bHit: 0

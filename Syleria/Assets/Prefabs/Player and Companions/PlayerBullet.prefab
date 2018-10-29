@@ -94,6 +94,8 @@ MonoBehaviour:
     type: 2}
   m_gHitSlash: {fileID: 1123829261211454, guid: 1c104879563b6634a833a68d1a8ce343,
     type: 2}
+  m_sHitWall: {fileID: 8300000, guid: ee084a0d708073f458cef0f8b02bc3ee, type: 3}
+  m_sHitEnemy: {fileID: 8300000, guid: 7a3aac7dd99b84f4abfcd6f3e5109331, type: 3}
 --- !u!212 &212508175955866226
 SpriteRenderer:
   m_ObjectHideFlags: 1
