@@ -163,50 +163,50 @@ public class aStarGrid : MonoBehaviour
     }
     void SetPosition()
     {
-        float highX = Mathf.NegativeInfinity;
-        float highY = Mathf.NegativeInfinity;
-        float lowX = Mathf.Infinity;
-        float lowY = Mathf.Infinity;
-        GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
-        for (int i = 0; i < rooms.Length; i++)
+        float highX = Mathf.NegativeInfinity; // Sets highX to lowest possible value
+        float highY = Mathf.NegativeInfinity; // Sets highY to lowest possible value
+        float lowX = Mathf.Infinity; // Sets lowX to highest possible value
+        float lowY = Mathf.Infinity; // Sets lowY to highest possible value
+        GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room"); // Finds all rooms in scene
+        for (int i = 0; i < rooms.Length; i++) // Checks against every room in scene
         {
-            float tempX = rooms[i].transform.position.x;
-            float tempY = rooms[i].transform.position.y;
-            if(tempX > highX)
+            float tempX = rooms[i].transform.position.x; // Saves rooms x position
+            float tempY = rooms[i].transform.position.y; // Saves rooms y position
+            if(tempX > highX) // If rooms x is higher then HighX
             {
-                highX = tempX;
+                highX = tempX; // HighX = tempX
             }
-            else if(tempX < lowX)
+            else if(tempX < lowX) // If lower
             {
-                lowX = tempX;
+                lowX = tempX; // LowX is now rooms x
             }
             else
             {
 
             }
 
-            if(tempY > highY)
+            if(tempY > highY) // if rooms y is higher
             {
-                highY = tempY;
+                highY = tempY; // Sets HighY to rooms y
             }
-            else if(tempY < lowY)
+            else if(tempY < lowY) // If lower
             {
-                lowY = tempY;
+                lowY = tempY; // Sets lowY to rooms y
             }
             else
             {
 
             }
         }
-        lowX = lowX - 50.0f;
-        lowY = lowY - 50.0f;
-        highX = highX + 150.0f;
-        highY = highY + 150.0f;
-        m_nStartPos.x = lowX - 50f;
+        lowX = lowX - 50.0f; // Takes 50 off lowx
+        lowY = lowY - 50.0f; // Takes 50 off lowy
+        highX = highX + 150.0f; // adds 150 to high x
+        highY = highY + 150.0f; // Adds 150 to high y
+        m_nStartPos.x = lowX - 50f; 
         m_nStartPos.y = lowY - 50f;
-        this.transform.position = m_nStartPos;
-        m_nGridHeight = (int)Vector2.Distance(new Vector2(0,lowY), new Vector2(0, highY));
-        m_nGridWidth = (int)Vector2.Distance(new Vector2(lowX, 0), new Vector2(highX, 0));
+        this.transform.position = m_nStartPos; // Sets grid position to bottom left of rooms based on low x and low y
+        m_nGridHeight = (int)Vector2.Distance(new Vector2(0,lowY), new Vector2(0, highY)); // Sets grid height to the distance from lowY to highY
+        m_nGridWidth = (int)Vector2.Distance(new Vector2(lowX, 0), new Vector2(highX, 0)); // Sets grid width to the distance from lowX to highX
     }
 
 }

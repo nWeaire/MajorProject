@@ -243,7 +243,6 @@ public class Enemy : MonoBehaviour
 
     public void OnDeath()
     {
-        Debug.Log("HELLA DEAD");
         if (m_gDeathParticle)
         {
             GameObject gSFXPrefab = Instantiate(m_gSFXPrefab) as GameObject;

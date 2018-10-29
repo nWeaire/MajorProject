@@ -30,109 +30,114 @@ public class EnterRoom : MonoBehaviour
     private GameObject[] m_enemy; // List of enemies to check
     public bool m_bIsGauntletRoom = false;
 
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
-        m_aDoors = this.GetComponentInParent<Corridors>().Door;
-        if(!m_bIsGauntletRoom)
+        m_aDoors = this.GetComponentInParent<Corridors>().Door; //Gets all doors from room
+        if(!m_bIsGauntletRoom) // If not a gauntlet room
         {
-            m_nFloorNum = this.GetComponentInParent<WorldGeneration>().m_nFloorNum;
+            m_nFloorNum = this.GetComponentInParent<WorldGeneration>().m_nFloorNum; // Gets current floor number
         }
         m_enemy = GameObject.FindGameObjectsWithTag("Enemy"); // Finds all enemies in scene
 
         if (m_bRoomActive && !m_bWaveSpawned) // If room is active
         {
-            if(!m_bInitalStart)
+            if(!m_bInitalStart) // If the room hasn't been activated before
             {
-                TurnOnDoors();
+                TurnOnDoors(); // Turns on doors for the room
+                // Sets current companions position to the players position
                 GameObject.FindGameObjectWithTag("Companion").transform.position = GameObject.FindGameObjectWithTag("Player").transform.position;
-                m_bInitalStart = true;
+                m_bInitalStart = true; // Sets inital start to true
             }
-            for (int i = 0; i < m_aSpawnPoints.Length; i++)
+            for (int i = 0; i < m_aSpawnPoints.Length; i++) // For all spawn points 
             {
-                m_aSpawnPoints[i].GetComponent<SpawnPoints>().SpawnWave(m_nWaveNum);
+                m_aSpawnPoints[i].GetComponent<SpawnPoints>().SpawnWave(m_nWaveNum); // Spawns current wave
             }
-            m_bWaveSpawned = true;
+            m_bWaveSpawned = true; // Sets wave spawned to true
         }
 
-        if (m_bWaveSpawned)
+        if (m_bWaveSpawned) // If wave is spawned
         {
-            for (int i = 0; i < m_aSpawnPoints.Length; i++)
+            for (int i = 0; i < m_aSpawnPoints.Length; i++) // for each spawn point
             {
-                if (m_aSpawnPoints[i].GetComponent<SpawnPoints>().CheckWave(m_nWaveNum))
+                if (m_aSpawnPoints[i].GetComponent<SpawnPoints>().CheckWave(m_nWaveNum)) // Check if wave is complete
                 {
-                    m_nPointsCompleted += 1;
+                    m_nPointsCompleted += 1; // If wave is complete add to points completed
                 }
 
-                if (m_nPointsCompleted >= m_aSpawnPoints.Length)
+                if (m_nPointsCompleted >= m_aSpawnPoints.Length) // If points completed is equal to or more then the number of spawn points
                 {
                     m_nPointsCompleted = 0;
-                    m_bWaveSpawned = false;
-                    m_nWaveNum += 1;
+                    m_bWaveSpawned = false; // Sets wave spawned to false
+                    m_nWaveNum += 1; // Adds one to the wave number
                 }
             }
-            m_nPointsCompleted = 0;
+            m_nPointsCompleted = 0; // If not completed set points completed to false
         }
 
-        if (m_bRoomActive)
+        if (m_bRoomActive) // If room is active
         {
-            for (int i = 0; i < m_aSpawnPoints.Length; i++)
+            for (int i = 0; i < m_aSpawnPoints.Length; i++) // For all spawn points
             {
-                if (m_aSpawnPoints[i].GetComponent<SpawnPoints>().CheckDone(m_nWaveNum))
+                if (m_aSpawnPoints[i].GetComponent<SpawnPoints>().CheckDone(m_nWaveNum)) // Checks if all waves are completed for the spawn point
                 {
-                    m_nWavesCompleted += 1;
+                    m_nWavesCompleted += 1; // Adds one to the spawn point
                 }
-                if (m_nWavesCompleted >= m_aSpawnPoints.Length)
+                if (m_nWavesCompleted >= m_aSpawnPoints.Length) // If waves completed is equal to more then number of spawn points
                 {
-                    TurnOffDoors();
-                    this.gameObject.SetActive(false);
+                    TurnOffDoors(); // Turns off doors to room
+                    this.gameObject.SetActive(false); // Turns off this script
                 }
             }
-            m_nWavesCompleted = 0;
+            m_nWavesCompleted = 0; // If not completed sets waves completed to false to reset count
         }
     }
 
+
+    //--------------------------------------------------------------
+    // Handles logic for turning doors on for the current floor number
+    //--------------------------------------------------------------
     private void TurnOnDoors()
     {
-        if (m_bIsGauntletRoom)
+        if (m_bIsGauntletRoom) // If gauntlet room turns on all doors
         {
-            for (int i = 0; i < m_aDoors.Length; i++)
+            for (int i = 0; i < m_aDoors.Length; i++) // For all doors
             {
-                m_aDoors[i].SetActive(true);
+                m_aDoors[i].SetActive(true); // Sets doors to true
             }
         }
-        else
+        else // If not gauntlet room turns on the connecting doors
         {
-            if (m_aDoors[m_nFloorNum])
+            if (m_aDoors[m_nFloorNum]) // If not null
             {
                 m_aDoors[m_nFloorNum].SetActive(true); // Sets doors to active
             }
         }
     }
 
+    //--------------------------------------------------------------
+    // Handles logic for turning doors off for the current floor number
+    //--------------------------------------------------------------
     private void TurnOffDoors()
     {
         for (int j = 0; j < m_aDoors.Length; j++) // Loops through list of doors
         {
             m_aDoors[j].SetActive(false); // Sets doors to active
         }
-        if(m_gRoomCompleted != null)
+        if(m_gRoomCompleted != null) // If sprite is not null
         {
-            m_gRoomCompleted.SetActive(true);
+            m_gRoomCompleted.SetActive(true); // Room complete sprite to true
         }
-        if(m_bIsBoss)
+        if(m_bIsBoss) // if boss room spawn ladder to next floor
         {
             m_gLadder.SetActive(true);
         }
     }
 
+    //--------------------------------------------------------------
+    // When colliding with player
+    // Sets room to active and begins update sequence
+    //--------------------------------------------------------------
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player") // Checks if colliding with player
