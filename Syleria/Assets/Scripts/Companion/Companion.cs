@@ -41,6 +41,7 @@ public class Companion : MonoBehaviour
     {
         m_Animator = GetComponent<Animator>(); // Gets animator component
         m_eState = State.IDLE; // Sets state to idle by default      
+        this.transform.position = m_gPlayer.transform.position;
     }
 
     // Update is called once per frame

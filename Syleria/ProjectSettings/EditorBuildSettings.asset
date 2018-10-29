@@ -8,3 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Nick.unity
     guid: d685586f50872b04d9973bddfb017726
+  - enabled: 1
+    path: Assets/Scenes/Gauntlet.unity
+    guid: 45ec8a65c04a43e44a0c291ee4e1d915

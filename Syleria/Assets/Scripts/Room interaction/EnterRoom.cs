@@ -28,6 +28,8 @@ public class EnterRoom : MonoBehaviour
     private bool m_bWaveSpawned;
     public GameObject m_gRoomCompleted;
     private GameObject[] m_enemy; // List of enemies to check
+    public bool m_bIsGauntletRoom = false;
+
 
     // Use this for initialization
     void Start()
@@ -39,7 +41,10 @@ public class EnterRoom : MonoBehaviour
     void Update()
     {
         m_aDoors = this.GetComponentInParent<Corridors>().Door;
-        m_nFloorNum = this.GetComponentInParent<WorldGeneration>().m_nFloorNum;
+        if(!m_bIsGauntletRoom)
+        {
+            m_nFloorNum = this.GetComponentInParent<WorldGeneration>().m_nFloorNum;
+        }
         m_enemy = GameObject.FindGameObjectsWithTag("Enemy"); // Finds all enemies in scene
 
         if (m_bRoomActive && !m_bWaveSpawned) // If room is active
@@ -96,9 +101,19 @@ public class EnterRoom : MonoBehaviour
 
     private void TurnOnDoors()
     {
-        if (m_aDoors[m_nFloorNum])
+        if (m_bIsGauntletRoom)
         {
-            m_aDoors[m_nFloorNum].SetActive(true); // Sets doors to active
+            for (int i = 0; i < m_aDoors.Length; i++)
+            {
+                m_aDoors[i].SetActive(true);
+            }
+        }
+        else
+        {
+            if (m_aDoors[m_nFloorNum])
+            {
+                m_aDoors[m_nFloorNum].SetActive(true); // Sets doors to active
+            }
         }
     }
 

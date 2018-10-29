@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------------------------------
+// Purpose: Transistioning to a new floor in the dungeon
+//
+// Description:  Turns off and deletes required game objects before rebuilding the entire level
+//
+// Author: Nicholas Weaire
+//--------------------------------------------------------------------------------------
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -23,6 +30,7 @@ public class SceneTransition : MonoBehaviour {
             m_gSceneObjects = GameObject.FindGameObjectWithTag("SceneObjects");
             m_gWorldGeneration = GameObject.FindObjectOfType<WorldGeneration>();
             GameObject player = GameObject.Find("Player");
+            GameObject.FindGameObjectWithTag("Companion").transform.localPosition = Vector2.zero;
             player.transform.localPosition = Vector2.zero;
             m_gSceneObjects.SetActive(false);
 
@@ -34,6 +42,7 @@ public class SceneTransition : MonoBehaviour {
             }
             m_gWorldGeneration.m_nFloorNum += 1;
             m_gWorldGeneration.CreateWorld();
+
             Destroy(this.gameObject);
         }
     }

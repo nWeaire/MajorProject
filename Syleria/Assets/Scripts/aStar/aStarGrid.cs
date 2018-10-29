@@ -54,6 +54,30 @@ public class aStarGrid : MonoBehaviour
         }
     }
 
+    public void CreateGrid(int gridWidth, int GridHeight)
+    {
+        m_grid = new Node[gridWidth, GridHeight];
+        m_gMinimapParent = new GameObject("MinimapTiles");
+        for (int i = 0; i < gridWidth; i++)
+        {
+            for (int j = 0; j < GridHeight; j++)
+            {
+                m_grid[i, j] = new Node(new Vector2(), false, 0, 0);
+                m_grid[i, j].Walkable = Physics2D.Raycast((this.transform.position + new Vector3(i, j)) + new Vector3(0.5f, 0.5f, -1), Vector3.forward, 0.1f, m_WalkableLayer);
+                m_grid[i, j].IndexX = i;
+                m_grid[i, j].IndexY = j;
+                m_grid[i, j].WorldPosition = this.transform.position + new Vector3(i, j) + new Vector3(0.5f, 0.5f, 0);
+                //Debug.DrawRay((this.transform.position + new Vector3(i, j)) + new Vector3(0.5f, 0.5f, -1), Vector3.forward, Color.red, 10.0f);
+
+                if (m_grid[i, j].Walkable)
+                {
+                    Instantiate(m_MinimapSprite, (this.transform.position + new Vector3(i, j) + new Vector3(0.5f, 0.5f, 0)), new Quaternion(), m_gMinimapParent.transform);
+                }
+            }
+        }
+    }
+
+
     //Function that gets the neighboring nodes of the given node.
     public List<Node> GetNeighboringNodes(Node a_NeighborNode)
     {
