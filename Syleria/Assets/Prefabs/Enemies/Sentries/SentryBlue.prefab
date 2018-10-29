@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114252528618166760}
   - component: {fileID: 58714410874404886}
   - component: {fileID: 50447661814328614}
+  - component: {fileID: 82021218089524942}
   m_Layer: 9
   m_Name: SentryBlue
   m_TagString: Enemy
@@ -137,6 +138,87 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.68
+--- !u!82 &82021218089524942
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1198049203941808}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 243017025724490624, guid: d0c44e83bd918b648a68a143df297bd9,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: b0322f5de65be95478435fc3b1faa182, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114252528618166760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -168,6 +250,11 @@ MonoBehaviour:
     type: 2}
   m_gHitSlash: {fileID: 1123829261211454, guid: 1c104879563b6634a833a68d1a8ce343,
     type: 2}
+  m_audioSource: {fileID: 0}
+  m_gSFXPrefab: {fileID: 1354561584540784, guid: 4dbac8ca24301914eb68c709085e59c0,
+    type: 2}
+  m_sDeathSFX: {fileID: 8300000, guid: fcd16ade66af83b46837cba594a7d171, type: 3}
+  m_fAudioPitchOffset: 0
   m_fOffset: {x: 0, y: 0}
   m_bHit: 0
   m_cFilter:

@@ -66,6 +66,14 @@ public class Enemy : MonoBehaviour
 
     public GameObject m_gHitSlash;
 
+    public AudioSource m_audioSource;
+
+    public GameObject m_gSFXPrefab;
+
+    public AudioClip m_sDeathSFX;
+
+    public float m_fAudioPitchOffset=0f;
+
     public Vector2 m_fOffset;
 
     //Boolean for raycasts
@@ -119,7 +127,8 @@ public class Enemy : MonoBehaviour
         m_cFilter.useLayerMask = true;
         m_bSeenPlayer = false;
         GameObject gSpawnParticle = Instantiate(m_gSpawnParticle, this.transform.position, Quaternion.identity) as GameObject;
-        Destroy(gSpawnParticle, 0.5f);
+        Destroy(gSpawnParticle, 1.5f);
+        m_audioSource = GetComponent<AudioSource>();
     }
 
     //--------------------------------------------------------------------------------------
@@ -237,6 +246,12 @@ public class Enemy : MonoBehaviour
         Debug.Log("HELLA DEAD");
         if (m_gDeathParticle)
         {
+            GameObject gSFXPrefab = Instantiate(m_gSFXPrefab) as GameObject;
+            gSFXPrefab.GetComponent<AudioSource>().clip = m_sDeathSFX;
+            gSFXPrefab.GetComponent<AudioSource>().pitch = Random.Range(m_fAudioPitchOffset+ 0.9f, m_fAudioPitchOffset + 1.1f);
+            gSFXPrefab.GetComponent<AudioSource>().Play();
+            Destroy(gSFXPrefab, 2f);
+
             GameObject gDeathParticle = Instantiate(m_gDeathParticle, this.transform.position, Quaternion.identity) as GameObject;
             Destroy(gDeathParticle, 5f);
         }
@@ -290,6 +305,9 @@ public class Enemy : MonoBehaviour
         gHitSlash.GetComponent<HitSlash>().targetRender = GetComponentInChildren<SpriteRenderer>();
         Destroy(gHitSlash, 0.5f);
         m_bHit = true;
+
+        m_audioSource.pitch = (Random.Range(m_fAudioPitchOffset + 0.9f, m_fAudioPitchOffset + 1.1f));
+        m_audioSource.Play();
     }
 
     public void SetTarget(Vector2 gTarget)
