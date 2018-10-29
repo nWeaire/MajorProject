@@ -75,6 +75,8 @@ public class ShotgunMage : Enemy
 
     private bool m_bKnockBack;
 
+    private Animator m_Animator;
+
     //--------------------------------------------------------------------------------------
     // initialization.
     //--------------------------------------------------------------------------------------
@@ -88,13 +90,26 @@ public class ShotgunMage : Enemy
         // Set the counter to max timer.
         m_fTimeBetweenShots = m_fFireRate;
         m_eEnemyType = EnemyType.SHOTGUN;
+        m_Animator = GetComponentInChildren<Animator>();
     }
 
     //--------------------------------------------------------------------------------------
     // Update: Function that calls each frame to update game objects.
     //--------------------------------------------------------------------------------------
     new void Update()
-    {
+    { 
+        // Boolean setting for the animation.
+        if (transform.position.x - m_gPlayer.transform.position.x >= 0 || m_bTaunted && transform.position.x - m_gCompanion.transform.position.x >= 0)
+        {
+            // Face left 
+            m_Animator.SetBool("isLeft", true);
+        }
+        else
+        {
+            // Face right
+            m_Animator.SetBool("isLeft", false);
+        }
+
         if (!m_bSpawnStun)
         {
             // increase timer
@@ -148,17 +163,6 @@ public class ShotgunMage : Enemy
             }
             base.Update();
 
-            // Boolean setting for the sprite
-            if (transform.position.x - m_gPlayer.transform.position.x >= 0)
-            {
-                // Face left if the sprite is facing right by default
-                m_bMovingLeft = true;
-            }
-            else
-            {
-                // Face right if the sprite is facing right by default
-                m_bMovingLeft = false;
-            }
         }
         else
         {

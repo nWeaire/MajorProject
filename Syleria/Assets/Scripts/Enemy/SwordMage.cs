@@ -100,6 +100,15 @@ public class SwordMage : Enemy
             m_Animator.SetBool("isLeft", true);
         }
 
+        if(m_eState == State.IDLE)
+        {
+            m_Animator.SetBool("isMoving", false);
+        }
+        else
+        {
+            m_Animator.SetBool("isMoving", true);
+        }
+
         if (!m_bSpawnStun)
         {
             // Increase timer.
@@ -129,9 +138,10 @@ public class SwordMage : Enemy
                     // Fire a shot.
                     if (!m_bTaunted)
                     {
-                        if (!Physics2D.Linecast((Vector2)this.transform.position + new Vector2(0, GetComponent<CapsuleCollider2D>().offset.y), (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset, m_WallLayer) 
-                            || !Physics2D.OverlapCircle((Vector2)this.transform.position, 4f,m_WallLayer))
+                        Debug.DrawLine((Vector2)this.transform.position + new Vector2(0, GetComponent<CapsuleCollider2D>().offset.y), (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset, Color.blue, 1.5f);
+                        if (!Physics2D.Linecast((Vector2)this.transform.position + new Vector2(0, GetComponent<CapsuleCollider2D>().offset.y), (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset, m_WallLayer))
                         {
+                            Debug.DrawLine((Vector2)this.transform.position + new Vector2(0, GetComponent<CapsuleCollider2D>().offset.y), (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset, Color.blue, 3f);
                             Fire();
                         }
                         else

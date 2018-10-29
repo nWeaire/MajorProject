@@ -566,6 +566,11 @@ Prefab:
       propertyPath: m_cStandardColour.g
       value: 0.6862745
       objectReference: {fileID: 0}
+    - target: {fileID: 114640157414326988, guid: 94e47a55aa70e1547a4068f13bb084b1,
+        type: 2}
+      propertyPath: m_gFlashSprite
+      value: 
+      objectReference: {fileID: 587518720}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 94e47a55aa70e1547a4068f13bb084b1, type: 2}
   m_IsPrefabParent: 0
@@ -621,6 +626,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4140895035871362, guid: b6b16f3ce002d8443a8dd4728eadf79f,
     type: 2}
   m_PrefabInternal: {fileID: 1178674572}
+--- !u!212 &587518720 stripped
+SpriteRenderer:
+  m_PrefabParentObject: {fileID: 212909151695329230, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1010788008}
 --- !u!4 &807654773 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4348550222011678, guid: 64abaf1b92741ac4cbe1fe1ee6e4f97d,
@@ -757,6 +767,11 @@ Prefab:
       propertyPath: m_gTurtleCDAbilityIcon
       value: 
       objectReference: {fileID: 1702226948}
+    - target: {fileID: 60852675450285236, guid: cb2b31551868fea4b9a649f7dc4bff3d,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb2b31551868fea4b9a649f7dc4bff3d, type: 2}
   m_IsPrefabParent: 0
