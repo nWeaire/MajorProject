@@ -54,6 +54,7 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.layer == 8) // If colliding with terrain
         {
             GameObject GO = Instantiate(m_gDestroyedProjectile, transform.position, Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z + 90f)) as GameObject;
+            GO.transform.localScale = transform.localScale;
             Destroy(GO, 0.5f);
             
             Destroy(this.gameObject); // Deletes bullet
@@ -61,6 +62,7 @@ public class Bullet : MonoBehaviour
         if (collision.tag == "Enemy" && !m_bDoneDamage || collision.tag == "Enemy" && m_gPlayer.GetComponent<Player>().m_bPierce) // If collision with enemy
         {
             GameObject GO = Instantiate(m_gDestroyedProjectile, transform.position, Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z + 90f)) as GameObject;
+            GO.transform.localScale = transform.localScale;
             Destroy(GO, 0.5f);
             //GameObject GO2 = Instantiate(m_gHitSlash, collision.gameObject.GetComponentInChildren<SpriteRenderer>().bounds.center, Quaternion.identity) as GameObject;
             //GO2.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
