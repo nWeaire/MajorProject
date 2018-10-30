@@ -32,10 +32,6 @@ public class GM : MonoBehaviour {
         {
             Application.Quit();
         }
-        if(Input.GetKey("p"))
-        {
-            m_Player.SetCurrentHealth(0);
-        }
         if(Input.GetButtonDown("Start"))
         {
             if(isPaused && isGameOver == false)
