@@ -34,7 +34,6 @@ public class TreasureRoom : MonoBehaviour {
             {
                 if (roomTreasures[i].activeInHierarchy == false)
                 {
-                    int chosen = i;
                     Invoke("DeleteTreasure", treasureDespawnDelay);
                     for (int j = 0; j < roomTreasures.Count; j++)
                     {

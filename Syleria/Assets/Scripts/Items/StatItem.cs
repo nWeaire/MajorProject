@@ -81,6 +81,7 @@ public class StatItem : MonoBehaviour {
                         break;
                 }
             }
+            GameObject.FindGameObjectWithTag("ItemPanel").GetComponent<ItemPanels>().AddItem(this.GetComponent<SpriteRenderer>().sprite);
             gameObject.SetActive(false);
         }
     }

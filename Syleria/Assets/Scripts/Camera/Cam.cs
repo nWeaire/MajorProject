@@ -21,11 +21,12 @@ public class Cam : MonoBehaviour {
 	void Awake ()
     {
         m_oPlayer = GameObject.FindGameObjectWithTag("Player"); // Sets reference to player object
-	}
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
+
         if (GameObject.FindGameObjectWithTag("GM").GetComponent<GM>().isPaused == false)
         {
             m_v2Target = new Vector2(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY")); // Gets right stick input
