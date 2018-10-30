@@ -18,6 +18,7 @@ public class ItemPanels : MonoBehaviour {
         for (int i = 0; i < m_gItemPanels.Length; i++) // For all item panels
         {
             m_gItemPanels[i].AddComponent<Panel>(); // Add panel script
+            m_gItemPanels[i].SetActive(false);
         }      
 	}
     //--------------------------------------------------------------------------------------
@@ -31,6 +32,7 @@ public class ItemPanels : MonoBehaviour {
         {
             if(!m_gItemPanels[i].GetComponent<Panel>().m_isUsed) // Check if being used
             {
+                m_gItemPanels[i].SetActive(true);
                 m_gItemPanels[i].GetComponent<Panel>().m_ItemSprite = itemSprite; // Change sprite to that of the items
                 m_gItemPanels[i].GetComponent<Panel>().m_isUsed = true; // Sets panels to being used so no other item can appear on it
                 break;
