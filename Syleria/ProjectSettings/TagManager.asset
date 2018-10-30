@@ -16,11 +16,12 @@ TagManager:
   - SceneObjects
   - Minimap
   - FinalRoom
+  - Bird
+  - BottomCorridor
+  - TopCorridor
+  - RightCorridor
   - LeftCorridor
   - ItemPanel
-  - TopCorridor
-  - BottomCorridor
-  - RightCorridor
   layers:
   - Default
   - TransparentFX

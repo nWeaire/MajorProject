@@ -75,6 +75,9 @@ public class Health : MonoBehaviour
             
             m_sHealthSlider.gameObject.GetComponent<UIShake>().Shake(m_fHealthBarShakeDuration, m_fHealthBarShakeIntensity);
             flashColour.a = m_fFlashSpriteIntensity;
+
+            GetComponent<AudioSource>().pitch = Random.Range(0.8f, 1.2f);
+            GetComponent<AudioSource>().Play();
         }
 
         

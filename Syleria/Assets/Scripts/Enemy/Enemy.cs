@@ -263,6 +263,11 @@ public class Enemy : MonoBehaviour
         DropHealthOrb();
     }
 
+    public void OnShoot()
+    {
+
+    }
+
     public void Follow(Vector2 TargetPosition)
     {
         Vector2 DirToTarget = (TargetPosition) - (Vector2)this.transform.position;
@@ -329,7 +334,7 @@ public class Enemy : MonoBehaviour
     public void DropHealthOrb()
     {
         float fRand = Random.Range(0, 100);
-        if(fRand >= m_fOrbDropChance)
+        if(fRand <= m_fOrbDropChance)
         {
             Instantiate(m_gHealthOrb);
         }
