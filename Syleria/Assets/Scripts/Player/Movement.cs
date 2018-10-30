@@ -126,6 +126,8 @@ public class Movement : MonoBehaviour
             m_v2DashInput.y > 0.2f ||
             m_v2DashInput.y < -0.2f))
         { // checks for dash input and if dash in available and a direction Player is moving
+            this.GetComponent<AudioSource>().pitch = UnityEngine.Random.Range(0.95f, 1.05f);
+            this.GetComponent<AudioSource>().Play();
             m_bIsDashing = true; // Is dashing set to true untill end of dash
             int count = 0; // Count of collisions detected
             RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of objects the ray collides with

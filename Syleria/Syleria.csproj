@@ -323,6 +323,7 @@
     <Compile Include="Assets\Scripts\Enemy\SwordMage.cs" />
     <Compile Include="Assets\Scripts\FX\HitSlash.cs" />
     <Compile Include="Assets\Scripts\FX\PlayerTint.cs" />
+    <Compile Include="Assets\Scripts\Game Manager\FinalSceneTransition.cs" />
     <Compile Include="Assets\Scripts\Game Manager\GM.cs" />
     <Compile Include="Assets\Scripts\Game Manager\SceneTransition.cs" />
     <Compile Include="Assets\Scripts\Items\ProjectileItem.cs" />
