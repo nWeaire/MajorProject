@@ -60,6 +60,10 @@ public class Enemy : MonoBehaviour
     [Tooltip("Amount of seconds the slime will spend as red")]
     public float m_fFlashTime;
 
+    public GameObject m_gHealthOrb;
+
+    public float m_fOrbDropChance;
+
     public GameObject m_gSpawnParticle;
 
     public GameObject m_gDeathParticle;
@@ -256,6 +260,7 @@ public class Enemy : MonoBehaviour
             GameObject gDeathParticle = Instantiate(m_gDeathParticle, this.transform.position, Quaternion.identity) as GameObject;
             Destroy(gDeathParticle, 5f);
         }
+        DropHealthOrb();
     }
 
     public void Follow(Vector2 TargetPosition)
@@ -317,4 +322,16 @@ public class Enemy : MonoBehaviour
     }
 
 
+    //--------------------------------------------------------------------------------------
+    // DropHealthOrb: Calls on all enemies death to possibly drop a health orb.
+    //                
+    //--------------------------------------------------------------------------------------
+    public void DropHealthOrb()
+    {
+        float fRand = Random.Range(0, 100);
+        if(fRand >= m_fOrbDropChance)
+        {
+            Instantiate(m_gHealthOrb);
+        }
+    }
 }
