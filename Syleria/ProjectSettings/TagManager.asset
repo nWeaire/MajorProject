@@ -16,6 +16,11 @@ TagManager:
   - SceneObjects
   - Minimap
   - FinalRoom
+  - LeftCorridor
+  - ItemPanel
+  - TopCorridor
+  - BottomCorridor
+  - RightCorridor
   layers:
   - Default
   - TransparentFX
