@@ -198,6 +198,7 @@ public class ShotgunMage : Enemy
     //--------------------------------------------------------------------------------------
     void Fire()
     {
+        OnShoot();
         // Instantiate a bullet
         for (int i = 0; i < m_nBulletAmount; ++i)
         {

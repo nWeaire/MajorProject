@@ -76,6 +76,8 @@ public class Enemy : MonoBehaviour
 
     public AudioClip m_sDeathSFX;
 
+    public AudioClip m_sShootSFX;
+
     public float m_fAudioPitchOffset=0f;
 
     public Vector2 m_fOffset;
@@ -265,7 +267,11 @@ public class Enemy : MonoBehaviour
 
     public void OnShoot()
     {
-
+        GameObject gSFXPrefab = Instantiate(m_gSFXPrefab) as GameObject;
+        gSFXPrefab.GetComponent<AudioSource>().clip = m_sShootSFX;
+        gSFXPrefab.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
+        gSFXPrefab.GetComponent<AudioSource>().volume = 0.5f;
+        gSFXPrefab.GetComponent<AudioSource>().Play();
     }
 
     public void Follow(Vector2 TargetPosition)
@@ -313,6 +319,8 @@ public class Enemy : MonoBehaviour
 
         //GetComponentInChildren<SpriteRenderer>().color = Color.red;
         GameObject gHitSlash = Instantiate(m_gHitSlash, GetComponentInChildren<SpriteRenderer>().bounds.center, Quaternion.Euler(0, 0, Random.Range(0, 360))) as GameObject;
+        float randomScale = Random.Range(0.95f, 1.3f);
+        gHitSlash.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
         gHitSlash.GetComponent<HitSlash>().targetRender = GetComponentInChildren<SpriteRenderer>();
         Destroy(gHitSlash, 0.5f);
         m_bHit = true;

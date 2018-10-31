@@ -233,6 +233,8 @@ public class SwordMage : Enemy
     //--------------------------------------------------------------------------------------
     void Fire()
     {
+
+        OnShoot();
         m_bFinishedFiring = false;
         m_bCanMove = false;
         Vector3 m_V3Spawn = Vector3.zero;

@@ -156,6 +156,7 @@ public class Sentry : Enemy
     //--------------------------------------------------------------------------------------
     void Fire()
     {
+        OnShoot();
         // Instantiate a bullet
         GameObject newBullet = Instantiate(m_gProjectile, this.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
         m_nBurstCount++;
