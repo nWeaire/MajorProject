@@ -319,7 +319,7 @@ public class Enemy : MonoBehaviour
 
         //GetComponentInChildren<SpriteRenderer>().color = Color.red;
         GameObject gHitSlash = Instantiate(m_gHitSlash, GetComponentInChildren<SpriteRenderer>().bounds.center, Quaternion.Euler(0, 0, Random.Range(0, 360))) as GameObject;
-        float randomScale = Random.Range(0.95f, 1.3f);
+        float randomScale = Random.Range(1.1f, 1.8f);
         gHitSlash.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
         gHitSlash.GetComponent<HitSlash>().targetRender = GetComponentInChildren<SpriteRenderer>();
         Destroy(gHitSlash, 0.5f);

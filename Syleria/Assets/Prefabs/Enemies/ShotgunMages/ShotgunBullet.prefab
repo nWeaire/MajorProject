@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 58765800028144082}
   - component: {fileID: 50916496042594064}
   - component: {fileID: 114995566601524644}
+  - component: {fileID: 95286811371610374}
   m_Layer: 0
   m_Name: ShotgunBullet
   m_TagString: Untagged
@@ -78,6 +79,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.18
+--- !u!95 &95286811371610374
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1668811833332258}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ccc555042d5ba544da372a7432b7794c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114995566601524644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89,9 +107,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f73a80eea986c4aa617b2450989a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DestroyLayer:
-    serializedVersion: 2
-    m_Bits: 0
   m_fRange: 15
   m_fSinMag: 4
   m_fSinFreq: 20
@@ -100,7 +115,6 @@ MonoBehaviour:
   m_fMinOffSet: 0
   m_nDam: 0
   m_fSpeed: 0
-  m_fActiTimer: 0
 --- !u!212 &212508175955866226
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -135,7 +149,7 @@ SpriteRenderer:
   m_SortingLayerID: -1722642915
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 98eb1b907a13249499ac5965e53e7cff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 622ab7ee76af45b409745e450e92e1e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

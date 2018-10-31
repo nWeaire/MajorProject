@@ -232,6 +232,8 @@ MonoBehaviour:
   m_nCurrentHealth: 40
   m_nDamage: 20
   m_fFlashTime: 0.1
+  m_gHealthOrb: {fileID: 0}
+  m_fOrbDropChance: 0
   m_gSpawnParticle: {fileID: 1035855390878196, guid: b23363c08023df74ebce192283cf3bd8,
     type: 2}
   m_gDeathParticle: {fileID: 1982485029611400, guid: 2776c239bb12d8e45ac8556f4e2451cb,
@@ -242,6 +244,7 @@ MonoBehaviour:
   m_gSFXPrefab: {fileID: 1354561584540784, guid: 4dbac8ca24301914eb68c709085e59c0,
     type: 2}
   m_sDeathSFX: {fileID: 8300000, guid: 39eea8cdf750a704b8cf8848973fcc47, type: 3}
+  m_sShootSFX: {fileID: 8300000, guid: 8d4f3304b4825d54784d6726ad7f9a05, type: 3}
   m_fAudioPitchOffset: 0
   m_fOffset: {x: 0, y: 0}
   m_bHit: 0
