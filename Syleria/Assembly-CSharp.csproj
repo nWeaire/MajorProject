@@ -75,8 +75,12 @@
      <Compile Include="Assets\Scripts\Enemy\ShotgunMage.cs" />
      <Compile Include="Assets\Scripts\Enemy\Slime.cs" />
      <Compile Include="Assets\Scripts\Enemy\SwordMage.cs" />
+     <Compile Include="Assets\Scripts\FX\HitSlash.cs" />
+     <Compile Include="Assets\Scripts\FX\PlayerTint.cs" />
+     <Compile Include="Assets\Scripts\Game Manager\FinalSceneTransition.cs" />
      <Compile Include="Assets\Scripts\Game Manager\GM.cs" />
      <Compile Include="Assets\Scripts\Game Manager\SceneTransition.cs" />
+     <Compile Include="Assets\Scripts\Items\HealthOrb.cs" />
      <Compile Include="Assets\Scripts\Items\ProjectileItem.cs" />
      <Compile Include="Assets\Scripts\Items\StatItem.cs" />
      <Compile Include="Assets\Scripts\Items\TreasureRoom.cs" />
@@ -87,9 +91,14 @@
      <Compile Include="Assets\Scripts\Room interaction\EnterRoom.cs" />
      <Compile Include="Assets\Scripts\Room interaction\SpawnPoints.cs" />
      <Compile Include="Assets\Scripts\UI\Health.cs" />
+     <Compile Include="Assets\Scripts\UI\ItemPanels.cs" />
+     <Compile Include="Assets\Scripts\UI\Panel.cs" />
+     <Compile Include="Assets\Scripts\UI\UI.cs" />
      <Compile Include="Assets\Scripts\World Gen\Corridors.cs" />
+     <Compile Include="Assets\Scripts\World Gen\Door.cs" />
      <Compile Include="Assets\Scripts\World Gen\Room.cs" />
      <Compile Include="Assets\Scripts\World Gen\WorldGeneration.cs" />
+     <None Include="Assets\3rd Party\Fonts\LICENSE.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
