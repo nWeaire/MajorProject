@@ -427,7 +427,7 @@ Prefab:
     - target: {fileID: 224748326762827534, guid: 6e721c1253449f342ab8a7d330fcef22,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 224940455178997696, guid: 6e721c1253449f342ab8a7d330fcef22,
         type: 2}
@@ -447,7 +447,7 @@ Prefab:
     - target: {fileID: 224940455178997696, guid: 6e721c1253449f342ab8a7d330fcef22,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 224448883775375346, guid: 6e721c1253449f342ab8a7d330fcef22,
         type: 2}
@@ -467,7 +467,7 @@ Prefab:
     - target: {fileID: 224448883775375346, guid: 6e721c1253449f342ab8a7d330fcef22,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 224477185651792600, guid: 6e721c1253449f342ab8a7d330fcef22,
         type: 2}
@@ -487,7 +487,7 @@ Prefab:
     - target: {fileID: 224477185651792600, guid: 6e721c1253449f342ab8a7d330fcef22,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 224511838753934586, guid: 6e721c1253449f342ab8a7d330fcef22,
         type: 2}
@@ -507,7 +507,7 @@ Prefab:
     - target: {fileID: 224511838753934586, guid: 6e721c1253449f342ab8a7d330fcef22,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 224206687989481736, guid: 6e721c1253449f342ab8a7d330fcef22,
         type: 2}
@@ -527,7 +527,7 @@ Prefab:
     - target: {fileID: 224206687989481736, guid: 6e721c1253449f342ab8a7d330fcef22,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6e721c1253449f342ab8a7d330fcef22, type: 2}
