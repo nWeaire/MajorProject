@@ -275,6 +275,7 @@ MonoBehaviour:
   m_nBulletAmount: 5
   m_fBulletSpread: 12
   m_fSpawnTime: 1
+  m_fShootAnimTime: 0.25
   m_fKnockDistance: 3
 --- !u!212 &212126311747756500
 SpriteRenderer:
