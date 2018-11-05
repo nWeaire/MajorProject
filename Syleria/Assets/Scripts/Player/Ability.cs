@@ -63,6 +63,11 @@ public class Ability : MonoBehaviour
     public int m_nAfterShockDamage = 10; // Damage for aftershock
     #endregion
 
+    #region Sounds
+    public AudioClip m_sSlashSFX;
+    public AudioClip m_sTauntSFX;
+    #endregion
+
     private void Awake()
     {
         m_gPlayer = GameObject.FindGameObjectWithTag("Player");
@@ -158,6 +163,8 @@ public class Ability : MonoBehaviour
     {
         if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsAbility && m_bAbility || Input.GetKey(KeyCode.Space) && !m_bIsAbility && m_bAbility) // Checks for slash input, and ability is available
         {
+            GetComponent<AudioSource>().clip = m_sSlashSFX;
+            GetComponent<AudioSource>().Play();
             m_bIsAbility = true; // Ability in use to true
             m_bAbility = false; // Ability available to false
         }
@@ -189,7 +196,7 @@ public class Ability : MonoBehaviour
             m_cSlashCollider.points = slashPoints; // Sets polygon collider points
             m_gSlash.SetActive(true); // Sets slash sprite to true
             float m_fAngle = Mathf.Atan2(aimDirection.x, aimDirection.y) * Mathf.Rad2Deg; // Gets angle based on direction of the right stick input
-            m_gSlash.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -m_fAngle)); // Rotates retical
+            m_gSlash.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -m_fAngle)); // Rotates retical    
 
         }
     }
@@ -215,6 +222,7 @@ public class Ability : MonoBehaviour
             m_fTauntDurationTimer = 0; // Taunt duration time set to 0
             if (m_aEnemies != null)
             {
+
                 for (int i = 0; i < m_aEnemies.Length; i++) // For every enemy
                 {
                     if (m_aEnemies[i] != null)
@@ -268,6 +276,8 @@ public class Ability : MonoBehaviour
             // If turtle has reached the end position or the ability button has been retriggered
             if (Input.GetAxisRaw("Ability") > 0.2f && !m_bIsTaunting && !m_bTriggerDown || Vector2.Distance(m_gTurtle.transform.position, m_v2EndPos) <= 0.8f && !m_bIsTaunting)
             {
+                GetComponent<AudioSource>().clip = m_sTauntSFX;
+                GetComponent<AudioSource>().Play();
                 m_bIsTaunting = true; // Taunting set to true
                 m_gTaunt.SetActive(true); // Taunt sprite set to true
                 if (m_aEnemies != null)
