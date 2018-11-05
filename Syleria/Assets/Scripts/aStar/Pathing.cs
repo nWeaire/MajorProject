@@ -12,29 +12,31 @@ using UnityEngine;
 public class Pathing : MonoBehaviour {
 
     public aStarGrid m_grid; // Reference to a* grid
-    public List<Node> FinalPath;
-    List<Node> OpenList;
-    HashSet<Node> ClosedList;
+    public List<Node> FinalPath; // Final path for a*
+    List<Node> OpenList; // Openlist of nodes
+    HashSet<Node> ClosedList; // Closed list of nodes
 
     // Use this for initialization
     void Awake ()
     {
-        OpenList = new List<Node>(1);
-        FinalPath = new List<Node>(1);
-        ClosedList = new HashSet<Node>();
+        OpenList = new List<Node>(1); // Initalizes open list of nodes
+        FinalPath = new List<Node>(1); // Initalizes final path of nodes
+        ClosedList = new HashSet<Node>(); // Initalizes closedlist of nodes
         m_grid = GetComponent<aStarGrid>(); // Gets reference to grid
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    //--------------------------------------------------------------
+    //  finds the path of nodes to the end position from the start position
+    //  Parameters:
+    //      startPos: Starting position of path
+    //      targetPos: Target position of path
+    //  Returns:
+    //      List<Node> : Returns list of nodes from the start position to the target position
+    //--------------------------------------------------------------
+    public List<Node> FindPath(Vector3 startPos, Vector3 targetPos)
     {
-		
-	}
-    
-    public List<Node> FindPath(Vector3 a_StartPos, Vector3 a_TargetPos)
-    {
-        Node StartNode = m_grid.NodeFromWorldPoint(a_StartPos);//Gets the node closest to the starting position
-        Node TargetNode = m_grid.NodeFromWorldPoint(a_TargetPos);//Gets the node closest to the target position
+        Node StartNode = m_grid.NodeFromWorldPoint(startPos);//Gets the node closest to the starting position
+        Node TargetNode = m_grid.NodeFromWorldPoint(targetPos);//Gets the node closest to the target position
 
         OpenList.Clear();
         ClosedList.Clear();
@@ -59,7 +61,7 @@ public class Pathing : MonoBehaviour {
                 return GetFinalPath(StartNode, TargetNode);//Calculate the final path
             }
 
-            foreach (Node NeighborNode in m_grid.GetNeighboringNodes(CurrentNode))//Loop through each neighbor of the current node
+            foreach (Node NeighborNode in m_grid.GetNeighbouringNodes(CurrentNode))//Loop through each neighbor of the current node
             {
                 if (!NeighborNode.Walkable || ClosedList.Contains(NeighborNode))//If the neighbor is a wall or has already been checked
                 {
@@ -84,11 +86,19 @@ public class Pathing : MonoBehaviour {
         return null;
     }
 
-    List<Node> GetFinalPath(Node a_StartingNode, Node a_EndNode)
+    //--------------------------------------------------------------
+    //  finds the path of nodes to the end node from the start node
+    //  Parameters:
+    //      startNode: Starting node
+    //      endNode: end node
+    //  Returns:
+    //      List<Node> : Returns list of nodes from the start node to the end node
+    //--------------------------------------------------------------
+    public List<Node> GetFinalPath(Node startingNode, Node endNode)
     {
-        Node CurrentNode = a_EndNode;//Node to store the current node being checked
+        Node CurrentNode = endNode;//Node to store the current node being checked
 
-        while (CurrentNode != a_StartingNode)//While loop to work through each node going through the parents to the beginning of the path
+        while (CurrentNode != startingNode)//While loop to work through each node going through the parents to the beginning of the path
         {
             FinalPath.Add(CurrentNode);//Add that node to the final path
             CurrentNode = CurrentNode.ParentNode;//Move onto its parent node
@@ -103,10 +113,18 @@ public class Pathing : MonoBehaviour {
 
     }
 
-    int GetManhattenDistance(Node a_nodeA, Node a_nodeB)
+    //--------------------------------------------------------------
+    //  Finds the manhatten distance between to nodes
+    //  Parameters:
+    //      Node NodeA: First Node to check manhatten distance
+    //      Node NodeB: Second Node to check manhatten distance
+    //  Returns:
+    //      int: The distance from nodeA to NodeB
+    //--------------------------------------------------------------
+    public int GetManhattenDistance(Node nodeA, Node nodeB)
     {
-        int ix = Mathf.Abs(a_nodeA.IndexX - a_nodeB.IndexX);//x1-x2
-        int iy = Mathf.Abs(a_nodeA.IndexY - a_nodeB.IndexY);//y1-y2
+        int ix = Mathf.Abs(nodeA.IndexX - nodeB.IndexX);//x1-x2
+        int iy = Mathf.Abs(nodeA.IndexY - nodeB.IndexY);//y1-y2
 
         return ix + iy;//Return the sum
     }

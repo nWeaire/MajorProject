@@ -25,7 +25,7 @@ public class Movement : MonoBehaviour
     #region Sprites
     [SerializeField] public GameObject m_gSprite; // Reference to player sprite
     public GameObject m_gDashIcon;
-    private Animator m_Animator;
+    public Animator m_Animator;
     private ParticleSystem m_mParticleSystem;
     private Renderer m_mRenderer;
     #endregion
@@ -264,11 +264,14 @@ public class Movement : MonoBehaviour
 
     }
 
+    //--------------------------------------------------------------
+    //  Logics for the Dash cooldown icon on the UI
+    //--------------------------------------------------------------
     private void UpdateCooldownIcon()
     {
-        m_gDashIcon.SetActive(true);
-        float iconFillAmount = ((m_fDashCDTimer / m_fDashCD) - 1) * -1;
-        m_gDashIcon.GetComponent<Image>().fillAmount = iconFillAmount;
+        m_gDashIcon.SetActive(true); // Sets the dash icon on the UI to true
+        float iconFillAmount = ((m_fDashCDTimer / m_fDashCD) - 1) * -1; // Sets the radial fill amount based on the Cooldown timer and the Cooldown length
+        m_gDashIcon.GetComponent<Image>().fillAmount = iconFillAmount; // Sets fill amount
         float fDashCD = (m_fDashCD - m_fDashCDTimer) * 10;
         int nDashCD = (int)fDashCD;
         fDashCD = nDashCD;

@@ -33,8 +33,9 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_gPlayer.GetComponent<Player>().m_bExpand)
+        if (m_gPlayer.GetComponent<Player>().m_bExpand) // If player has the expanding upgrade
         {
+            // Scales the bullet based on the distance from the players starting at the base size to a maximum of 4x the based size
             transform.localScale = new Vector2(1 + Vector2.Distance(this.transform.position, m_gPlayer.transform.position) / 4, 1 + Vector2.Distance(this.transform.position, m_gPlayer.transform.position) / 4);
         }
 

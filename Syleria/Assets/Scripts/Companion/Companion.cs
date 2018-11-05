@@ -42,6 +42,7 @@ public class Companion : MonoBehaviour
         m_Animator = GetComponent<Animator>(); // Gets animator component
         m_eState = State.IDLE; // Sets state to idle by default      
         this.transform.position = m_gPlayer.transform.position;
+        
     }
 
     // Update is called once per frame
@@ -55,6 +56,9 @@ public class Companion : MonoBehaviour
         UpdateAnimation(); // updates animations
     }
 
+    //--------------------------------------------------------------
+    //  Updates the state of the companion based on certain cases
+    //--------------------------------------------------------------
     public IEnumerator UpdateState()
     {
         if (!Physics2D.Linecast((Vector2)this.transform.position - new Vector2(0, 0.5f), (Vector2)m_gPlayer.transform.position + m_gPlayer.GetComponent<CircleCollider2D>().offset, m_wallLayer)) // Checks if companion can direction see player
@@ -83,6 +87,9 @@ public class Companion : MonoBehaviour
         yield return new WaitForSeconds(.1f); // Waits a tenth of a second to repeat this function
     }
 
+    //--------------------------------------------------------------
+    //  Switch statement that dictates the behaviour of the companion based on the current state its in
+    //--------------------------------------------------------------
     public void StateMachine()
     {
         switch (m_eState)
@@ -160,9 +167,15 @@ public class Companion : MonoBehaviour
                 break;
         }
     }
+
+    //--------------------------------------------------------------
+    //  finds all gameObjects tagged with Enemy in the scene
+    //  Returns:
+    //      GameObject[] : Returns list of enemies currently in scene
+    //--------------------------------------------------------------
     public GameObject[] getEnemies()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy"); // Finds all GameObjects tagged as Enemy
         if (enemies.Length > 0)
         {
             return enemies;
@@ -173,18 +186,26 @@ public class Companion : MonoBehaviour
         }
     }
 
+    //--------------------------------------------------------------
+    //  Translates in the direction of the target position
+    //  Parameters:
+    //      Vector2 TargetPosition: targetPosition for the companion to follow
+    //--------------------------------------------------------------
     public void Follow(Vector2 TargetPosition)
     {
         Vector2 DirToTarget = (TargetPosition) - (Vector2)this.transform.position;
         DirToTarget.Normalize();
         this.transform.Translate((DirToTarget) * m_fFollowSpeed * Time.deltaTime);
     }
+
+
     public void Follow(Vector2 TargetPosition, float Speed)
     {
         Vector2 DirToTarget = (TargetPosition) - (Vector2)this.transform.position;
         DirToTarget.Normalize();
         this.transform.Translate((DirToTarget) * Speed * Time.deltaTime);
     }
+
     public bool AStar(Vector2 TargetPosition)
     {
         if (TargetPosition != null)
