@@ -2,6 +2,8 @@
 // Purpose: Destructable objects in scene logic
 //
 // Author: Nicholas Weaire
+//
+//Contributors: Hamish Smithers
 //--------------------------------------------------------------------------------------
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +18,10 @@ public class Destructables : MonoBehaviour
         { }
         else
         {
-            Destroy(this.gameObject); // Destroys this game object
+            this.GetComponentInChildren<ParticleSystem>().Play();
+            this.GetComponent<AudioSource>().pitch = Random.Range(0.85f, 1.15f);
+            this.GetComponent<AudioSource>().Play();
+            this.gameObject.SetActive(false); // Destroys this game object
         }
     }
 

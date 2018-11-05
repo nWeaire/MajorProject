@@ -326,8 +326,10 @@
     <Compile Include="Assets\Scripts\Game Manager\FinalSceneTransition.cs" />
     <Compile Include="Assets\Scripts\Game Manager\GM.cs" />
     <Compile Include="Assets\Scripts\Game Manager\SceneTransition.cs" />
+    <Compile Include="Assets\Scripts\Items\Destructables.cs" />
     <Compile Include="Assets\Scripts\Items\HealthOrb.cs" />
     <Compile Include="Assets\Scripts\Items\ProjectileItem.cs" />
+    <Compile Include="Assets\Scripts\Items\RandAnimationDelay.cs" />
     <Compile Include="Assets\Scripts\Items\StatItem.cs" />
     <Compile Include="Assets\Scripts\Items\TreasureRoom.cs" />
     <Compile Include="Assets\Scripts\Player\Ability.cs" />
