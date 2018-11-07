@@ -20,7 +20,8 @@ public class GM : MonoBehaviour {
     public GameObject m_EndGameUI;
     public GameObject m_runTimeObjects;
     private float timer = 0;
-    public GameObject m_gDeathAnimation;
+    public GameObject m_DeathAnimation = null;
+    private bool m_isDeathAnimation = false;
     // Use this for initialization
     void Start ()
     {
@@ -30,7 +31,7 @@ public class GM : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        StartCoroutine("EndGame");
+        EndGame();
         if (Input.GetKey("escape"))
         {
             Application.Quit();
@@ -64,16 +65,20 @@ public class GM : MonoBehaviour {
         isPaused = false;
     }
 
-    public IEnumerator EndGame()
+    public void EndGame()
     {
-        if(m_Player.GetCurrentHealth() <= 0)
+        if (m_Player.GetCurrentHealth() <= 0)
         {
             GameObject background = GameObject.Find("End Background");
             timer += 0.05f;
             background.GetComponent<Image>().color = new Color(0, 0, 0, timer);
-            if(timer >= 1)
+            if (timer >= 1)
             {
-                m_gDeathAnimation.SetActive(true);
+                if (!m_isDeathAnimation)
+                {
+                    Instantiate(m_DeathAnimation, GameObject.FindGameObjectWithTag("DeathAnimation").transform.position + (Vector3.forward * 4), Quaternion.identity, GameObject.FindGameObjectWithTag("DeathAnimation").transform);
+                    m_isDeathAnimation = true;
+                }
                 m_EndGameUI.SetActive(true);
                 Image[] images = m_EndGameUI.GetComponentsInChildren<Image>();
                 for (int i = 0; i < images.Length; i++)
@@ -87,11 +92,13 @@ public class GM : MonoBehaviour {
                 }
 
             }
-            Time.timeScale = 0;
-            isPaused = true;
-            isGameOver = true;
+            if (timer > 4)
+            {
+                Time.timeScale = 0;
+                isPaused = true;
+                isGameOver = true;
+            }
         }
-        yield return new WaitForSeconds(.3f);
     }
 
     public void QuitGame()

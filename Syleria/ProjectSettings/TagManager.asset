@@ -22,6 +22,7 @@ TagManager:
   - RightCorridor
   - LeftCorridor
   - ItemPanel
+  - DeathAnimation
   layers:
   - Default
   - TransparentFX

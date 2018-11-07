@@ -37,6 +37,5 @@ public class Destructables : MonoBehaviour
     private void OnDestroy()
     {
         // Animation to play here
-        Debug.Log("Destroyed");
     }
 }
