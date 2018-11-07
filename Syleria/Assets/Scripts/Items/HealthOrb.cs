@@ -13,7 +13,7 @@ using UnityEngine;
 public class HealthOrb : MonoBehaviour
 {
     // Amount of Health the Player receives when it collides with this.
-    [Tooltip(" Amount of Health the Player receives when it collides with this")]
+    [Tooltip("Amount of Health the Player receives when it collides with this")]
     public int m_nHealthRestored;
 
     //--------------------------------------------------------------------------------------
@@ -23,13 +23,13 @@ public class HealthOrb : MonoBehaviour
     // Parameters:
     //      Collider2D collision: The collider that this has collided with.
     //--------------------------------------------------------------------------------------
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         // If the Player walks into this.
-        if(other.tag == "Player")
+        if(collision.tag == "Player")
         {
             // Heal the Player by x amount.
-            other.GetComponent<Player>().AddCurrentHealth(m_nHealthRestored);
+            collision.GetComponent<Player>().AddCurrentHealth(m_nHealthRestored);
             // Destroy this object.
             Destroy(this.gameObject);
         }
