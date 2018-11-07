@@ -27,7 +27,7 @@ public class Destructables : MonoBehaviour
             }
 
 
-            this.GetComponentInChildren<ParticleSystem>().Play();
+            this.GetComponent<ParticleSystem>().Play();
             this.GetComponent<AudioSource>().pitch = Random.Range(0.85f, 1.15f);
             this.GetComponent<AudioSource>().Play();
             this.gameObject.SetActive(false); // Destroys this game object
