@@ -394,7 +394,8 @@ public class Enemy : MonoBehaviour
         float fRand = Random.Range(0, 100);
         if(fRand <= m_fOrbDropChance)
         {
-            Instantiate(m_gHealthOrb);
+            GameObject go =  Instantiate(m_gHealthOrb);
+            go.transform.position = transform.position;
         }
     }
 }
