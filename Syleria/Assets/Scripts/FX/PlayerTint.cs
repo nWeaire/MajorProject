@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//--------------------------------------------------------------
+//  Author: Hamish Smithers
+//--------------------------------------------------------------
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

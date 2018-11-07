@@ -20,29 +20,30 @@ public class Companion : MonoBehaviour
     public List<Node> m_Path; // Path they aStar on
     #endregion
 
+    #region Attack Variables
+    private float m_fAttackTimer = 0; // Timer for attack rate
+    [SerializeField] private float m_fAttackCD = 1.0f; // Attack cooldown
+    [SerializeField] private int m_nAttackPercentage = 40; // Percentage of player damage that companion deals
+    [SerializeField] private int m_nDamage; // Damage the companion will deal
+    private bool isAttacking = false; // Bool for Companion attacking
+    private bool m_bAttackOnCD = false; // bool for attack availbility
+    #endregion
+
     public Ability m_gAbility; // Reference to ability script
     public GameObject m_gPlayer; // Reference to player
     [SerializeField] private float m_fFollowSpeed = 3.0f; // Follow move speed
     public State m_eState; // Starting state for companion
     public LayerMask m_wallLayer; // LayerMask for sight check
-    private bool isAttacking = false; // Bool for Companion attacking
     private GameObject m_gTarget; // Current target of companion
-    private float m_fAttackTimer = 0; // Timer for attack rate
-    [SerializeField] private float m_fAttackCD = 1.0f; // Attack cooldown
-    [SerializeField] private int m_nAttackPercentage = 40; // Percentage of player damage that companion deals
-    [SerializeField] private int m_nDamage; // Damage the companion will deal
-    private bool m_bAttackOnCD = false; // bool for attack availbility
     private Animator m_Animator; // Reference to animator
     public float m_fMaxFollowRange = 4.0f;
     private float m_fCurrentFollowRange = 0f;
-    public float m_fAttackRange = 5f;
 
     void Awake()
     {
         m_Animator = GetComponent<Animator>(); // Gets animator component
         m_eState = State.IDLE; // Sets state to idle by default      
-        this.transform.position = m_gPlayer.transform.position;
-        
+        this.transform.position = m_gPlayer.transform.position;      
     }
 
     // Update is called once per frame
@@ -193,19 +194,31 @@ public class Companion : MonoBehaviour
     //--------------------------------------------------------------
     public void Follow(Vector2 TargetPosition)
     {
-        Vector2 DirToTarget = (TargetPosition) - (Vector2)this.transform.position;
-        DirToTarget.Normalize();
-        this.transform.Translate((DirToTarget) * m_fFollowSpeed * Time.deltaTime);
+        Vector2 DirToTarget = (TargetPosition) - (Vector2)this.transform.position; // Finds direction towards target position
+        DirToTarget.Normalize(); // Normalize direction towards target
+        this.transform.Translate((DirToTarget) * m_fFollowSpeed * Time.deltaTime); // Translate in direction of target position
     }
 
-
+    //--------------------------------------------------------------
+    //  Overload for Follow
+    //  Translates in the direction of the target position with given speed
+    //  Parameters:
+    //      Vector2 TargetPosition: targetPosition for the companion to follow
+    //      Float Speed: Speed at which companion moves towards targetposition
+    //--------------------------------------------------------------
     public void Follow(Vector2 TargetPosition, float Speed)
     {
-        Vector2 DirToTarget = (TargetPosition) - (Vector2)this.transform.position;
-        DirToTarget.Normalize();
-        this.transform.Translate((DirToTarget) * Speed * Time.deltaTime);
+        Vector2 DirToTarget = (TargetPosition) - (Vector2)this.transform.position; // Finds direction towards target position
+        DirToTarget.Normalize(); // Normalize direction towards target
+        this.transform.Translate((DirToTarget) * Speed * Time.deltaTime); // Translate in direction of target position
     }
 
+    //--------------------------------------------------------------
+    //  Finds path to target position from current position
+    //  Follows in the direction of next node in path
+    //  Parameters:
+    //      Vector2 TargetPosition: targetPosition for the companion to path to
+    //--------------------------------------------------------------
     public bool AStar(Vector2 TargetPosition)
     {
         if (TargetPosition != null)
@@ -214,7 +227,7 @@ public class Companion : MonoBehaviour
         }
         else
         {
-            m_Path = null;
+            m_Path = null; // if no path found its null
         }
         if (m_Path != null)
         {
@@ -231,33 +244,38 @@ public class Companion : MonoBehaviour
             return false;
         }
     }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (m_eState != State.ATTACK)
+        if (m_eState != State.ATTACK) // If not in attack state
         {
-            if (collision.gameObject.tag == "Enemy")
+            if (collision.gameObject.tag == "Enemy") // If colliding with enemy
             {
-                if (!Physics2D.Linecast(this.transform.position, collision.transform.position, m_wallLayer))
+                if (!Physics2D.Linecast(this.transform.position, collision.transform.position, m_wallLayer)) // Check for line of sight
                 {
-                    isAttacking = true;
-                    m_eState = State.ATTACK;
-                    m_gTarget = collision.gameObject;
+                    isAttacking = true; // Is attacking is true
+                    m_eState = State.ATTACK; // Set to attack state
+                    m_gTarget = collision.gameObject; // Sets target as collision gameobject
 
                 }
             }
         }
     }
 
+    //--------------------------------------------------------------
+    //  Updates the damage the companion deals
+    //--------------------------------------------------------------
     public IEnumerator UpdateDamage()
     {
-        m_nDamage = (m_gPlayer.GetComponentInChildren<Player>().GetDamage() * m_nAttackPercentage) / 100;
-        yield return new WaitForSeconds(10.0f);
+        m_nDamage = (m_gPlayer.GetComponentInChildren<Player>().GetDamage() * m_nAttackPercentage) / 100; // Damage is updated based on the players damage and attack percentage
+        yield return new WaitForSeconds(10.0f); // Checks every 10 seconds
     }
 
+    //--------------------------------------------------------------
+    //  Updates all animation parameters, Callan Davies
+    //--------------------------------------------------------------
     public void UpdateAnimation()
     {
-
-
         // Boolean setting for the sprite
         if (transform.position.x - m_gPlayer.transform.position.x >= 0 && m_eState != State.ATTACK)
         {
@@ -286,7 +304,7 @@ public class Companion : MonoBehaviour
             }
         }
 
-        if (m_eState == State.IDLE)
+        if (m_eState == State.IDLE) 
         {
             m_Animator.SetBool("isMoving", false);
         }

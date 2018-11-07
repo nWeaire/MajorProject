@@ -12,20 +12,20 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class GM : MonoBehaviour {
 
-    [SerializeField] private GameObject m_gPlayer;
-    private Player m_Player;
-    public bool isPaused = false;
-    public bool isGameOver = false;
-    public GameObject m_gPauseMenu;
-    public GameObject m_EndGameUI;
-    public GameObject m_runTimeObjects;
-    private float timer = 0;
-    public GameObject m_DeathAnimation = null;
-    private bool m_isDeathAnimation = false;
+    [SerializeField] private GameObject m_gPlayer; // Reference to player gameObject
+    private Player m_Player; // Reference to player script
+    public bool isPaused = false; // Bool for pausing game
+    public bool isGameOver = false; // Bool for game over
+    public GameObject m_gPauseMenu; // Pause menu ui
+    public GameObject m_EndGameUI; // End game ui
+    public GameObject m_runTimeObjects; // Run time objects
+    private float timer = 0; // Timer for end game ui fade in
+    public GameObject m_DeathAnimation = null; // Death animation to play on game over
+    private bool m_isDeathAnimation = false; // Is death animation spawned
     // Use this for initialization
     void Start ()
     {
-        m_Player = m_gPlayer.GetComponent<Player>();
+        m_Player = m_gPlayer.GetComponent<Player>(); // Finding player script
 	}
 	
 	// Update is called once per frame
