@@ -12,6 +12,7 @@ public class SwordMage : Enemy
     [Tooltip("Speed that the bullet will be fired at")]
     public float m_fBulletSpeed;
 
+    // Delay after the Sword Mage stops firing to then start moving.
     public float m_fMoveDelay;
 
     // Timer between shots
@@ -29,25 +30,42 @@ public class SwordMage : Enemy
     [Tooltip("Time in Seconds that the enemy will sit still after spawn")]
     public float m_fSpawnTime;
 
+    //Time the shooting Animation will run for.
+    [Tooltip("Time the shooting Animation will run for")]
+    public float m_fShootAnimTime = 1.6f;
+
+    //Time the bullets will start spawning after shooting animation has started.
+    [Tooltip("Time the bullets will start spawning after shooting animation has started")]
+    public float m_fShootDelayTime = 0.6f;
+
     // a timer for use in timing the shots
     private float m_fTimeBetweenShots = 0;
 
     // a timer for use in timing between bursts
     private float m_fTimeBetweenBursts;
 
+    // Timer for how long the SwordMage will move for.
     private float m_fMoveTimer = 0;
+
+    // Timer for the shoot delay.
+    private float m_fShootDelayTimer = 0;
 
     // a counter for the shots in a burst
     private int m_nBurstCount;
 
+    // Target for the SwordMage, could be the Player or the Turtle if taunted.
     private Vector3 m_v3Target;
 
+    // if the Sword Mage has finished firing.
     private bool m_bFinishedFiring;
 
+    // If the Sword Mage may move, false when shooting.
     private bool m_bCanMove;
 
+    // Timer used for spawn stun.
     private float m_fSpawnTimer = 0.0f;
 
+    // Boolean to stop all AI while its still spawning in.
     private bool m_bSpawnStun;
 
     //Timer for knockback lerp
@@ -65,9 +83,11 @@ public class SwordMage : Enemy
     // Total knockback distance
     [SerializeField] private float m_fKnockDistance = 3;
 
+    // If the Mage is knocking back the Player.
     private bool m_bKnockBack;
 
-    private Animator m_Animator;
+    // boolean for if mage is capable of shooting.
+    private bool m_bShouldShoot;
 
     //--------------------------------------------------------------------------------------
     // initialization.
@@ -141,11 +161,12 @@ public class SwordMage : Enemy
                         Debug.DrawLine((Vector2)this.transform.position + new Vector2(0, GetComponent<CapsuleCollider2D>().offset.y), (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset, Color.blue, 1.5f);
                         if (!Physics2D.Linecast((Vector2)this.transform.position + new Vector2(0, GetComponent<CapsuleCollider2D>().offset.y), (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset, m_WallLayer))
                         {
-                            Debug.DrawLine((Vector2)this.transform.position + new Vector2(0, GetComponent<CapsuleCollider2D>().offset.y), (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset, Color.blue, 3f);
+                            //Debug.DrawLine((Vector2)this.transform.position + new Vector2(0, GetComponent<CapsuleCollider2D>().offset.y), (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset, Color.blue, 3f);
                             Fire();
                         }
                         else
                         {
+                           
                             m_bCanMove = true;
                             m_bFinishedFiring = true;
                             m_fTimeBetweenShots = m_fFireRate;
@@ -170,6 +191,7 @@ public class SwordMage : Enemy
                 // If BurstCount has added up to the amount of shots wanted,
                 else
                 {
+                    m_fShootDelayTimer = 0.0f;
                     m_bFinishedFiring = true;
                     if (m_bCanMove)
                     {
@@ -181,6 +203,7 @@ public class SwordMage : Enemy
                     // If counter has reacher the timer,
                     if (m_fTimeBetweenBursts >= m_fBurstTimer)
                     {
+                       
                         // Reset timer.
                         m_fTimeBetweenBursts = 0.0f;
                         // Reset Counter.
@@ -221,58 +244,61 @@ public class SwordMage : Enemy
                 m_bKnockBack = false;
                 m_fKnockTimer = 0.0f;
             }
-        }
-
-        if(!m_bFinishedFiring && m_fBurstTimer >= m_fTimeBetweenBursts * 0.5f)
-        {
-            StartCoroutine(AnimatorSetFire(1.0f));
-        }
+        }      
     }
     //--------------------------------------------------------------------------------------
     // Fire: Spawn a projectile and fire it towards the player.
     //--------------------------------------------------------------------------------------
     void Fire()
     {
+        StartCoroutine(AnimatorSetFire(m_fShootAnimTime));
 
-        OnShoot();
-        m_bFinishedFiring = false;
-        m_bCanMove = false;
-        Vector3 m_V3Spawn = Vector3.zero;
-        if (m_bMovingLeft)
+        if (m_bShouldShoot)
         {
-            //m_V3Spawn = new Vector3(transform.position.x - (GetComponent<CapsuleCollider2D>().size.x * 0.5f), transform.position.y - (GetComponent<CapsuleCollider2D>().size.y * 0.1f), 1);
+            OnShoot();
+            m_bFinishedFiring = false;
+            m_bCanMove = false;
+            Vector3 m_V3Spawn = Vector3.zero;
+
+            // Instantiate a bullet.
+            GameObject newBullet = Instantiate(m_gProjectile, transform.position + new Vector3(0, GetComponent<CapsuleCollider2D>().offset.y), Quaternion.Euler(0, 0, 0)) as GameObject;
+            m_nBurstCount++;
+
+            if (m_bTaunted)
+            {
+                m_v3Target = m_gCompanion.transform.position - transform.position;
+                m_v3Target.Normalize();
+            }
+            else
+            {
+                // Get the target position.
+                m_v3Target = m_gPlayer.transform.position - transform.position;
+                m_v3Target.Normalize();
+            }
+            // Calculate rotation needed to face Player.
+            float angle = Mathf.Atan2(m_v3Target.y, m_v3Target.x) * Mathf.Rad2Deg;
+            // Set bullets rotation to face Player.
+            newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+
+            // Set bullets damage to this SwordMage damage value.
+            newBullet.GetComponent<EnemyBullet>().m_nDam = m_nDamage;
+            // Set bullets damage to this SwordMage bullet speed.
+            newBullet.GetComponent<EnemyBullet>().m_fSpeed = m_fBulletSpeed;
+
+            // Reset timer.
+            m_fTimeBetweenShots = 0.0f;
+            m_bShouldShoot = false;
         }
         else
         {
-            //m_V3Spawn = new Vector3(transform.position.x + (GetComponent<CapsuleCollider2D>().size.x * 0.5f), transform.position.y - (GetComponent<CapsuleCollider2D>().size.y * 0.1f), 1);
+            if (m_fShootDelayTime < m_fShootDelayTimer)
+            {
+                m_bShouldShoot = true;
+            }
+            
+            m_fShootDelayTimer += Time.deltaTime;
+            m_fShootDelayTimer = m_fShootDelayTimer % 60;
         }
-        // Instantiate a bullet.
-        GameObject newBullet = Instantiate(m_gProjectile, transform.position + new Vector3(0, GetComponent<CapsuleCollider2D>().offset.y), Quaternion.Euler(0, 0, 0)) as GameObject;
-        m_nBurstCount++;
-
-        if (m_bTaunted)
-        {
-            m_v3Target = m_gCompanion.transform.position - transform.position;
-            m_v3Target.Normalize();
-        }
-        else
-        {
-            // Get the target position.
-            m_v3Target = m_gPlayer.transform.position - transform.position;
-            m_v3Target.Normalize();
-        }
-        // Calculate rotation needed to face Player.
-        float angle = Mathf.Atan2(m_v3Target.y, m_v3Target.x) * Mathf.Rad2Deg;
-        // Set bullets rotation to face Player.
-        newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
-
-        // Set bullets damage to this SwordMage damage value.
-        newBullet.GetComponent<EnemyBullet>().m_nDam = m_nDamage;
-        // Set bullets damage to this SwordMage bullet speed.
-        newBullet.GetComponent<EnemyBullet>().m_fSpeed = m_fBulletSpeed;
-
-        // Reset timer.
-        m_fTimeBetweenShots = 0.0f;
     }
 
     //--------------------------------------------------------------------------------------
@@ -284,20 +310,6 @@ public class SwordMage : Enemy
         // Destroy this object.
         Destroy(gameObject);
     }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-
-        if (collision.tag == "Enemy")
-        {
-            //Vector3 dir = transform.position - collision.transform.position;
-            //dir.Normalize();
-            //transform.position += dir * 0.01f;
-            //transform.position = (Vector2)transform.position;
-
-        }
-    }
-
 
     //--------------------------------------------------------------------------------------
     // OnTriggerEnter2D: A function called when the trigger on this object collides with 
@@ -325,6 +337,13 @@ public class SwordMage : Enemy
             }
         }
     }
+
+    //--------------------------------------------------------------------------------------
+    // KnockPlayer: A function that knocks back the player.
+    //
+    // Parameters:
+    //      Vector3 dir: The direction between Player and Enemy.
+    //--------------------------------------------------------------------------------------
     void KnockPlayer(Vector3 dir)
     {
         // Knockback the player.
@@ -347,15 +366,22 @@ public class SwordMage : Enemy
         m_v2StartKnockPos = m_gPlayer.transform.parent.position;
     }
 
-    //https://answers.unity.com/questions/1386501/set-animator-boolean-false-after-animation-conplet.html
-    //This gives you trigger like behavior from a bool
+    //--------------------------------------------------------------------------------------
+    // AnimatorSetFire: A function called when the trigger on this object collides with 
+    //                   another object.
+    //
+    // Parameters:
+    //      float animationLength: The collider that this has collided with.
+    //--------------------------------------------------------------------------------------
     private IEnumerator AnimatorSetFire(float animationLength)
     {
+        // Set Shooting bool to true.
         m_Animator.SetBool("isAttacking", true);
 
-        //You can wait for seconds, frames, other coroutines, whatever u need 
-       yield return new WaitForSeconds(animationLength);
+        // Wait for x amount of seconds to pass, then...
+        yield return new WaitForSeconds(animationLength);
 
+        // Set shooting bool to false.
         m_Animator.SetBool("isAttacking", false);
     }
 }

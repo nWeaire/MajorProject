@@ -12,70 +12,87 @@ using UnityEngine;
 
 public class ShotgunMage : Enemy
 {
-    // Projectile for the ShotgunMage
+    // Projectile for the ShotgunMage.
     [Tooltip("Put Enemy Bullet prefab here")]
     public GameObject m_gProjectile;
 
-    // Speed that the bullet will go at
+    // Speed that the bullet will go at.
     [Tooltip("Speed that the bullet will be fired at")]
     public float m_fBulletSpeed;
 
-    // Timer between shots
+    // Timer between shots.
     [Tooltip("Seconds between shots")]
     public float m_fFireRate;
 
-    // Time between bursts
+    // Time between bursts.
     [Tooltip("Seconds between bursts")]
     public float m_fBurstTimer;
 
-    // Amount of shots per burst
+    // Amount of shots per burst.
     [Tooltip("Amount of shots per burst")]
     public int m_nBurstAmount = 1;
 
-    // Amount of bullets that will be instantiated in the spread
+    // Amount of bullets that will be instantiated in the spread.
     [Tooltip("Amount of bullets that will be instantiated in the spread")]
     public int m_nBulletAmount = 5;
 
-    // Amount of spread between the bullets in a burst
+    // Amount of spread between the bullets in a burst.
     [Tooltip("Amount of spread between the bullets in a burst")]
     public float m_fBulletSpread = 10;
 
+    // Time in seconds that the enemy is stunned for after spawn.
     [Tooltip("Time in Seconds that the enemy will sit still after spawn")]
     public float m_fSpawnTime;
 
-    // a timer for use in timing the shots
+    //Time the shooting Animation will run for.
+    [Tooltip("Time the shooting Animation will run for")]
+    public float m_fShootAnimTime = 1.6f;
+
+    //Time the bullets will start spawning after shooting animation has started.
+    [Tooltip("Time the bullets will start spawning after shooting animation has started")]
+    public float m_fShootDelayTime = 0.6f;
+
+    // a timer for use in timing the shots.
     private float m_fTimeBetweenShots = 0;
 
-    // a timer for use in timing between bursts
+    // a timer for use in timing between bursts.
     private float m_fTimeBetweenBursts;
 
-    // a counter for the shots in a burst
+    // a counter for the shots in a burst.
     private int m_nBurstCount;
 
+    // The target that the ShotgunMage will aim it. The Player or the Turtle (if taunted).
     private Vector3 m_v3Target;
 
+    // Timer used for spawn stun.
     private float m_fSpawnTimer = 0.0f;
 
+    // Boolean to stop all AI while its still spawning in.
     private bool m_bSpawnStun;
 
-    //Timer for knockback lerp
+    //Timer for knockback lerp.
     private float m_fKnockTimer = 0;
 
-    // Speed for knockback lerp
+    // Speed for knockback lerp.
     private float m_fKnockSpeed = 5f;
 
-    // Position knockback will end in 
+    // Position knockback will end in.
     private Vector2 m_v2EndKnockPos;
 
-    // Position knockback starts in
+    // Timer for the shoot delay.
+    private float m_fShootDelayTimer = 0;
+
+    // Position knockback starts in.
     private Vector2 m_v2StartKnockPos;
 
-    // Total knockback distance
+    // Total knockback distance.
     [SerializeField] private float m_fKnockDistance = 3;
 
+    // If this enemy is currently knocking back.
     private bool m_bKnockBack;
 
-    private Animator m_Animator;
+    // Boolean for use in delaying the shots for animation.
+    private bool m_bShouldShoot;
 
     //--------------------------------------------------------------------------------------
     // initialization.
@@ -147,6 +164,7 @@ public class ShotgunMage : Enemy
                 // if BurstCount has added up to the amount of shots wanted,
                 else
                 {
+                    m_fShootDelayTimer = 0.0f;
                     // Increment Counter.
                     m_fTimeBetweenBursts += Time.deltaTime;
                     // Make counter in seconds.
@@ -198,34 +216,49 @@ public class ShotgunMage : Enemy
     //--------------------------------------------------------------------------------------
     void Fire()
     {
-        OnShoot();
-        // Instantiate a bullet
-        for (int i = 0; i < m_nBulletAmount; ++i)
+        StartCoroutine(AnimatorSetFire(m_fShootAnimTime));
+        if (m_bShouldShoot)
         {
-            GameObject newBullet = Instantiate(m_gProjectile, this.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
-            // Get the target position
-            if (m_bTaunted)
+            OnShoot();
+            // Instantiate a bullet
+            for (int i = 0; i < m_nBulletAmount; ++i)
             {
-                m_v3Target = m_gCompanion.transform.position - transform.position;
-                m_v3Target.Normalize();
+                GameObject newBullet = Instantiate(m_gProjectile, this.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+                // Get the target position
+                if (m_bTaunted)
+                {
+                    m_v3Target = m_gCompanion.transform.position - transform.position;
+                    m_v3Target.Normalize();
+                }
+                else
+                {
+                    m_v3Target = m_gPlayer.transform.position - transform.position;
+                    m_v3Target.Normalize();
+                }
+                // Calculate rotation needed to face Player
+                float angle = Mathf.Atan2(m_v3Target.y, m_v3Target.x) * Mathf.Rad2Deg;
+                // Set bullets rotation to face Player.
+                newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90 - (((float)m_nBulletAmount - 1) * 0.5f) * m_fBulletSpread + (i * m_fBulletSpread)));
+                // Set bullets damage to this damage value
+                newBullet.GetComponent<EnemyBullet>().m_nDam = m_nDamage;
+                // Set bullets damage to this  bullet speed
+                newBullet.GetComponent<EnemyBullet>().m_fSpeed = m_fBulletSpeed;
             }
-            else
-            {
-                m_v3Target = m_gPlayer.transform.position - transform.position;
-                m_v3Target.Normalize();
-            }
-            // Calculate rotation needed to face Player
-            float angle = Mathf.Atan2(m_v3Target.y, m_v3Target.x) * Mathf.Rad2Deg;
-            // Set bullets rotation to face Player.
-            newBullet.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90 - (((float)m_nBulletAmount - 1) * 0.5f) * m_fBulletSpread + (i * m_fBulletSpread)));
-            // Set bullets damage to this damage value
-            newBullet.GetComponent<EnemyBullet>().m_nDam = m_nDamage;
-            // Set bullets damage to this  bullet speed
-            newBullet.GetComponent<EnemyBullet>().m_fSpeed = m_fBulletSpeed;
+            m_nBurstCount++;
+            // Reset timer
+            m_fTimeBetweenShots = 0.0f;
+            m_bShouldShoot = false;
         }
-        m_nBurstCount++;
-        // Reset timer
-        m_fTimeBetweenShots = 0.0f;
+        else
+        {
+            if(m_fShootDelayTime < m_fShootDelayTimer)
+            {
+                m_bShouldShoot = true;
+            }
+            m_fShootDelayTimer += Time.deltaTime;
+            m_fShootDelayTimer = m_fShootDelayTimer % 60;
+        }
+
     }
 
     //--------------------------------------------------------------------------------------
@@ -264,6 +297,13 @@ public class ShotgunMage : Enemy
             }
         }
     }
+
+    //--------------------------------------------------------------------------------------
+    // KnockPlayer: A function that knocks back the player.
+    //
+    // Parameters:
+    //      Vector3 dir: The direction between Player and Enemy.
+    //--------------------------------------------------------------------------------------
     void KnockPlayer(Vector3 dir)
     {
         // Knockback the player.
@@ -285,5 +325,24 @@ public class ShotgunMage : Enemy
         }
 
         m_v2StartKnockPos = m_gPlayer.transform.parent.position;
+    }
+
+    //--------------------------------------------------------------------------------------
+    // AnimatorSetFire: A function called when the trigger on this object collides with 
+    //                   another object.
+    //
+    // Parameters:
+    //      float animationLength: The collider that this has collided with.
+    //--------------------------------------------------------------------------------------
+    private IEnumerator AnimatorSetFire(float animationLength)
+    {
+        // Set Shooting bool to true.
+        m_Animator.SetBool("isShooting", true);
+
+        // Wait for x amount of seconds to pass, then...
+        yield return new WaitForSeconds(animationLength);
+
+        // Set shooting bool to false.
+        m_Animator.SetBool("isShooting", false);
     }
 }

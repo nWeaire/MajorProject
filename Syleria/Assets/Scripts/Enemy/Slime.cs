@@ -17,6 +17,8 @@ public class Slime : Enemy
     [Tooltip("Untick this on the Small Slime Prefab, or on any slime that shouldn't spawn other slimes")]
     public bool m_bBigSlime;
 
+    // Amount of Small Slimes to Spawn.
+    [Tooltip("Amount of Small Slimes to spawn after this one dies. 0 = 1 and 3 = 4, cannot exceed 4")]
     public int m_nSmallSlimes;
 
     // Prefab for the Small Slimes that a Big Slime will spawn
@@ -47,27 +49,34 @@ public class Slime : Enemy
     [Tooltip("bool that will be set true on small slimes, it will then be false after the slime can move")]
     public bool m_bSpawning;
 
+    // Total knockback distance
+    [SerializeField] private float m_fKnockDistance = 3;
+
     // This timer is used for all timing in the slime, being reset when its use is complete
     private float m_fTimer = 0f;
 
+    // Timer for the moving of the slime.
     private float m_fMoveTimer = 0f;
 
+    // Timer for the pause of the Slime movement.
     private float m_fPauseTimer = 0f;
 
-    private float m_fKnockTimer = 0; // Timer for knockback lerp 
+    // Timer for knockback lerp.
+    private float m_fKnockTimer = 0;
 
-    private float m_fKnockSpeed = 5f; // Speed for knockback lerp
+    // Speed for knockback lerp.
+    private float m_fKnockSpeed = 5f;
 
-    private Vector2 m_v2EndKnockPos; // Position knockback will end in 
+    // Position knockback will end in.
+    private Vector2 m_v2EndKnockPos;
 
-    private Vector2 m_v2StartKnockPos; // Position knockback starts in
+    // Position knockback starts in.
+    private Vector2 m_v2StartKnockPos; 
 
-    private Animator m_Animator;
-
-    [SerializeField] private float m_fKnockDistance = 3; // Total knockback distance
-
+    // If the Player is being knocked back.
     private bool m_bKnockBack;
 
+    // If the slime can knockback the player.
     private bool m_bCanKnockback;
 
     //--------------------------------------------------------------------------------------
@@ -232,6 +241,12 @@ public class Slime : Enemy
         }
     }
 
+    //--------------------------------------------------------------------------------------
+    // KnockPlayer: A function that knocks back the player.
+    //
+    // Parameters:
+    //      Vector3 dir: The direction between Player and Enemy.
+    //--------------------------------------------------------------------------------------
     void KnockPlayer(Vector3 dir)
     {
         // Knockback the player.
@@ -283,7 +298,12 @@ public class Slime : Enemy
             }
         }
     }
-
+    //--------------------------------------------------------------------------------------
+    // OnTriggerStay2D: A function called when the trigger on this object stays within another
+    //                  trigger.
+    // Parameters:
+    //      Collider2D collision: The collider that this has collided with.
+    //--------------------------------------------------------------------------------------
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.tag == "Player")

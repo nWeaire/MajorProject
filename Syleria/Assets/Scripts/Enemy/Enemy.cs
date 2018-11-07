@@ -23,7 +23,6 @@ public class Enemy : MonoBehaviour
     public float m_fAimDistance;
 
     public enum State { IDLE, CHASE, ASTAR, ATTACK, TAUNTED }
-
     public enum EnemyType { SLIME, SHOTGUN, SENTRY, SWORD, BOSS }
 
     #region AStar
@@ -60,27 +59,38 @@ public class Enemy : MonoBehaviour
     [Tooltip("Amount of seconds the slime will spend as red")]
     public float m_fFlashTime;
 
+    // Prefab for the HealthOrb.
     public GameObject m_gHealthOrb;
 
+    // The percentage chance that a healthOrb will drop upon Enemy death.
     public float m_fOrbDropChance;
 
+    #region FXs&SFXs
+
+    // Particle that is instantiated on this enemies spawn.
     public GameObject m_gSpawnParticle;
 
+    // Particle that is instantiated on this enemies death.
     public GameObject m_gDeathParticle;
 
+    // Particle that is instatiated when this enemy takes damage.
     public GameObject m_gHitSlash;
 
+    // Audiosource on this enemy.
     public AudioSource m_audioSource;
 
+    // Prefab for playing any noise that doesn't belong on the Enemy.
     public GameObject m_gSFXPrefab;
-
+    
+    // Sound that will play when this enemy dies.
     public AudioClip m_sDeathSFX;
 
+    // Sound that will play when this enemy shoots.
     public AudioClip m_sShootSFX;
 
+    // Changes the pitch of sounds and is randomized.
     public float m_fAudioPitchOffset=0f;
-
-    public Vector2 m_fOffset;
+    #endregion
 
     //Boolean for raycasts
     [HideInInspector]
@@ -94,6 +104,7 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public GameObject m_gCompanion;
 
+    // If the enemy can shoot.
     [HideInInspector]
     public bool m_bCanShoot = true;
 
@@ -105,6 +116,10 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public bool m_bTaunted = false;
 
+    // Reference to the Animator on the Enemy
+    [HideInInspector]
+    public Animator m_Animator;
+
     // Boolean for if this enemy has ever seen the player.
     private bool m_bSeenPlayer;
 
@@ -114,6 +129,7 @@ public class Enemy : MonoBehaviour
     // Pointer to this enemy's target.
     private Vector2 m_gTarget;
 
+    // Offset for the Enemy to look at the Players feet instead of head for wall checking.
     private Vector2 m_v2PlayerOffset;
 
     //--------------------------------------------------------------------------------------
@@ -169,8 +185,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    //--------------------------------------------------------------------------------------
+    // UpdateState: Function that runs through all AI state changing logic
+    //              and sets the enemies state to the applicable one.
+    //--------------------------------------------------------------------------------------
     public IEnumerator UpdateState()
     {
+        // If the Enemy isn't taunted,
         if (!m_bTaunted)
         {
 
@@ -186,7 +207,7 @@ public class Enemy : MonoBehaviour
             if (Vector2.Distance(this.transform.position, (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset) <= m_fAimDistance)
             {
                 if (!Physics2D.Linecast((Vector2)this.transform.position + new Vector2(0, GetComponent<CapsuleCollider2D>().offset.y), (Vector2)m_gPlayer.transform.position - new Vector2(0,0.2f), m_WallLayer) && !Physics2D.OverlapCircle((Vector2)this.transform.position, 0.2f, m_WallLayer)
-                    || !Physics2D.OverlapCircle((Vector2)this.transform.position, 4f, m_WallLayer))
+                    /*|| !Physics2D.OverlapCircle((Vector2)this.transform.position, 4f, m_WallLayer)*/)
                 {
                     if (m_eEnemyType == EnemyType.SHOTGUN || m_eEnemyType == EnemyType.SWORD)
                     {
@@ -199,6 +220,7 @@ public class Enemy : MonoBehaviour
                 m_eState = State.IDLE;
             }
         }
+        // If the enemy is taunted
         else
         {
             m_eState = State.TAUNTED;
@@ -206,6 +228,10 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(.1f);
     }
 
+    //--------------------------------------------------------------------------------------
+    // StateMachine: Switch statement that tells which function the enemy should use based on 
+    //               which state it is in currently.
+    //--------------------------------------------------------------------------------------
     public void StateMachine()
     {
         switch (m_eState)
@@ -247,11 +273,15 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    //--------------------------------------------------------------------------------------
+    // OnDeath: Functionality that all enemies access on death, spawning effects and such.
+    //--------------------------------------------------------------------------------------
     public void OnDeath()
     {
         if (m_gDeathParticle)
         {
             GameObject gSFXPrefab = Instantiate(m_gSFXPrefab) as GameObject;
+            gSFXPrefab.transform.name = this.transform.name + "SFX";
             gSFXPrefab.GetComponent<AudioSource>().clip = m_sDeathSFX;
             gSFXPrefab.GetComponent<AudioSource>().pitch = Random.Range(m_fAudioPitchOffset+ 0.9f, m_fAudioPitchOffset + 1.1f);
             gSFXPrefab.GetComponent<AudioSource>().volume = 0.5f;
@@ -264,7 +294,9 @@ public class Enemy : MonoBehaviour
         }
         DropHealthOrb();
     }
-
+    //--------------------------------------------------------------------------------------
+    // OnShoot: Functionality that all shooting enemies need for effects and such.
+    //--------------------------------------------------------------------------------------
     public void OnShoot()
     {
         GameObject gSFXPrefab = Instantiate(m_gSFXPrefab) as GameObject;
@@ -272,14 +304,28 @@ public class Enemy : MonoBehaviour
         gSFXPrefab.GetComponent<AudioSource>().pitch = Random.Range(0.9f, 1.1f);
         gSFXPrefab.GetComponent<AudioSource>().volume = 0.5f;
         gSFXPrefab.GetComponent<AudioSource>().Play();
+        Destroy(gSFXPrefab, 1f);
     }
 
+    //--------------------------------------------------------------------------------------
+    // Follow: Translates in the direction of the targetPosition.
+    //
+    // Parameters:
+    //      Vector2 TargetPosition: where the enemy wants to go directly to.
+    //--------------------------------------------------------------------------------------
     public void Follow(Vector2 TargetPosition)
     {
         Vector2 DirToTarget = (TargetPosition) - (Vector2)this.transform.position;
         DirToTarget.Normalize();
         this.transform.Translate((DirToTarget) * m_fAStarSpeed * Time.deltaTime);
     }
+
+    //--------------------------------------------------------------------------------------
+    // AStar: Goes towards its target using the Astar node system setup.
+    //
+    // Parameters:
+    //      Vector2 TargetPosition: where the enemy wants to Astar to.
+    //--------------------------------------------------------------------------------------
     public bool AStar(Vector2 TargetPosition)
     {
         if (TargetPosition != null)
@@ -329,15 +375,19 @@ public class Enemy : MonoBehaviour
         m_audioSource.Play();
     }
 
+    //--------------------------------------------------------------------------------------
+    // SetTarget: Sets this enemys target to gTarget.
+    //
+    // Parameters:
+    //      Vector2 gTarget: What to set the enemies target to.
+    //--------------------------------------------------------------------------------------
     public void SetTarget(Vector2 gTarget)
     {
         m_gTarget = gTarget;
     }
 
-
     //--------------------------------------------------------------------------------------
-    // DropHealthOrb: Calls on all enemies death to possibly drop a health orb.
-    //                
+    // DropHealthOrb: Calls on all enemies death to possibly drop a health orb.              
     //--------------------------------------------------------------------------------------
     public void DropHealthOrb()
     {
