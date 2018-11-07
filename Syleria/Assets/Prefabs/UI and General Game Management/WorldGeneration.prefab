@@ -57,18 +57,22 @@ MonoBehaviour:
   m_nRoomCount: 8
   m_nRoomsSpawned: 0
   m_agRooms:
-  - {fileID: 1931236387099560, guid: 416d733f4f1b32644ba6bb54bff3730f, type: 2}
-  - {fileID: 1092745654378962, guid: c30df3cc327662a47a25d23cf18f76a2, type: 2}
-  - {fileID: 1389624681363128, guid: 2b4992475a8c09e41a947b44ae2cf686, type: 2}
-  - {fileID: 1299363649423812, guid: 195ce456b3feeee47811c21cb07eb85a, type: 2}
-  - {fileID: 1922391367154224, guid: 998ba520f985d964984b26930e86296d, type: 2}
-  - {fileID: 1297338041146750, guid: 8091b7e211d720a409f230440269e55a, type: 2}
-  m_gStartRoom: {fileID: 1972281127177420, guid: 4c67e0ebdcf73f145b8d7f7623ed8af9,
+  - {fileID: 1193470686912068, guid: 10d8034d9a3be2c48b24e3e5f1ee1f30, type: 2}
+  - {fileID: 1789629299406874, guid: cf6ed63eec3a5704d901acc3b78de109, type: 2}
+  - {fileID: 1691086696968718, guid: d0f69b4d62fad6e49a1809c103d0c29f, type: 2}
+  - {fileID: 1857861560186560, guid: 86819b5effa5f564896623019f8fd7a8, type: 2}
+  - {fileID: 1939788610830746, guid: 1fe843db7cea269429f144a8c8de4bec, type: 2}
+  m_gStartRoom: {fileID: 1096031042795644, guid: c229468d6dea7a74aaeb494774aeb26f,
+    type: 2}
+  m_gBossRoom: {fileID: 1417934573329590, guid: 1651f35b44a4029499cb1c120fd98da2,
+    type: 2}
+  m_gItemRoom: {fileID: 1591795768809972, guid: 5f0615a5e7edf494a9e878765099204e,
     type: 2}
   m_gGameObjects: {fileID: 0}
   m_gA: {fileID: 1741485387019662, guid: 61c9e4c3a895c9a4a9837ee678da9cdc, type: 2}
   m_v2RoomSize: {x: 41, y: 27}
   m_v2CurrentIndex: {x: 0, y: 0}
+  m_nFloorNum: 0
 --- !u!156049354 &2569400267276821584
 Grid:
   m_ObjectHideFlags: 1

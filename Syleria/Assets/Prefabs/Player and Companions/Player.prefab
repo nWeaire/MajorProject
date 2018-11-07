@@ -915,7 +915,7 @@ MonoBehaviour:
   m_gSprite: {fileID: 1278906914210654}
   m_gDashIcon: {fileID: 0}
   m_Animator: {fileID: 0}
-  m_fDashCDTimer: 1.0132921
+  m_fDashCDTimer: 1
   m_fDashDistance: 5
   m_fDashSpeed: 10
   m_fDashCD: 1
@@ -943,11 +943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 157f8baf1835c8049b764cc061652abe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_gPlayer: {fileID: 1711354831552110}
-  m_gAim: {fileID: 1528618897356398}
   m_fSlashTime: 0.5
-  m_fSlashSpeed: 800
-  m_gSlash: {fileID: 1381537184272910, guid: 56a18acca984170489c2b8402686e20c, type: 2}
 --- !u!124 &124587683970668634
 Behaviour:
   m_ObjectHideFlags: 1
@@ -4581,7 +4577,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8ea146dab17ffd940b620997e63fbf74, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.891}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.49019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

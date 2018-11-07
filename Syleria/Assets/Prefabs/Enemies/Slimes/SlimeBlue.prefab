@@ -244,6 +244,9 @@ MonoBehaviour:
   m_nCurrentHealth: 30
   m_nDamage: 15
   m_fFlashTime: 0.1
+  m_gHealthOrb: {fileID: 1613620183713024, guid: 2a6a5d441bb69d645bd7f3ce5c2f02e0,
+    type: 2}
+  m_fOrbDropChance: 10
   m_gSpawnParticle: {fileID: 1035855390878196, guid: b23363c08023df74ebce192283cf3bd8,
     type: 2}
   m_gDeathParticle: {fileID: 1301809150033260, guid: 9c5df561ed4700042bb5e3bf15b7d766,
@@ -254,8 +257,8 @@ MonoBehaviour:
   m_gSFXPrefab: {fileID: 1354561584540784, guid: 4dbac8ca24301914eb68c709085e59c0,
     type: 2}
   m_sDeathSFX: {fileID: 8300000, guid: 2202b748d9fc3774ea48895473060b19, type: 3}
+  m_sShootSFX: {fileID: 0}
   m_fAudioPitchOffset: -0.1
-  m_fOffset: {x: 0, y: 0}
   m_bHit: 0
   m_cFilter:
     useTriggers: 0
@@ -275,6 +278,7 @@ MonoBehaviour:
   m_bCanShoot: 1
   m_bMovingLeft: 0
   m_bTaunted: 0
+  m_Animator: {fileID: 0}
   m_bBigSlime: 1
   m_nSmallSlimes: 2
   m_goSmallSlime: {fileID: 1986857641011166, guid: f7b0b487ad13d2542a34307a7099a986,

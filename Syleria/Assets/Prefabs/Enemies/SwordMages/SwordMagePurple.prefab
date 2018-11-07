@@ -232,8 +232,9 @@ MonoBehaviour:
   m_nCurrentHealth: 40
   m_nDamage: 18
   m_fFlashTime: 0.2
-  m_gHealthOrb: {fileID: 0}
-  m_fOrbDropChance: 0
+  m_gHealthOrb: {fileID: 1613620183713024, guid: 2a6a5d441bb69d645bd7f3ce5c2f02e0,
+    type: 2}
+  m_fOrbDropChance: 15
   m_gSpawnParticle: {fileID: 1035855390878196, guid: b23363c08023df74ebce192283cf3bd8,
     type: 2}
   m_gDeathParticle: {fileID: 1982485029611400, guid: 2776c239bb12d8e45ac8556f4e2451cb,
@@ -246,7 +247,6 @@ MonoBehaviour:
   m_sDeathSFX: {fileID: 8300000, guid: 1c9674c8a2776514fbe56517a6a4a4b5, type: 3}
   m_sShootSFX: {fileID: 8300000, guid: 38bf775fd37c1534ba695c23b73e7867, type: 3}
   m_fAudioPitchOffset: 0
-  m_fOffset: {x: 0, y: 0}
   m_bHit: 0
   m_cFilter:
     useTriggers: 0
@@ -266,6 +266,7 @@ MonoBehaviour:
   m_bCanShoot: 1
   m_bMovingLeft: 0
   m_bTaunted: 0
+  m_Animator: {fileID: 0}
   m_gProjectile: {fileID: 1668811833332258, guid: 23e60b4fbb5ded34eba2cd2df9b7cce2,
     type: 2}
   m_fBulletSpeed: 6
@@ -274,6 +275,8 @@ MonoBehaviour:
   m_fBurstTimer: 2
   m_nBurstAmount: 5
   m_fSpawnTime: 1
+  m_fShootAnimTime: 1.6
+  m_fShootDelayTime: 0.6
   m_fKnockDistance: 3
 --- !u!212 &212264031626756362
 SpriteRenderer:

@@ -140,6 +140,8 @@ MonoBehaviour:
   m_gPauseMenu: {fileID: 0}
   m_EndGameUI: {fileID: 0}
   m_runTimeObjects: {fileID: 0}
+  m_DeathAnimation: {fileID: 1233507720246930, guid: 3038b80b87f883847821fe7aad1dd88b,
+    type: 2}
 --- !u!114 &114640157414326988
 MonoBehaviour:
   m_ObjectHideFlags: 1
