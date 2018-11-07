@@ -293,7 +293,7 @@ Transform:
   m_GameObject: {fileID: 1977181123972036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4547811546410460}
   m_Father: {fileID: 4971437885448872}
@@ -914,6 +914,7 @@ MonoBehaviour:
     maxNormalAngle: 0
   m_gSprite: {fileID: 1278906914210654}
   m_gDashIcon: {fileID: 0}
+  m_Animator: {fileID: 0}
   m_fDashCDTimer: 1.0132921
   m_fDashDistance: 5
   m_fDashSpeed: 10
@@ -4579,7 +4580,7 @@ SpriteRenderer:
   m_SortingLayerID: -82733661
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ad6721bd17ff6404bac6c317087972fb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8ea146dab17ffd940b620997e63fbf74, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.891}
   m_FlipX: 0
   m_FlipY: 0

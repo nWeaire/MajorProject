@@ -12,12 +12,21 @@ using UnityEngine;
 public class Destructables : MonoBehaviour
 {
 
+    public GameObject healthPrefab;
+    public float healthDropChance;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Enemy")
         { }
         else
         {
+            if (Random.Range(0f, 100f) < healthDropChance && healthPrefab!=null)
+            {
+                Instantiate(healthPrefab, this.transform.position, Quaternion.identity);
+            }
+
+
             this.GetComponentInChildren<ParticleSystem>().Play();
             this.GetComponent<AudioSource>().pitch = Random.Range(0.85f, 1.15f);
             this.GetComponent<AudioSource>().Play();
