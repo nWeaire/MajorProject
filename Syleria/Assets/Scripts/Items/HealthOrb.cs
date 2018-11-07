@@ -16,6 +16,10 @@ public class HealthOrb : MonoBehaviour
     [Tooltip("Amount of Health the Player receives when it collides with this")]
     public int m_nHealthRestored;
 
+    //Heal effect to play on pickup
+    [Tooltip("Heal effect to play on pickup")]
+    public GameObject m_gHealEffect;
+
     //--------------------------------------------------------------------------------------
     // OnTriggerEnter2D: A function called when the trigger on this object collides with 
     //                   another object.
@@ -30,6 +34,13 @@ public class HealthOrb : MonoBehaviour
         {
             // Heal the Player by x amount.
             collision.GetComponent<Player>().AddCurrentHealth(m_nHealthRestored);
+            // Instantiate Heal effect
+            GameObject GO = Instantiate(m_gHealEffect, transform.position, Quaternion.identity) as GameObject;
+            //Randomize heal SFX pitch
+            GO.GetComponent<AudioSource>().pitch = Random.Range(0.8f, 1.2f);
+            //Destroy GO in 1 second
+            Destroy(GO, 1f);
+
             // Destroy this object.
             Destroy(this.gameObject);
         }
