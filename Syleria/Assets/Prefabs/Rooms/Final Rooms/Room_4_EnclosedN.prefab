@@ -4577,7 +4577,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b1183e1f85c397468980f52770d4a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_aSpawnPoints: []
+  m_aSpawnPoints:
+  - {fileID: 1012019645447030}
+  - {fileID: 1602102141221396}
+  - {fileID: 1937080815606580}
+  - {fileID: 1679013480944526}
+  - {fileID: 1561946543313582}
   m_gLadder: {fileID: 0}
   m_bRoomActive: 0
   m_bSpawned: 0
@@ -4611,7 +4616,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b1183e1f85c397468980f52770d4a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_aSpawnPoints: []
+  m_aSpawnPoints:
+  - {fileID: 1524428980108716}
+  - {fileID: 1021690350139378}
+  - {fileID: 1630680614407546}
+  - {fileID: 1738710362863086}
+  - {fileID: 1128612255760412}
   m_gLadder: {fileID: 0}
   m_bRoomActive: 0
   m_bSpawned: 0
