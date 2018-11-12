@@ -9,5 +9,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Start Menu.unity
     guid: 723e6e1aad24cba449ada7108311ae7f
   - enabled: 1
-    path: Assets/Scenes/Main Scene.unity
-    guid: 732770f39e784994180263d6b26cd16e
+    path: Assets/Scenes/Hamish.unity
+    guid: 3c59d70b2eb99ca44b429f42cdb94f0b

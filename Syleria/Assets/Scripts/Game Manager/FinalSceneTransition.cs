@@ -25,7 +25,7 @@ public class FinalSceneTransition : MonoBehaviour {
         // Sets a* position to the bottom left of the final room
         // Recalculates the a* grid
         //--------------------------------------------------------------
-        if (collision.gameObject.tag == "Player" && )
+        if (collision.gameObject.tag == "Player")
         {
             GameObject.FindObjectOfType<Light>().intensity = m_intensityForGauntletRoom;
             m_gRunTimeObjects = GameObject.FindGameObjectWithTag("SceneObjects"); // Finds all runtime objects

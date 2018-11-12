@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class UI : MonoBehaviour {
 
+    public string sceneName;
     public void QuitGame()
     {
         Application.Quit();
@@ -11,7 +12,7 @@ public class UI : MonoBehaviour {
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Main Scene");
+        SceneManager.LoadScene(sceneName);
     }
 
 }

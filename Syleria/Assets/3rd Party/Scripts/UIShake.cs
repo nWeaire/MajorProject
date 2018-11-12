@@ -19,6 +19,18 @@ public class UIShake : MonoBehaviour {
         this.StartCoroutine(cShake(duration, amount));
     }
 
+    public void ShakePresetSmall(){
+        Shake(2f, 5f);
+        }
+    public void ShakePresetMedium()
+    {
+        Shake(2f, 10f);
+    }
+    public void ShakePresetLarge()
+    {
+        Shake(2f, 20f);
+    }
+
     public IEnumerator cShake(float duration, float amount)
     {
         //_originalPos = GetComponent<RectTransform>().localPosition;
