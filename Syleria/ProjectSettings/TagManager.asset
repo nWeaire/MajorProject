@@ -23,6 +23,7 @@ TagManager:
   - LeftCorridor
   - ItemPanel
   - DeathAnimation
+  - RunTime UI
   layers:
   - Default
   - TransparentFX

@@ -152,16 +152,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fAStarSpeed: 5
+  m_fAttackCD: 2
+  m_nAttackPercentage: 20
+  m_nDamage: 0
   m_gAbility: {fileID: 0}
   m_gPlayer: {fileID: 0}
   m_fFollowSpeed: 5
   m_eState: 2
   m_wallLayer:
     serializedVersion: 2
-    m_Bits: 256
-  m_fAttackCD: 2
-  m_nAttackPercentage: 20
-  m_nDamage: 0
+    m_Bits: 16640
+  m_fMaxFollowRange: 4
 --- !u!114 &114741091146662532
 MonoBehaviour:
   m_ObjectHideFlags: 1

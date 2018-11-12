@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 95000658689338328}
   m_Layer: 0
   m_Name: Fox
-  m_TagString: Bird
+  m_TagString: Companion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,16 +87,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fAStarSpeed: 8
+  m_fAttackCD: 2
+  m_nAttackPercentage: 40
+  m_nDamage: 0
   m_gAbility: {fileID: 0}
   m_gPlayer: {fileID: 0}
   m_fFollowSpeed: 8
   m_eState: 2
   m_wallLayer:
     serializedVersion: 2
-    m_Bits: 256
-  m_fAttackCD: 2
-  m_nAttackPercentage: 40
-  m_nDamage: 0
+    m_Bits: 16640
+  m_fMaxFollowRange: 4
 --- !u!212 &212688821293432416
 SpriteRenderer:
   m_ObjectHideFlags: 1

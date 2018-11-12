@@ -11,14 +11,14 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Panel : MonoBehaviour {
 
-    [HideInInspector]public bool m_isUsed = false;
-    [HideInInspector]public Sprite m_ItemSprite = null;
+    [HideInInspector]public bool m_isUsed = false; // If used up with item
+    [HideInInspector]public Sprite m_ItemSprite = null; // Item sprite to display
 
     private void Update()
     {
-        if(m_ItemSprite)
+        if(m_ItemSprite) // If item sprite is set
         {
-            this.GetComponent<Image>().sprite = m_ItemSprite;
+            this.GetComponent<Image>().sprite = m_ItemSprite; // Set sprite to item sprite
         }
     }
 

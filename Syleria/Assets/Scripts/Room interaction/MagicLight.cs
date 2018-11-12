@@ -5,26 +5,26 @@ using UnityEngine;
 public class MagicLight : MonoBehaviour
 {
 
-    public GameObject[] m_Lights;
-    public float m_DelayBetweenLights = 0.5f;
-    private bool isTriggered = false;
-    public float timer;
-    private int index = 0;
+    public GameObject[] m_Lights; // Array of lights to turn on
+    public float m_DelayBetweenLights = 0.5f; // Delay between each light activating
+    private bool isTriggered = false; // If Player has triggered the object
+    public float timer; // Timer for the lights activation
+    private int index = 0; // Index of lights
     private void Start()
     {
-        timer = m_DelayBetweenLights;
+        timer = m_DelayBetweenLights; // Timer set to delay so first light switches on immeadiantly
     }
 
     private void Update()
     {
-        if (isTriggered)
+        if (isTriggered) // If object is triggered
         {
-            timer += Time.deltaTime;
-            if (timer > m_DelayBetweenLights && index < m_Lights.Length)
+            timer += Time.deltaTime; // Timer updated on deltaTime
+            if (timer > m_DelayBetweenLights && index < m_Lights.Length) // If timer is greater then delay and there are still lights to turn on
             {
-                m_Lights[index].SetActive(true);
-                timer = 0;
-                index += 1;
+                m_Lights[index].SetActive(true); // Sets lights to true
+                timer = 0; // Timer set to 0
+                index += 1; // Add one to index
             }
 
         }
@@ -32,9 +32,9 @@ public class MagicLight : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player") // If colliding with player
         {
-            isTriggered = true;
+            isTriggered = true; // Sets triggered to true
         }
     }
 }
