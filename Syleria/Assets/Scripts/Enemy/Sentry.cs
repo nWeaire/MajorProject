@@ -33,9 +33,6 @@ public class Sentry : Enemy
     [Tooltip("Amount of shots per burst")]
     public int m_nBurstAmount;
 
-    // Pointer to the eye of the Sentry.
-    public GameObject m_gEye;
-
     [Tooltip("Time in Seconds that the enemy will sit still after spawn")]
     public float m_fSpawnTime;
 
