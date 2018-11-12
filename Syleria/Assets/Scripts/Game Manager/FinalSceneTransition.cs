@@ -12,9 +12,9 @@ using UnityEngine.SceneManagement;
 public class FinalSceneTransition : MonoBehaviour {
 
     private GameObject m_gRunTimeObjects; // Reference to all run time objects
-    private GameObject m_gFinalRoom; // Reference to the final room
+    public GameObject m_gFinalRoom; // Reference to the final room
     private GameObject m_gAStar; // Reference to the A* controller
-    private float m_intensityForGauntletRoom = 0.5f;
+    public float m_intensityForGauntletRoom = 0.5f;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -25,11 +25,10 @@ public class FinalSceneTransition : MonoBehaviour {
         // Sets a* position to the bottom left of the final room
         // Recalculates the a* grid
         //--------------------------------------------------------------
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && )
         {
             GameObject.FindObjectOfType<Light>().intensity = m_intensityForGauntletRoom;
             m_gRunTimeObjects = GameObject.FindGameObjectWithTag("SceneObjects"); // Finds all runtime objects
-            m_gFinalRoom = GameObject.FindGameObjectWithTag("FinalRoom"); // Finds the final room
             m_gRunTimeObjects.transform.position = m_gFinalRoom.transform.position; // Sets runtime objects position to the final rooms
             m_gAStar = GameObject.FindGameObjectWithTag("A*"); // find a* object
             m_gAStar.transform.position = m_gFinalRoom.transform.position + new Vector3(-100, -100, 0); // Sets a star to bottom left of the final rooms position
