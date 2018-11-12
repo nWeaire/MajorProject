@@ -8,15 +8,15 @@ using UnityEngine;
 
 public class ProjectileItem : MonoBehaviour {
 
-    enum Upgrade {SHOT_PIERCE, SHOT_TRI, SHOT_SPLIT, SHOT_EXPAND, SHOT_BOUNCE}
-    public bool m_bPickUp = false;
-    [SerializeField] private Upgrade m_eUpgrade;
-    private GameObject m_gPlayer;
+    enum Upgrade {SHOT_PIERCE, SHOT_TRI, SHOT_SPLIT, SHOT_EXPAND, SHOT_BOUNCE} // Enum for upgrade to apply to player
+    public bool m_bPickUp = false; // If item can be picked up
+    [SerializeField] private Upgrade m_eUpgrade; // Enum for upgrade
+    private GameObject m_gPlayer; // Reference to player script
 
     // Use this for initialization
     void Awake ()
     {
-        m_gPlayer = GameObject.FindGameObjectWithTag("Player");
+        m_gPlayer = GameObject.FindGameObjectWithTag("Player"); // Gets player 
 	}
 	
 	// Update is called once per frame

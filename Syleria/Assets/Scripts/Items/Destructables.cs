@@ -12,30 +12,23 @@ using UnityEngine;
 public class Destructables : MonoBehaviour
 {
 
-    public GameObject healthPrefab;
-    public float healthDropChance;
+    public GameObject m_gHealthPrefab; // Health prefab
+    public float m_fHealthDropChance; // Float for drop chance of health orbs
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if(collision.gameObject.tag == "Enemy") // If colliding with an enemy
         { }
         else
         {
-            if (Random.Range(0f, 100f) < healthDropChance && healthPrefab!=null)
+            if (Random.Range(0f, 100f) < m_fHealthDropChance && m_gHealthPrefab != null) // If a random number between 0-100 is less then health drop chance and health prefab exists
             {
-                Instantiate(healthPrefab, this.transform.position, Quaternion.identity);
+                Instantiate(m_gHealthPrefab, this.transform.position, Quaternion.identity); // Instaniates health orb at this position
             }
-
-
-            this.GetComponent<ParticleSystem>().Play();
-            this.GetComponent<AudioSource>().pitch = Random.Range(0.85f, 1.15f);
-            this.GetComponent<AudioSource>().Play();
+            this.GetComponent<ParticleSystem>().Play(); // Play particle effect
+            this.GetComponent<AudioSource>().pitch = Random.Range(0.85f, 1.15f); // Sets pitch for audio
+            this.GetComponent<AudioSource>().Play(); // Plays audio
             this.gameObject.SetActive(false); // Destroys this game object
         }
-    }
-
-    private void OnDestroy()
-    {
-        // Animation to play here
     }
 }

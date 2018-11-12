@@ -15,6 +15,11 @@ public class StatItem : MonoBehaviour {
     public int[] m_nStatChange; // Amount to change stat by
     public bool m_bPickUp = false; // If able to be picked up
 
+    //--------------------------------------------------------------------------------------
+    // When colliding with player
+    // Gets reference to player script
+    // Sets pickup bool to true so Player can interact with item
+    //--------------------------------------------------------------------------------------
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Player") // If colliding with player
@@ -23,6 +28,11 @@ public class StatItem : MonoBehaviour {
             m_bPickUp = true; // Set pick up to true
         }
     }
+
+    //--------------------------------------------------------------------------------------
+    // When no longer colliding with player
+    // Sets pickup bool to false so Player can no longer interact with item
+    //--------------------------------------------------------------------------------------
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -31,6 +41,12 @@ public class StatItem : MonoBehaviour {
         }
     }
 
+    //--------------------------------------------------------------------------------------
+    // When player hits the interact button and pickup is true
+    // Cycles through stats to change and Stat change amount
+    // Applies changes to stats on player script and sets any abilities to true
+    // Draws item panels with newly picked up item
+    //--------------------------------------------------------------------------------------
     private void Update()
     {
         if(Input.GetButtonDown("Interact") && m_bPickUp) // If item in range and pressing interact button
