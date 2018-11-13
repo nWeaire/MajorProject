@@ -15,4 +15,10 @@ public class UI : MonoBehaviour {
         SceneManager.LoadScene(sceneName);
     }
 
+    public void StartGameWithAnyButton()
+    {
+        if(Input.GetButtonDown("Interact") || Input.GetButtonDown("Start"))
+        SceneManager.LoadScene(sceneName);
+    }
+
 }
