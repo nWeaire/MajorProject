@@ -3405,10 +3405,8 @@ MonoBehaviour:
   - {fileID: 1339264451904796}
   bottomDoor:
   - {fileID: 1418525750315842}
-  leftDoor:
-  - {fileID: 0}
-  rightDoor:
-  - {fileID: 0}
+  leftDoor: []
+  rightDoor: []
   Layers:
   - {fileID: 1046807586440894}
   isSpawn: 0

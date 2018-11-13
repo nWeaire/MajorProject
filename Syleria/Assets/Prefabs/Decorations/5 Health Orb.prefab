@@ -90,8 +90,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_nHealthRestored: 5
-  m_fSeekDistance: 3
-  m_fMinSpeed: 8
+  m_fSeekDistance: 8
+  m_fMinSpeed: 10
   m_fMaxSpeed: 30
   m_fSpeedIndex: 0.2
   m_gHealEffect: {fileID: 1053034433592642, guid: 08de3c01782b7a94e8eb6cbd60181b2c,

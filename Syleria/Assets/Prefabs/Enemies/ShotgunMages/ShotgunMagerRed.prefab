@@ -234,7 +234,7 @@ MonoBehaviour:
   m_fFlashTime: 0.1
   m_gHealthOrb: {fileID: 1613620183713024, guid: 2a6a5d441bb69d645bd7f3ce5c2f02e0,
     type: 2}
-  m_fOrbDropChance: 15
+  m_fOrbDropChance: 20
   m_gSpawnParticle: {fileID: 1035855390878196, guid: b23363c08023df74ebce192283cf3bd8,
     type: 2}
   m_gDeathParticle: {fileID: 1982485029611400, guid: 2776c239bb12d8e45ac8556f4e2451cb,
