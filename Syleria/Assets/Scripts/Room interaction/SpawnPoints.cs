@@ -46,7 +46,7 @@ public class SpawnPoints : MonoBehaviour
     //--------------------------------------------------------------------------------------
     public bool CheckWave(int waveNumber)
     {
-        if (m_gEnemy == null) // If enemy exists
+        if (m_gEnemy == null && GameObject.FindGameObjectsWithTag("Enemy").Length <= 0) // If enemy exists
         {
             return true; // Returns true
         }
