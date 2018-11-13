@@ -99,7 +99,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -123,7 +123,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!114 &114958336852771574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -135,8 +135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b385dc89d11372449938d39b55c8aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPrefab: {fileID: 0}
-  healthDropChance: 0
+  m_gHealthPrefab: {fileID: 0}
+  m_fHealthDropChance: 0
 --- !u!198 &198715283049330804
 ParticleSystem:
   m_ObjectHideFlags: 1
