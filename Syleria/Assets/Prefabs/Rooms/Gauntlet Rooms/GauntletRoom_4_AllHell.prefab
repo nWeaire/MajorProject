@@ -60,7 +60,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1057212679640094
 GameObject:
   m_ObjectHideFlags: 1
@@ -272,7 +272,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1311842709616910
 GameObject:
   m_ObjectHideFlags: 1
@@ -708,7 +708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1918051663748094
 GameObject:
   m_ObjectHideFlags: 1
@@ -3475,7 +3475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2cf880457030dd409ecdd44ce8013e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_sSceneName: Credits
+  m_sSceneName: EndCinematic
 --- !u!114 &114613187417641896
 MonoBehaviour:
   m_ObjectHideFlags: 1
