@@ -370,6 +370,7 @@
     <Compile Include="Assets\Scripts\Game Manager\FinalSceneTransition.cs" />
     <Compile Include="Assets\Scripts\Game Manager\GM.cs" />
     <Compile Include="Assets\Scripts\Game Manager\SceneTransition.cs" />
+    <Compile Include="Assets\Scripts\Items\ButtonPromptTrigger.cs" />
     <Compile Include="Assets\Scripts\Items\ClampObject.cs" />
     <Compile Include="Assets\Scripts\Items\Destructables.cs" />
     <Compile Include="Assets\Scripts\Items\HealthOrb.cs" />
