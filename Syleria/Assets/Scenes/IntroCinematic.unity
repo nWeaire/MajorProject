@@ -662,6 +662,7 @@ GameObject:
   - component: {fileID: 542249350}
   - component: {fileID: 542249351}
   - component: {fileID: 542249352}
+  - component: {fileID: 542249353}
   m_Layer: 5
   m_Name: Cinematic Components
   m_TagString: Untagged
@@ -738,6 +739,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a617aa824a18a84987c4259cc3e57ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: Start Menu
+--- !u!114 &542249353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 542249348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf2ac59a57d48b4b8c84c0ac482c9ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Start Menu

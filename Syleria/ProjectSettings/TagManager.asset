@@ -24,6 +24,7 @@ TagManager:
   - ItemPanel
   - DeathAnimation
   - RunTime UI
+  - ButtonPrompt
   layers:
   - Default
   - TransparentFX

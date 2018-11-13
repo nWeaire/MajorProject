@@ -27,7 +27,7 @@ public class StatItem : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Player") // If colliding with player
         {
-            m_aButtonImage = GameObject.FindGameObjectWithTag("ButtomPrompt");
+            m_aButtonImage = GameObject.FindGameObjectWithTag("ButtonPrompt");
             m_gPlayer = GameObject.FindGameObjectWithTag("Player"); // Find Player
             m_bPickUp = true; // Set pick up to true
         }

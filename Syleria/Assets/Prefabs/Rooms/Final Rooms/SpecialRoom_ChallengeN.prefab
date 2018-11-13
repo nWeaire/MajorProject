@@ -554,7 +554,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1359774783755836
 GameObject:
   m_ObjectHideFlags: 1
@@ -1614,7 +1614,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1912945595800890
 GameObject:
   m_ObjectHideFlags: 1
@@ -5222,7 +5222,7 @@ MonoBehaviour:
   m_gLadder: {fileID: 1154384029655686, guid: 9f72d7ff192b0224c88adc36e9f3e1d8, type: 2}
   m_bRoomActive: 0
   m_bSpawned: 0
-  m_bIsBoss: 0
+  m_bIsBoss: 1
   m_bIsFinalRoom: 0
   m_gRoomCompleted: {fileID: 0}
   m_bIsGauntletRoom: 0
@@ -5376,6 +5376,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 105824b541c643c45b88492eee8a2986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_gFinalRoom: {fileID: 0}
+  m_intensityForGauntletRoom: 0
 --- !u!198 &198014334588401076
 ParticleSystem:
   m_ObjectHideFlags: 1
