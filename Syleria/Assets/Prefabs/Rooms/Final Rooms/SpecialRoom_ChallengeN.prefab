@@ -5528,8 +5528,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_aEnemies:
-  - {fileID: 1960623517545722, guid: 004c25975eb50d3409df5cef1557414f, type: 2}
-  - {fileID: 1960623517545722, guid: 004c25975eb50d3409df5cef1557414f, type: 2}
+  - {fileID: 1960623517545722, guid: 059ec7ee98018fb4589e0fd00ce7d722, type: 2}
+  - {fileID: 1960623517545722, guid: 059ec7ee98018fb4589e0fd00ce7d722, type: 2}
   m_nCurrentWave: 0
 --- !u!114 &114329619860633682
 MonoBehaviour:
@@ -5587,8 +5587,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_aEnemies:
-  - {fileID: 1884396772128378, guid: 9184af0662c088745a4828db94489e01, type: 2}
-  - {fileID: 1884396772128378, guid: 9184af0662c088745a4828db94489e01, type: 2}
+  - {fileID: 1960623517545722, guid: 059ec7ee98018fb4589e0fd00ce7d722, type: 2}
+  - {fileID: 1960623517545722, guid: 059ec7ee98018fb4589e0fd00ce7d722, type: 2}
   m_nCurrentWave: 0
 --- !u!114 &114573876231075266
 MonoBehaviour:
@@ -5640,8 +5640,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_aEnemies:
-  - {fileID: 1198049203941808, guid: afe7f6d62b141074c94df55e75341a12, type: 2}
-  - {fileID: 1198049203941808, guid: afe7f6d62b141074c94df55e75341a12, type: 2}
+  - {fileID: 1198049203941808, guid: c29e54dfcfdabe94bb3bb2ce5aaa0031, type: 2}
+  - {fileID: 1198049203941808, guid: c29e54dfcfdabe94bb3bb2ce5aaa0031, type: 2}
   m_nCurrentWave: 0
 --- !u!114 &114621053752017922
 MonoBehaviour:
@@ -5655,8 +5655,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_aEnemies:
-  - {fileID: 1931324696854696, guid: a65e8dd3f54932e4396b0fb0e4cf71f1, type: 2}
-  - {fileID: 1931324696854696, guid: a65e8dd3f54932e4396b0fb0e4cf71f1, type: 2}
+  - {fileID: 1931324696854696, guid: a23727e678727274bbcb2eaaefcd32a1, type: 2}
+  - {fileID: 1931324696854696, guid: a23727e678727274bbcb2eaaefcd32a1, type: 2}
   m_nCurrentWave: 0
 --- !u!114 &114630042403447980
 MonoBehaviour:
