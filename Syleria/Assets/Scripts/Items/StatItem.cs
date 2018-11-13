@@ -14,9 +14,6 @@ public class StatItem : MonoBehaviour {
     private GameObject m_gPlayer; // Reference to player
     public int[] m_nStatChange; // Amount to change stat by
     public bool m_bPickUp = false; // If able to be picked up
-    public GameObject m_aButtonImage;
-
-
 
     //--------------------------------------------------------------------------------------
     // When colliding with player
@@ -27,7 +24,6 @@ public class StatItem : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Player") // If colliding with player
         {
-            m_aButtonImage = GameObject.FindGameObjectWithTag("ButtonPrompt");
             m_gPlayer = GameObject.FindGameObjectWithTag("Player"); // Find Player
             m_bPickUp = true; // Set pick up to true
         }
@@ -53,21 +49,6 @@ public class StatItem : MonoBehaviour {
     //--------------------------------------------------------------------------------------
     private void Update()
     {
-        if(m_bPickUp)
-        {
-            if(m_aButtonImage)
-            {
-                m_aButtonImage.GetComponent<Image>().color = new Vector4(m_aButtonImage.GetComponent<Image>().color.r, m_aButtonImage.GetComponent<Image>().color.g, m_aButtonImage.GetComponent<Image>().color.b, 1);
-            }
-        }
-        else
-        {
-            if (m_aButtonImage)
-            {
-                m_aButtonImage.GetComponent<Image>().color = new Vector4(m_aButtonImage.GetComponent<Image>().color.r, m_aButtonImage.GetComponent<Image>().color.g, m_aButtonImage.GetComponent<Image>().color.b, 0);
-            }
-        }
-
         if(Input.GetButtonDown("Interact") && m_bPickUp) // If item in range and pressing interact button
         {
             for (int i = 0; i < m_eStatToChange.Length; i++) // For all stats in start change list
