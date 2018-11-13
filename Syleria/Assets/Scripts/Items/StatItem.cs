@@ -67,6 +67,7 @@ public class StatItem : MonoBehaviour {
                 m_aButtonImage.GetComponent<Image>().color = new Vector4(m_aButtonImage.GetComponent<Image>().color.r, m_aButtonImage.GetComponent<Image>().color.g, m_aButtonImage.GetComponent<Image>().color.b, 0);
             }
         }
+
         if(Input.GetButtonDown("Interact") && m_bPickUp) // If item in range and pressing interact button
         {
             for (int i = 0; i < m_eStatToChange.Length; i++) // For all stats in start change list
