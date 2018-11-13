@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 67503e9be9af0d4488fb8950110ae2dc
+  - enabled: 1
+    path: Assets/Scenes/EndCinematic.unity
+    guid: d11b692e7660def4e942aca81f4a3852

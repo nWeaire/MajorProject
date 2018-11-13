@@ -52,10 +52,6 @@ public class UIShake : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            Shake(0.1f, 2f);
-        }
     }
 
 }
