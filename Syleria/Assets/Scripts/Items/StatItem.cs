@@ -14,6 +14,13 @@ public class StatItem : MonoBehaviour {
     private GameObject m_gPlayer; // Reference to player
     public int[] m_nStatChange; // Amount to change stat by
     public bool m_bPickUp = false; // If able to be picked up
+    public GameObject m_gButtonPrompt;
+
+    private void Awake()
+    {
+        m_gButtonPrompt = GameObject.FindGameObjectWithTag("ButtonPrompt");
+        m_gButtonPrompt.GetComponent<Image>().enabled = false;
+    }
 
     //--------------------------------------------------------------------------------------
     // When colliding with player
@@ -26,6 +33,7 @@ public class StatItem : MonoBehaviour {
         {
             m_gPlayer = GameObject.FindGameObjectWithTag("Player"); // Find Player
             m_bPickUp = true; // Set pick up to true
+            m_gButtonPrompt.GetComponent<Image>().enabled = true;
         }
     }
 
@@ -38,6 +46,15 @@ public class StatItem : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             m_bPickUp = false; // Set pickup to false if player moves away
+            m_gButtonPrompt.GetComponent<Image>().enabled = false;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            m_gButtonPrompt.GetComponent<Image>().enabled = true;
         }
     }
 
@@ -48,7 +65,7 @@ public class StatItem : MonoBehaviour {
     // Draws item panels with newly picked up item
     //--------------------------------------------------------------------------------------
     private void Update()
-    {
+    { 
         if(Input.GetButtonDown("Interact") && m_bPickUp) // If item in range and pressing interact button
         {
             for (int i = 0; i < m_eStatToChange.Length; i++) // For all stats in start change list
