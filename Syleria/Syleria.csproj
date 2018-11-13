@@ -388,6 +388,7 @@
     <Compile Include="Assets\Scripts\UI\Health.cs" />
     <Compile Include="Assets\Scripts\UI\ItemPanels.cs" />
     <Compile Include="Assets\Scripts\UI\Panel.cs" />
+    <Compile Include="Assets\Scripts\UI\SkipCinematic.cs" />
     <Compile Include="Assets\Scripts\UI\UI.cs" />
     <Compile Include="Assets\Scripts\World Gen\Corridors.cs" />
     <Compile Include="Assets\Scripts\World Gen\Door.cs" />
