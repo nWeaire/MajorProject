@@ -24,7 +24,8 @@ public class GM : MonoBehaviour {
     public GameObject m_DeathAnimation = null; // Death animation to play on game over
     private bool m_isDeathAnimation = false; // Is death animation spawned
     private bool m_bRunTimeUI = true;
-
+    private bool m_bIsSelected = false;
+ 
     void Start ()
     {
         m_Player = m_gPlayer.GetComponent<Player>(); // Finding player script
@@ -103,7 +104,12 @@ public class GM : MonoBehaviour {
                     m_isDeathAnimation = true; // Death animation is true
                 }
                 m_EndGameUI.SetActive(true); // End game ui is set to active
-                GameObject.Find("EventSystem").GetComponent<EventSystem>().SetSelectedGameObject( GameObject.Find("Restart Button"));
+                if(!m_bIsSelected)
+                {
+                    GameObject.Find("EventSystem").GetComponent<EventSystem>().SetSelectedGameObject(GameObject.Find("Restart Button"));
+                    m_bIsSelected = true;
+                }
+
                 Image[] images = m_EndGameUI.GetComponentsInChildren<Image>(); // Finds all images in endgameUI
                 for (int i = 0; i < images.Length; i++) // For all images
                 {
