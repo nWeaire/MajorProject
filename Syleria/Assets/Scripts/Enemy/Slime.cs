@@ -263,8 +263,8 @@ public class Slime : Enemy
         Debug.DrawRay(rayOrigin, m_gPlayer.transform.parent.position - transform.position, Color.magenta, m_fKnockDistance);
         if (count > 0) // Checks if anything collided with the ray
         {
-            m_v2EndKnockPos.x = Hit[0].point.x + dir.x;
-            m_v2EndKnockPos.y = Hit[0].point.y + dir.y;
+            m_v2EndKnockPos.x = Hit[0].point.x + dir.x - m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.x;
+            m_v2EndKnockPos.y = Hit[0].point.y + dir.y - m_gPlayer.GetComponentInParent<CircleCollider2D>().offset.y;
         }
         else // If nothing hit
         {
