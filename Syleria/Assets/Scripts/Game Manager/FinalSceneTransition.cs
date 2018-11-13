@@ -27,6 +27,7 @@ public class FinalSceneTransition : MonoBehaviour {
         //--------------------------------------------------------------
         if (collision.gameObject.tag == "Player")
         {
+            m_gFinalRoom = GameObject.FindGameObjectWithTag("FinalRoom");
             GameObject.FindObjectOfType<Light>().intensity = m_intensityForGauntletRoom;
             m_gRunTimeObjects = GameObject.FindGameObjectWithTag("SceneObjects"); // Finds all runtime objects
             m_gRunTimeObjects.transform.position = m_gFinalRoom.transform.position; // Sets runtime objects position to the final rooms
