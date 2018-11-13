@@ -8,6 +8,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class GM : MonoBehaviour {
@@ -58,6 +59,7 @@ public class GM : MonoBehaviour {
     {
         //m_runTimeObjects.SetActive(false);
         m_gPauseMenu.SetActive(true);
+        GameObject.Find("EventSystem").GetComponent<EventSystem>().firstSelectedGameObject = GameObject.Find("Resume Button");
         Time.timeScale = 0;
         isPaused = true;
     }
@@ -101,6 +103,7 @@ public class GM : MonoBehaviour {
                     m_isDeathAnimation = true; // Death animation is true
                 }
                 m_EndGameUI.SetActive(true); // End game ui is set to active
+                GameObject.Find("EventSystem").GetComponent<EventSystem>().firstSelectedGameObject = GameObject.Find("Restart Button");
                 Image[] images = m_EndGameUI.GetComponentsInChildren<Image>(); // Finds all images in endgameUI
                 for (int i = 0; i < images.Length; i++) // For all images
                 {
