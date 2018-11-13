@@ -293,7 +293,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1317195239492372
 GameObject:
   m_ObjectHideFlags: 1
@@ -647,7 +647,7 @@ GameObject:
   - component: {fileID: 114301238790526150}
   m_Layer: 0
   m_Name: GauntletRoom_2_SentryHell
-  m_TagString: Room
+  m_TagString: GauntletRooms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3385,46 +3385,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topCorridor:
   - {fileID: 0}
-  - {fileID: 0}
   bottomCorridor:
-  - {fileID: 0}
   - {fileID: 0}
   leftCorridor:
   - {fileID: 0}
-  - {fileID: 0}
   rightCorridor:
-  - {fileID: 0}
   - {fileID: 0}
   topWall:
   - {fileID: 0}
-  - {fileID: 0}
   bottomWall:
-  - {fileID: 0}
   - {fileID: 0}
   leftWall:
   - {fileID: 0}
-  - {fileID: 0}
   rightWall:
-  - {fileID: 0}
   - {fileID: 0}
   Door:
   - {fileID: 1280330774662238}
-  - {fileID: 0}
   topDoor:
   - {fileID: 1339264451904796}
-  - {fileID: 0}
   bottomDoor:
   - {fileID: 1418525750315842}
-  - {fileID: 0}
   leftDoor:
-  - {fileID: 0}
   - {fileID: 0}
   rightDoor:
   - {fileID: 0}
-  - {fileID: 0}
   Layers:
   - {fileID: 1046807586440894}
-  - {fileID: 0}
   isSpawn: 0
 --- !u!114 &114462320792280018
 MonoBehaviour:
@@ -3525,7 +3511,7 @@ MonoBehaviour:
   m_bIsBoss: 0
   m_bIsFinalRoom: 0
   m_gRoomCompleted: {fileID: 0}
-  m_bIsGauntletRoom: 0
+  m_bIsGauntletRoom: 1
 --- !u!114 &114652687395043238
 MonoBehaviour:
   m_ObjectHideFlags: 1

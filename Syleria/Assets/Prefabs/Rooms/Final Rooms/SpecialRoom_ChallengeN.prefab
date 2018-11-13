@@ -5219,7 +5219,7 @@ MonoBehaviour:
   - {fileID: 1378964126128498}
   - {fileID: 1610755110248996}
   - {fileID: 1811012951939644}
-  m_gLadder: {fileID: 1154384029655686, guid: 9f72d7ff192b0224c88adc36e9f3e1d8, type: 2}
+  m_gLadder: {fileID: 1884174465212372}
   m_bRoomActive: 0
   m_bSpawned: 0
   m_bIsBoss: 1
@@ -5313,7 +5313,7 @@ MonoBehaviour:
   - {fileID: 1711757149998606}
   - {fileID: 1415956162815408}
   - {fileID: 1276185406527320}
-  m_gLadder: {fileID: 1456020853626386, guid: cbda3b349472027498ee105a4beb0ac9, type: 2}
+  m_gLadder: {fileID: 1344822391860900}
   m_bRoomActive: 0
   m_bSpawned: 0
   m_bIsBoss: 1

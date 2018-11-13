@@ -45,14 +45,14 @@ AnimationClip:
         time: 0
         value: -830
         inSlope: 0
-        outSlope: 0
-        tangentMode: 136
+        outSlope: 141.2
+        tangentMode: 69
       - serializedVersion: 2
         time: 25
         value: 2700
-        inSlope: 0
+        inSlope: 141.2
         outSlope: 0
-        tangentMode: 136
+        tangentMode: 69
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -133,14 +133,14 @@ AnimationClip:
         time: 0
         value: -830
         inSlope: 0
-        outSlope: 0
-        tangentMode: 136
+        outSlope: 141.2
+        tangentMode: 69
       - serializedVersion: 2
         time: 25
         value: 2700
-        inSlope: 0
+        inSlope: 141.2
         outSlope: 0
-        tangentMode: 136
+        tangentMode: 69
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4

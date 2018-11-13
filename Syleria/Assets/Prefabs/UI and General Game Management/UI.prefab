@@ -300,6 +300,7 @@ GameObject:
   - component: {fileID: 114093220448726082}
   - component: {fileID: 114177328580523816}
   - component: {fileID: 114966345683609764}
+  - component: {fileID: 114447696219743788}
   m_Layer: 5
   m_Name: Restart Button
   m_TagString: Untagged
@@ -1049,7 +1050,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: d9d143114230ba642aadd5b6fc8a02a4, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1211,7 +1212,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: d9d143114230ba642aadd5b6fc8a02a4, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1373,7 +1374,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: d9d143114230ba642aadd5b6fc8a02a4, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1454,7 +1455,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: d9d143114230ba642aadd5b6fc8a02a4, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1616,7 +1617,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: d9d143114230ba642aadd5b6fc8a02a4, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2312,9 +2313,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114301330221344906, guid: 94e47a55aa70e1547a4068f13bb084b1,
-          type: 2}
-        m_MethodName: QuitGame
+      - m_Target: {fileID: 114447696219743788}
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2861,6 +2861,18 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
+--- !u!114 &114447696219743788
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1257759705851198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a617aa824a18a84987c4259cc3e57ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: Hamish
 --- !u!114 &114484766337521044
 MonoBehaviour:
   m_ObjectHideFlags: 1

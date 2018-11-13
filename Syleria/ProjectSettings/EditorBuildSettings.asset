@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Hamish.unity
     guid: 3c59d70b2eb99ca44b429f42cdb94f0b
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 67503e9be9af0d4488fb8950110ae2dc

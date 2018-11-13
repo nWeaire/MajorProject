@@ -117,6 +117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 105824b541c643c45b88492eee8a2986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_gFinalRoom: {fileID: 0}
+  m_intensityForGauntletRoom: 0.5
 --- !u!198 &198186920753238888
 ParticleSystem:
   m_ObjectHideFlags: 1

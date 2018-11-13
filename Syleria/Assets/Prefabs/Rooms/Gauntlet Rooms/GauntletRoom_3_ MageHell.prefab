@@ -229,7 +229,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1309064796778712
 GameObject:
   m_ObjectHideFlags: 1
@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 114866811493832988}
   m_Layer: 0
   m_Name: GauntletRoom_3_ MageHell
-  m_TagString: Room
+  m_TagString: GauntletRooms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2999,7 +2999,7 @@ MonoBehaviour:
   m_bIsBoss: 0
   m_bIsFinalRoom: 0
   m_gRoomCompleted: {fileID: 0}
-  m_bIsGauntletRoom: 0
+  m_bIsGauntletRoom: 1
 --- !u!114 &114168005006446240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3187,46 +3187,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topCorridor:
   - {fileID: 0}
-  - {fileID: 0}
   bottomCorridor:
-  - {fileID: 0}
   - {fileID: 0}
   leftCorridor:
   - {fileID: 0}
-  - {fileID: 0}
   rightCorridor:
-  - {fileID: 0}
   - {fileID: 0}
   topWall:
   - {fileID: 0}
-  - {fileID: 0}
   bottomWall:
-  - {fileID: 0}
   - {fileID: 0}
   leftWall:
   - {fileID: 0}
-  - {fileID: 0}
   rightWall:
-  - {fileID: 0}
   - {fileID: 0}
   Door:
   - {fileID: 1305285045144898}
-  - {fileID: 0}
   topDoor:
   - {fileID: 1384093290478210}
-  - {fileID: 0}
   bottomDoor:
   - {fileID: 1166136383128078}
-  - {fileID: 0}
   leftDoor:
-  - {fileID: 0}
   - {fileID: 0}
   rightDoor:
   - {fileID: 0}
-  - {fileID: 0}
   Layers:
   - {fileID: 1258609603793208}
-  - {fileID: 0}
   isSpawn: 0
 --- !u!114 &114902921853815178
 MonoBehaviour:

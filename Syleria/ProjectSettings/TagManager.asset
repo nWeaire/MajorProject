@@ -25,6 +25,7 @@ TagManager:
   - DeathAnimation
   - RunTime UI
   - ButtonPrompt
+  - GauntletRooms
   layers:
   - Default
   - TransparentFX
