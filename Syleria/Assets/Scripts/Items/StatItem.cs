@@ -5,7 +5,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class StatItem : MonoBehaviour {
 
     enum Stat{ATTACK_DAMAGE, ATTACK_RANGE, ATTACK_FIRERATE, MOVE_SPEED, HEALTH_CURRENT, HEALTH_MAX,
@@ -14,7 +14,7 @@ public class StatItem : MonoBehaviour {
     private GameObject m_gPlayer; // Reference to player
     public int[] m_nStatChange; // Amount to change stat by
     public bool m_bPickUp = false; // If able to be picked up
-
+    public GameObject m_aButtonImage;
     //--------------------------------------------------------------------------------------
     // When colliding with player
     // Gets reference to player script
@@ -49,6 +49,14 @@ public class StatItem : MonoBehaviour {
     //--------------------------------------------------------------------------------------
     private void Update()
     {
+        if(m_bPickUp)
+        {
+            m_aButtonImage.SetActive(true);
+        }
+        else
+        {
+            m_aButtonImage.SetActive(false);
+        }
         if(Input.GetButtonDown("Interact") && m_bPickUp) // If item in range and pressing interact button
         {
             for (int i = 0; i < m_eStatToChange.Length; i++) // For all stats in start change list
