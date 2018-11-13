@@ -87,12 +87,7 @@ public class EnemyBullet : MonoBehaviour
             // Destroy this object.
             Destroy(this.gameObject);
         }
-        // If the collision is with an object tagged Shield.
-        if(collision.tag == "Shield")
-        {
-            // Destroy this object.
-            Destroy(this.gameObject);
-        }
+    
         // If the collision is with the player.
         if(collision.tag == "Player")
         {
