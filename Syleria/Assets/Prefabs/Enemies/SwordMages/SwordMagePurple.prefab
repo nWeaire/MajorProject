@@ -230,7 +230,7 @@ MonoBehaviour:
     m_Bits: 16640
   m_nHealth: 40
   m_nCurrentHealth: 40
-  m_nDamage: 18
+  m_nDamage: 20
   m_fFlashTime: 0.2
   m_gHealthOrb: {fileID: 1613620183713024, guid: 2a6a5d441bb69d645bd7f3ce5c2f02e0,
     type: 2}
@@ -271,9 +271,9 @@ MonoBehaviour:
     type: 2}
   m_fBulletSpeed: 6
   m_fMoveDelay: 1
-  m_fFireRate: 0.25
+  m_fFireRate: 0.15
   m_fBurstTimer: 2
-  m_nBurstAmount: 5
+  m_nBurstAmount: 7
   m_fSpawnTime: 1
   m_fShootAnimTime: 1.6
   m_fShootDelayTime: 0.6

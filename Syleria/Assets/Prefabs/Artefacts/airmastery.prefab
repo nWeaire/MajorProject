@@ -79,8 +79,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eStatToChange: 030000000200000000000000
-  m_nStatChange: 0100000002000000feffffff
+  m_nStatChange: 0100000002000000fcffffff
   m_bPickUp: 0
+  m_aButtonImage: {fileID: 0}
 --- !u!212 &212969157825325506
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -272,7 +272,7 @@ MonoBehaviour:
   m_fBulletSpeed: 10
   m_fFireRate: 3
   m_fBurstTimer: 0.2
-  m_nBurstAmount: 2
+  m_nBurstAmount: 3
   m_nBulletAmount: 7
   m_fBulletSpread: 12
   m_fSpawnTime: 1

@@ -230,7 +230,7 @@ MonoBehaviour:
     m_Bits: 16640
   m_nHealth: 40
   m_nCurrentHealth: 40
-  m_nDamage: 18
+  m_nDamage: 13
   m_fFlashTime: 0.2
   m_gHealthOrb: {fileID: 1613620183713024, guid: 2a6a5d441bb69d645bd7f3ce5c2f02e0,
     type: 2}

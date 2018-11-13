@@ -78,9 +78,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d0c0348a2f1c9b45a5ccd5d2a3d80bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_eStatToChange: 03000000
-  m_nStatChange: 05000000
+  m_eStatToChange: 0300000003000000
+  m_nStatChange: 04000000
   m_bPickUp: 0
+  m_aButtonImage: {fileID: 0}
 --- !u!212 &212000069785143902
 SpriteRenderer:
   m_ObjectHideFlags: 1
