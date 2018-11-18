@@ -312,7 +312,6 @@ public class ShotgunMage : Enemy
         RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of objects the ray collides with
         Vector2 rayOrigin = (Vector2)m_gPlayer.transform.parent.position; // Gets ray origin based on player position and collider offset
         count = Physics2D.Raycast(rayOrigin, (Vector2)(m_gPlayer.transform.parent.position - transform.position), m_cFilter, Hit, m_fKnockDistance + 1f); // Ray casts in direction of movement
-        Debug.DrawRay(rayOrigin, m_gPlayer.transform.parent.position - transform.position, Color.magenta, m_fKnockDistance);
         if (count > 0) // Checks if anything collided with the ray
         {
             m_v2EndKnockPos.x = Hit[0].point.x + dir.x;

@@ -158,10 +158,10 @@ public class SwordMage : Enemy
                     // Fire a shot.
                     if (!m_bTaunted)
                     {
-                        Debug.DrawLine((Vector2)this.transform.position + new Vector2(0, GetComponent<CapsuleCollider2D>().offset.y), (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset, Color.blue, 1.5f);
+                       
                         if (!Physics2D.Linecast((Vector2)this.transform.position + new Vector2(0, GetComponent<CapsuleCollider2D>().offset.y), (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset, m_WallLayer))
                         {
-                            //Debug.DrawLine((Vector2)this.transform.position + new Vector2(0, GetComponent<CapsuleCollider2D>().offset.y), (Vector2)m_gPlayer.transform.position - m_gPlayer.GetComponent<CircleCollider2D>().offset, Color.blue, 3f);
+                            
                             Fire();
                         }
                         else
@@ -352,7 +352,6 @@ public class SwordMage : Enemy
         RaycastHit2D[] Hit = new RaycastHit2D[1]; // List of objects the ray collides with
         Vector2 rayOrigin = (Vector2)m_gPlayer.transform.parent.position; // Gets ray origin based on player position and collider offset
         count = Physics2D.Raycast(rayOrigin, (Vector2)(m_gPlayer.transform.parent.position - transform.position), m_cFilter, Hit, m_fKnockDistance + 1f); // Ray casts in direction of movement
-        Debug.DrawRay(rayOrigin, m_gPlayer.transform.parent.position - transform.position, Color.magenta, m_fKnockDistance);
         if (count > 0) // Checks if anything collided with the ray
         {
             m_v2EndKnockPos.x = Hit[0].point.x + dir.x;
