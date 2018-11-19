@@ -385,6 +385,7 @@
     <Compile Include="Assets\Scripts\Room interaction\EnterRoom.cs" />
     <Compile Include="Assets\Scripts\Room interaction\MagicLight.cs" />
     <Compile Include="Assets\Scripts\Room interaction\SpawnPoints.cs" />
+    <Compile Include="Assets\Scripts\Room interaction\TriggerObject.cs" />
     <Compile Include="Assets\Scripts\UI\Health.cs" />
     <Compile Include="Assets\Scripts\UI\HideCursor.cs" />
     <Compile Include="Assets\Scripts\UI\ItemPanels.cs" />
